@@ -1,186 +1,99 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
-<head>
-  <title>
-    使用MapReduce之替代方案Hive // Hello World!!
-  </title>
-
-  <link href="http://gmpg.org/xfn/11" rel="profile">
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-
-<meta name="description" content="若要操作Hadoop就必須要會MapReduce，很好!!在Hadoop很夯之前相信很多人都對MapReduce非常陌生，沒錯!!那真的是有點困難，...">
-<meta name="keywords" content="">
-<meta name="author" content="Alan">
-<meta name="generator" content="Hugo 0.15" />
-
-  <meta property="og:title" content="使用MapReduce之替代方案Hive" />
-<meta property="og:description" content="若要操作Hadoop就必須要會MapReduce，很好!!在Hadoop很夯之前相信很多人都對MapReduce非常陌生，沒錯!!那真的是有點困難，..." />
-<meta property="og:type" content="website" />
-<meta property="og:locale" content="en_US" />
-<meta property="og:url" content="http://alanmoment.github.io/post/hadoop/shi_yong_mapreduce_zhi_ti_dai_fang_an_hive/" />
-
-
-  
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/base-min.css">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
-  
-  
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/grids-responsive-min.css">
-  
-  
-
-  <link rel="stylesheet" href="http://alanmoment.github.io//css/redlounge.css">
-  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
-  <link href='//fonts.googleapis.com/css?family=Raleway:400,200,100,700,300,500,600,800' rel='stylesheet' type='text/css'>
-  <link href='//fonts.googleapis.com/css?family=Libre+Baskerville:400,700,400italic' rel='stylesheet' type='text/css'>
-
-  
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
-  <link rel="shortcut icon" href="/favicon.png">
-
-  
-  <link href="" rel="alternate" type="application/rss+xml" title="Hello World!!" />
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="若要操作Hadoop就必須要會MapReduce，很好!!在Hadoop很夯之前相信很多人都對MapReduce非常陌生，沒錯!!那真的是有點困難，...">
+    <meta property="og:title" content="使用MapReduce之替代方案Hive">
+    
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2013-06-23">
+    
+    <meta property="og:description" content="若要操作Hadoop就必須要會MapReduce，很好!!在Hadoop很夯之前相信很多人都對MapReduce非常陌生，沒錯!!那真的是有點困難，...">
+    <meta property="og:url" content="http://alanmoment.github.io/post/hadoop/shi_yong_mapreduce_zhi_ti_dai_fang_an_hive/">
+    <meta property="og:site_name" content="Hello World!!">
+    
+    <meta property="og:tags" content="hadoop">
+    
+    <meta name="generator" content="Hugo 0.15" />
+    <title>使用MapReduce之替代方案Hive &middot; Hello World!!</title>
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="http://alanmoment.github.io/css/style.css">
+    <link href="" rel="alternate" type="application/rss+xml" title="Hello World!!" />
 
     
-  
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/tomorrow-night-bright.min.css">
-  
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-
-
-  
-
-  
-
-  
+    
 </head>
-
 <body>
-	
-
-	<div id="layout" class="pure-g">
-    <div class="sidebar pure-u-1 pure-u-md-1-4">
-  <div class="header">
-    
-
-	
-	  <img src="/images/avatar.jpg" class="sidebarphoto">
-	
-
-    <h1 class="brand-title">Hello World!!</h1>
-    <h2 class="brand-tagline">you can do anything you want to do.</h2>
-
-    <nav class="nav">
-      <ul class="nav-list">
-        <li class="nav-item"><span class="nav-item-separator">//</span><a href="http://alanmoment.github.io/">Home</a></li>
-        
-          <li class="nav-item"><span class="nav-item-separator">//</span><a href="/page/about/">About me</a></li>
-        
-      </ul>
-    </nav>
-
-    
-    <div class="social-buttons">
-      
-        
-        <a href="https://github.com/alanmoment" target="_blank"><i class='fa fa-github'></i></a>
-        
-      
-        
-        <a href="https://www.linkedin.com/in/alanmoment" target="_blank"><i class='fa fa-linkedin'></i></a>
-        
-      
-        
-        <a href="http://www.twitter.com/alanmoment" target="_blank"><i class='fa fa-twitter'></i></a>
-        
-      
-      
-    </div>
-    
-
-  </div>
-</div>
-
-	
-	
-
-    <div class="content pure-u-1 pure-u-md-3-4">
-		<a name="top"></a>
-		
-
-		
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
 			
-		    <div id="toc" class="pure-u-1 pure-u-md-1-4">
-				<small class="toc-label">Contents</small>
-		   	 	<nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#建立hive:bf6920ef858d2be2b6cd1fd1449841de">建立Hive</a></li>
-<li><a href="#安裝ivy:bf6920ef858d2be2b6cd1fd1449841de">安裝ivy</a></li>
-<li><a href="#配置環境:bf6920ef858d2be2b6cd1fd1449841de">配置環境</a></li>
-<li><a href="#修改hive-default-xml:bf6920ef858d2be2b6cd1fd1449841de">修改hive-default.xml</a></li>
-<li><a href="#使用hive的三種metastore儲存方式:bf6920ef858d2be2b6cd1fd1449841de">使用Hive的三種Metastore儲存方式</a></li>
-<li><a href="#在mysql建立hive資料庫並且設定語系:bf6920ef858d2be2b6cd1fd1449841de">在MySQL建立Hive資料庫並且設定語系</a></li>
-<li><a href="#讓thrift使用hive:bf6920ef858d2be2b6cd1fd1449841de">讓Thrift使用Hive</a></li>
-<li><a href="#新增hive-thrift執行檔:bf6920ef858d2be2b6cd1fd1449841de">新增hive-thrift執行檔</a></li>
-<li><a href="#更改權限檔案:bf6920ef858d2be2b6cd1fd1449841de">更改權限檔案</a></li>
-<li><a href="#hive的三種執行模式:bf6920ef858d2be2b6cd1fd1449841de">Hive的三種執行模式</a></li>
-<li><a href="#啟動與停止hive:bf6920ef858d2be2b6cd1fd1449841de">啟動與停止Hive</a></li>
-<li><a href="#hive執行叢集環境:bf6920ef858d2be2b6cd1fd1449841de">Hive執行叢集環境</a></li>
-<li><a href="#將hive-thrift新增至服務中並設開機啟動:bf6920ef858d2be2b6cd1fd1449841de">將hive-thrift新增至服務中並設開機啟動</a></li>
-<li><a href="#檢查是否有執行hive:bf6920ef858d2be2b6cd1fd1449841de">檢查是否有執行Hive</a></li>
-</ul></li>
-<li><a href="#發生錯誤:bf6920ef858d2be2b6cd1fd1449841de">發生錯誤</a></li>
-</ul></li>
-</ul>
+				<a class="navbar-brand" href="http://alanmoment.github.io/">Hello World!!</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+					<li><a href="http://alanmoment.github.io//">Home</a></li>
+				
+					<li><a href="http://alanmoment.github.io/page/about/">About</a></li>
+				
+			</ul>
+		</div>
+	</div>
 </nav>
-		    </div>
-		    
-	    
-  		<section class="post">
-            <h1 class="post-title">
-              <a href="/post/hadoop/shi_yong_mapreduce_zhi_ti_dai_fang_an_hive/">使用MapReduce之替代方案Hive</a>
-            </h1>
-            <h3 class="post-subtitle">
-            	
-            </h3>
-            
-            	<span class="post-date">
-                	<span class="post-date-day"><sup>23</sup></span><span class="post-date-separator">/</span><span class="post-date-month">Jun</span> <span class="post-date-year">2013</span>
-            	</span>
-            	
-            
-            	
-            		<span class="post-author-single">By <a class="post-author"  target="">Alan</a></span>
-            		
-
-
-
-
-            	
-            
-
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="http://alanmoment.github.io/">Hello World!!</a></h1>
+		
+		
+		
+			<small class="text-center center-block">you can do anything you want to do.</small>
+		
+		
+		
+			<img id="profile-pic" src="http://alanmoment.github.io///images/avatar.jpg" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			<a href="https://twitter.com/alanmoment"><i class="fa fa-twitter fa-2x"></i></a>
+			<a href="https://www.linkedin.com/in/alanmoment"><i class="fa fa-linkedin fa-2x"></i></a>
+			<a href="https://github.com/alanmoment"><i class="fa fa-github fa-2x"></i></a>
+			<a href="mailto:alan.moment77@gmail.com"><i class="fa fa-envelope-o fa-2x"></i></a>
+		</div>
+		<div id="links" class="text-center">
 			
 			
-				<div class="post-categories">
-				
-					<a class="post-category post-category-2013" href="http://alanmoment.github.io//categories/2013">2013</a>
-				
-				</div>
+				<a href="http://alanmoment.github.io//">Home</a>
 			
-
+				<a href="http://alanmoment.github.io/page/about/">About</a>
 			
+		</div>
+	</div>
+</div>
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
 
-			
+<main>
+	<header>
+		<h1>使用MapReduce之替代方案Hive</h1>
+	</header>
 
-            
+	<article>
+		
 
 <p>若要操作Hadoop就必須要會<a href="http://hadoop.apache.org/docs/stable/mapred_tutorial.html">MapReduce</a>，很好!!在Hadoop很夯之前相信很多人都對MapReduce非常陌生，沒錯!!那真的是有點困難，但是呢，若我講SQL語言，相信你一定信心十足吧!!</p>
 
@@ -510,39 +423,15 @@ $ chkconfig hive-thrift on
 
 <p><a href="http://blog.csdn.net/liuzhoulong/article/details/6441914">http://blog.csdn.net/liuzhoulong/article/details/6441914</a></p>
 
-	
-			
+	</article>
+</main>
 
-			
-				<div class="tags-list">
-					<span class="dark-red">Tags</span><span class="decorative-marker">//</span>
-					
-	                <a class="post-tag post-tag-hadoop" href="http://alanmoment.github.io//tags/hadoop">hadoop</a>,
-	                
-				</div>
-			
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" http://alanmoment.github.io/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
 
-			
-				<div class="paging">
-					<span class="paging-label">More Reading</span>
-					
-					<div class="paging-newer">
-						<span class="dark-red">Newer</span><span class="decorative-marker">//</span>
-						<a class="paging-link" href="/post/cooperation/gitlab/jian_zhi_zhuan_shu_zi_ji_de_github_zhi_gitlab/">建置專屬自己的Github之Gitlab</a>
-		            </div>
-		            
 
-					
-					<div class="paging-older">
-						<span class="dark-red">Older</span><span class="decorative-marker">//</span>
-			            <a class="paging-link" href="/post/hadoop/hadoop_gou_tong_qiao_liang_zhi_thrift_0__7/">Hadoop 溝通橋梁之 Thrift 0.7</a>
-		            </div>
-		            
-	            </div>
-            
-          </section>
-          
-          	<div id="disqus_thread"></div>
+  <div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'alanmoment';
     var disqus_identifier = 'http:\/\/alanmoment.github.io\/post\/hadoop\/shi_yong_mapreduce_zhi_ti_dai_fang_an_hive\/';
@@ -557,24 +446,23 @@ $ chkconfig hive-thrift on
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-          
-        
-      <div class="footer">
-	<hr class="thin" />
-	<div class="pure-menu pure-menu-horizontal pure-menu-open">
-		<ul class="footer-menu">
-		
-		</ul>
-	</div>
 
-	<p>&copy; 2016. All rights reserved.</p>
-</div>
-    </div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
   </div>
-	
-
-	
-
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+  
+  
+  <script src="http://alanmoment.github.io//js/App.js"></script>
   
 </body>
 </html>
