@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ghost on Hello World!!</title>
+    <link>http://localhost:1313/tags/ghost/</link>
+    <description>Recent content in Ghost on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Thu, 24 Oct 2013 10:34:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/ghost/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>走在時尚的尖端! Ghost</title>
+      <link>http://localhost:1313/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/</link>
+      <pubDate>Thu, 24 Oct 2013 10:34:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/</guid>
+      <description>
+
+&lt;p&gt;今天我也要來趕流行一下，最近很流行&lt;a href=&#34;https://en.ghost.org/&#34;&gt;Ghost&lt;/a&gt;這東東，這東東是甚麼呢？他有點像&lt;a href=&#34;https://http://octopress.org//&#34;&gt;Octopress&lt;/a&gt;，但是卻不像Octopress比較困難架。&lt;/p&gt;
+
+&lt;p&gt;Ghost是架構在&lt;a href=&#34;http://nodejs.org/&#34;&gt;Nodejs&lt;/a&gt;上的，可以用極短..極短..極短的時間架好blog。一分鐘就可以架好了！！就是這麼簡單，所以也沒有甚麼流程，只要安裝Nodejs基本上就完成了。&lt;/p&gt;
+
+&lt;p&gt;Ghost允許線上用&lt;a href=&#34;http://markdown.tw/&#34;&gt;Markdown&lt;/a&gt;編輯文章，不像Octopress得依靠Command line或工具。&lt;/p&gt;
+
+&lt;h2 id=&#34;install-nodejs:e8302f3c26f25123ef300e0505f616e1&#34;&gt;Install Nodejs&lt;/h2&gt;
+
+&lt;p&gt;可以按照官網上的&lt;a href=&#34;http://docs.ghost.org/installation/linux/&#34;&gt;Install Node&lt;/a&gt;步驟安裝，或是&lt;a href=&#34;http://localhost:1313/post/94171044168/centos-node-js-0-8-5&#34;&gt;CentOS 安装 Node.js 0.8.5&lt;/a&gt;也可以看一下。&lt;/p&gt;
+
+&lt;h2 id=&#34;install-ghost:e8302f3c26f25123ef300e0505f616e1&#34;&gt;Install Ghost&lt;/h2&gt;
+
+&lt;p&gt;註冊Ghost就可以到Download畫面下載。&lt;/p&gt;
+
+&lt;p&gt;接著五個步驟就完成了。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ wget &#39;https://en.ghost.org/zip/ghost-0.3.2.zip&#39;
+$ unzip ghost-0.3.2.zip -d ghost
+$ cd ghost
+$ npm install --production
+$ npm start
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣就可以run囉!!簡單到炸掉阿&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/build_ghost.png&#34; alt=&#34;build ghost&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;畫面非常乾淨漂亮。&lt;/p&gt;
+
+&lt;h2 id=&#34;後台管理:e8302f3c26f25123ef300e0505f616e1&#34;&gt;後台管理&lt;/h2&gt;
+
+&lt;p&gt;輸入網址&lt;code&gt;http://your-domain/ghost&lt;/code&gt;就可以註冊一個admin的帳號。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/admin_sign.png&#34; alt=&#34;admin sign&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;設定config-js:e8302f3c26f25123ef300e0505f616e1&#34;&gt;設定config.js&lt;/h2&gt;
+
+&lt;p&gt;網站目錄底下有個config.js，若沒有則自己複製一份。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cp -a config.example.js config.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這邊將全部的&lt;code&gt;my-ghost-blog.com&lt;/code&gt;替換成自己的domain。&lt;/p&gt;
+
+&lt;h2 id=&#34;pm2管理ghost:e8302f3c26f25123ef300e0505f616e1&#34;&gt;PM2管理Ghost&lt;/h2&gt;
+
+&lt;p&gt;若是使用&lt;code&gt;npm start&lt;/code&gt;啟動，會有點難管理，而且nodejs最為人詬病的就是不friendly。所以這邊我是使用&lt;a href=&#34;7&#34;&gt;PM2&lt;/a&gt;。Github上有很詳細的安裝方式，就不再說明。應用在Ghost則可以執行。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pm2 start ghost/index.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;看執行中的程式&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pm2 list
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;看程式負載&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pm2 monit
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;也可以看log&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pm2 logs
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

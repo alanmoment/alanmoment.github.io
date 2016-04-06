@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  	<meta property="og:title" content=" Injection Principle Design Pattern &middot;  Hello World!!" />
+  	<meta property="og:site_name" content="Hello World!!" />
+  	<meta property="og:url" content="http://localhost:1313/post/ooad/injection_principle_design_pattern/" />
+
+    
+  	<meta property="og:type" content="article" />
+
+    <meta property="og:article:published_time" content="2014-02-26T21:33:00Z" />
+
+    
+    <meta property="og:article:tag" content="ooad" />
+    
+    
+
+  <title>
+     Injection Principle Design Pattern &middot;  Hello World!!
+  </title>
+
+    <meta name="description" content="you can do anything you want to do." />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
+
+
+    
+      
+          <link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="Hello World!!" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.15" />
+
+    <link rel="canonical" href="http://localhost:1313/post/ooad/injection_principle_design_pattern/" />
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/">Home</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/page/about/">About me</a>
+            </li>
+        
+    </ul>
+    
+    
+    <a class="subscribe-button icon-feed" href="http://localhost:1313/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+
+<header class="main-header post-head" style="background-image: url(http://localhost:1313//images/post/ooad/injection_principle_design_pattern/Class_Diagram.png)">
+  <nav class="main-nav overlay clearfix">
+
+
+  
+      <a class="blog-logo" href="http://localhost:1313/"><img src="http://localhost:1313//images/517273.jpg" alt="Home" /></a>
+  
+  
+      <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+  
+  </nav>
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post post">
+
+    <header class="post-header">
+        <h1 class="post-title">Injection Principle Design Pattern</h1>
+        <small>這兩天有個案例，內容簡約來說可以這樣闡述：...</small>
+
+        <section class="post-meta">
+        
+          <time class="post-date" datetime="2014-02-26T21:33:00Z">
+            Feb 26, 2014
+          </time>
+        
+         
+          <span class="post-tag small"><a href="http://localhost:1313/tags/ooad/">#ooad</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+
+<p>這兩天有個案例，內容簡約來說可以這樣闡述：</p>
+
+<h3 id="a客戶要簽約買限額的n種廣告-要提供api介接:adec025e9f0507beb57a8d7d7ddd0091">A客戶要簽約買限額的N種廣告，要提供API介接</h3>
+
+<p>所以我開始分解上面這段話做設計。</p>
+
+<ol>
+<li>這次A客戶簽約，下次也有機會與B客戶簽約。</li>
+<li>廣告有 Header, Body, Footer, Left 及 Right 共5個區域可以放產品，A客戶要買 Header, Body 以及 Right 三種，當然下次別人也有機會買 Footer 或是 Left。</li>
+<li>A客戶各買 100個, 100個 和 250個產品限額的廣告方案，當然別的客戶也有可能更多亦或更少。</li>
+<li>A客戶使用的介接格式是 <a href="http://zh.wikipedia.org/zh-tw/XML">XML</a>，當然也有機會用到 <a href="http://www.json.org/">Json</a> 或其他種類的資料格式，輸出也是相同。</li>
+</ol>
+
+<p>若是不考慮 Design Pattern 其實這樣子的介接不難做，但要思考的是，假使不做適當的邏輯分離與切割，造成高耦合度，那擴充與修改是否會造成災難。所以我一直覺得寫程式人人都會，但是寫的一手好程式可就不簡單了。而我一直朝著這個目標邁進。</p>
+
+<p>當分析需求完畢，我就開始發想，有哪種設計模式或原則適合這種狀況，應該要避免太複雜的設計模式造成開發困難或結構複雜化。小弟不才，懂得不多。我想到用 Injection Principle 這個原則來做。</p>
+
+<h2 id="介接資料:adec025e9f0507beb57a8d7d7ddd0091">介接資料</h2>
+
+<p>與A客戶協議好用XML資料格式介接，如之前提到的，介接的資料格式是有機會異動的，所以我覺得解析與回傳資料是應該要被分離的。</p>
+
+<p>只要是介接都必須要有解析與回傳，所以我定義介接資料用的介面，裡面必須要實作解析與輸出這兩件事。</p>
+
+<pre><code>/**
+ * 解析、回傳介接資料介面
+ */
+interface ApiAdParseInterface {
+
+  /**
+   * 任何解析廣告的資料都必須實作
+   * @param type $content
+   */
+  public function parse($content);
+
+  /**
+   * 任何回傳廣告的介接結果都必須實作
+   * @param type $content
+   */
+  public function generate($content);
+
+}
+</code></pre>
+
+<p>我想到日後或許A客戶也有機會異動介接資料的格式，所以我選擇用<a href="https://en.wikipedia.org/wiki/Dependency_injection">DI</a>處理，制訂出配置器加強彈性。</p>
+
+<p>這個配置器主要提供注入的方法，今天若是要實作XML的資料格式，那就在建立這個實體的時候提供 instance。</p>
+
+<pre><code>/**
+ * 解析、回傳介接結果配置器
+ */
+class ApiParseAdAdapter {
+
+  private $adapter;
+
+  public function ApiParseAdAdapter($adapter) {
+    $this-&gt;adapter = $adapter;
+  }
+
+  /**
+   * 解析輸入的資料
+   * @param type $content
+   */
+  public function parse($content) {
+    return $this-&gt;adapter-&gt;parse($content);
+  }
+
+  /**
+   * 輸出要產生的資料格式
+   * @param type $content
+   */
+  public function generate($content) {
+    return $this-&gt;adapter-&gt;generate($content);
+  }
+
+}
+</code></pre>
+
+<p>實作以 XML 格式介接新增廣告</p>
+
+<pre><code>/**
+ * 實作解析、生成新增廣告xml資料
+ */
+class ParseAddAdXml implements ApiAdParseInterface {
+
+  public function parse($xml) {
+    ...
+    return $items;
+  }
+
+  public function generate($content) {
+    ...
+    return $xml;
+  }
+
+}
+</code></pre>
+
+<p>以後若是要改用 Json 那就建立 <code>ParseAddAdJson</code> 就可以了不用動到其他的程式，相對的安全很多。</p>
+
+<h2 id="處理合約:adec025e9f0507beb57a8d7d7ddd0091">處理合約</h2>
+
+<p>今天是與A客戶簽約，而下次是與B客戶簽約。每份合約各自表述，除了限額與廣告種類，客戶都必須要新增廣告，也都要解析客戶丟過來的資料，以及回傳處理結果。所以我定義了合約的抽象類別，只要是合約都必須要實作解析資料，新增廣告，輸出結果。而為了統一外部的呼叫，則有共用的執行合約方法。</p>
+
+<pre><code>/**
+ * 統一的合約執行流程
+ */
+abstract class PlanBaseAbstract {
+
+    public function execPlan($xml) {
+        $items = $this-&gt;parse($xml);
+        $content = $this-&gt;addAd($items);
+        return $this-&gt;generate($content);
+    }
+
+    abstract protected function addAd($items) ;
+
+    abstract protected function parse($content) ;
+
+    abstract protected function generate($content) ;
+
+}
+</code></pre>
+
+<p>再來是處理A客戶的合約內容。</p>
+
+<pre><code>/**
+ * A客戶的新增廣告內容
+ */
+class ACustomerPlan extends PlanBaseAbstract {
+
+    public function addAd($items)
+        ...
+        在這邊新增各種廣告
+        ...
+    }
+
+    /**
+     * 使用 DI 解析介接資料
+     */
+    public function parse($content) {
+        $mgr = new ApiParseAdapterMgr(new ParseAddAdXmlMgr());
+        $items = $mgr-&gt;parse($content);
+        ...
+        return $items;
+    }
+
+    /**
+     * 使用 DI 輸出介接結果
+     */
+    public function generate($content) {
+        ...
+        $mgr = new ApiParseAdapterMgr(new ParseAddAdXmlMgr());
+        return $mgr-&gt;generate($result);
+    }
+
+}
+</code></pre>
+
+<h2 id="廣告物件:adec025e9f0507beb57a8d7d7ddd0091">廣告物件</h2>
+
+<p>每個廣告都有新增及取得當前數量兩件事，這裡也定義一個介面供各種廣告實作。</p>
+
+<pre><code>/**
+ * 廣告處理介面
+ */
+interface AdInterface {
+
+    /**
+     * 新增廣告
+     */
+    public function add() ;
+
+    /**
+     * 當前廣告數量
+     */
+    public function getCount() ;
+
+}
+</code></pre>
+
+<p>實作廣告的過程中或許有其他的事情要做所以可以寫在各自的廣告物件。這裡就新增一個 Header 當作記錄。</p>
+
+<pre><code>/**
+ * 實作 Header 廣告
+ */
+class Header implements AdInterface {
+
+    /**
+     * 新增廣告實作
+     */
+    public function add() {
+        ...
+    }
+
+    /**
+     * 取得當前廣告數量實作
+     */
+    public function getCount() {
+        ...
+        return (int) $count;
+    }
+
+}
+</code></pre>
+
+<p>未來只要各自實作 Body, Footer 就可以了。這樣也有做到 OCP (開放封閉原則)。</p>
+
+<p>最後用 Class Diagram 解釋這整個關係。</p>
+
+<p><img src="http://localhost:1313/images/post/ooad/injection_principle_design_pattern/Class_Diagram.png" alt="Class Diagram" /></p>
+
+    </section>
+
+
+  <footer class="post-footer">
+
+
+    
+    <figure class="author-image">
+        <a class="img" href="http://localhost:1313/" style="background-image: url(http://localhost:1313//images/517273.jpg)"><span class="hidden">Alan's Picture</span></a>
+    </figure>
+    
+
+    
+
+
+
+
+
+<section class="author">
+  <h4><a href="http://localhost:1313/">Alan</a></h4>
+  
+  <p>Read <a href="http://localhost:1313/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    
+    
+  </div>
+</section>
+
+
+
+    
+<section class="share">
+  <h4>Share this post</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Injection%20Principle%20Design%20Pattern&amp;url=http%3a%2f%2flocalhost%3a1313%2fpost%2fooad%2finjection_principle_design_pattern%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fooad%2finjection_principle_design_pattern%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fooad%2finjection_principle_design_pattern%2f&amp;description=Injection%20Principle%20Design%20Pattern"
+      onclick="window.open(this.href, 'pinterest-share','width=580,height=296');return false;">
+      <span class="hidden">Pinterest</span>
+  </a>
+  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fooad%2finjection_principle_design_pattern%2f"
+     onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+      <span class="hidden">Google+</span>
+  </a>
+</section>
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'alanmoment';
+  var disqus_url = 'http:\/\/localhost:1313\/post\/ooad\/injection_principle_design_pattern\/';
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+  </footer>
+</article>
+
+</main>
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Hello World!!</a> &copy; Copyright Alan - 2016</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/index.js"></script>
+    
+</body>
+</html>
+

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  	<meta property="og:title" content=" Android zipcode library of maven &middot;  Hello World!!" />
+  	<meta property="og:site_name" content="Hello World!!" />
+  	<meta property="og:url" content="http://localhost:1313/post/android/android_zipcode_library_of_maven/" />
+
+    
+  	<meta property="og:type" content="article" />
+
+    <meta property="og:article:published_time" content="2013-09-03T18:50:00Z" />
+
+    
+    <meta property="og:article:tag" content="android" />
+    
+    <meta property="og:article:tag" content="maven" />
+    
+    
+
+  <title>
+     Android zipcode library of maven &middot;  Hello World!!
+  </title>
+
+    <meta name="description" content="you can do anything you want to do." />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
+
+
+    
+      
+          <link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="Hello World!!" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.15" />
+
+    <link rel="canonical" href="http://localhost:1313/post/android/android_zipcode_library_of_maven/" />
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/">Home</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/page/about/">About me</a>
+            </li>
+        
+    </ul>
+    
+    
+    <a class="subscribe-button icon-feed" href="http://localhost:1313/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+
+<header class="main-header post-head" style="background-image: url(http://localhost:1313//images/post/android/android_zipcode_library_of_maven/zipcode_json.png)">
+  <nav class="main-nav overlay clearfix">
+
+
+  
+      <a class="blog-logo" href="http://localhost:1313/"><img src="http://localhost:1313//images/517273.jpg" alt="Home" /></a>
+  
+  
+      <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+  
+  </nav>
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post post">
+
+    <header class="post-header">
+        <h1 class="post-title">Android zipcode library of maven</h1>
+        <small>最近在做Android app時需要用到縣市、區域這些資料，做過網站的，都知道處理這個很煩啊!所以大多都會抽出來另外處理，封裝成Component好方便使用，但是...</small>
+
+        <section class="post-meta">
+        
+          <time class="post-date" datetime="2013-09-03T18:50:00Z">
+            Sep 3, 2013
+          </time>
+        
+         
+          <span class="post-tag small"><a href="http://localhost:1313/tags/android/">#android</a></span>
+         
+          <span class="post-tag small"><a href="http://localhost:1313/tags/maven/">#maven</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+
+<p>最近在做Android app時需要用到縣市、區域這些資料，做過網站的，都知道處理這個很煩啊!所以大多都會抽出來另外處理，封裝成Component好方便使用，但是在Android上要是把縣市、區域、郵遞區號放到strings.xml裡面，我想是會瘋掉的，維護、擴充也不容易。我就是建完才後悔的&hellip;</p>
+
+<p><img src="http://localhost:1313/images/post/android/android_zipcode_library_of_maven/android_studio_city_list.png" alt="android studio city list" /></p>
+
+<p><img src="http://localhost:1313/images/post/android/android_zipcode_library_of_maven/android_studio_area_list.png" alt="android studio area list" /></p>
+
+<p>有個不錯的方法就是將資料用json的格式存成一隻檔案，然後自己寫抓取json的util放到Android的libs，這樣要使用就很方便了。</p>
+
+<h3 id="eclipse安裝maven:9bf3f2b1461ea7d05882004b3695b9ca">Eclipse安裝Maven</h3>
+
+<p>使用Eclipse plugin安裝Maven，在Install new software中點選Add輸入下列資料。</p>
+
+<p><strong>Name：Maven Plugin</strong></p>
+
+<p><strong><p>Location：<a href="http://download.eclipse.org/technology/m2e/releases">http://download.eclipse.org/technology/m2e/releases</a></p></strong></p>
+
+<p>若是發生不能安裝的錯誤還有另外一個</p>
+
+<p><strong>Name：Indigo</strong></p>
+
+<p><strong><p>Location：<a href="http://download.eclipse.org/releases/indigo">http://download.eclipse.org/releases/indigo</a></p></strong></p>
+
+<p>在這個套件裡尋找Maven並且安裝</p>
+
+<h3 id="安裝maven工具:9bf3f2b1461ea7d05882004b3695b9ca">安裝Maven工具</h3>
+
+<p><a href="http://maven.apache.org/download.cgi">Maven官網</a>下載Maven 3.1.0 (Binary tar.gz)，放哪裡都可以但是建議不要放在含有空白或特殊字元的資料夾，最後要在環境變數加上以下變數。</p>
+
+<p><strong>變數名稱：MAVEN_HOME</strong></p>
+
+<p><strong>變數值：C:\你的目錄\apache-maven-3.1.0</strong></p>
+
+<p>在Path變數尾端加上MAVEN_HOME</p>
+
+<p><strong>%MAVEN_HOME%\bin;</strong></p>
+
+<h3 id="建立maven-project:9bf3f2b1461ea7d05882004b3695b9ca">建立Maven project</h3>
+
+<p>為了方便自己管理library所以我建立了maven project</p>
+
+<p>Step 1.</p>
+
+<p><img src="http://localhost:1313/images/post/android/android_zipcode_library_of_maven/create_maven_project.png" alt="create maven project step 1" /></p>
+
+<p>Step 2.</p>
+
+<p><img src="http://localhost:1313/images/post/android/android_zipcode_library_of_maven/create_maven_project_2.png" alt="create maven project step 2" /></p>
+
+<p>Step 3.</p>
+
+<p><img src="http://localhost:1313/images/post/android/android_zipcode_library_of_maven/create_maven_project_step_3.png" alt="create maven project step 3" /></p>
+
+<h3 id="修改pom-xml:9bf3f2b1461ea7d05882004b3695b9ca">修改pom.xml</h3>
+
+<p>因為要解析json格式，所以在這邊需要引入<a href="https://code.google.com/p/google-gson/">google-gson</a>的dependency，為什麼不用<a href="https://code.google.com/p/json-simple/">json-simple</a>呢，因為Android並沒有支援這個library。</p>
+
+<p>在<dependencies></dependencies>&gt;標籤中加入</p>
+
+<pre><code>&lt;dependency&gt;&lt;groupid&gt;com.google.code.gson&lt;/groupid&gt;&lt;artifactid&gt;gson&lt;/artifactid&gt;&lt;version&gt;2.2.4&lt;/version&gt;&lt;/dependency&gt;
+</code></pre>
+
+<p>在project中Maven Dependencies就會增加gson library</p>
+
+<p><img src="http://localhost:1313/images/post/android/android_zipcode_library_of_maven/gson_dependencies.png" alt="gson dependencies" /></p>
+
+<h3 id="建立zipcode-json:9bf3f2b1461ea7d05882004b3695b9ca">建立zipcode.json</h3>
+
+<p>依照下圖的格式建立zipcode.json</p>
+
+<p><img src="http://localhost:1313/images/post/android/android_zipcode_library_of_maven/zipcode_json.png" alt="zipcode.json" /></p>
+
+<p>將zipcode.json放置在src/main/resources，並且修改pom.xml，這樣在使用maven install就能夾帶檔案。</p>
+
+<p>在<project></project>&gt;標籤中加入</p>
+
+<pre><code>&lt;build&gt;&lt;resources&gt;&lt;resource&gt;&lt;directory&gt;src/main/resources&lt;/directory&gt;&lt;includes&gt;&lt;include&gt;zipcode.json&lt;/include&gt;&lt;/includes&gt;&lt;/resource&gt;&lt;/resources&gt;&lt;/build&gt;
+</code></pre>
+
+<h3 id="建立zipcode-library:9bf3f2b1461ea7d05882004b3695b9ca">建立Zipcode Library</h3>
+
+<p>建立InputStreamReader讀取json資料，再用gson解析讀取完畢再關掉。
+因為gson會主動幫字串加上雙引號，所以取資料出來必須要用getAsString()，不能用toString()，否則雙引號不會濾掉。</p>
+
+<pre><code>package com.zipcode_util;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+public class ZipcodeComponent {
+
+    private static final String ZIPCODE_FILE = &quot;zipcode.json&quot;;
+    private static JsonObject jsonObject;
+
+    /**
+     * Json file io
+     * @return JsonObject jsonObject
+     */
+    private JsonObject getJsonObject()
+    {
+        if (jsonObject == null) {
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(ZipcodeComponent.class
+                            .getClassLoader().getResourceAsStream(
+                                    ZipcodeComponent.ZIPCODE_FILE)));
+            jsonObject = new Gson().fromJson(br, JsonObject.class);
+
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return jsonObject;
+    }
+
+    /**
+     * Get city name
+     * @return List&lt;string&gt; citys
+     */
+    public String[] listCities()
+    {
+        JsonArray jsonArray = getJsonObject().getAsJsonArray(&quot;city&quot;);
+
+        String[] cities = new String[jsonArray.size()];
+        int i;
+        for (i=0; i&lt;jsonarray.size i cities jsonarray.get return zipcode util package com.zipcode_util import junit.framework.test junit.framework.testcase junit.framework.testsuite unit test for simple app. public class apptest extends testcase create the case testname name of string super zipcodecomponent system.out.println suite tests being tested static new testsuite apptest.class rigourous :- void testapp asserttrue true tree plugin tool mvn clean install project&gt;&lt;/jsonarray.size&gt;&lt;/string&gt;
+</code></pre>
+
+    </section>
+
+
+  <footer class="post-footer">
+
+
+    
+    <figure class="author-image">
+        <a class="img" href="http://localhost:1313/" style="background-image: url(http://localhost:1313//images/517273.jpg)"><span class="hidden">Alan's Picture</span></a>
+    </figure>
+    
+
+    
+
+
+
+
+
+<section class="author">
+  <h4><a href="http://localhost:1313/">Alan</a></h4>
+  
+  <p>Read <a href="http://localhost:1313/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    
+    
+  </div>
+</section>
+
+
+
+    
+<section class="share">
+  <h4>Share this post</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Android%20zipcode%20library%20of%20maven&amp;url=http%3a%2f%2flocalhost%3a1313%2fpost%2fandroid%2fandroid_zipcode_library_of_maven%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fandroid%2fandroid_zipcode_library_of_maven%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fandroid%2fandroid_zipcode_library_of_maven%2f&amp;description=Android%20zipcode%20library%20of%20maven"
+      onclick="window.open(this.href, 'pinterest-share','width=580,height=296');return false;">
+      <span class="hidden">Pinterest</span>
+  </a>
+  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fandroid%2fandroid_zipcode_library_of_maven%2f"
+     onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+      <span class="hidden">Google+</span>
+  </a>
+</section>
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'alanmoment';
+  var disqus_url = 'http:\/\/localhost:1313\/post\/android\/android_zipcode_library_of_maven\/';
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+  </footer>
+</article>
+
+</main>
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Hello World!!</a> &copy; Copyright Alan - 2016</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/index.js"></script>
+    
+</body>
+</html>
+

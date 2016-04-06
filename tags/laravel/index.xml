@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Laravel on Hello World!!</title>
+    <link>http://localhost:1313/tags/laravel/</link>
+    <description>Recent content in Laravel on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Tue, 19 Aug 2014 11:11:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/laravel/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Laravel 首發 !!!</title>
+      <link>http://localhost:1313/post/php/laravel_shou_fa/</link>
+      <pubDate>Tue, 19 Aug 2014 11:11:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/php/laravel_shou_fa/</guid>
+      <description>
+
+&lt;p&gt;雖然&lt;a href=&#34;http://laravel.com/&#34;&gt;Laravel&lt;/a&gt;已經出現頗久，最近總算開始動動手了，有鑑於去年開始使用Ruby on Rails，發現說Laravel也太像了吧。據匿名的朋友說現在的Framework幾乎都是&lt;code&gt;參考&lt;/code&gt;Ruby on Rails。而這次也趁機再多用幾種工具，&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.nitrous.io&#34;&gt;Nitrous.io&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;AWS S3&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.heroku.com/&#34;&gt;Heroku&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;每次自己開專案都想用不同的工具，而現在的工具越來越簡單，若是不瞭解原理，那豈不是很快被淘汰了嗎?&lt;/p&gt;
+
+&lt;h2 id=&#34;建立laravel:ff06a00f5058a348bf22bfc692f8ae74&#34;&gt;建立Laravel&lt;/h2&gt;
+
+&lt;p&gt;現在的環境，撰寫如何建立似乎已經不怎麼高手了，因為越來越簡單，而&lt;a href=&#34;http://laravel.com/docs/quick&#34;&gt;官網&lt;/a&gt;寫的也很好。所以就不再Copy了，倒是因為要使用Framework有遇到一些&lt;code&gt;PHP module&lt;/code&gt;的問題。&lt;/p&gt;
+
+&lt;p&gt;就以前的開發環境都會有&lt;a href=&#34;http://php.net/manual/en/book.mcrypt.php&#34;&gt;php-mcrypt&lt;/a&gt;這個模組，但這次使用的環境竟然就真的沒有，或許是版本過新、或是MIS沒有安裝。不管，反正遇到問題就是要解決了&lt;/p&gt;
+
+&lt;p&gt;在CentOS 6.7中，使用yum找不到php-mcrypt了，必須要安裝另外的套件尋找。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo rpm -ivh http://dl.fedoraproject.org/pub/epel/beta/7/x86_64/epel-release-7-0.2.noarch.rpm
+$ sudo rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+$ sudo yum --enablerepo=remi install php-mcrypt.x86_64
+$ sudo service httpd restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;php -m&lt;/code&gt;就可以看到&lt;code&gt;mcrypt&lt;/code&gt;模組了。&lt;/p&gt;
+
+&lt;h2 id=&#34;使用laravel:ff06a00f5058a348bf22bfc692f8ae74&#34;&gt;使用Laravel&lt;/h2&gt;
+
+&lt;p&gt;使用起來真的是很順手，因為幾乎跟Ruby on Rails一樣了，但畢竟不是很熟手，只記錄有用到的。&lt;/p&gt;
+
+&lt;h3 id=&#34;routes:ff06a00f5058a348bf22bfc692f8ae74&#34;&gt;Routes&lt;/h3&gt;
+
+&lt;p&gt;進入網站的各個位址都會經過route。&lt;/p&gt;
+
+&lt;p&gt;/secret直接401&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Route::any(&#39;/secret&#39;, function() {
+    return Response::make(&#39;Unauthorized&#39;, 401);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;/form只接受post並且在之前會先檢查ip&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Route::match(
+    array(&#39;POST&#39;), &#39;/form&#39;, array(&#39;before&#39; =&amp;gt; &#39;ipcheck&#39;, &#39;uses&#39; =&amp;gt; &#39;HomeController@purchase&#39;)
+);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;filters:ff06a00f5058a348bf22bfc692f8ae74&#34;&gt;Filters&lt;/h3&gt;
+
+&lt;p&gt;是用來過濾各種請求，有App層級也有Controller的，可用下例程式碼過濾IP。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Route::filter(&#39;ipcheck&#39;, function() {
+    if (!preg_match(&amp;quot;/127\.0\.0\.1/i&amp;quot;, $_SERVER[&#39;REMOTE_ADDR&#39;]) {
+        return Redirect::to(&#39;/&#39;);
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;app:ff06a00f5058a348bf22bfc692f8ae74&#34;&gt;App&lt;/h3&gt;
+
+&lt;p&gt;app/config/app.php&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;debug =&amp;gt; 是否開啓除錯&lt;/li&gt;
+&lt;li&gt;url =&amp;gt; 網站預設網址&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;透過一些static method也能存取其中屬性。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Config::set(&#39;app.url&#39;, STATIC_HOST);
+Config::get(&#39;app.url&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;database:ff06a00f5058a348bf22bfc692f8ae74&#34;&gt;Database&lt;/h3&gt;
+
+&lt;p&gt;Database當然也有好用的ORM，而我覺得好用的程度跟Ruby有得比唷。&lt;/p&gt;
+
+&lt;p&gt;app/config/database.php&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;default =&amp;gt; 預設的資料庫&lt;/li&gt;
+&lt;li&gt;connections =&amp;gt; 資料庫連線位址、帳號、密碼&amp;hellip;等&lt;/li&gt;
+&lt;li&gt;redis =&amp;gt; 好用的快取&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;透過attribute可以改變連線的資料庫、使用資料表、欄位是否使用&amp;hellip;等。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class User extends Eloquent {
+
+    protected $connection = DATABASE;
+
+    protected $table = TABLE;
+
+    public $timestamps = false;
+
+    public function userinfo() {
+        return $this-&amp;gt;hasOne(&#39;Userinfo&#39;);
+    }
+
+}
+
+class Userinfo extends Eloquent {
+
+    protected $connection = DATABASE;
+
+    protected $table = &#39;user_info&#39;;
+
+    public function user() {
+        return $this-&amp;gt;belongsTo(&#39;User&#39;);
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;當資料表有關聯，可以透過function設定關係，上例關係是User有一個Userinfo，而Userinfo也相依於User，如此在使用時可利用下例程式碼存取到userinfo的資料，&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;User::with(&#39;userinfo&#39;)-&amp;gt;find(1)-&amp;gt;first();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;若是沒有設定，也可以利用下利存取，但似乎就比較沒有彈性。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;User::leftJoin(&#39;user_info as info&#39;)-&amp;gt;find(1).first();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;累了&amp;hellip;連laravel都沒紀錄完&amp;hellip;.下回再打&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

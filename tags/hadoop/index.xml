@@ -1,0 +1,1023 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hadoop on Hello World!!</title>
+    <link>http://localhost:1313/tags/hadoop/</link>
+    <description>Recent content in Hadoop on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Thu, 18 Jul 2013 14:54:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/hadoop/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>使用Sqoop將MySQL資料匯入Hbase</title>
+      <link>http://localhost:1313/post/hadoop/shi_yong_sqoop_jiang_mysql_zi_liao_hui_ru_hbase/</link>
+      <pubDate>Thu, 18 Jul 2013 14:54:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/hadoop/shi_yong_sqoop_jiang_mysql_zi_liao_hui_ru_hbase/</guid>
+      <description>
+
+&lt;p&gt;想要使用MapReduce運算Hbase的資料，但若是原本資料在別種資料庫該怎麼辦呢，在龐大的Hadoop家族中&lt;a href=&#34;http://sqoop.apache.org/&#34;&gt;Sqoop&lt;/a&gt;就是完成這一個任務，他有提供各種資料庫匯入至Hbase的功能。&lt;/p&gt;
+
+&lt;p&gt;因為我慣用MySQL所以還是拿MySQL當作範例，因為我是蠻久之前試玩的，所以是用舊的版本。他的安裝非常方便!!&lt;/p&gt;
+
+&lt;h3 id=&#34;安裝sqoop:d95d3a75d7971b7d4bd15e418cd4f581&#34;&gt;安裝Sqoop&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /opt
+$ wget &#39;https://github.com/downloads/cloudera/sqoop/sqoop-1.2.0.tar.gz&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或是到官網&lt;a href=&#34;http://www.apache.org/dyn/closer.cgi/sqoop/&#34;&gt;下載&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tar zxvf sqoop-1.2.0.tar.gz
+$ mv sqoop-1.2.0 sqoop
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;下載&lt;a href=&#34;http://www.java2s.com/Code/Jar/m/Downloadmysqlconnectorjava5115binjar.htm&#34;&gt;mysql-connector-java-5.1.15-bin.jar&lt;/a&gt;並複製到/opt/sqoop/lib，然後就完成囉!! 接下來就測試看看是否能正常運作。&lt;/p&gt;
+
+&lt;h3 id=&#34;測試sqoop:d95d3a75d7971b7d4bd15e418cd4f581&#34;&gt;測試Sqoop&lt;/h3&gt;
+
+&lt;p&gt;列出資料表&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/sqoop/bin/sqoop list-tables --connect jdbc:mysql://127.0.0.1/test -P --username test
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;匯入資料表&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/sqoop/bin/sqoop import --connect jdbc:mysql://127.0.0.1/test --username test --table table_name --hive-import
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;匯入資料表時下WHERE&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/sqoop/bin/sqoop import --connect jdbc:mysql://127.0.0.1/test --username test --table table_name --hive-import --query &#39;SELECT * FROM `table_name` where flow_no &amp;gt; 1 AND flow_no  但是我測試過後...無法轉換換行阿..看官網是說sqoop 1.3才有支援，但是hadoop 0.20 並不支援sqoop 1.3一整個無言。改天再測試。
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用Sqoop有出現錯誤也可以顯示&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/sqoop/bin/sqoop import --connect jdbc:mysql://127.0.0.1/test --username test --table table_name --hive-import --verbose
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;demo:d95d3a75d7971b7d4bd15e418cd4f581&#34;&gt;Demo&lt;/h3&gt;
+
+&lt;p&gt;因為操作Sqoop是有點煩瑣的，所以我自己用PHP寫了&lt;a href=&#34;http://demo.ocomm.com.tw/hadoop&#34;&gt;Mysql匯入Hbase&lt;/a&gt;的簡單操作界面。&lt;/p&gt;
+
+&lt;h2 id=&#34;發生錯誤:d95d3a75d7971b7d4bd15e418cd4f581&#34;&gt;發生錯誤&lt;/h2&gt;
+
+&lt;p&gt;無法從mysql匯入hbase&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;11/11/11 12:07:59 ERROR tool.ImportTool: Encountered IOException running import job: org.apache.hadoop.mapred.FileAlreadyExistsException:
+Output directory table_name already exists
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以試試看刪除Hbase資料表&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/opt/hadoop/bin/hadoop fs -rmr table_name
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;非單機模式下，必須寫成MySQL位址，不能用localhost&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;--connect jdbc:mysql://mysqlserver_IP/databaseName
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;沒有資料庫的權限會發生下面的錯誤&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;11/11/11 23:22:13 INFO mapred.JobClient: Task Id : attempt_201111112316_0001_m_000004_0, Status : FAILED
+java.io.IOException: SQLException in nextKeyValue
+at com.cloudera.sqoop.mapreduce.db.DBRecordReader.nextKeyValue(DBRecordReader.java:238)
+at org.apache.hadoop.mapred.MapTask$NewTrackingRecordReader.nextKeyValue(MapTask.java:423)
+at org.apache.hadoop.mapreduce.MapContext.nextKeyValue(MapContext.java:67)
+at org.apache.hadoop.mapreduce.Mapper.run(Mapper.java:143)
+at com.cloudera.sqoop.mapreduce.AutoProgressMapper.run(AutoProgressMapper.java:187)
+at org.apache.hadoop.mapred.MapTask.runNewMapper(MapTask.java:621)
+at org.apache.hadoop.mapred.MapTask.run(MapTask.java:305)
+at org.apache.hadoop.mapred.Child.main(Child.java:170)
+Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table &#39;test.tbl_skw_buyer&#39; doesn&#39;t exist
+at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+at java.lang.reflect.Constructor.newInstance(Constructor.java:513)
+at com.mysql.jdbc.Util.handleNewInstance(Util.java:407)
+at com.mysql.jdbc.Util.getInstance(Util.java:382)
+at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1052)
+at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3603)
+at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3535)
+at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:1989)
+at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2150)
+at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2626)
+at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:2119)
+at com.mysql.jdbc.PreparedStatement.executeQuery(PreparedStatement.java:2281)
+at com.cloudera.sqoop.mapreduce.db.MySQLDataDrivenDBRecordReader.executeQuery(MySQLDataDrivenDBRecordReader.java:50)
+at com.cloudera.sqoop.mapreduce.db.DBRecordReader.nextKeyValue(DBRecordReader.java:225)
+... 7 more
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>使用MapReduce之替代方案Hive</title>
+      <link>http://localhost:1313/post/hadoop/shi_yong_mapreduce_zhi_ti_dai_fang_an_hive/</link>
+      <pubDate>Sun, 23 Jun 2013 22:03:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/hadoop/shi_yong_mapreduce_zhi_ti_dai_fang_an_hive/</guid>
+      <description>
+
+&lt;p&gt;若要操作Hadoop就必須要會&lt;a href=&#34;http://hadoop.apache.org/docs/stable/mapred_tutorial.html&#34;&gt;MapReduce&lt;/a&gt;，很好!!在Hadoop很夯之前相信很多人都對MapReduce非常陌生，沒錯!!那真的是有點困難，但是呢，若我講SQL語言，相信你一定信心十足吧!!&lt;/p&gt;
+
+&lt;p&gt;因此囉，Facebook當初也了這個問題傷透了腦筋，因為要找一個熟悉MapReduce的工程師比找一個會SQL語法的工程師還困難的情況底下，他們想出了應變之道，那就是用極接近SQL語言的方式去操作MapReduce，因為找到會SQL語言的人較容易。&lt;/p&gt;
+
+&lt;p&gt;所以&lt;a href=&#34;http://hive.apache.org/&#34;&gt;Hive&lt;/a&gt;就是為此誕生的，這是Facebook一個部門的研發成果，後來為了讓更多人可以應用，他們將其釋出提供給Apache當作開源項目，讓Hive開始發揚光大，更多的介紹官網都有唷。&lt;/p&gt;
+
+&lt;p&gt;若你看不順眼Hive，你也可以選擇其他的諸如&lt;a href=&#34;http://pig.apache.org/&#34;&gt;PIG&lt;/a&gt;(我不是在罵人&amp;hellip;真的叫PIG)，或是你真的想挑戰MapReduce當然也可以，任君挑選。因為我喜歡Hive的Logo所以囉，我就選他了。&lt;/p&gt;
+
+&lt;h3 id=&#34;建立hive:bf6920ef858d2be2b6cd1fd1449841de&#34;&gt;建立Hive&lt;/h3&gt;
+
+&lt;p&gt;從官網&lt;a href=&#34;http://www.apache.org/dyn/closer.cgi/hive/&#34;&gt;下載&lt;/a&gt;或是&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /opt
+$ wget &#39;http://ftp.stut.edu.tw/var/ftp/pub/OpenSource/apache//hive/hive-0.7.1/hive-0.7.1.tar.gz&#39;
+$ mv hive-0.7.1 /opt/hive
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;安裝ivy:bf6920ef858d2be2b6cd1fd1449841de&#34;&gt;安裝ivy&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /tmp
+$ wget &#39;http://www.apache.org/dist/ant/ivy/2.3.0/apache-ivy-2.3.0-bin-with-deps.tar.gz&#39;
+$ tar zxvf apache-ivy-2.3.0-bin-with-deps.tar.gz
+$ mv apache-ivy-2.3.0 /usr/local
+$ ln -s apache-ivy-2.3.0 ivy
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;配置環境:bf6920ef858d2be2b6cd1fd1449841de&#34;&gt;配置環境&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim ~/.bashrc
+export HIVE_HOME=/opt/hive
+export IVY_HOME=/usr/local/ivy
+export PATH=$HIVE_HOME/bin
+export HIVE_HOME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;修改hive-default-xml:bf6920ef858d2be2b6cd1fd1449841de&#34;&gt;修改hive-default.xml&lt;/h3&gt;
+
+&lt;p&gt;多個Hive節點的數據内容保存在HDFS上，通過配置文件，指向NameNode節點即可，例如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /opt/hive/conf/hive-default.xml
+&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;hive.metastore.warehouse.dir&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;hdfs://master:9000/user/hive/warehouse&amp;lt;/value&amp;gt;/user/hive/warehouse –&amp;gt;
+    &amp;lt;description&amp;gt;Master of default database for the warehouse&amp;lt;/description&amp;gt;&amp;lt;/property&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;使用hive的三種metastore儲存方式:bf6920ef858d2be2b6cd1fd1449841de&#34;&gt;使用Hive的三種Metastore儲存方式&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;使用Derby資料庫儲存數據&lt;/li&gt;
+&lt;li&gt;使用本機的MySQL&lt;/li&gt;
+&lt;li&gt;使用遠端的MySQL&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;我自己熟悉的是MySQL當然就選他囉!!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /opt/hive/conf/hive-site.xml
+&amp;lt;configuration&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;hive.metastore.local&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;true&amp;lt;/value&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;javax.jdo.option.ConnectionURL&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;jdbc:mysql://localhost:3306/hive?useUnicode=true&amp;amp;characterEncoding=UTF-8&amp;lt;/value&amp;gt;&amp;lt;description&amp;gt;JDBC connect string for a JDBC metastore&amp;lt;/description&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;javax.jdo.option.ConnectionDriverName&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;com.mysql.jdbc.Driver&amp;lt;/value&amp;gt;&amp;lt;description&amp;gt;Driver class name for a JDBC metastore&amp;lt;/description&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;javax.jdo.option.ConnectionUserName&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;資料庫account&amp;lt;/value&amp;gt;&amp;lt;description&amp;gt;username to use against metastore database&amp;lt;/description&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;javax.jdo.option.ConnectionPassword&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;資料庫password&amp;lt;/value&amp;gt;&amp;lt;description&amp;gt;password to use against metastore database&amp;lt;/description&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;/configuration&amp;gt;
+
+$ vim /opt/hive/conf/jpox.properties
+javax.jdo.PersistenceManagerFactoryClass=org.jpox.PersistenceManagerFactoryImpl
+org.jpox.autoCreateSchema=false
+org.jpox.validateTables=false
+org.jpox.validateColumns=false
+org.jpox.validateConstraints=false
+org.jpox.storeManagerType=rdbms
+org.jpox.autoCreateSchema=true
+org.jpox.autoStartMechanismMode=checked
+org.jpox.transactionIsolation=read_committed
+javax.jdo.option.DetachAllOnCommit=true
+javax.jdo.option.NontransactionalRead=true
+javax.jdo.option.ConnectionDriverName=org.apache.derby.jdbc.ClientDriver
+javax.jdo.option.ConnectionURL=jdbc:derby://localhost:1527/metastore_db;create=true
+javax.jdo.option.ConnectionUserName=APP
+javax.jdo.option.ConnectionPassword=mine
+org.jpox.cache.level2=true
+org.jpox.cache.level2.type=SOFT
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;有一個需要注意的地方是，需要把一個jar包mysql-connector-java-5.1.15-bin.jar複製到hive的lib目錄下才行，否則執行語句的時候會出錯，範例如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;hive&amp;gt; show tables;
+FAILED: Error in metadata: javax.jdo.JDOFatalInternalException: Error creating transactional connection factory
+NestedThrowables:
+java.lang.reflect.InvocationTargetException
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;我當時安装MYSQL的时候是使用RPM来安装的，没找到mysql-connector-java-5.1.15-bin.jar。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;在mysql建立hive資料庫並且設定語系:bf6920ef858d2be2b6cd1fd1449841de&#34;&gt;在MySQL建立Hive資料庫並且設定語系&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;character_set_server                = latin1
+collation_server                    = latin1_swedish_ci
+default_character_set               = latin1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;讓thrift使用hive:bf6920ef858d2be2b6cd1fd1449841de&#34;&gt;讓Thrift使用Hive&lt;/h3&gt;
+
+&lt;p&gt;修改/opt/hive/src/metastore/if/hive_metastore.thrift第6行，依實際路徑修改&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;include &amp;quot;/opt/thrift/contrib/fb303/if/fb303.thrift&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;開始產生Thrift使用的Hive程式碼&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkdir /opt/thrift/packages/
+$ cd /opt/thrift/packages/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Generate code並將目錄搬至packages&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ thrift --gen php /opt/thrift/contrib/fb303/if/fb303.thrift
+$ cp -r gen-php/fb303 ./fb303
+$ thrift --gen php -I include /opt/hive/src/metastore/if/hive_metastore.thrift
+$ cp -r gen-php/hive_metastore ./hive_metastore
+$ thrift --gen php -I include /opt/hive/src/service/if/hive_service.thrift
+$ cp -r gen-php/hive_service ./hive_service
+$ thrift --gen php -I include /opt/hive/src/ql/if/queryplan.thrift
+$ cp -r gen-php/queryplan ./queryplan
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;修改/opt/hive/src/metastore/if/hive_metastore.thrift第27行，依實際路徑修改&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;include &amp;quot;/opt/hive/src/metastore/if/hive_metastore.thrift&amp;quot;
+include &amp;quot;/opt/hive/src/ql/if/queryplan.thrift&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;新增hive-thrift執行檔:bf6920ef858d2be2b6cd1fd1449841de&#34;&gt;新增hive-thrift執行檔&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /etc/init.d/hive-thrift
+#!/bin/bash
+# init script for Hive Thrift Interface.
+#
+# chkconfig: 2345 90 10
+# description: Hive Thrift Interface
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Paths to configuration, binaries, etc
+HIVE_BIN=/usr/bin/hive
+HIVE_ARGS=&amp;quot;--service hiveserver&amp;quot;
+HIVE_LOG=/var/log/hive-thrift.log
+HIVE_USER=&amp;quot;hadoop&amp;quot;
+ANT_LIB=/usr/share/java
+
+if [ ! -f $HIVE_BIN ]; then
+  echo &amp;quot;File not found: $HIVE_BIN&amp;quot;
+  exit 1
+fi
+
+# pid file for /sbin/runuser
+pidfile=${PIDFILE-/var/run/hive-thrift.pid}
+# pid file for the java child process.
+pidfile_java=${PIDFILE_JAVA-/var/run/hive-thrift-java.pid}
+RETVAL=0
+
+start() {
+  # check to see if hive is already running by looking at the pid file and grepping
+  # the process table.
+  if [ -f $pidfile_java ] &amp;amp;&amp;amp; checkpid `cat $pidfile_java`; then
+    echo &amp;quot;hive-thrift is already running&amp;quot;
+    exit 0
+  fi
+  echo -n {1}quot;Starting $prog: &amp;quot;
+  /sbin/runuser -s /bin/sh -c &amp;quot;$HIVE_BIN $HIVE_ARGS&amp;quot; $HIVE_USER &amp;gt;&amp;gt; $HIVE_LOG 2&amp;gt;&amp;amp;1 &amp;amp;
+  runuser_pid=$!
+  echo $runuser_pid &amp;gt; $pidfile
+  # sleep so the process can make its way to the process table.
+  usleep 500000
+  # get the child Java process that /usr/bin/hive started.
+  java_pid=$(ps -eo pid,ppid,fname | awk &amp;quot;{ if (\$2 == $runuser_pid &amp;amp;&amp;amp; \$3 ~ /java/) { print \$1 } }&amp;quot;)
+  echo $java_pid &amp;gt; $pidfile_java
+  disown -ar
+  # print status information.
+  ps aux | grep $java_pid &amp;amp;&amp;gt; /dev/null &amp;amp;&amp;amp; echo_success || echo_failure
+  RETVAL=$?
+  echo
+  return $RETVAL
+}
+
+stop() {
+  # check if the process is already stopped by seeing if the pid file exists.
+  if [ ! -f $pidfile_java ]; then
+    echo &amp;quot;hive-thrift is already stopped&amp;quot;
+    exit 0
+  fi
+  echo -n {1}quot;Stopping $prog: &amp;quot;
+  if kill `cat $pidfile` &amp;amp;&amp;amp; kill `cat $pidfile_java`; then
+    RETVAL=0
+    echo_success
+  else
+    RETVAL=1
+    echo_failure
+  fi
+  echo
+  [ $RETVAL = 0 ] &amp;amp;&amp;amp; rm -f ${pidfile} ${pidfile_java}
+}
+
+status_fn() {
+  if [ -f $pidfile_java ] &amp;amp;&amp;amp; checkpid `cat $pidfile_java`; then
+    echo &amp;quot;hive-thrift is running&amp;quot;
+    exit 0
+  else
+    echo &amp;quot;hive-thrift is stopped&amp;quot;
+    exit 1
+  fi
+}
+
+case &amp;quot;$1&amp;quot; in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  status)
+    status_fn
+    ;;
+  restart)
+    stop
+    start
+    ;;
+  *)
+    echo {1}quot;Usage: $prog {start|stop|restart|status}&amp;quot;
+    RETVAL=3
+esac
+
+exit $RETVAL
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;更改權限檔案:bf6920ef858d2be2b6cd1fd1449841de&#34;&gt;更改權限檔案&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ touch /var/run/hive-thrift.pid
+$ touch /var/log/hive-thrift.log
+$ touch /var/run/hive-thrift-java.pid
+$ chown hadoop:hadoop /var/run/hive-thrift.pid
+$ chown hadoop:hadoop /var/log/hive-thrift.log
+$ chown hadoop:hadoop /var/run/hive-thrift-java.pid
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;hive的三種執行模式:bf6920ef858d2be2b6cd1fd1449841de&#34;&gt;Hive的三種執行模式&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Hive CLI&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Hive CLI（Hive Command Line)Client可以以直接在命令行模式下進行操作。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;HWI&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;hwi（Hive Web Interface，Hive Web接口），Hive提供了更友善的Web介面&lt;/p&gt;
+
+&lt;p&gt;在hive-site.xml的&lt;configuration&gt;添加項目&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /opt/hive/conf/hive-site.xml
+&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;hive.hwi.war.file&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;lib/hive-hwi-0.7.1.war&amp;lt;/value&amp;gt;&amp;lt;description&amp;gt;This sets the path to the HWI war file, relative to ${HIVE_HOME}. &amp;lt;/description&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;hive.hwi.listen.port&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;9999&amp;lt;/value&amp;gt;&amp;lt;description&amp;gt;This is the port the Hive Web Interface will listen on&amp;lt;/description&amp;gt;&amp;lt;/property&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;啟動HWI服務&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ hive --service hwi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或是在背景啟動hwi服務&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ nohup hive --service hwi &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我的Hive部署在192.168.1.28，Hive默認HWI端口為9999。我们在瀏覽器中輸入&lt;a href=&#34;http://192.168.1.28:9999/hwi/&#34;&gt;http://192.168.1.28:9999/hwi/&lt;/a&gt; 就可以瀏覽了&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;hiveserver&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;hiveserver，Hive提供了Thrift服務，Thrift Client目前支持C++/Java/PHP/Python/Ruby。&lt;/p&gt;
+
+&lt;h3 id=&#34;啟動與停止hive:bf6920ef858d2be2b6cd1fd1449841de&#34;&gt;啟動與停止Hive&lt;/h3&gt;
+
+&lt;p&gt;啟動&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/hive/bin/hive --service start-hive
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;停止&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/hive/bin/hive --service stop-hive
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;hive執行叢集環境:bf6920ef858d2be2b6cd1fd1449841de&#34;&gt;Hive執行叢集環境&lt;/h3&gt;
+
+&lt;p&gt;修改hive-site.xml&lt;/p&gt;
+
+&lt;p&gt;在的&lt;configuration&gt;添加項目&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /opt/hive/conf/hive-site.xml
+&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;hive.zookeeper.quorum&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;master,slave&amp;lt;/value&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;hive.aux.jars.path&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;file:///opt/hive/lib/hive-hbase-handler-0.7.1.jar,file:///opt/hive/lib/zookeeper-3.3.2.jar,file:///opt/hive/lib/hbase-0.90.4.jar&amp;lt;/value&amp;gt;&amp;lt;/property&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;執行所有節點&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/hive/bin/hive –auxpath /opt/lib/hive-hbase-handler-0.7.1.jar,/opt/hive/lib/hbase-0.89.0-SNAPSHOT.jar,/opt/hive/lib/zookeeper-3.3.1.jar -hiveconf hbase.master=127.0.0.1:60000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或是背景執行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ nohup /opt/hive/bin/hive --service hiveserver 9998 -hiveconf hbase.zookeeper.quorum=master,slave &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;將hive-thrift新增至服務中並設開機啟動:bf6920ef858d2be2b6cd1fd1449841de&#34;&gt;將hive-thrift新增至服務中並設開機啟動&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ chmod +x /etc/init.d/hive-thrift
+$ chkconfig --add hive-thrift
+$ chkconfig hive-thrift on
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;檢查是否有執行hive:bf6920ef858d2be2b6cd1fd1449841de&#34;&gt;檢查是否有執行Hive&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ jps
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果有出現RunJar則執行成功&lt;/p&gt;
+
+&lt;h2 id=&#34;發生錯誤:bf6920ef858d2be2b6cd1fd1449841de&#34;&gt;發生錯誤&lt;/h2&gt;
+
+&lt;p&gt;如果資料寫不進去試著把/tmp/root裡面的log刪掉&lt;/p&gt;
+
+&lt;p&gt;參考教學：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://blog.csdn.net/liuzhoulong/article/details/6441914&#34;&gt;http://blog.csdn.net/liuzhoulong/article/details/6441914&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hadoop 溝通橋梁之 Thrift 0.7</title>
+      <link>http://localhost:1313/post/hadoop/hadoop_gou_tong_qiao_liang_zhi_thrift_0__7/</link>
+      <pubDate>Tue, 18 Jun 2013 11:57:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/hadoop/hadoop_gou_tong_qiao_liang_zhi_thrift_0__7/</guid>
+      <description>
+
+&lt;p&gt;會建置&lt;a href=&#34;http://thrift.apache.org/&#34;&gt;Thrift&lt;/a&gt;是因為我希望用PHP向&lt;a href=&#34;http://localhost:1313/post/94170575263/hadoop-hbase&#34;&gt;Hadoop + Hbase 叢集環境&lt;/a&gt;溝通。Thrift是全世界第一大國Facebook釋出的開源項目之一，主要用來串接不同語言，讓他們之間能互相溝通。&lt;/p&gt;
+
+&lt;p&gt;這裡我就是用來讓PHP也能使用MapReduce和Hbase溝通的。在安裝的時候吃了不少苦頭阿&amp;hellip;腦細胞死了不少。就算現在再架設一遍，我相信會再痛苦一次的。&lt;/p&gt;
+
+&lt;h3 id=&#34;檢查並安裝依賴的函式庫:14ad9850c721b258d32c3b325d864d9b&#34;&gt;檢查並安裝依賴的函式庫&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ yum search libboost
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;libboost c++的函式庫&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code&gt;$ yum search yacc
+$ yum search flex
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;make時會用到&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code&gt;$ yum search autoconf
+$ yum search automake
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;automake 1.9以上actomake必須安裝2.6以上版本否則Compiler出錯。如果没有可自行編譯安装&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code&gt;$ yum search libtool
+$ yum search flex
+$ yum search bison
+$ yum search g++
+$ yum search gcc-c++
+$ yum search python-devel
+$ yum search libevent-devel
+$ yum search zlib-devel
+$ yum search ruby-devel
+
+$ yum install automake libtool flex bison pkgconfig g++ gcc-c++ boost-devel libevent-devel zlib-devel python-devel ruby-devel
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安裝全部套件後還是不能用再試試看，這個Compiler會超久&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ wget &#39;http://downloads.sourceforge.net/project/boost/boost/1.45.0/boost_1_45_0.tar.bz2&#39;
+$ tar jxf boost_1_45_0.tar.bz2
+$ cd boost_1_45_0
+Build Boost:
+$ ./bootstrap.sh
+$ ./bjam
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;建立thrift:14ad9850c721b258d32c3b325d864d9b&#34;&gt;建立Thrift&lt;/h3&gt;
+
+&lt;p&gt;官網&lt;a href=&#34;http://thrift.apache.org/download/&#34;&gt;下載&lt;/a&gt;或是&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /opt
+$ wget &#39;http://apache.stu.edu.tw//thrift/0.7.0/thrift-0.7.0.tar.gz&#39;
+$ mv thrift-0.7.0 /opt/thrift
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;沒錯，我通通都放到opt底下囉。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;5.0以後的版本應該不用底下的檢查了(可見得我已經記錄多久了)&lt;/p&gt;
+
+&lt;p&gt;檢查/opt/thrift/底下有沒有bootstrap.sh，沒有再複製&lt;/p&gt;
+
+&lt;p&gt;$ cp /opt/thrift/contrib/fb303/bootstrap.sh /opt/thrift/
+執行bootstrap.sh&lt;/p&gt;
+
+&lt;p&gt;$ ./bootstrap.sh
+    $ cd /opt/thrift
+    $ cp -r /opt/hbase/src/main/java/org/apache/hadoop/hbase/thrift ./hbase_thrift_src
+    $ cd hbase_thrift_src&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;generate-code:14ad9850c721b258d32c3b325d864d9b&#34;&gt;Generate code&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ thrift --gen php /opt/hbase/src/main/resources/org/apache/hadoop/hbase/thrift/Hbase.thrift
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;檢查環境:14ad9850c721b258d32c3b325d864d9b&#34;&gt;檢查環境&lt;/h3&gt;
+
+&lt;p&gt;檢查hbase-env.sh&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /opt/hbase/conf/hbase-env.sh
+export JAVA_HOME=/usr/java/jdk1.6.0_26
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;檢查.bashrc&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim ~/.bashrc
+JAVA=$JAVA_HOME/bin/java
+export JAVA_HOME=/usr/java/jdk1.6.0_26
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;忘了的同學請回顧&lt;a href=&#34;http://alanmoment.ocomm.com.tw/post/94169976403/centos-5-5-hadoop-0-20&#34;&gt;CentOS 5.5 + Hadoop&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;複製產生的php程式碼到專案:14ad9850c721b258d32c3b325d864d9b&#34;&gt;複製產生的PHP程式碼到專案&lt;/h3&gt;
+
+&lt;p&gt;複製到/var/www/hbase內&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkdir /var/www/hbase
+$ chown $USER:$USER /var/www/hbase
+$ cp -r /opt/thrift/lib/php/src /var/www/hbase/thrift
+$ mkdir /var/www/hbase/thrift/packages
+$ cp -r /opt/thrift/hbase_thrift_src/gen-php/* /var/www/hbase/thrift/packages/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;啟動thrift:14ad9850c721b258d32c3b325d864d9b&#34;&gt;啟動Thrift&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/hbase/bin/hbase thrift start
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;要在背景執行請在start加上&amp;amp;&lt;/p&gt;
+
+&lt;h3 id=&#34;測試:14ad9850c721b258d32c3b325d864d9b&#34;&gt;測試&lt;/h3&gt;
+
+&lt;p&gt;複製DemoClient.php 到測試目錄/var/www/hbase/&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cp /opt/hbase/src/examples/thrift/DemoClient.php /var/www/hbase/DemoClient.php
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;發生錯誤:14ad9850c721b258d32c3b325d864d9b&#34;&gt;發生錯誤&lt;/h2&gt;
+
+&lt;p&gt;發生過無法啟動的時候，我是重新複製lib&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rm /opt/hbase/lib/hadoop-core-0.20-*
+$ cp /opt/hadoop/hadoop-0.20.2-core.jar  ./
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;參考教學：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://sites.google.com/site/waue0920/Home/hbase/hadoop-hbase-thrift-php-an-zhuang-she-ding-cheng-shi-she-ji&#34;&gt;http://sites.google.com/site/waue0920/Home/hbase/hadoop-hbase-thrift-php-an-zhuang-she-ding-cheng-shi-she-ji&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://blog.sina.com.cn/s/blog_5dce657a0100f0ou.html&#34;&gt;http://blog.sina.com.cn/s/blog_5dce657a0100f0ou.html&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hadoop &#43; Hbase 叢集環境</title>
+      <link>http://localhost:1313/post/hadoop/hadoop_&#43;_hbase_cong_ji_huan_jing/</link>
+      <pubDate>Mon, 17 Jun 2013 14:32:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/hadoop/hadoop_&#43;_hbase_cong_ji_huan_jing/</guid>
+      <description>
+
+&lt;p&gt;這是配合著&lt;a href=&#34;http://localhost:1313/post/94169976403/centos-5-5-hadoop-0-20&#34;&gt;CentOS 5.5 + Hadoop 0.20&lt;/a&gt;以及&lt;a href=&#34;http://localhost:1313/post/94170198668/centos-5-5-hbase-0-94-8&#34;&gt;CentOS 5.5 + Hbase 0.94.8&lt;/a&gt;建立的叢集系統，為了方便記錄，所以我分開介紹囉。但記錄畢竟有點久了，有些步驟還需要再架一次才會更正確。&lt;/p&gt;
+
+&lt;p&gt;因為Hadoop本身的優勢將文件的儲存和任務處理分散化，Hadoop分散式架構中有兩種負責不同功能的服務器Master服務器和Slave服務器，安裝時假設要為2台服務器安裝Hadoop架構。&lt;/p&gt;
+
+&lt;p&gt;本篇環境介紹&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;安裝了Java 1.6.x,或以後的版本&lt;/li&gt;
+&lt;li&gt;兩台服務器名稱為master和slave&lt;/li&gt;
+&lt;li&gt;兩台服務器操作系統均為centos5.*且版本大於等於5.4&lt;/li&gt;
+&lt;li&gt;master將作為master主服務器使用，slave將作為slave服務器使用:&lt;/li&gt;
+&lt;li&gt;master和slave的wget命令均可正常使用&lt;/li&gt;
+&lt;li&gt;master和slave均正常運行且可正確聯繫&lt;/li&gt;
+&lt;li&gt;master和slave空間足夠&lt;/li&gt;
+&lt;li&gt;master和slave均已獲取root權限&lt;/li&gt;
+&lt;li&gt;master的ip位址為192.168.1.28，slave的ip位址為192.168.1.29&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;設置環境變數:69b3968cbee1443572d3ffc2f317d826&#34;&gt;設置環境變數&lt;/h3&gt;
+
+&lt;p&gt;設置hosts在Master和slave的/etc/hosts下共同增加&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /etc/hosts
+192.168.1.28 master
+192.168.1.29 slave
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;修改master的hostname文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /etc/hostname
+master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;修改slave的hostname文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /etc/hostname
+slave
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;免密碼登入遠端電腦:69b3968cbee1443572d3ffc2f317d826&#34;&gt;免密碼登入遠端電腦&lt;/h3&gt;
+
+&lt;p&gt;請參考&lt;a href=&#34;http://localhost:1313/post/94170433873/ssh免密碼登入遠端電腦&#34;&gt;SSH免密碼登入遠端電腦&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;重新配置hadoop:69b3968cbee1443572d3ffc2f317d826&#34;&gt;重新配置Hadoop&lt;/h3&gt;
+
+&lt;p&gt;配置core-site.xml，在&lt;configuration&gt;節點下添加&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /opt/hadoop/conf/core-site.xml
+&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;hadoop.tmp.dir&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;/home/hadoop-${user.name}&amp;lt;/value&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;fs.default.name&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;hdfs://master:9000&amp;lt;/value&amp;gt;&amp;lt;/property&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;配置mapred-site.xml，在&lt;configuration&gt;節點下添加&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /opt/hadoop/conf/mapred-site.xml
+&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;mapred.job.tracker&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;master:9001&amp;lt;/value&amp;gt;&amp;lt;/property&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;修改master文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /opt/hadoop/conf/master
+master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;修改slaves&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /opt/hadoop/conf/slaves
+slave
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;修改内容，注意不是添加是更改&lt;/p&gt;
+
+&lt;h3 id=&#34;重新配置hbase:69b3968cbee1443572d3ffc2f317d826&#34;&gt;重新配置Hbase&lt;/h3&gt;
+
+&lt;p&gt;配置hbase-env.sh&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /opt/hbase/conf/hbase-env.sh
+export JAVA_HOME=/usr/lib/jvm/java-6-sun
+export HADOOP_CONF_DIR=/opt/hadoop/conf
+export HBASE_HOME=/opt/hbase
+export HBASE_LOG_DIR=/var/hadoop/hbase-logs
+export HBASE_PID_DIR=/var/hadoop/hbase-pids
+export HBASE_MANAGES_ZK=true
+export HBASE_CLASSPATH=$HBASE_CLASSPATH:/opt/hadoop/conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;配置hbase-site.xml，在&lt;configuration&gt;節點下添加&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /opt/hbase/conf/hbase-site.xml
+&amp;lt;configuration&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;hbase.rootdir&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;hdfs://master:9000/hbase&amp;lt;/value&amp;gt;&amp;lt;description&amp;gt;The directory shared by region servers.
+        &amp;lt;/description&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;hbase.tmp.dir&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;/var/hadoop/hbase-${user.name}&amp;lt;/value&amp;gt;&amp;lt;description&amp;gt;Temporary directory on the local filesystem.&amp;lt;/description&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;hbase.cluster.distributed&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;true&amp;lt;/value&amp;gt;&amp;lt;description&amp;gt;The mode the cluster will be in. Possible values are
+          false: standalone and pseudo-distributed setups with managed Zookeeper
+          true: fully-distributed with unmanaged Zookeeper Quorum (see hbase-env.sh)
+            &amp;lt;/description&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;hbase.zookeeper.property.clientPort&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;2222&amp;lt;/value&amp;gt;&amp;lt;description&amp;gt;Property from ZooKeeper&#39;s config zoo.cfg.
+        &amp;lt;/description&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;hbase.zookeeper.quorum&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;master,slave&amp;lt;/value&amp;gt;&amp;lt;description&amp;gt;Comma separated list of servers in the ZooKeeper Quorum.
+        &amp;lt;/description&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;hbase.zookeeper.property.dataDir&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;/var/hadoop/hbase-data&amp;lt;/value&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;hbase.master&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;hdfs://master:60000&amp;lt;/value&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;/configuration&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;將hadoop的設定放到hbase內&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /opt/hbase/conf
+$ cp /opt/hadoop/conf/core-site.xml ./
+$ cp /opt/hadoop/conf/hdfs-site.xml ./
+$ cp /opt/hadoop/conf/mapred-site.xml ./
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;替换其中内容，如果有加在slave則會變成Datanode&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /opt/hbase/conf/regionservers
+slave
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣就算一台Hbase的叢集環境了&lt;/p&gt;
+
+&lt;h3 id=&#34;安裝第二台電腦-slave:69b3968cbee1443572d3ffc2f317d826&#34;&gt;安裝第二台電腦：slave&lt;/h3&gt;
+
+&lt;p&gt;複製第一台電腦的所有設定到此台機器內，因此於第二台電腦下指令&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /opt/
+$ scp -R 192.168.1.28:/opt/hbase ./
+$ chown $USER:$USER ./hbase
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在第一台電腦master電腦啟動Hbase叢集&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/hbase/bin/start-hbase.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;若沒有出現錯誤訊息，代表成功，完整的程序可用jps來看。在第一台電腦上執行jps可以看到&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ jps
+HQuorumPeer
+HRegionServer
+NameNode
+HMaster
+JobTracker
+DataNode
+TaskTracker
+Jps
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;參考教學：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sites.google.com/site/waue0920/Home/hbase/hbase-cong-ji-an-zhuang&#34;&gt;https://sites.google.com/site/waue0920/Home/hbase/hbase-cong-ji-an-zhuang&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>CentOS 5.5 &#43; Hbase 0.94.8</title>
+      <link>http://localhost:1313/post/hadoop/centos_55_&#43;_hbase_0948/</link>
+      <pubDate>Sat, 15 Jun 2013 23:57:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/hadoop/centos_55_&#43;_hbase_0948/</guid>
+      <description>
+
+&lt;p&gt;本篇與&lt;a href=&#34;http://localhost:1313/post/94169976403/centos-5-5-hadoop-0-20&#34;&gt;CentOS 5.5 + Hadoop 0.20&lt;/a&gt;其實是同一時期的，Hbase有別於RDBMS資料庫，底層是使用了分散式的檔案系統(Hadoop HDFS)，他把不同的表拆成很多份，由不同的伺服器各自負責存取部分的資料，藉由這樣達到分散式架構，提高效能。詳細功能&lt;a href=&#34;http://hbase.apache.org/&#34;&gt;官網&lt;/a&gt;都有說明喔!&lt;/p&gt;
+
+&lt;p&gt;本篇預設環境：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;已經安裝了Java 1.6.x,或以後的版本&lt;/li&gt;
+&lt;li&gt;hosts改為slave&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;建立hbase:00ed51604718cd219000d76216a979cc&#34;&gt;建立Hbase&lt;/h3&gt;
+
+&lt;p&gt;一樣為Hbase找個家吧，從官網下載下來。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /opt
+$ wget &#39;http://apache.cdpa.nsysu.edu.tw/hbase/stable/hbase-0.94.8.tar.gz&#39;
+$ mv hbase-0.94.8 hbase
+$ mkdir -p /usr/local/hbase
+$ chown -R $USER:$USER /opt/hbase
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;進入conf配置hbse-env.sh&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /opt/hbase/conf/hbase-env.sh
+export HBASE_HOME=/opt/hbase
+export JAVA_HOME=/usr/java/jdk1.x.x_xx
+export HBASE_MANAGES_ZK=true #用Hbase的zookeeper
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;進入conf配置regionservers替换其中内容&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /opt/hbase/conf/regionservers
+slave
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;進入conf配置hbase-site.xml&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /opt/hbase/conf/hbase-site.xml
+&amp;lt;configuration&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;hbase.rootdir&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;hdfs://slave:9000/hbase&amp;lt;/value&amp;gt;&amp;lt;description&amp;gt;The directory shared by region servers.&amp;lt;/description&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;hbase.tmp.dir&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;/var/hadoop/hbase-${user.name}&amp;lt;/value&amp;gt;&amp;lt;description&amp;gt;Temporary directory on the local filesystem.&amp;lt;/description&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;hbase.cluster.distributed&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;true&amp;lt;/value&amp;gt;&amp;lt;description&amp;gt;The mode the cluster will be in. Possible values are false: standalone and pseudo-distributed setups with managed Zookeeper true: fully-distributed with unmanaged Zookeeper Quorum (see hbase-env.sh)&amp;lt;/description&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;hbase.zookeeper.property.clientPort&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;2222&amp;lt;/value&amp;gt;&amp;lt;description&amp;gt;Property from ZooKeeper&#39;s config zoo.cfg.&amp;lt;/description&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;hbase.zookeeper.quorum&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;slave&amp;lt;/value&amp;gt;&amp;lt;description&amp;gt;Comma separated list of servers in the ZooKeeper Quorum.&amp;lt;/description&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;/configuration&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣就配置完成了，接下來就啟動Hbase吧&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/hbase/bin/start-hbase.sh
+root@localhost&#39;s password:
+localhost: starting zookeeper, logging to /usr/local/hbase/bin/../logs/hbase-root-zookeeper-localhost.localdomain.out
+starting master, logging to /usr/local/hbase/logs/hbase-root-
+...以下省略
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;檢查啟動狀況&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ps aux | grep hbase
+root     24578  3.0  2.7 1191892 28504 ?       Sl   14:07   0:01 /usr/java/jdk1.6.0_23/bin/java -Xmx1000m -XX:+HeapDumpOnOutOfMemoryError -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalMode -XX:
+...以下省略
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;進入管理模式執行help說明&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/hbase/bin/hbase shell
+HBase Shell; enter &#39;help&amp;lt;return&amp;gt;&#39; for list of supported commands.
+Version: 0.94.8, r965666, Mon Jul 19 16:54:48 PDT 2012
+$ hbase(main):001:0&amp;gt; help
+HBASE SHELL COMMANDS:
+...以下省略
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;停止Hbase&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/hbase/bin/stop-hbase.sh
+stopping master..................
+localhost: stopping zookeeper.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這些只是個開端而已&amp;hellip;當初研究的時候Hadoop根本就是一個勢力非常龐大的集團，每個角色(套件)都各司其職，沒有了誰這個集團就什麼也不是，下一次會介紹Hadoop + Hbase的叢集環境配置文章，整理完又有Hive..整理不完吶&lt;del&gt;吶&lt;/del&gt;吶~~&lt;/p&gt;
+
+&lt;h2 id=&#34;發生錯誤:00ed51604718cd219000d76216a979cc&#34;&gt;發生錯誤&lt;/h2&gt;
+
+&lt;p&gt;如果Hbase發生無法put試試看&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/hadoop/bin/hadoop dfs -rmr input
+$ /opt/hadoop/bin/hadoop dfs -put conf input
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或者把/tmp/hadoop-root的目錄刪掉&lt;/p&gt;
+
+&lt;p&gt;參考教學：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://forum.icst.org.tw/phpbb/viewtopic.php?f=21&amp;amp;t=19565&#34;&gt;http://forum.icst.org.tw/phpbb/viewtopic.php?f=21&amp;amp;t=19565&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>CentOS 5.5 &#43; Hadoop 0.20</title>
+      <link>http://localhost:1313/post/hadoop/centos_55_&#43;_hadoop_020/</link>
+      <pubDate>Thu, 13 Jun 2013 23:12:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/hadoop/centos_55_&#43;_hadoop_020/</guid>
+      <description>
+
+&lt;p&gt;緊接著再來一發舊的，這一篇已經是去年的記錄了，當時是因為公司想要導入&lt;a href=&#34;http://hadoop.apache.org/&#34;&gt;Hadoop&lt;/a&gt;分析使用者行為，所以我才開始著手研究，就趁這個時候把他整理一下吧，現在的版本都已經不知道升到多少去了。&lt;/p&gt;
+
+&lt;h3 id=&#34;建立hadoop基本環境:16d94a2519ff8cf73b4711360318ba82&#34;&gt;建立Hadoop基本環境&lt;/h3&gt;
+
+&lt;p&gt;下載&lt;a href=&#34;http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html&#34;&gt;Java JDK&lt;/a&gt;並開始安裝，設置Java使用環境必須要1.6以上，並且重新載入。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./jdk-7u21-linux-i586.rpm
+find / -name java
+/usr/java/jdk1.x.x-xx
+$ ln -s /usr/java/jdk1.x.x-xx /usr/java/jdk
+$ vim ~/.bashrc
+export JAVA_HOME=/usr/java/jdk
+export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
+export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH:$HOME/bin
+export HADOOP_HOME=/opt/hadoop
+$ source ~/.bashrc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;建立hadoop帳號，設定SSH，切換為 hadoop 身分，或直接使用root&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ yum -y install openssh
+$ su  hadoop
+$ passwd  hadoop
+$ ssh-keygen -t dsa -P &#39;&#39; -f ~/.ssh/id_dsa
+Generating public/private dsa key pair.
+Enter file in which to save the key (/home/ hadoop/.ssh/id_dsa):
+Enter passphrase (empty for no passphrase):   &amp;gt; ~/.ssh/authorized_keys
+$ chmod 600 .ssh/authorized_keys
+$ ssh hadoop@localhost
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;找一個讓Hadoop安身立命的好地方，這邊我是放在opt底下，下載後解壓縮&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /opt
+$ wget &#39;http://apache.ntu.edu.tw/hadoop/core/hadoop-0.20.2/hadoop-0.20.2.tar.gz&#39;
+$ tar xzvf hadoop-0.20.2.tar.gz
+$ mv hadoop-0.20.2 hadoop
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;設置hadoop-env.sh在文件最末端加上&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /opt/hadoop/conf/hadoop-env.sh
+export JAVA_HOME=/usr/java/jdk1.x.x-xx
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;測試一下hadoop可否執行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/hadoop/bin/hadoop
+Usage: hadoop [--config confdir] COMMAND
+where COMMAND is one of:
+...以下省略
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;測試 Local (Standalone) Mode，此模式下每個 Hadoop daemon 執行在一個分離的 Java 程序中。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkdir /opt/hadoop/input
+$ cp /opt/hadoop/conf/*.xml input
+$ bin/hadoop jar hadoop-*-examples.jar grep input output &#39;dfs[a-z.]+&#39;
+10/02/22 10:47:42 INFO jvm.JvmMetrics: Initializing JVM Metrics with processName
+以下省略
+$ cat /opt/hadoop/output/*
+1       dfsadmin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;更改config檔&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /opt/hadoop/conf/core-site.xml
+&amp;lt;configuration&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;fs.default.name&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;hdfs://localhost:9000&amp;lt;/value&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;/configuration&amp;gt;
+
+$ vim /opt/hadoop/conf/hdfs-site.xml
+&amp;lt;configuration&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;dfs.replication&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;1&amp;lt;/value&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;/configuration&amp;gt;
+
+$ vim /opt/hadoop/conf/mapred-site.xml
+&amp;lt;configuration&amp;gt;&amp;lt;property&amp;gt;&amp;lt;name&amp;gt;mapred.job.tracker&amp;lt;/name&amp;gt;&amp;lt;value&amp;gt;localhost:9001&amp;lt;/value&amp;gt;&amp;lt;/property&amp;gt;&amp;lt;/configuration&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;格式化分散式檔案系統&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/hadoop/bin/hadoop namenode -format
+10/02/22 11:02:36 INFO namenode.NameNode: STARTUP_MSG:
+/************************************************************
+...以下省略
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;啟動 hadoop daemons&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/hadoop/bin/start-all.sh
+namenode running as process 17390. Stop it first.
+localhost: datanode running as process 17514. Stop it first.
+...以下省略
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;瀏覽管理介面並開始測試:16d94a2519ff8cf73b4711360318ba82&#34;&gt;瀏覽管理介面並開始測試&lt;/h3&gt;
+
+&lt;p&gt;NameNode：&lt;a href=&#34;http://localhost:50070/&#34;&gt;http://localhost:50070/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;JobTracker：&lt;a href=&#34;http://localhost:50030/&#34;&gt;http://localhost:50030/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;複製檔案到分散式檔案系統&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/hadoop/bin/hadoop fs -put conf input
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;執行範例jar檔測試是否正常&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/hadoop/bin/hadoop jar hadoop-*-examples.jar grep input output &#39;dfs[a-z.]+&#39;
+10/02/22 11:10:07 INFO mapred.FileInputFormat: Total input paths to process : 13
+10/02/22 11:10:07 INFO mapred.JobClient: Running job: job_201002221103_0001
+...以下省略
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;從分散式檔案系統拷貝檔案到本機檔案系統檢驗&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/hadoop/bin/hadoop fs -get output output
+$ cat output/*
+cat: output/output: Is a directory
+1       dfsadmin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在分散式檔案系統上檢驗輸出檔案&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/hadoop/bin/hadoop fs -cat output/*
+cat: File does not exist: output/output
+3       dfs.class
+2       dfs.period
+1       dfs.file
+1       dfs.replication
+1       dfs.servers
+1       dfsadmin
+1       dfsmetrics.log
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;停止hadoop&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ /opt/hadoop/bin/stop-all.sh
+stopping jobtracker
+localhost: stopping tasktracker
+stopping namenode
+localhost: stopping datanode
+localhost: stopping secondarynamenode
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;發生錯誤:16d94a2519ff8cf73b4711360318ba82&#34;&gt;發生錯誤&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;有關於IP位址的都需要用網域取代否則會讀不到&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;若啟動時出現要輸入密碼，是因為沒有authorized_keys&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;參考教學：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://sls.weco.net/CollectiveNote20/MR&#34;&gt;http://sls.weco.net/CollectiveNote20/MR&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://forum.icst.org.tw/phpbb/viewtopic.php?f=10&amp;amp;t=17974&#34;&gt;http://forum.icst.org.tw/phpbb/viewtopic.php?f=10&amp;amp;t=17974&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

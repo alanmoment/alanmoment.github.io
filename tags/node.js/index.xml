@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Node.Js on Hello World!!</title>
+    <link>http://localhost:1313/tags/node/index.js/</link>
+    <description>Recent content in Node.Js on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Wed, 10 Jul 2013 17:04:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/node.js/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>CentOS 安装 Node.js 0.8.5</title>
+      <link>http://localhost:1313/post/javascript/centos_an_zhuang_node__js_0__8__5/</link>
+      <pubDate>Wed, 10 Jul 2013 17:04:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/javascript/centos_an_zhuang_node__js_0__8__5/</guid>
+      <description>
+
+&lt;p&gt;很久很久以前，開發過社交網站，當時以Facebook與Plurk當作目標(瘋了)，但是最後還是以失敗收場。&lt;/p&gt;
+
+&lt;p&gt;那時候研究過Facebook與Plurk的留言機制，一直苦無方案可以解決&amp;rdquo;即時&amp;rdquo;的問題&amp;hellip;也猜不透他們到底是怎麼做到的，一定有人說明明就很多方法，但那是四年前吶&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;當時還試圖用Ajax來解決，發現!!可以耶。開心之餘的測試下。第二個人再來請求就死翹翹了&amp;hellip;因為用timer會使的請求網頁一直處於等待回應的狀態。&lt;/p&gt;
+
+&lt;p&gt;於是呢&amp;hellip;又重頭來開始找方法，最後皇天不負苦心人(已經快要爆肝)發現了&lt;a href=&#34;http://nodejs.org/&#34;&gt;Node.js&lt;/a&gt;它有worker的機制，當時他還在0.2.2的版本呢!有夠古老。所以現在來回味一下!!&lt;/p&gt;
+
+&lt;h3 id=&#34;安装node-js前置作業:d173ccf0c93baced798c346e6e1acdbb&#34;&gt;安装Node.js前置作業&lt;/h3&gt;
+
+&lt;p&gt;Node.js 0.8.5的安裝，需要python 2.7，大部分安装失敗，都是因為python版本過低。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python -V
+Python 2.4.3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Node.js 0.8.5依賴的library&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ yum install -y bzip2*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;開始安裝python&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ wget http://www.python.org/ftp/python/2.7.3/Python-2.7.3.tgz
+$ tar zvxf Python-2.7.3.tgz
+$ cd Python-2.7.3
+$ ./configure
+$ make &amp;amp;&amp;amp; make install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;因為系統預設是指向2.4.3，所以要重新建立連接，但是yum是在python 2.4.3才可以正常使用，所以不要隨便移除。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mv /usr/bin/python  /usr/bin/python.bak
+$ ln -s /usr/local/bin/python2.7 /usr/bin/python
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;檢查python指向是否成功&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python -V
+Python 2.7.3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;安裝node-js:d173ccf0c93baced798c346e6e1acdbb&#34;&gt;安裝Node.js&lt;/h3&gt;
+
+&lt;p&gt;可以到官網選擇合適的版本&lt;a href=&#34;http://nodejs.org/download/&#34;&gt;下載&lt;/a&gt;也可以用&lt;a href=&#34;https://github.com/joyent/node&#34;&gt;github&lt;/a&gt;上的版本。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ wget &#39;http://nodejs.org/dist/v0.8.5/node-v0.8.5.tar.gz&#39;
+$ tar zvxf node-v0.8.5.tar.gz
+$ cd node-v0.8.5./configure
+$ make &amp;amp;&amp;amp; make install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安裝上實在是很簡單，而且不知道為什麼我這次重新體驗安裝Node.js 0.8.5版本沒遇到什麼問題，以前安裝的時候嚐到不少苦頭，但現在要我回想有什麼苦頭我也忘了，總之一切正常就好。&lt;/p&gt;
+
+&lt;h3 id=&#34;安裝nvm:d173ccf0c93baced798c346e6e1acdbb&#34;&gt;安裝NVM&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone git://github.com/creationix/nvm.git ~/.nvm
+$ source ~/.nvm/nvm.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安裝並選擇版本。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ nvm install 0.10
+$ nvm use 0.10
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;查看你有什麼版本&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ nvm ls
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣就完成了&lt;/p&gt;
+
+&lt;h3 id=&#34;helloworld:d173ccf0c93baced798c346e6e1acdbb&#34;&gt;HelloWorld&lt;/h3&gt;
+
+&lt;p&gt;不免俗的要來寫一段世界級的程式碼HelloWorld看Node.js是否可以正常運作。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkdir /var/www/nodejs
+$ cd /var/www/nodejs
+$ vim HelloWorld.js
+var http = require(&#39;http&#39;);
+
+http.createServer(function (req, res) {
+  res.writeHead(200, {
+    &#39;Content-Type&#39;: &#39;text/plain&#39;
+  });
+  res.end(&#39;Hello Node.js&#39;);}).listen(8124, &amp;quot;127.0.0.1&amp;quot;);
+
+console.log(&#39;Server running at http://127.0.0.1:8124/&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接下來啟動這一隻js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ node HelloWorld.js
+Server running at http://127.0.0.1:8124/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;現在你可以打開瀏覽器輸入 &lt;a href=&#34;http://127.0.0.1:8124&#34;&gt;http://127.0.0.1:8124&lt;/a&gt; 這時就可以在command-line看到Hello Node.js的訊息了。&lt;/p&gt;
+
+&lt;p&gt;參考：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager&#34;&gt;https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

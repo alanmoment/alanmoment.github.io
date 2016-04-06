@@ -1,0 +1,1072 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Hello World!!</title>
+    <link>http://localhost:1313/post/</link>
+    <description>Recent content in Posts on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Fri, 25 Mar 2016 14:11:16 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>phabricator-extensions-Sprint 無法抓到正確的 Story Points</title>
+      <link>http://localhost:1313/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</link>
+      <pubDate>Fri, 25 Mar 2016 14:11:16 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</guid>
+      <description>
+
+&lt;p&gt;在版號為 &lt;code&gt;741e2ef4b1150f9a9e4b121218b3ea536289968d&lt;/code&gt; 之後的版本，因為 story points 變更欄位，所以 burndown chart 會沒辦法抓到正確的 point。&lt;/p&gt;
+
+&lt;p&gt;可以在&lt;a href=&#34;https://secure.phabricator.com/T10350&#34;&gt;官方&lt;/a&gt;這邊找到答案，但是並不是環境都一樣，所以必須要調整一下。&lt;/p&gt;
+
+&lt;h2 id=&#34;複製-copy-points-php:aa411f32faf1b5d8c7aa2a14f8b5ff0d&#34;&gt;複製 copy_points.php&lt;/h2&gt;
+
+&lt;p&gt;將&lt;a href=&#34;https://secure.phabricator.com/P1940&#34;&gt;檔案&lt;/a&gt;複製到 phabricator 目錄底下，如果你的資料庫名稱不是 &lt;code&gt;phabricator_maniphest&lt;/code&gt;，那就要修改，第 &lt;code&gt;106&lt;/code&gt; 行，如我就修改為 &lt;code&gt;default_maniphest&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env php
+&amp;lt;?php // See &amp;lt;https://secure.phabricator.com/T10350&amp;gt; for discussion.
+
+require_once &#39;scripts/__init_script__.php&#39;;
+
+$args = new PhutilArgumentParser($argv);
+$args-&amp;gt;parseStandardArguments();
+$args-&amp;gt;parse(
+  array(
+    array(
+      &#39;name&#39;  =&amp;gt; &#39;field&#39;,
+      &#39;param&#39; =&amp;gt; &#39;key&#39;,
+      &#39;help&#39;  =&amp;gt; pht(&#39;Field to migrate.&#39;),
+    )
+  ));
+
+$task = new ManiphestTask();
+$fields = PhabricatorCustomField::getObjectFields(
+  $task,
+  PhabricatorCustomField::ROLE_EDIT);
+
+$field_map = $fields-&amp;gt;getFields();
+$field_list = implode(&#39;, &#39;, array_keys($field_map));
+
+if (!$field_map) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;You do not have any custom fields defined in Maniphest, so there is &#39;.
+      &#39;nowhere that points can be copied from.&#39;));
+}
+
+$field_key = $args-&amp;gt;getArg(&#39;field&#39;);
+if (!strlen($field_key)) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;Use --field to specify which field to copy points from. Available &#39;.
+      &#39;fields are: %s.&#39;,
+      $field_list));
+}
+
+$field = idx($field_map, $field_key);
+if (!$field) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;Field &amp;quot;%s&amp;quot; is not a valid field. Available fields are: %s.&#39;,
+      $field_key,
+      $field_list));
+}
+
+$proxy = $field-&amp;gt;getProxy();
+if (!$proxy) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;Field &amp;quot;%s&amp;quot; is not a standard custom field, and can not be migrated.&#39;,
+      $field_key,
+      $field_list));
+}
+
+if (!($proxy instanceof PhabricatorStandardCustomFieldInt)) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;Field &amp;quot;%s&amp;quot; is not an &amp;quot;int&amp;quot; field, and can not be migrated.&#39;,
+      $field_key,
+      $field_list));
+}
+
+$storage = $field-&amp;gt;newStorageObject();
+$conn_r = $storage-&amp;gt;establishConnection(&#39;r&#39;);
+
+$value_rows = queryfx_all(
+  $conn_r,
+  &#39;SELECT objectPHID, fieldValue FROM %T WHERE fieldIndex = %s
+    AND fieldValue IS NOT NULL&#39;,
+  $storage-&amp;gt;getTableName(),
+  $field-&amp;gt;getFieldIndex());
+$value_map = ipull($value_rows, &#39;fieldValue&#39;, &#39;objectPHID&#39;);
+
+$id_rows = queryfx_all(
+  $conn_r,
+  &#39;SELECT phid, id, points FROM %T&#39;,
+  $task-&amp;gt;getTableName());
+$id_map = ipull($id_rows, null, &#39;phid&#39;);
+
+foreach ($value_map as $phid =&amp;gt; $value) {
+  $dict = idx($id_map, $phid, array());
+  $id = idx($dict, &#39;id&#39;);
+  $current_points = idx($dict, &#39;points&#39;);
+
+  if (!$id) {
+    continue;
+  }
+
+  if ($current_points !== null) {
+    continue;
+  }
+
+  if ($value === null) {
+    continue;
+  }
+
+  $sql = qsprintf(
+    $conn_r,
+    &#39;UPDATE %T.%T SET points = %f WHERE id = %d;&#39;,
+    &#39;phabricator_maniphest&#39;,
+    $task-&amp;gt;getTableName(),
+    $value,
+    $id);
+
+  echo $sql.&amp;quot;\n&amp;quot;;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;更改權限:aa411f32faf1b5d8c7aa2a14f8b5ff0d&#34;&gt;更改權限&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ chmod +x copy_points.php
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;執行:aa411f32faf1b5d8c7aa2a14f8b5ff0d&#34;&gt;執行&lt;/h2&gt;
+
+&lt;p&gt;必須要去套件原始檔去看原始的 &lt;a href=&#34;https://github.com/wikimedia/phabricator-extensions-Sprint/blob/master/src/customfield/SprintTaskStoryPointsField.php&#34;&gt;story point&lt;/a&gt; 欄位是什麼，我查到的結果是 &lt;code&gt;isdc:sprint:storypoints&lt;/code&gt;，所以修改如下。&lt;/p&gt;
+
+&lt;p&gt;另外要注意自己之前輸入 story points 時是否有用到非數字的字元，有的話會出錯，得先去修改。可以在 &lt;code&gt;default_maniphest.maniphest_customfieldstorage&lt;/code&gt; 這張資料表去查看。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./copy_points.php --field isdc:sprint:storypoints &amp;gt; points.sql
+$ cat points.sql # Look at the results and sanity check them.
+$ cat points.sql | mysql -u root
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ditched AngularJS for React</title>
+      <link>http://localhost:1313/post/javascript/ditched_angularjs_for_react/</link>
+      <pubDate>Thu, 03 Sep 2015 00:06:44 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/javascript/ditched_angularjs_for_react/</guid>
+      <description>&lt;p&gt;去年認識並嘗試使用&lt;code&gt;AngularJS&lt;/code&gt;，我每次起步都是直接實作的，超精實!! 因為這讓我可以快速的理解這個東西到底在幹些甚麼，所以我用它來做一張客戶表單。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;AngularJS&lt;/code&gt;在操作 UI 上讓我覺得很驚艷，大概是&lt;code&gt;jQuery&lt;/code&gt;醜陋的程式碼我已經受不了了，而&lt;code&gt;Html&lt;/code&gt;相對的也變得很難整理，因為要在裡頭嵌入很多的&lt;code&gt;ng-xxx&lt;/code&gt;，若是視覺設計交付版面，會產生額外的負擔，而效能上也令我傻眼，這張客戶資料表要完整的載入並開始操作非常的消耗資源…慢到不行，或許是我沒有深入的原因，總之各種原因我放棄了。&lt;/p&gt;
+
+&lt;p&gt;直到最近才有時間嘗試 Facebook 發怖的&lt;a href=&#34;https://facebook.github.io/react/index.html&#34;&gt;React&lt;/a&gt;一用就讓我愛上了…雖然一開始並不熟手，但我一如往常的試作一張客戶表單…實在讓我太感動了…想不到前端的程式碼可以讓我感覺到很舒服，大概是中了&lt;a href=&#34;https://zh.wikipedia.org/wiki/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1&#34;&gt;OOP&lt;/a&gt;的毒。而且 &lt;code&gt;React&lt;/code&gt; + &lt;code&gt;Semantic-UI&lt;/code&gt; 實在太棒啦!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ruby on Rails deploy on Heroku</title>
+      <link>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_deploy_on_heroku/</link>
+      <pubDate>Sat, 16 May 2015 13:16:36 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_deploy_on_heroku/</guid>
+      <description>
+
+&lt;p&gt;好久沒碰 Ruby on Rails 一碰就會有問題，也早就習慣了，昨天晚上把做好很久的網站 Deploy 到 &lt;a href=&#34;https://www.google.com.tw/url?sa=t&amp;amp;rct=j&amp;amp;q=&amp;amp;esrc=s&amp;amp;source=web&amp;amp;cd=1&amp;amp;cad=rja&amp;amp;uact=8&amp;amp;ved=0CBwQFjAA&amp;amp;url=https%3A%2F%2Fwww.heroku.com%2F&amp;amp;ei=2c1WVeaWCoOe8QW3moCoAw&amp;amp;usg=AFQjCNF8-hoB8iHVyZ2dDq3bYi_oSmHVtg&amp;amp;sig2=OTukXXAApyRuS2ZjqBu2eQ&amp;amp;bvm=bv.93564037,d.dGc&#34;&gt;Heroku&lt;/a&gt;，就又出現問題了！有些問題是原本就存在的，還是紀錄一下。&lt;/p&gt;
+
+&lt;h2 id=&#34;osx-安裝-postgresql:396b4ba547ef46fb6949aa6348ba269f&#34;&gt;OSX 安裝 PostgreSQL&lt;/h2&gt;
+
+&lt;p&gt;因為 &lt;a href=&#34;https://devcenter.heroku.com/articles/sqlite3&#34;&gt;Heroku 不支援 Sqlite&lt;/a&gt;，得另外安裝 PostgreSQL，而我原本以為有安裝&lt;a href=&#34;http://postgresapp.com&#34;&gt;應用程式&lt;/a&gt;，就不用特別再安裝，想不到還是出現錯誤了。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ brew install Postgresql
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安裝後還是出現錯誤&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Error loading RubyGems plugin &amp;quot;/Users/alan/.rvm/gems/ruby-2.0.0-p353/gems/executable-hooks-1.3.2/lib/rubygems_plugin.rb&amp;quot;: dlopen(/Users/alan/.rvm/rubies/ruby-2.0.0-p353/lib/ruby/2.0.0/x86_64-darwin13.0.0/openssl.bundle, 9): Symbol not found: _SSLv2_client_method
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Google 到的解決辦法就是 RVM 重裝&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ \curl -L https://get.rvm.io | bash -s stable —ruby
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;postgresql-migrate-test:396b4ba547ef46fb6949aa6348ba269f&#34;&gt;PostgreSQL Migrate Test&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rake db:migrate RAILS_ENV=development
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;部署前準備:396b4ba547ef46fb6949aa6348ba269f&#34;&gt;部署前準備&lt;/h2&gt;
+
+&lt;p&gt;在 application.rb 設定&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ config.serve_static_assets = true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;執行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rake assets:precompile
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;專案底下的 public/assets 就會出現打包好的 resource，要引入圖片，程式碼得這樣寫。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;image_path(&amp;quot;bg.jpg&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;deploy-heroku:396b4ba547ef46fb6949aa6348ba269f&#34;&gt;Deploy Heroku&lt;/h1&gt;
+
+&lt;p&gt;都處理完畢就可以走正常流程部署到 Heroku 了。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ heroku login
+$ heroku git:clone -a PROJECT
+$ git add .
+$ git commit -am &amp;quot;make it better&amp;quot;
+$ git push heroku master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;啟動&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ heroku ps:scale web=1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;部署完畢可以用 Terminal 看 log&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ heroku logs -t
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;重新啟動&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ heroku restart
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Baby Help on Tessel</title>
+      <link>http://localhost:1313/post/iot/tessel/baby_help_on_tessel/</link>
+      <pubDate>Mon, 11 May 2015 01:06:12 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/iot/tessel/baby_help_on_tessel/</guid>
+      <description>
+
+&lt;h1 id=&#34;發想:c9733353a2e7126955c8e89741802bbb&#34;&gt;發想&lt;/h1&gt;
+
+&lt;p&gt;突然想到小朋友在嬰兒時期，常常一個人在房間睡覺，不曉得什麼時候會哭。所以市面上有產品是偵測到嬰兒的哭聲會嗡嗡的叫，套用在 Tessel，我就想到我也可以實現了。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Tessel&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://tessel.io/modules#module-ambient&#34;&gt;Ambient Module&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://tessel.io/modules#module-camera&#34;&gt;Camera Module&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/baby_help_on_tessel/IMG_3953.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;聲音偵測:c9733353a2e7126955c8e89741802bbb&#34;&gt;聲音偵測&lt;/h1&gt;
+
+&lt;p&gt;用來偵測嬰兒哭的時候要觸發的事件，還沒有調整範圍。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# index.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在這邊會先跟 wifi 連線。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# wifi-control.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;照片上傳-slack:c9733353a2e7126955c8e89741802bbb&#34;&gt;照片上傳 Slack&lt;/h1&gt;
+
+&lt;p&gt;只要偵測到異常，就會觸發照相，然後上傳到 Slack，一整個超愛用 Slack&amp;hellip;。相關檔案上傳可以參考&lt;a href=&#34;https://api.slack.com/methods/files.upload&#34;&gt;文件&lt;/a&gt;，只需要申請一組 &lt;a href=&#34;https://api.slack.com/web&#34;&gt;Token&lt;/a&gt; 就可以傳到指定的 &lt;code&gt;channels&lt;/code&gt;，吃了不少苦頭，主要是不熟悉 NodeJS，不過好險最後有找到&lt;a href=&#34;https://projects.tessel.io/projects/tesselcam&#34;&gt;參考&lt;/a&gt;的。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# send_notify/index.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;完成！！好開心啊！&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tessel run index.js --upload-dir ./
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+INFO Bundling directory /Users/alan/SourceTree/baby-help
+INFO Deploying bundle (530.00 KB)...
+INFO Running script...
+System will be start...
+Light level: 0.01464844   Sound Level: 0.01855469
+Light level: 0.01464844   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.01855469
+connect emitted {
+ dns : 168.95.192.1,
+ ip : 192.168.1.46,
+ event : status,
+ connected : 1,
+ dhcp : 192.168.1.1,
+ ssid : Alan 的 AirPort Time Capsule,
+ gateway : 192.168.1.1
+}
+Light level: 0.01464844   Sound Level: 0.01855469
+Light level: 0.01464844   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.01855469
+Light level: 0.01464844   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.01855469
+Light level: 0.01464844   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.02050781
+Something happened with sound:  0.1005859375
+Light level: 0.01562500   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.01855469
+Light level: 0.01464844   Sound Level: 0.01855469
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;只是畫素很差&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/baby_help_on_tessel/baby-help.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;程式碼都放到 &lt;a href=&#34;https://github.com/alanmoment/baby-help&#34;&gt;Github&lt;/a&gt; 了。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Data Encrypt &amp; Decrypt</title>
+      <link>http://localhost:1313/post/php/data_encrypt_&amp;_decrypt/</link>
+      <pubDate>Tue, 05 May 2015 23:59:25 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/php/data_encrypt_&amp;_decrypt/</guid>
+      <description>&lt;p&gt;今天把資料的加解密整理了一下也丟到 &lt;a href=&#34;https://github.com/alanmoment/rsa-util&#34;&gt;Github&lt;/a&gt; 了，不過只有 Server 的，雖然也可以玩玩看加解密，但也蠻奇怪的，加密端與解密端應該是要不同的平台，還要再找時間把 Android 的加密也整理一下。不曉得又要拖到什麼時候&amp;hellip;哈。&lt;/p&gt;
+
+&lt;p&gt;只要在自己的 &lt;code&gt;composer.json&lt;/code&gt; 加上設定檔就可以囉！&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;repositories&amp;quot;: [
+        {
+            &amp;quot;type&amp;quot;: &amp;quot;git&amp;quot;,
+            &amp;quot;url&amp;quot;: &amp;quot;https://github.com/alanmoment/rsa-util.git&amp;quot;
+        }
+    ],
+    &amp;quot;require&amp;quot;: {
+        &amp;quot;alanmoment/rsa-util&amp;quot;: &amp;quot;dev-master&amp;quot;
+    },
+    &amp;quot;minimum-stability&amp;quot;: &amp;quot;dev&amp;quot;,
+    &amp;quot;autoload&amp;quot;: {
+        &amp;quot;classmap&amp;quot;: [
+            &amp;quot;vendor/alanmoment&amp;quot;
+        ]
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;範例程式碼&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# index.php
+require __DIR__ . &#39;/vendor/autoload.php&#39;;
+
+use Rsa\RsaUtil;
+
+$RsaUtil = new RsaUtil();
+$RsaUtil-&amp;gt;setKeyStorePath(&amp;quot;./keystores/&amp;quot;);
+$encrypt = $RsaUtil-&amp;gt;generate()-&amp;gt;encrypt(&amp;quot;I am test data.&amp;quot;);
+echo $encrypt;
+
+$decrypted = $RsaUtil-&amp;gt;decrypt($encrypt);
+echo $decrypted;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Git Push Notify to Slack on Gitlab</title>
+      <link>http://localhost:1313/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/</link>
+      <pubDate>Mon, 04 May 2015 17:03:49 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/</guid>
+      <description>&lt;p&gt;已經用了許久的 &lt;code&gt;git push&lt;/code&gt; 通知 Slack，在今天補一下筆記。&lt;/p&gt;
+
+&lt;p&gt;首先還是得先申請一個 WebHook Url，可以參考這邊 &lt;a href=&#34;http://localhost:1313/post/117952459648/connect-to-slack-on-tessel&#34;&gt;connect-to-slack-on-tessel&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;Gitlab 在 &lt;code&gt;7.5.1&lt;/code&gt; 版之後，就有支援與 Slack 串接，之前測試超久&amp;hellip;都沒辦法通知，也沒有Error Message。&lt;/p&gt;
+
+&lt;p&gt;在 Gitlab 上選擇要設定的 Project，然後選擇 Settings &amp;gt; Services 依照下圖這樣設定就完成囉！！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/gitlab-to-slack.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;每次只要設定的 Project 有 &lt;code&gt;git push&lt;/code&gt; 那就會推播相關資訊到 Slack Channel。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/slack-notify.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Connect to Slack on Tessel</title>
+      <link>http://localhost:1313/post/iot/tessel/connect_to_slack_on_tessel/</link>
+      <pubDate>Sun, 03 May 2015 01:41:16 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/iot/tessel/connect_to_slack_on_tessel/</guid>
+      <description>
+
+&lt;h2 id=&#34;申請-slack:8decd088fac1a252c57ee8ff1a55a893&#34;&gt;申請 Slack&lt;/h2&gt;
+
+&lt;p&gt;因為 &lt;a href=&#34;https://slack.com&#34;&gt;Slack&lt;/a&gt; 非常方便且好用，所以我第一個想到要串接的對象就是它，接連幾天的測試，已經能透過 Tessel 發送訊息至 Slack Channel。&lt;/p&gt;
+
+&lt;p&gt;首先得先擁有一組 Slack 的帳號與 Channel，再設置 Incoming WebHooks。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/connect_to_slack_on_tessel/incoming-webhooks.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;便可取得 Webhook Url&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/connect_to_slack_on_tessel/webhooks-url.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;tessel-wifi:8decd088fac1a252c57ee8ff1a55a893&#34;&gt;Tessel Wifi&lt;/h2&gt;
+
+&lt;p&gt;先讓 Tessel 連接家中的 Wifi&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tessel wifi -n &#39;Alan 的 AirPort Time Capsule&#39; -p &#39;PASSWORD&#39;
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+INFO Connecting to &amp;quot;Alan 的 AirPort Time Capsule&amp;quot; with wpa2 security...
+INFO Acquiring IP address.
+..
+INFO Connected!
+
+IP   192.168.1.46
+DNS  168.95.192.1
+DHCP     192.168.1.1
+Gateway  192.168.1.1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;依照 Tessel 在官網上 &lt;a href=&#34;http://start.tessel.io/wifi&#34;&gt;Wifi&lt;/a&gt; 的範例，修改一下程式碼：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# wifi-control.js
+
+var https = require(&#39;https&#39;);
+
+...
+...
+wifi.on(&#39;connect&#39;, function(data) {
+
+    console.log(&amp;quot;connect emitted&amp;quot;, data);
+
+    var json = JSON.parse(&#39;{&amp;quot;text&amp;quot;:&amp;quot;This is a line of text in a channel.\nAnd this is another line of text.&amp;quot;}&#39;);
+    var postData = &#39;payload=&#39; + JSON.stringify(json);
+
+    var options = {
+        hostname: &#39;hooks.slack.com&#39;,
+        port: 443,
+        path: &#39;/services/T030MA704/B04MARY2F/clicTENx48f4h5v9OePzePkH&#39;,
+        method: &#39;POST&#39;,
+        headers: {
+            &#39;Content-Type&#39;: &#39;application/x-www-form-urlencoded&#39;,
+            &#39;Content-Length&#39;: postData.length
+        }
+    };
+
+    // Setup the request.  The options parameter is
+    // the object we defined above.
+    var req = https.request(options, function(res) {
+        res.setEncoding(&#39;utf-8&#39;);
+        var responseString = &#39;&#39;;
+
+        res.on(&#39;data&#39;, function(data) {
+            responseString += data;
+        });
+
+        res.on(&#39;end&#39;, function() {
+            console.log(responseString);
+        });
+    });
+
+    req.on(&#39;error&#39;, function(e) {
+        console.log(&#39;something error.&#39;);
+    });
+
+    req.write(postData);
+    req.end();
+
+}
+...
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;因為 Slack 是透過 &lt;code&gt;https&lt;/code&gt; 發送，所以這邊得使用 &lt;code&gt;https.request&lt;/code&gt; 來傳遞封包。&lt;/p&gt;
+
+&lt;p&gt;運行 Wifi-control.js 測試是否可以正常傳送至 Slack Channel。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tessel run wifi-control.js
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+INFO Bundling directory /Users/alan/Documents/tessel-code
+INFO Deploying bundle (8.87 MB)...
+INFO Running script...
+connect emitted {
+ dns : 168.95.192.1,
+ ip : 192.168.1.46,
+ event : status,
+ connected : 1,
+ dhcp : 192.168.1.1,
+ ssid : Alan 的 AirPort Time Capsule,
+ gateway : 192.168.1.1
+}
+ok
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;測試可以正常收到囉！！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/connect_to_slack_on_tessel/wifi-test-on-slack.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如此就可以應用在各種需要通知的狀況上，太棒了！&lt;/p&gt;
+
+&lt;h2 id=&#34;wifi-斷線:8decd088fac1a252c57ee8ff1a55a893&#34;&gt;Wifi 斷線&lt;/h2&gt;
+
+&lt;p&gt;要如何讓 Tessel 斷開 wifi 呢，只要下這行指令：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tessel wifi -d
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+Erasing saved wifi profiles
+Erased wifi profiles
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;太方便了&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>網頁教學初體驗</title>
+      <link>http://localhost:1313/post/other/wang_ye_jiao_xue_chu_ti_yan/</link>
+      <pubDate>Tue, 28 Apr 2015 00:10:25 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/other/wang_ye_jiao_xue_chu_ti_yan/</guid>
+      <description>&lt;p&gt;在工作的需求上，今天指導幾位同事有關於網頁開發的基本觀念，發現有時候自己懂得，曾經經歷的挫折，或許對其他人來說是第一次的遭遇，但因為時間因素，沒有辦法好好的講解，只有短短的2個小時根本講不到什麼&amp;hellip;不過或許是我還抓不到指導的訣竅。&lt;/p&gt;
+
+&lt;p&gt;針對這次的備課有編了一本&lt;a href=&#34;http://alanmoment.gitbooks.io/web-guide/content/&#34;&gt;GitBook&lt;/a&gt;，希望下次會更好。只是說&amp;hellip;下次不想講 &lt;code&gt;CI&lt;/code&gt;，我比較想講喜歡的 &lt;code&gt;Laravel&lt;/code&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>很潮的 Tessel</title>
+      <link>http://localhost:1313/post/iot/tessel/hen_chao_de_tessel/</link>
+      <pubDate>Sat, 18 Apr 2015 03:49:59 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/iot/tessel/hen_chao_de_tessel/</guid>
+      <description>&lt;p&gt;這個夢寐以求的版子，終於狠下心進口了！只是這小玩意兒的身世有點可憐，竟然被郵差送錯地方&amp;hellip;而那個人也很奇怪，東西不是自己的也收下來了！還拆封！！！到底是為什麼敢拆不是自己的東西！！驗收到凌晨4點&amp;hellip;好險東西都正常。&lt;/p&gt;
+
+&lt;p&gt;先下載 Tessel lib&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ npm install -g tessel
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;要更新 Tessel lib 否則會無法執行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tessel update
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+INFO Checking for latest firmware...
+INFO Wifi version is also outdated.
+INFO Downloading remote file https://builds.tessel.io/wifi/1.28.bin
+INFO Wifi patch uploaded... waiting for it to apply (10s)
+INFO ...
+INFO ...
+INFO ...
+INFO ...
+INFO ...
+INFO ...
+INFO
+INFO Downloading remote file https://builds.tessel.io/firmware/tessel-firmware-current.bin
+INFO Updating firmware... please wait. Tessel will reset itself after the update
+INFO Complete  1175988 /1175988
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;建立一個官方的範例測試&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// blinky.js
+
+// Import the interface to Tessel hardware
+var tessel = require(&#39;tessel&#39;);
+
+// Set the led pins as outputs with initial states
+// Truthy initial state sets the pin high
+// Falsy sets it low.
+var led1 = tessel.led[0].output(1);
+var led2 = tessel.led[1].output(0);
+
+setInterval(function () {
+    console.log(&amp;quot;I&#39;m blinking! (Press CTRL + C to stop)&amp;quot;);
+    // Toggle the led states
+    led1.toggle();
+    led2.toggle();
+}, 100);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;OK，執行成功就會看到藍綠兩個燈在閃爍！&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tessel run blinky.js
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+INFO Bundling directory /Users/alan/Documents/tessel-code
+INFO Deploying bundle (4.50 KB)...
+INFO Running script...
+I&#39;m blinking! (Press CTRL + C to stop)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/hen_chao_de_tessel/IMG_2308.jpg&#34; alt=&#34;example&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Tessel 真的不錯，除了程式語言可以用比較熟悉的 Javascript，Module 也用&lt;code&gt;npm&lt;/code&gt;管理，很順暢。整個在水準之上，看得出來團隊很用心的在開發，而我也預購了 Tessel 2 的新版子，因為我覺得非常棒。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Django &#43; Python 開發環境建置</title>
+      <link>http://localhost:1313/post/python/django_&#43;_python_kai_fa_huan_jing_jian_zhi/</link>
+      <pubDate>Fri, 27 Feb 2015 00:16:10 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/python/django_&#43;_python_kai_fa_huan_jing_jian_zhi/</guid>
+      <description>
+
+&lt;h1 id=&#34;python:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Python&lt;/h1&gt;
+
+&lt;p&gt;開發Pythone時也可以像rvm，nvm的虛擬環境就是Virtualenv了，對於我這種有潔癖的人是超級需要的啊！&lt;/p&gt;
+
+&lt;h2 id=&#34;pip:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Pip&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;download &lt;a href=&#34;https://bootstrap.pypa.io/get-pip.py&#34;&gt;get-pip.py&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python get-pip.py
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;virtualenv:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Virtualenv&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;install&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install virtualenv
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Linux or OS X need &lt;code&gt;sudo&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;setup&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ virtualenv ENV
+$ source ENV/bin/activate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;啟動 virtualenv，從此只要在 virtualenv 下面安裝的 package 都只會存在于這個 virtualenv 當中。&lt;/p&gt;
+
+&lt;h2 id=&#34;virtualenvwrapper:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Virtualenvwrapper&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;將所有的虛擬環境整合在一個目錄下。&lt;/li&gt;
+&lt;li&gt;管理（新增、移除、複製）所有的虛擬環境。&lt;/li&gt;
+&lt;li&gt;可以使用一個命令切換虛擬環境。&lt;/li&gt;
+&lt;li&gt;Tab 補全虛擬環境的名字。&lt;/li&gt;
+&lt;li&gt;每個操作都提供允許使用者自訂的 hooks。&lt;/li&gt;
+&lt;li&gt;可撰寫容易分享的 extension plugin 系統。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;install&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install virtualenvwrapper
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;新增虛擬環境&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkvirtualenv [-i package] [-r requirements_file] [virtualenv options] ENVNAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;設定路徑&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export PIP_VIRTUALENV_BASE=$WORKON_HOME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;列出所有的虛擬環境&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ lsvirtualenv
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;移除虛擬環境&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rmvirtualenv ENVNAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;複製虛擬環境&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cpvirtualenv ENVNAME TARGETENVNAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;啟動虛擬環境&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ workon [environment_name]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;離開虛擬環境&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ deactivate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Python 3&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ which python3
+$ mkvirtualenv --python=/usr/bin/python3 python3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果想要避免 pip 在沒有進入虛擬環境時被使用，可以在 ~/.bashrc 加上：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export PIP_REQUIRE_VIRTUALENV=true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;build-django:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Build Django&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;install&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install django
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;requirements&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install -r requirements.txt
+$ pip freeze &amp;gt; requirements.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;** start **&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ django-admin.py startproject PROJECT_NAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;run&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py runserver
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;create app&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py startapp APP_NAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;model&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;settings.py&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;INSTALLED_APPS = (
+    ...
+    &#39;customer&#39;
+    ...
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;models.py&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Customer(models.Model):
+    content = models.TextField()
+
+    def __unicode__(self):
+        return self.content
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;first&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py syncdb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;Your models have changes&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py makemigrations
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;generate&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py migrate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;single change&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py makemigrations MODEL
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;rollback&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py migrate system zero
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;django-testcase:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Django TestCase&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;console usage&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py test
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;reference:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Reference&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.haogongju.net/art/2395132&#34;&gt;http://www.haogongju.net/art/2395132&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ruby on Rails 小問題</title>
+      <link>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_xiao_wen_ti/</link>
+      <pubDate>Sun, 04 Jan 2015 23:45:08 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_xiao_wen_ti/</guid>
+      <description>&lt;p&gt;安裝許久的 gem 太久沒更新了遇到一些麻煩，又剛好今天發現 Google Drive 以前可以用 Login 已經被取消了&amp;hellip;天吶&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;首先因為改了與 Google Drive 串接的 API 所以出現了 SSLError&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Faraday::SSLError (SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify failed):
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這個找很久&amp;hellip;後來是把 gem update 就解決了&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ gem update
+$ gem update --system
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;而另外一個問題是一直很煩的，RVM 老是會出現一些 Warngin 今天惱了，找了方法來解決&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Warning! PATH is not properly set up, &#39;/Users/alan/.rvm/gems/ruby-2.2.1/bin&#39; is not at first place,
+         usually this is caused by shell initialization files - check them for &#39;PATH=...&#39; entries,
+         it might also help to re-add RVM to your dotfiles: &#39;rvm get stable --auto-dotfiles&#39;,
+         to fix temporarily in this shell session run: &#39;rvm use ruby-2.2.1’.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最後還是把 RVM 整個移除重裝了，每次都忘記，這次就筆記起來， RVM 沒辦法用指令移除的話，可以直接整個砍掉，我這樣做是沒問題。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rvm implode
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rm -rf ~/.rvm
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;重新安裝 RVM&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ curl -sSL https://get.rvm.io | bash -s stable
+$ rvm install 2.2.2
+$ rvm 2.2.2 --default
+$ gem install bundle
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;修改 .bash_profile&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;## rvm
+PATH=&amp;quot;$GEM_HOME/bin:$HOME/.rvm/bin:$PATH&amp;quot; # Add RVM to PATH for scripting
+[ -s ${HOME}/.rvm/scripts/rvm ] &amp;amp;&amp;amp; source ${HOME}/.rvm/scripts/rvm
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>吃足苦頭的Mssql</title>
+      <link>http://localhost:1313/post/database/chi_zu_ku_tou_de_mssql/</link>
+      <pubDate>Mon, 29 Dec 2014 17:07:01 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/database/chi_zu_ku_tou_de_mssql/</guid>
+      <description>&lt;p&gt;為了讓 CentOS 的 PHP 可以支援 Mssql &amp;amp; UTF-8 真是吃了不少苦頭，最終在安裝 FreeTDS 後加上設定檔終於如願以償&amp;hellip;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /etc/freetds.conf
+[global]
+        # TDS protocol version
+        tds version = 8.0
+        client charset = UTF-8
+        charset = UTF-8
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The bash auto build</title>
+      <link>http://localhost:1313/post/os/linux/the_bash_auto_build/</link>
+      <pubDate>Tue, 18 Nov 2014 00:17:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/os/linux/the_bash_auto_build/</guid>
+      <description>
+
+&lt;p&gt;發覺自己在開發上常用的小工具都沒有在整理的，每次要用就都要回想，然後再一個一個找回來覺得很煩。尤其是現在工作上要管理十幾二十台後端。常常在那邊用得不順暢，才驚覺這樣真的不行！！&lt;/p&gt;
+
+&lt;p&gt;所以就花了點時間整理，順便用&lt;code&gt;Shell Script&lt;/code&gt;寫成auto build練習一下。&lt;/p&gt;
+
+&lt;h3 id=&#34;git:07a84c905e0ef0099b592927e9b72990&#34;&gt;Git&lt;/h3&gt;
+
+&lt;p&gt;在&lt;code&gt;setup.sh&lt;/code&gt;的&lt;code&gt;setup_gitconfig&lt;/code&gt;這個method主要是建立常用的&lt;code&gt;gitconfig&lt;/code&gt;檔，也區分了家中與工作兩個環境去做建立&lt;/p&gt;
+
+&lt;h3 id=&#34;vim:07a84c905e0ef0099b592927e9b72990&#34;&gt;Vim&lt;/h3&gt;
+
+&lt;p&gt;最近想練習&lt;code&gt;vim&lt;/code&gt;所以在網路上找了感覺不錯的&lt;code&gt;vim&lt;/code&gt;也把他納進來。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.intelesyscorp.com/blog/awesome-vim-configuration&#34;&gt;http://www.intelesyscorp.com/blog/awesome-vim-configuration&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;gvimrc:07a84c905e0ef0099b592927e9b72990&#34;&gt;gvimrc&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;vim&lt;/code&gt;延伸的設定檔&lt;/p&gt;
+
+&lt;h3 id=&#34;bash-profile:07a84c905e0ef0099b592927e9b72990&#34;&gt;bash_profile&lt;/h3&gt;
+
+&lt;p&gt;這份是常用的自定義設定檔，除了在&lt;code&gt;console&lt;/code&gt;前面顯示&lt;code&gt;git branch&lt;/code&gt;及更新時間，因為時常搞錯當前環境，所以把&lt;code&gt;hostname&lt;/code&gt;也加進來了，雖然長了一點，但是辨識度很不錯！！&lt;/p&gt;
+
+&lt;h3 id=&#34;install:07a84c905e0ef0099b592927e9b72990&#34;&gt;Install&lt;/h3&gt;
+
+&lt;p&gt;預設是放在 &lt;code&gt;/$HOME/bash&lt;/code&gt;，設定上非常簡單&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sh setup.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;打完收工！！&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Github&lt;/code&gt;
+&lt;a href=&#34;https://github.com/alanmoment/bash&#34;&gt;https://github.com/alanmoment/bash&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Laravel 首發 !!!</title>
+      <link>http://localhost:1313/post/php/laravel_shou_fa/</link>
+      <pubDate>Tue, 19 Aug 2014 11:11:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/php/laravel_shou_fa/</guid>
+      <description>
+
+&lt;p&gt;雖然&lt;a href=&#34;http://laravel.com/&#34;&gt;Laravel&lt;/a&gt;已經出現頗久，最近總算開始動動手了，有鑑於去年開始使用Ruby on Rails，發現說Laravel也太像了吧。據匿名的朋友說現在的Framework幾乎都是&lt;code&gt;參考&lt;/code&gt;Ruby on Rails。而這次也趁機再多用幾種工具，&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.nitrous.io&#34;&gt;Nitrous.io&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;AWS S3&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.heroku.com/&#34;&gt;Heroku&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;每次自己開專案都想用不同的工具，而現在的工具越來越簡單，若是不瞭解原理，那豈不是很快被淘汰了嗎?&lt;/p&gt;
+
+&lt;h2 id=&#34;建立laravel:ff06a00f5058a348bf22bfc692f8ae74&#34;&gt;建立Laravel&lt;/h2&gt;
+
+&lt;p&gt;現在的環境，撰寫如何建立似乎已經不怎麼高手了，因為越來越簡單，而&lt;a href=&#34;http://laravel.com/docs/quick&#34;&gt;官網&lt;/a&gt;寫的也很好。所以就不再Copy了，倒是因為要使用Framework有遇到一些&lt;code&gt;PHP module&lt;/code&gt;的問題。&lt;/p&gt;
+
+&lt;p&gt;就以前的開發環境都會有&lt;a href=&#34;http://php.net/manual/en/book.mcrypt.php&#34;&gt;php-mcrypt&lt;/a&gt;這個模組，但這次使用的環境竟然就真的沒有，或許是版本過新、或是MIS沒有安裝。不管，反正遇到問題就是要解決了&lt;/p&gt;
+
+&lt;p&gt;在CentOS 6.7中，使用yum找不到php-mcrypt了，必須要安裝另外的套件尋找。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo rpm -ivh http://dl.fedoraproject.org/pub/epel/beta/7/x86_64/epel-release-7-0.2.noarch.rpm
+$ sudo rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+$ sudo yum --enablerepo=remi install php-mcrypt.x86_64
+$ sudo service httpd restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;php -m&lt;/code&gt;就可以看到&lt;code&gt;mcrypt&lt;/code&gt;模組了。&lt;/p&gt;
+
+&lt;h2 id=&#34;使用laravel:ff06a00f5058a348bf22bfc692f8ae74&#34;&gt;使用Laravel&lt;/h2&gt;
+
+&lt;p&gt;使用起來真的是很順手，因為幾乎跟Ruby on Rails一樣了，但畢竟不是很熟手，只記錄有用到的。&lt;/p&gt;
+
+&lt;h3 id=&#34;routes:ff06a00f5058a348bf22bfc692f8ae74&#34;&gt;Routes&lt;/h3&gt;
+
+&lt;p&gt;進入網站的各個位址都會經過route。&lt;/p&gt;
+
+&lt;p&gt;/secret直接401&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Route::any(&#39;/secret&#39;, function() {
+    return Response::make(&#39;Unauthorized&#39;, 401);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;/form只接受post並且在之前會先檢查ip&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Route::match(
+    array(&#39;POST&#39;), &#39;/form&#39;, array(&#39;before&#39; =&amp;gt; &#39;ipcheck&#39;, &#39;uses&#39; =&amp;gt; &#39;HomeController@purchase&#39;)
+);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;filters:ff06a00f5058a348bf22bfc692f8ae74&#34;&gt;Filters&lt;/h3&gt;
+
+&lt;p&gt;是用來過濾各種請求，有App層級也有Controller的，可用下例程式碼過濾IP。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Route::filter(&#39;ipcheck&#39;, function() {
+    if (!preg_match(&amp;quot;/127\.0\.0\.1/i&amp;quot;, $_SERVER[&#39;REMOTE_ADDR&#39;]) {
+        return Redirect::to(&#39;/&#39;);
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;app:ff06a00f5058a348bf22bfc692f8ae74&#34;&gt;App&lt;/h3&gt;
+
+&lt;p&gt;app/config/app.php&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;debug =&amp;gt; 是否開啓除錯&lt;/li&gt;
+&lt;li&gt;url =&amp;gt; 網站預設網址&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;透過一些static method也能存取其中屬性。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Config::set(&#39;app.url&#39;, STATIC_HOST);
+Config::get(&#39;app.url&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;database:ff06a00f5058a348bf22bfc692f8ae74&#34;&gt;Database&lt;/h3&gt;
+
+&lt;p&gt;Database當然也有好用的ORM，而我覺得好用的程度跟Ruby有得比唷。&lt;/p&gt;
+
+&lt;p&gt;app/config/database.php&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;default =&amp;gt; 預設的資料庫&lt;/li&gt;
+&lt;li&gt;connections =&amp;gt; 資料庫連線位址、帳號、密碼&amp;hellip;等&lt;/li&gt;
+&lt;li&gt;redis =&amp;gt; 好用的快取&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;透過attribute可以改變連線的資料庫、使用資料表、欄位是否使用&amp;hellip;等。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class User extends Eloquent {
+
+    protected $connection = DATABASE;
+
+    protected $table = TABLE;
+
+    public $timestamps = false;
+
+    public function userinfo() {
+        return $this-&amp;gt;hasOne(&#39;Userinfo&#39;);
+    }
+
+}
+
+class Userinfo extends Eloquent {
+
+    protected $connection = DATABASE;
+
+    protected $table = &#39;user_info&#39;;
+
+    public function user() {
+        return $this-&amp;gt;belongsTo(&#39;User&#39;);
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;當資料表有關聯，可以透過function設定關係，上例關係是User有一個Userinfo，而Userinfo也相依於User，如此在使用時可利用下例程式碼存取到userinfo的資料，&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;User::with(&#39;userinfo&#39;)-&amp;gt;find(1)-&amp;gt;first();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;若是沒有設定，也可以利用下利存取，但似乎就比較沒有彈性。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;User::leftJoin(&#39;user_info as info&#39;)-&amp;gt;find(1).first();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;累了&amp;hellip;連laravel都沒紀錄完&amp;hellip;.下回再打&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>大搬家</title>
+      <link>http://localhost:1313/post/other/da_ban_jia/</link>
+      <pubDate>Sat, 09 Aug 2014 02:09:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/other/da_ban_jia/</guid>
+      <description>&lt;p&gt;最近已經逐漸熟悉AWS的一些服務，決定要狠下心把家裡的Linux停掉。把一些東西都轉到雲端上，所以文章現在都存在&lt;code&gt;tumblr.&lt;/code&gt;上了。不然其實電費算起來也是挺貴的&amp;hellip;搬了兩個小時終於把文章都重新整理好了。手工搬實在累&amp;hellip;連DNS都要重新設定。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

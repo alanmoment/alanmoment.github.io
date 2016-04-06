@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  	<meta property="og:title" content=" Laravel &middot;  Hello World!!" />
+  	<meta property="og:site_name" content="Hello World!!" />
+  	<meta property="og:url" content="http://localhost:1313/tags/laravel/" />
+
+    
+    <meta property="og:type" content="website" />
+    
+
+  <title>
+     Laravel &middot;  Hello World!!
+  </title>
+
+    <meta name="description" content="you can do anything you want to do." />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
+
+
+    
+      
+          <link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="Hello World!!" />
+      
+      
+        <link href="http://localhost:1313/tags/laravel/index.xml" rel="alternate" type="application/rss+xml" title="Laravel &middot; Hello World!!" />
+      
+    
+    <meta name="generator" content="Hugo 0.15" />
+
+    <link rel="canonical" href="http://localhost:1313/tags/laravel/" />
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/">Home</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/page/about/">About me</a>
+            </li>
+        
+    </ul>
+    
+    
+    <a class="subscribe-button icon-feed" href="http://localhost:1313/tags/laravel/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+
+	<header class="main-header tag-head" style="background-image: url(http://localhost:1313//images/Iron_man.jpg)">
+
+    <nav class="main-nav overlay clearfix">
+      
+        <a class="blog-logo" href="http://localhost:1313/"><img src="http://localhost:1313//images/517273.jpg" alt="Home" /></a>
+      
+      
+          <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+      
+    </nav>
+    <div class="vertical">
+        <div class="main-header-content inner">
+            <h1 class="page-title">Laravel</h1>
+            <h2 class="page-description">
+                
+            </h2>
+        </div>
+    </div>
+</header>
+
+<main class="content" role="main">
+    
+
+	<div class="extra-pagination inner">
+    <nav class="pagination" role="navigation">
+	
+	<span class="page-number">Page 1 of 1</span>
+	
+</nav>
+
+	</div>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/php/laravel_shou_fa/">Laravel 首發 !!!</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>雖然Laravel已經出現頗久，最近總算開始動動手了，有鑑於去年開始使用Ruby on Rails，發現說Laravel也太像了吧。據匿名的朋友說現在的Framework幾乎都是參考Ruby on Rails。而這次也趁機再多用幾種工具， Nitrous.io AWS S3 Heroku 每次自己開專案都想用不同的工具，而現在的工具越來越簡單，若是不瞭解原理，那豈不是很快被淘汰了嗎? 建立Laravel 現在的環境，撰寫如何建立似乎已經不怎麼高手了，因為越來越簡單，而官網寫的也很好。所以就不再Copy了，倒是因為要使用Framework有遇到一些PHP module的問題。 就以前的開發環境都會有php-mcrypt這個模組，但這次使用的環境竟然就真的沒有，或許是版本過新、或是MIS沒有安裝。不管，反正遇到問題就是要解決了 在CentOS 6.7中，使用yum找不到php-mcrypt了，必須要安裝另外的套件尋找。 $ sudo rpm -ivh http://dl.fedoraproject.org/pub/epel/beta/7/x86_64/epel-release-7-0.2.noarch.rpm $ sudo rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm $ sudo yum --enablerepo=remi install php-mcrypt.x86_64 $ sudo service httpd restart php -m就可以看到mcrypt模組了。 使用Laravel 使用起來真的是很順手，因為幾乎跟Ruby on Rails一樣了，但畢竟不是很熟手，只記錄有用到的。 Routes 進入網站的各個位址都會經過route。 /secret直接401 Route::any('/secret', function() { return Response::make('Unauthorized', 401); }); /form只接受post並且在之前會先檢查ip Route::match( array('POST'), '/form', array('before' =&gt; 'ipcheck', 'uses' =&gt; 'HomeController@purchase') ); Filters 是用來過濾各種請求，有App層級也有Controller的，可用下例程式碼過濾IP。 Route::filter('ipcheck', function() { if <a class="read-more" href="http://localhost:1313/post/php/laravel_shou_fa/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/php/">#php</a>,
+            
+                <a href="http://localhost:1313/tags/laravel/">#laravel</a>,
+            
+        
+        <time class="post-date" datetime="2014-08-19T11:11:00Z">
+            19 Aug 2014
+        </time>
+    </footer>
+</article>
+
+	
+
+	<nav class="pagination" role="navigation">
+	
+	<span class="page-number">Page 1 of 1</span>
+	
+</nav>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Hello World!!</a> &copy; Copyright Alan - 2016</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/index.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ooad on Hello World!!</title>
+    <link>http://localhost:1313/tags/ooad/</link>
+    <description>Recent content in Ooad on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Wed, 26 Feb 2014 21:33:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/ooad/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Injection Principle Design Pattern</title>
+      <link>http://localhost:1313/post/ooad/injection_principle_design_pattern/</link>
+      <pubDate>Wed, 26 Feb 2014 21:33:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/ooad/injection_principle_design_pattern/</guid>
+      <description>
+
+&lt;p&gt;這兩天有個案例，內容簡約來說可以這樣闡述：&lt;/p&gt;
+
+&lt;h3 id=&#34;a客戶要簽約買限額的n種廣告-要提供api介接:adec025e9f0507beb57a8d7d7ddd0091&#34;&gt;A客戶要簽約買限額的N種廣告，要提供API介接&lt;/h3&gt;
+
+&lt;p&gt;所以我開始分解上面這段話做設計。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;這次A客戶簽約，下次也有機會與B客戶簽約。&lt;/li&gt;
+&lt;li&gt;廣告有 Header, Body, Footer, Left 及 Right 共5個區域可以放產品，A客戶要買 Header, Body 以及 Right 三種，當然下次別人也有機會買 Footer 或是 Left。&lt;/li&gt;
+&lt;li&gt;A客戶各買 100個, 100個 和 250個產品限額的廣告方案，當然別的客戶也有可能更多亦或更少。&lt;/li&gt;
+&lt;li&gt;A客戶使用的介接格式是 &lt;a href=&#34;http://zh.wikipedia.org/zh-tw/XML&#34;&gt;XML&lt;/a&gt;，當然也有機會用到 &lt;a href=&#34;http://www.json.org/&#34;&gt;Json&lt;/a&gt; 或其他種類的資料格式，輸出也是相同。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;若是不考慮 Design Pattern 其實這樣子的介接不難做，但要思考的是，假使不做適當的邏輯分離與切割，造成高耦合度，那擴充與修改是否會造成災難。所以我一直覺得寫程式人人都會，但是寫的一手好程式可就不簡單了。而我一直朝著這個目標邁進。&lt;/p&gt;
+
+&lt;p&gt;當分析需求完畢，我就開始發想，有哪種設計模式或原則適合這種狀況，應該要避免太複雜的設計模式造成開發困難或結構複雜化。小弟不才，懂得不多。我想到用 Injection Principle 這個原則來做。&lt;/p&gt;
+
+&lt;h2 id=&#34;介接資料:adec025e9f0507beb57a8d7d7ddd0091&#34;&gt;介接資料&lt;/h2&gt;
+
+&lt;p&gt;與A客戶協議好用XML資料格式介接，如之前提到的，介接的資料格式是有機會異動的，所以我覺得解析與回傳資料是應該要被分離的。&lt;/p&gt;
+
+&lt;p&gt;只要是介接都必須要有解析與回傳，所以我定義介接資料用的介面，裡面必須要實作解析與輸出這兩件事。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/**
+ * 解析、回傳介接資料介面
+ */
+interface ApiAdParseInterface {
+
+  /**
+   * 任何解析廣告的資料都必須實作
+   * @param type $content
+   */
+  public function parse($content);
+
+  /**
+   * 任何回傳廣告的介接結果都必須實作
+   * @param type $content
+   */
+  public function generate($content);
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我想到日後或許A客戶也有機會異動介接資料的格式，所以我選擇用&lt;a href=&#34;https://en.wikipedia.org/wiki/Dependency_injection&#34;&gt;DI&lt;/a&gt;處理，制訂出配置器加強彈性。&lt;/p&gt;
+
+&lt;p&gt;這個配置器主要提供注入的方法，今天若是要實作XML的資料格式，那就在建立這個實體的時候提供 instance。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/**
+ * 解析、回傳介接結果配置器
+ */
+class ApiParseAdAdapter {
+
+  private $adapter;
+
+  public function ApiParseAdAdapter($adapter) {
+    $this-&amp;gt;adapter = $adapter;
+  }
+
+  /**
+   * 解析輸入的資料
+   * @param type $content
+   */
+  public function parse($content) {
+    return $this-&amp;gt;adapter-&amp;gt;parse($content);
+  }
+
+  /**
+   * 輸出要產生的資料格式
+   * @param type $content
+   */
+  public function generate($content) {
+    return $this-&amp;gt;adapter-&amp;gt;generate($content);
+  }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;實作以 XML 格式介接新增廣告&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/**
+ * 實作解析、生成新增廣告xml資料
+ */
+class ParseAddAdXml implements ApiAdParseInterface {
+
+  public function parse($xml) {
+    ...
+    return $items;
+  }
+
+  public function generate($content) {
+    ...
+    return $xml;
+  }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以後若是要改用 Json 那就建立 &lt;code&gt;ParseAddAdJson&lt;/code&gt; 就可以了不用動到其他的程式，相對的安全很多。&lt;/p&gt;
+
+&lt;h2 id=&#34;處理合約:adec025e9f0507beb57a8d7d7ddd0091&#34;&gt;處理合約&lt;/h2&gt;
+
+&lt;p&gt;今天是與A客戶簽約，而下次是與B客戶簽約。每份合約各自表述，除了限額與廣告種類，客戶都必須要新增廣告，也都要解析客戶丟過來的資料，以及回傳處理結果。所以我定義了合約的抽象類別，只要是合約都必須要實作解析資料，新增廣告，輸出結果。而為了統一外部的呼叫，則有共用的執行合約方法。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/**
+ * 統一的合約執行流程
+ */
+abstract class PlanBaseAbstract {
+
+    public function execPlan($xml) {
+        $items = $this-&amp;gt;parse($xml);
+        $content = $this-&amp;gt;addAd($items);
+        return $this-&amp;gt;generate($content);
+    }
+
+    abstract protected function addAd($items) ;
+
+    abstract protected function parse($content) ;
+
+    abstract protected function generate($content) ;
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再來是處理A客戶的合約內容。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/**
+ * A客戶的新增廣告內容
+ */
+class ACustomerPlan extends PlanBaseAbstract {
+
+    public function addAd($items)
+        ...
+        在這邊新增各種廣告
+        ...
+    }
+
+    /**
+     * 使用 DI 解析介接資料
+     */
+    public function parse($content) {
+        $mgr = new ApiParseAdapterMgr(new ParseAddAdXmlMgr());
+        $items = $mgr-&amp;gt;parse($content);
+        ...
+        return $items;
+    }
+
+    /**
+     * 使用 DI 輸出介接結果
+     */
+    public function generate($content) {
+        ...
+        $mgr = new ApiParseAdapterMgr(new ParseAddAdXmlMgr());
+        return $mgr-&amp;gt;generate($result);
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;廣告物件:adec025e9f0507beb57a8d7d7ddd0091&#34;&gt;廣告物件&lt;/h2&gt;
+
+&lt;p&gt;每個廣告都有新增及取得當前數量兩件事，這裡也定義一個介面供各種廣告實作。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/**
+ * 廣告處理介面
+ */
+interface AdInterface {
+
+    /**
+     * 新增廣告
+     */
+    public function add() ;
+
+    /**
+     * 當前廣告數量
+     */
+    public function getCount() ;
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;實作廣告的過程中或許有其他的事情要做所以可以寫在各自的廣告物件。這裡就新增一個 Header 當作記錄。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/**
+ * 實作 Header 廣告
+ */
+class Header implements AdInterface {
+
+    /**
+     * 新增廣告實作
+     */
+    public function add() {
+        ...
+    }
+
+    /**
+     * 取得當前廣告數量實作
+     */
+    public function getCount() {
+        ...
+        return (int) $count;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;未來只要各自實作 Body, Footer 就可以了。這樣也有做到 OCP (開放封閉原則)。&lt;/p&gt;
+
+&lt;p&gt;最後用 Class Diagram 解釋這整個關係。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/ooad/injection_principle_design_pattern/Class_Diagram.png&#34; alt=&#34;Class Diagram&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

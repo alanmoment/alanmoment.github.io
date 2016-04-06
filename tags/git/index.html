@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  	<meta property="og:title" content=" Git &middot;  Hello World!!" />
+  	<meta property="og:site_name" content="Hello World!!" />
+  	<meta property="og:url" content="http://localhost:1313/tags/git/" />
+
+    
+    <meta property="og:type" content="website" />
+    
+
+  <title>
+     Git &middot;  Hello World!!
+  </title>
+
+    <meta name="description" content="you can do anything you want to do." />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
+
+
+    
+      
+          <link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="Hello World!!" />
+      
+      
+        <link href="http://localhost:1313/tags/git/index.xml" rel="alternate" type="application/rss+xml" title="Git &middot; Hello World!!" />
+      
+    
+    <meta name="generator" content="Hugo 0.15" />
+
+    <link rel="canonical" href="http://localhost:1313/tags/git/" />
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/">Home</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/page/about/">About me</a>
+            </li>
+        
+    </ul>
+    
+    
+    <a class="subscribe-button icon-feed" href="http://localhost:1313/tags/git/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+
+	<header class="main-header tag-head" style="background-image: url(http://localhost:1313//images/Iron_man.jpg)">
+
+    <nav class="main-nav overlay clearfix">
+      
+        <a class="blog-logo" href="http://localhost:1313/"><img src="http://localhost:1313//images/517273.jpg" alt="Home" /></a>
+      
+      
+          <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+      
+    </nav>
+    <div class="vertical">
+        <div class="main-header-content inner">
+            <h1 class="page-title">Git</h1>
+            <h2 class="page-description">
+                
+            </h2>
+        </div>
+    </div>
+</header>
+
+<main class="content" role="main">
+    
+
+	<div class="extra-pagination inner">
+    <nav class="pagination" role="navigation">
+	
+	<span class="page-number">Page 1 of 1</span>
+	
+</nav>
+
+	</div>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/php/guan_li_php_library_de_li_qi_composer/">管理PHP Library的利器Composer</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>在之前試玩Ruby On Rails的時候就覺得有Gem一整個就是超好用的吶!!所以前陣子公司導入Gitlab之後順勢要我研究一下PHP的Composer，想不到還有支援Github。所以做個紀錄。 安裝PHP Composer 安裝在各自專案時 $ mkdir /var/www/html/example $ sudo curl -s https://getcomposer.org/installer | sudo php 我安裝時有出現警告訊息是因為我的PHP版本是5.3.3他建議我升級到5.3.4或更高，否則可能導致Composer不穩定 我自己是安裝在/usr/local/bin $ cd /usr/local/bin $ sudo curl -s https://getcomposer.org/installer | sudo php 可建立指向 $ ln -s /usr/local/bin/composer.phar /usr/bin/composer 這樣不管在哪個專案只要建立composer.json都可以使用了。 在PHP專案建立Composer 建立composer.json $ cd /var/www/html/example $ vim composer.json { &quot;require&quot;: { &quot;monolog/monolog&quot;: &quot;1.2.*&quot; } } 建立後執行 $ composer install 專案目錄底下就會產生vendor資料夾，裏頭就是在composer.json有設定要引入的library。 Composer官網也有提供線上的Library可以使用。讚!! 使用Github上的Repository 把library放到github上管理，然後再用composer引入各自的專案，這豈不是太方便了!! $ vim composer.json { &quot;name&quot;: &quot;bom-solution&quot;, &quot;description&quot;: &quot;bom solution&quot;, &quot;homepage&quot;: &quot;https://github.com/alanmoment/bom-solution&quot;, &quot;repositories&quot;: [{ &quot;type&quot;: &quot;package&quot;, &quot;package&quot;: { &quot;name&quot;: &quot;alanmoment/bom-solution&quot;, &quot;version&quot;: &quot;v0.1&quot;, &quot;source&quot;: { &quot;url&quot;: &quot;git@github.com:alanmoment/bom-solution.git&quot;, &quot;type&quot;: &quot;git&quot;, &quot;reference&quot;: &quot;v0.1&quot; } } }], &quot;require&quot;: { &quot;php&quot;: &quot;&gt;=5.3.3&quot;, &quot;alanmoment/bom-solution&quot;: &quot;v0.1&quot; } } 建立github的composer之前必須先在你的repository建立tag alanmoment是我的github的帳號 bom-solution是我的repository v0.1是我tag的版號 存檔後執行 $ composer install 會發生以下錯誤 Loading composer repositories with package information Installing dependencies (including require-dev) from lock file Nothing to install or update Generating autoload files 這是因為執行過composer install之後目錄底下也會產生一隻composer.lock檔案，要再次執行前先把他刪掉，就可以正常執行囉 。 完成囉!! <a class="read-more" href="http://localhost:1313/post/php/guan_li_php_library_de_li_qi_composer/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/php/">#php</a>,
+            
+                <a href="http://localhost:1313/tags/composer/">#composer</a>,
+            
+                <a href="http://localhost:1313/tags/git/">#git</a>,
+            
+        
+        <time class="post-date" datetime="2013-07-04T12:36:00Z">
+            4 Jul 2013
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/other/qing_zhu_octopress_kai_zhang/">慶祝Octopress開張</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>搞了老半天終於搞定，來試試看好不好用!!! 立馬來一篇教學文。Github + Octopress 安裝 RVM Installing RVM這邊有非常完整的教學。 建立Octopress 找一個讓程式碼安身的地方，我習慣放在home。(好吧這是來亂的) $ mkdir /home/ruby 接著就是到Github 登入或註冊帳號，並且開一個新的Repositories，以我為範例就是 alanmoment.github.com，然後就是Ctrl+C 、Ctrl+V的快樂時光。 $ rvm install 1.9.2 &amp;&amp; rvm use 1.9.2 $ git clone git://github.com/imathis/octopress.git octopress Initialized empty Git repository in /home/ruby/octopress/.git/ remote: Counting objects: 10296, done. remote: Compressing objects: 100% (4511/4511), done. remote: Total 10296 (delta 5628), reused 9415 (delta 4937) Receiving objects: 100% (10296/10296), 2.28 MiB | 1.01 MiB/s, done. Resolving deltas: 100% (5628/5628), done. <a class="read-more" href="http://localhost:1313/post/other/qing_zhu_octopress_kai_zhang/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/other/">#other</a>,
+            
+                <a href="http://localhost:1313/tags/octopress/">#octopress</a>,
+            
+                <a href="http://localhost:1313/tags/git/">#git</a>,
+            
+        
+        <time class="post-date" datetime="2013-06-12T13:59:00Z">
+            12 Jun 2013
+        </time>
+    </footer>
+</article>
+
+	
+
+	<nav class="pagination" role="navigation">
+	
+	<span class="page-number">Page 1 of 1</span>
+	
+</nav>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Hello World!!</a> &copy; Copyright Alan - 2016</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/index.js"></script>
+    
+</body>
+</html>

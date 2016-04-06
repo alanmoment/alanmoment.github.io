@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ruby on Hello World!!</title>
+    <link>http://localhost:1313/tags/ruby/</link>
+    <description>Recent content in Ruby on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Sat, 16 May 2015 13:16:36 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/ruby/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Ruby on Rails deploy on Heroku</title>
+      <link>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_deploy_on_heroku/</link>
+      <pubDate>Sat, 16 May 2015 13:16:36 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_deploy_on_heroku/</guid>
+      <description>
+
+&lt;p&gt;好久沒碰 Ruby on Rails 一碰就會有問題，也早就習慣了，昨天晚上把做好很久的網站 Deploy 到 &lt;a href=&#34;https://www.google.com.tw/url?sa=t&amp;amp;rct=j&amp;amp;q=&amp;amp;esrc=s&amp;amp;source=web&amp;amp;cd=1&amp;amp;cad=rja&amp;amp;uact=8&amp;amp;ved=0CBwQFjAA&amp;amp;url=https%3A%2F%2Fwww.heroku.com%2F&amp;amp;ei=2c1WVeaWCoOe8QW3moCoAw&amp;amp;usg=AFQjCNF8-hoB8iHVyZ2dDq3bYi_oSmHVtg&amp;amp;sig2=OTukXXAApyRuS2ZjqBu2eQ&amp;amp;bvm=bv.93564037,d.dGc&#34;&gt;Heroku&lt;/a&gt;，就又出現問題了！有些問題是原本就存在的，還是紀錄一下。&lt;/p&gt;
+
+&lt;h2 id=&#34;osx-安裝-postgresql:396b4ba547ef46fb6949aa6348ba269f&#34;&gt;OSX 安裝 PostgreSQL&lt;/h2&gt;
+
+&lt;p&gt;因為 &lt;a href=&#34;https://devcenter.heroku.com/articles/sqlite3&#34;&gt;Heroku 不支援 Sqlite&lt;/a&gt;，得另外安裝 PostgreSQL，而我原本以為有安裝&lt;a href=&#34;http://postgresapp.com&#34;&gt;應用程式&lt;/a&gt;，就不用特別再安裝，想不到還是出現錯誤了。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ brew install Postgresql
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安裝後還是出現錯誤&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Error loading RubyGems plugin &amp;quot;/Users/alan/.rvm/gems/ruby-2.0.0-p353/gems/executable-hooks-1.3.2/lib/rubygems_plugin.rb&amp;quot;: dlopen(/Users/alan/.rvm/rubies/ruby-2.0.0-p353/lib/ruby/2.0.0/x86_64-darwin13.0.0/openssl.bundle, 9): Symbol not found: _SSLv2_client_method
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Google 到的解決辦法就是 RVM 重裝&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ \curl -L https://get.rvm.io | bash -s stable —ruby
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;postgresql-migrate-test:396b4ba547ef46fb6949aa6348ba269f&#34;&gt;PostgreSQL Migrate Test&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rake db:migrate RAILS_ENV=development
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;部署前準備:396b4ba547ef46fb6949aa6348ba269f&#34;&gt;部署前準備&lt;/h2&gt;
+
+&lt;p&gt;在 application.rb 設定&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ config.serve_static_assets = true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;執行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rake assets:precompile
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;專案底下的 public/assets 就會出現打包好的 resource，要引入圖片，程式碼得這樣寫。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;image_path(&amp;quot;bg.jpg&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;deploy-heroku:396b4ba547ef46fb6949aa6348ba269f&#34;&gt;Deploy Heroku&lt;/h1&gt;
+
+&lt;p&gt;都處理完畢就可以走正常流程部署到 Heroku 了。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ heroku login
+$ heroku git:clone -a PROJECT
+$ git add .
+$ git commit -am &amp;quot;make it better&amp;quot;
+$ git push heroku master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;啟動&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ heroku ps:scale web=1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;部署完畢可以用 Terminal 看 log&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ heroku logs -t
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;重新啟動&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ heroku restart
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ruby on Rails 小問題</title>
+      <link>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_xiao_wen_ti/</link>
+      <pubDate>Sun, 04 Jan 2015 23:45:08 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_xiao_wen_ti/</guid>
+      <description>&lt;p&gt;安裝許久的 gem 太久沒更新了遇到一些麻煩，又剛好今天發現 Google Drive 以前可以用 Login 已經被取消了&amp;hellip;天吶&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;首先因為改了與 Google Drive 串接的 API 所以出現了 SSLError&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Faraday::SSLError (SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify failed):
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這個找很久&amp;hellip;後來是把 gem update 就解決了&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ gem update
+$ gem update --system
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;而另外一個問題是一直很煩的，RVM 老是會出現一些 Warngin 今天惱了，找了方法來解決&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Warning! PATH is not properly set up, &#39;/Users/alan/.rvm/gems/ruby-2.2.1/bin&#39; is not at first place,
+         usually this is caused by shell initialization files - check them for &#39;PATH=...&#39; entries,
+         it might also help to re-add RVM to your dotfiles: &#39;rvm get stable --auto-dotfiles&#39;,
+         to fix temporarily in this shell session run: &#39;rvm use ruby-2.2.1’.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最後還是把 RVM 整個移除重裝了，每次都忘記，這次就筆記起來， RVM 沒辦法用指令移除的話，可以直接整個砍掉，我這樣做是沒問題。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rvm implode
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rm -rf ~/.rvm
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;重新安裝 RVM&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ curl -sSL https://get.rvm.io | bash -s stable
+$ rvm install 2.2.2
+$ rvm 2.2.2 --default
+$ gem install bundle
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;修改 .bash_profile&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;## rvm
+PATH=&amp;quot;$GEM_HOME/bin:$HOME/.rvm/bin:$PATH&amp;quot; # Add RVM to PATH for scripting
+[ -s ${HOME}/.rvm/scripts/rvm ] &amp;amp;&amp;amp; source ${HOME}/.rvm/scripts/rvm
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Install rmagick on the Windows of Ruby on Rails</title>
+      <link>http://localhost:1313/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/</link>
+      <pubDate>Mon, 12 Aug 2013 01:19:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/</guid>
+      <description>&lt;p&gt;Windows上不管是要安裝什麼Ruby的套件總是能出錯，這次就連很常見的ImageMagick還是會無法順利安裝，無言阿!!所以才會有人建議為了自己好，千萬不要在Windows上學習開發Ruby on Rails，但是我是個窮鬼&amp;hellip;買不起Mac只好硬是找方法。以下就是Ruby on Rails安裝rmagick的過程囉。&lt;/p&gt;
+
+&lt;p&gt;到ImageMagick&lt;a href=&#34;http://www.imagemagick.org/script/binary-releases.php#windows&#34;&gt;官網&lt;/a&gt;下載&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.imagemagick.org/download/binaries/ImageMagick-6.8.6-7-Q16-x86-static.exe&#34;&gt;ImageMagick-6.8.6-7-Q16-x86-static.exe&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.imagemagick.org/download/binaries/ImageMagick-6.8.6-7-Q16-x86-dll.exe&#34;&gt;ImageMagick-6.8.6-7-Q16-x86-dll.exe&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;這兩個皆安裝在C:\ImageMagick，用預設選項安裝即可&lt;/p&gt;
+
+&lt;p&gt;點選官網上的&lt;a href=&#34;http://www.imagemagick.org/script/download.php&#34;&gt;download&lt;/a&gt;&amp;gt;United States&amp;gt;&lt;a href=&#34;http://www.imagemagick.org/download&#34;&gt;http://www.imagemagick.org/download&lt;/a&gt;&amp;gt;&lt;a href=&#34;http://www.imagemagick.org/download/ImageMagick-6.8.6-7.tar.gz&#34;&gt;ImageMagick-6.8.6-7.tar.gz&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;下載、解壓縮後放置在C:\ImageMagick資料夾中，命名為SourceCode&lt;/p&gt;
+
+&lt;p&gt;到&lt;a href=&#34;http://www.mingw.org/&#34;&gt;http://www.mingw.org/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;點選Navigation&amp;gt;&lt;a href=&#34;https://sourceforge.net/downloads/mingw&#34;&gt;download&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;下載Looking for the latest version? &lt;a href=&#34;http://sourceforge.net/projects/mingw/files/latest/download?source=files&#34;&gt;Download mingw-get-inst-20120426.exe (662.7 kB)&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;將MinGW安裝在C:\MinGW，並且勾選MinGW Developer ToolKit，安裝完畢還要在系統的環境變數加上C:\MinGW&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/mingw.png&#34; alt=&#34;mingw&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最後用gem安裝rmagick&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ gem install rmagick --platform=ruby -- --with-opt-lib=C:/ImageMagick --with-opt-include=c:/ImageMagick/SourceCode
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/rmagick_down.png&#34; alt=&#34;rmagick_down&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Gemfile setup&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;gem &#39;rmagick&#39;
+gem &amp;quot;carrierwave&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;國外的完整&lt;a href=&#34;http://www.youtube.com/watch?v=gEWAVlNCKhg&amp;amp;feature=youtu.be&#34;&gt;教學影片&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

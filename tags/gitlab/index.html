@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  	<meta property="og:title" content=" Gitlab &middot;  Hello World!!" />
+  	<meta property="og:site_name" content="Hello World!!" />
+  	<meta property="og:url" content="http://localhost:1313/tags/gitlab/" />
+
+    
+    <meta property="og:type" content="website" />
+    
+
+  <title>
+     Gitlab &middot;  Hello World!!
+  </title>
+
+    <meta name="description" content="you can do anything you want to do." />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
+
+
+    
+      
+          <link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="Hello World!!" />
+      
+      
+        <link href="http://localhost:1313/tags/gitlab/index.xml" rel="alternate" type="application/rss+xml" title="Gitlab &middot; Hello World!!" />
+      
+    
+    <meta name="generator" content="Hugo 0.15" />
+
+    <link rel="canonical" href="http://localhost:1313/tags/gitlab/" />
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/">Home</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/page/about/">About me</a>
+            </li>
+        
+    </ul>
+    
+    
+    <a class="subscribe-button icon-feed" href="http://localhost:1313/tags/gitlab/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+
+	<header class="main-header tag-head" style="background-image: url(http://localhost:1313//images/Iron_man.jpg)">
+
+    <nav class="main-nav overlay clearfix">
+      
+        <a class="blog-logo" href="http://localhost:1313/"><img src="http://localhost:1313//images/517273.jpg" alt="Home" /></a>
+      
+      
+          <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+      
+    </nav>
+    <div class="vertical">
+        <div class="main-header-content inner">
+            <h1 class="page-title">Gitlab</h1>
+            <h2 class="page-description">
+                
+            </h2>
+        </div>
+    </div>
+</header>
+
+<main class="content" role="main">
+    
+
+	<div class="extra-pagination inner">
+    <nav class="pagination" role="navigation">
+	
+	<span class="page-number">Page 1 of 1</span>
+	
+</nav>
+
+	</div>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/cooperation/gitlab/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/">Gitlab 4.1 upgrade to Gitlab 6.0超偷懶方法</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>Gitlab官方網站已經釋出Gitlab 6.0了，我的版本卻還在4.1。所以忍不住手癢，試試看4.1升級到6.0，但是這中間的版本實在太多啦。要一個一個升級，不知道又會遇到什麼問題。所幸愛亂搞的我，想到了妙招，如果我重新安裝6.0但是使用的是原本的4.1資料表，是不是也可以正常運作呢? 因為Gitlab的migrate應該是不會影響到以前的資料。 備份以下東西，以防止不能運作後，還能回復成4.1的版本 Mysql中的gitlabhq_production資料庫 /etc/init.d/gitlab 再來就先停止Gitlab的運行 $ service gitlab stop 然後依照官網的安裝步驟。但只執行到bundle install。因為要使用到原本的資料庫。 bundle install --deployment --without development test postgres aws 再來依照官網5.4升級到6.0的文件，執行下列程序。 sudo -u git -H bundle exec rake db:migrate RAILS_ENV=production sudo -u git -H bundle exec rake migrate_groups RAILS_ENV=production sudo -u git -H bundle exec rake migrate_global_projects RAILS_ENV=production sudo -u git -H bundle exec rake migrate_keys RAILS_ENV=production sudo -u git -H bundle exec rake migrate_inline_notes RAILS_ENV=production sudo -u git -H bundle exec rake gitlab:satellites:create RAILS_ENV=production # Clear redis cache sudo -u git -H bundle exec rake cache:clear RAILS_ENV=production # Clear and precompile assets sudo -u git -H bundle exec rake assets:clean RAILS_ENV=production sudo -u git -H bundle exec rake assets:precompile RAILS_ENV=production 取得啟動腳本 curl --output /etc/init.d/gitlab https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab chkconfig --add gitlab chkconfig gitlab on chmod +x /etc/init.d/gitlab 因為我的gitlab是掛在apache上的所以還要修改httpd-vhosts.conf $ vim /etc/httpd/conf.d/httpd-vhosts.conf &lt;virtualhost&gt; ServerName git.ocomm.com.tw DocumentRoot /home/git/gitlab/public # !!! <a class="read-more" href="http://localhost:1313/post/cooperation/gitlab/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/cooperation/">#cooperation</a>,
+            
+                <a href="http://localhost:1313/tags/gitlab/">#gitlab</a>,
+            
+        
+        <time class="post-date" datetime="2013-09-06T10:53:00Z">
+            6 Sep 2013
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/cooperation/gitlab/jian_zhi_zhuan_shu_zi_ji_de_github_zhi_gitlab/">建置專屬自己的Github之Gitlab</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>Github用久了就覺得這一切真是太方便了!!但是呢，有些程式碼就是不太方便放在別人那邊，不管自己寫的code是不是有到那種程度，人就是想把屬於自己的東西留給自己欣賞，這個時候Gitlab就是你的救星啦!!! 安裝Rvm Ruby $ curl -L https://get.rvm.io | bash -s stable --ruby $ rvm install 1.9.3 $ rvm use 1.9.3 $ rvm rubygems latest 下載並安裝git-core $ cd /tmp $ wget 'https://git-core.googlecode.com/files/git-1.7.11.tar.gz' $ tar zxvf git-1.7.11.tar.gz $ cd git-1.7.11 $ ./configure $ make $ make install 安裝Gitlab所需套件 $ yum install openssl openssl-devel zlib zlib-devel mysql mysql-devel sqlite sqlite-devel libicu-devel $ wget 'http://peak.telecommunity.com/dist/ez_setup.py' $ python ez_setup.py $ easy_install pip $ pip install pygments 安裝Redis 我自己覺得Redis有點像Memcache，底層的實作我就不太清楚。 $ wget 'http://redis.googlecode.com/files/redis-2.4.15.tar.gz' $ tar xzf redis-2.4.5.tar.gz $ cd redis-2.4.5 $ make $ make install $ cd utils $ ./install_server.sh $ mkdir /etc/redis /var/lib/redis $ cp src/redis-server src/redis-cli /usr/local/bin/ $ cp redis.conf /etc/redis/ 將設定值修改如下： $ vim /etc/redis/redis.conf daemonize yes bind 127.0.0.1 /home/git/.profile' $ sudo -u git -i -H /home/git/gitolite/src/gl-system-install $ cp /home/gitlab/.ssh/id_rsa.pub /home/git/gitlab.pub $ chmod 777 /home/git/gitlab.pub $ sudo -u git -H sed -i 's/0077/0007/g' /home/git/share/gitolite/conf/example.gitolite.rc $ sudo -u git -H sh -c &quot;PATH=/home/git/bin:$PATH; gl-setup -q /home/git/gitlab.pub&quot; 修改資料夾權限及擁有者 $ chmod -R g+rwX /home/git/repositories/ $ chown -R git:git /home/git/repositories/ 測試Gitlab是否可以正常下載Gitolite管理檔案庫 $ su - gitlab $ git clone git@localhost:gitolite-admin.git /tmp/gitolite-admin $ rm -rf /tmp/gitolite-admin $ exit 設定Gitlab $ gem install charlock_holmes $ gem install bundler $ bundle install $ su - gitlab $ git clone http://github.com/gitlabhq/gitlabhq.git gitlab $ cd gitlab 使用MySQL，複製設定檔，修改資料庫登入帳號及密碼 $ cp config/database.yml.mysql config/database.yml 修改gitlab.yml $ cp config/gitlab.yml.example config/gitlab.yml $ vim config/gitlab.yml ## GitLab settings gitlab: ## Web server settings #host: localhost host: git.ocomm.com.tw 這個步驟當時搞好久，結果是要自己先建立資料庫... <a class="read-more" href="http://localhost:1313/post/cooperation/gitlab/jian_zhi_zhuan_shu_zi_ji_de_github_zhi_gitlab/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/cooperation/">#cooperation</a>,
+            
+                <a href="http://localhost:1313/tags/gitlab/">#gitlab</a>,
+            
+        
+        <time class="post-date" datetime="2013-06-28T13:46:00Z">
+            28 Jun 2013
+        </time>
+    </footer>
+</article>
+
+	
+
+	<nav class="pagination" role="navigation">
+	
+	<span class="page-number">Page 1 of 1</span>
+	
+</nav>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Hello World!!</a> &copy; Copyright Alan - 2016</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/index.js"></script>
+    
+</body>
+</html>

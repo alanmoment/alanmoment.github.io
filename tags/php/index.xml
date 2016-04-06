@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Php on Hello World!!</title>
+    <link>http://localhost:1313/tags/php/</link>
+    <description>Recent content in Php on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Tue, 05 May 2015 23:59:25 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/php/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Data Encrypt &amp; Decrypt</title>
+      <link>http://localhost:1313/post/php/data_encrypt_&amp;_decrypt/</link>
+      <pubDate>Tue, 05 May 2015 23:59:25 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/php/data_encrypt_&amp;_decrypt/</guid>
+      <description>&lt;p&gt;今天把資料的加解密整理了一下也丟到 &lt;a href=&#34;https://github.com/alanmoment/rsa-util&#34;&gt;Github&lt;/a&gt; 了，不過只有 Server 的，雖然也可以玩玩看加解密，但也蠻奇怪的，加密端與解密端應該是要不同的平台，還要再找時間把 Android 的加密也整理一下。不曉得又要拖到什麼時候&amp;hellip;哈。&lt;/p&gt;
+
+&lt;p&gt;只要在自己的 &lt;code&gt;composer.json&lt;/code&gt; 加上設定檔就可以囉！&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;repositories&amp;quot;: [
+        {
+            &amp;quot;type&amp;quot;: &amp;quot;git&amp;quot;,
+            &amp;quot;url&amp;quot;: &amp;quot;https://github.com/alanmoment/rsa-util.git&amp;quot;
+        }
+    ],
+    &amp;quot;require&amp;quot;: {
+        &amp;quot;alanmoment/rsa-util&amp;quot;: &amp;quot;dev-master&amp;quot;
+    },
+    &amp;quot;minimum-stability&amp;quot;: &amp;quot;dev&amp;quot;,
+    &amp;quot;autoload&amp;quot;: {
+        &amp;quot;classmap&amp;quot;: [
+            &amp;quot;vendor/alanmoment&amp;quot;
+        ]
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;範例程式碼&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# index.php
+require __DIR__ . &#39;/vendor/autoload.php&#39;;
+
+use Rsa\RsaUtil;
+
+$RsaUtil = new RsaUtil();
+$RsaUtil-&amp;gt;setKeyStorePath(&amp;quot;./keystores/&amp;quot;);
+$encrypt = $RsaUtil-&amp;gt;generate()-&amp;gt;encrypt(&amp;quot;I am test data.&amp;quot;);
+echo $encrypt;
+
+$decrypted = $RsaUtil-&amp;gt;decrypt($encrypt);
+echo $decrypted;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Laravel 首發 !!!</title>
+      <link>http://localhost:1313/post/php/laravel_shou_fa/</link>
+      <pubDate>Tue, 19 Aug 2014 11:11:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/php/laravel_shou_fa/</guid>
+      <description>
+
+&lt;p&gt;雖然&lt;a href=&#34;http://laravel.com/&#34;&gt;Laravel&lt;/a&gt;已經出現頗久，最近總算開始動動手了，有鑑於去年開始使用Ruby on Rails，發現說Laravel也太像了吧。據匿名的朋友說現在的Framework幾乎都是&lt;code&gt;參考&lt;/code&gt;Ruby on Rails。而這次也趁機再多用幾種工具，&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.nitrous.io&#34;&gt;Nitrous.io&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;AWS S3&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.heroku.com/&#34;&gt;Heroku&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;每次自己開專案都想用不同的工具，而現在的工具越來越簡單，若是不瞭解原理，那豈不是很快被淘汰了嗎?&lt;/p&gt;
+
+&lt;h2 id=&#34;建立laravel:ff06a00f5058a348bf22bfc692f8ae74&#34;&gt;建立Laravel&lt;/h2&gt;
+
+&lt;p&gt;現在的環境，撰寫如何建立似乎已經不怎麼高手了，因為越來越簡單，而&lt;a href=&#34;http://laravel.com/docs/quick&#34;&gt;官網&lt;/a&gt;寫的也很好。所以就不再Copy了，倒是因為要使用Framework有遇到一些&lt;code&gt;PHP module&lt;/code&gt;的問題。&lt;/p&gt;
+
+&lt;p&gt;就以前的開發環境都會有&lt;a href=&#34;http://php.net/manual/en/book.mcrypt.php&#34;&gt;php-mcrypt&lt;/a&gt;這個模組，但這次使用的環境竟然就真的沒有，或許是版本過新、或是MIS沒有安裝。不管，反正遇到問題就是要解決了&lt;/p&gt;
+
+&lt;p&gt;在CentOS 6.7中，使用yum找不到php-mcrypt了，必須要安裝另外的套件尋找。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo rpm -ivh http://dl.fedoraproject.org/pub/epel/beta/7/x86_64/epel-release-7-0.2.noarch.rpm
+$ sudo rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+$ sudo yum --enablerepo=remi install php-mcrypt.x86_64
+$ sudo service httpd restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;php -m&lt;/code&gt;就可以看到&lt;code&gt;mcrypt&lt;/code&gt;模組了。&lt;/p&gt;
+
+&lt;h2 id=&#34;使用laravel:ff06a00f5058a348bf22bfc692f8ae74&#34;&gt;使用Laravel&lt;/h2&gt;
+
+&lt;p&gt;使用起來真的是很順手，因為幾乎跟Ruby on Rails一樣了，但畢竟不是很熟手，只記錄有用到的。&lt;/p&gt;
+
+&lt;h3 id=&#34;routes:ff06a00f5058a348bf22bfc692f8ae74&#34;&gt;Routes&lt;/h3&gt;
+
+&lt;p&gt;進入網站的各個位址都會經過route。&lt;/p&gt;
+
+&lt;p&gt;/secret直接401&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Route::any(&#39;/secret&#39;, function() {
+    return Response::make(&#39;Unauthorized&#39;, 401);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;/form只接受post並且在之前會先檢查ip&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Route::match(
+    array(&#39;POST&#39;), &#39;/form&#39;, array(&#39;before&#39; =&amp;gt; &#39;ipcheck&#39;, &#39;uses&#39; =&amp;gt; &#39;HomeController@purchase&#39;)
+);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;filters:ff06a00f5058a348bf22bfc692f8ae74&#34;&gt;Filters&lt;/h3&gt;
+
+&lt;p&gt;是用來過濾各種請求，有App層級也有Controller的，可用下例程式碼過濾IP。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Route::filter(&#39;ipcheck&#39;, function() {
+    if (!preg_match(&amp;quot;/127\.0\.0\.1/i&amp;quot;, $_SERVER[&#39;REMOTE_ADDR&#39;]) {
+        return Redirect::to(&#39;/&#39;);
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;app:ff06a00f5058a348bf22bfc692f8ae74&#34;&gt;App&lt;/h3&gt;
+
+&lt;p&gt;app/config/app.php&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;debug =&amp;gt; 是否開啓除錯&lt;/li&gt;
+&lt;li&gt;url =&amp;gt; 網站預設網址&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;透過一些static method也能存取其中屬性。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Config::set(&#39;app.url&#39;, STATIC_HOST);
+Config::get(&#39;app.url&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;database:ff06a00f5058a348bf22bfc692f8ae74&#34;&gt;Database&lt;/h3&gt;
+
+&lt;p&gt;Database當然也有好用的ORM，而我覺得好用的程度跟Ruby有得比唷。&lt;/p&gt;
+
+&lt;p&gt;app/config/database.php&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;default =&amp;gt; 預設的資料庫&lt;/li&gt;
+&lt;li&gt;connections =&amp;gt; 資料庫連線位址、帳號、密碼&amp;hellip;等&lt;/li&gt;
+&lt;li&gt;redis =&amp;gt; 好用的快取&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;透過attribute可以改變連線的資料庫、使用資料表、欄位是否使用&amp;hellip;等。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class User extends Eloquent {
+
+    protected $connection = DATABASE;
+
+    protected $table = TABLE;
+
+    public $timestamps = false;
+
+    public function userinfo() {
+        return $this-&amp;gt;hasOne(&#39;Userinfo&#39;);
+    }
+
+}
+
+class Userinfo extends Eloquent {
+
+    protected $connection = DATABASE;
+
+    protected $table = &#39;user_info&#39;;
+
+    public function user() {
+        return $this-&amp;gt;belongsTo(&#39;User&#39;);
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;當資料表有關聯，可以透過function設定關係，上例關係是User有一個Userinfo，而Userinfo也相依於User，如此在使用時可利用下例程式碼存取到userinfo的資料，&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;User::with(&#39;userinfo&#39;)-&amp;gt;find(1)-&amp;gt;first();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;若是沒有設定，也可以利用下利存取，但似乎就比較沒有彈性。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;User::leftJoin(&#39;user_info as info&#39;)-&amp;gt;find(1).first();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;累了&amp;hellip;連laravel都沒紀錄完&amp;hellip;.下回再打&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Gearman Job Worker for PHP</title>
+      <link>http://localhost:1313/post/php/gearman_job_worker_for_php/</link>
+      <pubDate>Sun, 22 Dec 2013 16:40:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/php/gearman_job_worker_for_php/</guid>
+      <description>
+
+&lt;p&gt;最近同事接觸到需要 worker 來處理一些非同步的事情。諸如訂單、寄發email都常用非同步來執行，以往這些事情大多都用排程解決，其實還有更好的 solution。他們使用 &lt;a href=&#34;http://gearman.org/&#34;&gt;Gearman&lt;/a&gt; 來解決這個問題。好奇心的驅使，就算不是我實作的我也想去玩玩看新的東西，Gearman 可以在系統裡起一個 &lt;code&gt;Job Worker&lt;/code&gt; 也可以算是 service，這個 job worker 可以在不起一個排程的情況底下，幫你寄信、處理訂單。也就是當你有需要使用 email 在呼叫他就好了。&lt;/p&gt;
+
+&lt;h2 id=&#34;安裝-gearman:66ef515b2083a934d334a7648c675d69&#34;&gt;安裝 Gearman&lt;/h2&gt;
+
+&lt;p&gt;在 CentOS 中可以直接用 &lt;code&gt;yum&lt;/code&gt; 安裝&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ yum install -y gearmand
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;安裝-gearman-依賴包:66ef515b2083a934d334a7648c675d69&#34;&gt;安裝 Gearman 依賴包&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ yum -y install re2c geoip geoip-data geoip-devel gcc* boost* libgearman*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這兩個步驟都很簡單&lt;/p&gt;
+
+&lt;h2 id=&#34;安裝-php-的-gearman-extension:66ef515b2083a934d334a7648c675d69&#34;&gt;安裝 PHP 的 Gearman extension&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ wget http://pecl.php.net/get/gearman-1.1.1.tgz
+$ cd gearman-1.1.1
+$ phpize
+$ ./configure
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/gearman_job_worker_for_php/gearman-1.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ make &amp;amp;&amp;amp; make install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/gearman_job_worker_for_php/gearman-2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/gearman_job_worker_for_php/gearman-3.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最後在 &lt;code&gt;php.ini&lt;/code&gt; 加上 module&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /etc/php.ini
+extension=&amp;quot;gearman.so&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;儲存後重新啟動&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ service httpd restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣 php 就支援 gearman 囉&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/gearman_job_worker_for_php/gearman-4.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;hello-world:66ef515b2083a934d334a7648c675d69&#34;&gt;Hello World&lt;/h2&gt;
+
+&lt;p&gt;不免俗的一定要測試一下的，這邊我就利用官網提供的程式碼做測試。&lt;/p&gt;
+
+&lt;p&gt;首先建立一隻 worker.php&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim worker.php
+&amp;lt;?php $worker= new GearmanWorker();
+    $worker-&amp;gt;addServer();
+    $worker-&amp;gt;addFunction(&amp;quot;reverse&amp;quot;, &amp;quot;my_reverse_function&amp;quot;);
+    while ($worker-&amp;gt;work());
+
+    function my_reverse_function($job)
+    {
+      return strrev($job-&amp;gt;workload());
+    }
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再建立一隻 client.php&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim client.php
+&amp;lt;?php $client= new GearmanClient();
+    $client-&amp;gt;addServer();
+    print $client-&amp;gt;do(&amp;quot;reverse&amp;quot;, &amp;quot;Hello World!&amp;quot;);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然後執行 worker&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ php worker.php
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再執行 client 就可以得到 Hello World 了&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ php client.php
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;若要停止這個 job worker 可以用 &lt;code&gt;Ctrl + C&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;這東西還蠻強大的，之前試用過 &lt;a href=&#34;http://beanstalkapp.com/&#34;&gt;Beanstalk&lt;/a&gt; 覺得 Gearman 相對強大許多。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Phalcon首發</title>
+      <link>http://localhost:1313/post/php/phalconshou_fa/</link>
+      <pubDate>Wed, 28 Aug 2013 11:54:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/php/phalconshou_fa/</guid>
+      <description>
+
+&lt;p&gt;用了好一陣子的&lt;a href=&#34;http://www.yiiframework.com/&#34;&gt;YII framework&lt;/a&gt;一開始用的時候覺得。哇~好專業阿。好難懂他的整個框架，摸了一陣子之後。才發現，近年不管哪一個程式語言。都是這樣的Design pattern。MVC、ORM，建立一個網站越來越便利也更簡單了。而最近發現一個類似YII的加強版&lt;a href=&#34;http://phalconphp.com/index&#34;&gt;Phalcon&lt;/a&gt;。主要他是用C
+寫的，所以效能會比一般的framework還要好，但實際上我並沒有測試過，這只是我看官網上的介紹，而且我用framework，其實並不是那麼著墨在校能，而是提供的工具是否好用，開發上是否便利。如此而已。&lt;/p&gt;
+
+&lt;h3 id=&#34;下載phalcon:5408234a4387256070a715c86a324106&#34;&gt;下載Phalcon&lt;/h3&gt;
+
+&lt;p&gt;官網有提供&lt;a href=&#34;http://docs.phalconphp.com/en/1.0.0/reference/install.html#linux-solaris-mac&#34;&gt;Phalcon framework&lt;/a&gt;的Github可以下載&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone git://github.com/phalcon/cphalcon.git
+$ cd cphalcon/build
+$ ./install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安裝畫面&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/phalconshou_fa/cphalcon.png&#34; alt=&#34;./install&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;安裝便利的phalcon-developer-tools:5408234a4387256070a715c86a324106&#34;&gt;安裝便利的Phalcon Developer Tools&lt;/h3&gt;
+
+&lt;p&gt;Phalcon一樣有提供&lt;a href=&#34;http://docs.phalconphp.com/en/latest/reference/linuxtools.html&#34;&gt;Phalcon Developer Tools&lt;/a&gt;的Github下載&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone https://github.com/phalcon/phalcon-devtools.git
+$ cd phalcon-devtools
+$ ./phalcon.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;建立softlink&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ln -s /home/phalcon/phalcon-devtools/phalcon.php /usr/bin/phalcon
+$ chmod ugo+x /usr/bin/phalcon
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安裝完畢後重新登入執行測試&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ phalcon commands
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;執行畫面&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/phalconshou_fa/cphalcon-devtools.png&#34; alt=&#34;phalcon commands&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;建立專案:5408234a4387256070a715c86a324106&#34;&gt;建立專案&lt;/h3&gt;
+
+&lt;p&gt;使用指令建立一個專案&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ phalcon create-project phalcon
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/phalconshou_fa/cphalcon-create-project.png&#34; alt=&#34;phalcon create-project phalcon&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;這樣就完成了。在我的&lt;a href=&#34;http://demo.ocomm.com.tw/hadoop&#34;&gt;小專案&lt;/a&gt;中也有用到這個framework。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>PHP安裝JSON</title>
+      <link>http://localhost:1313/post/php/phpan_zhuang_json/</link>
+      <pubDate>Wed, 17 Jul 2013 12:14:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/php/phpan_zhuang_json/</guid>
+      <description>
+
+&lt;p&gt;&lt;a href=&#34;http://www.json.org/&#34;&gt;JSON&lt;/a&gt;是一種資料格式，很多語言為了能互相溝通，都採用這種格式來傳遞資料，要讓PHP支援JSON，需要另外安裝模組。&lt;/p&gt;
+
+&lt;h3 id=&#34;下載原始檔案包:09f7db7722d20223293c2a9e390f1cd8&#34;&gt;下載原始檔案包&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /tmp
+$ wget &#39;http://www.aurore.net/projects/php-json/php-json-ext-1.2.0.tar.bz2&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;解壓縮:09f7db7722d20223293c2a9e390f1cd8&#34;&gt;解壓縮&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tar xvjf php-json-ext-1.2.0.tar.bz2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;初始化php環境:09f7db7722d20223293c2a9e390f1cd8&#34;&gt;初始化PHP環境&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd php-json-ext-1.2.0
+$ phpize
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;若出現錯誤表示沒有安裝過phpize&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;phpize commend not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這個可以在yum中安裝&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ yum -y install php-devel
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果還不行，說明你的編譯工具有問題，安裝一下就可以了&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ yum -y install gcc install autoconf automake libtool
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再次測試運行phpize並重新安裝&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./configure
+$ make &amp;amp;&amp;amp; makeinstall
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;檢查json是否安裝成功:09f7db7722d20223293c2a9e390f1cd8&#34;&gt;檢查JSON是否安裝成功&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ find / -name ‘*json.so’
+./usr/lib/php/modules/json.so
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;有出現路徑代表安裝成功&lt;/p&gt;
+
+&lt;h3 id=&#34;修改php-ini:09f7db7722d20223293c2a9e390f1cd8&#34;&gt;修改php.ini&lt;/h3&gt;
+
+&lt;p&gt;我的是在php.ini中include一個資料夾/etc/php.d&lt;/p&gt;
+
+&lt;p&gt;在這個檔中添一個json.ini&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim json.ini
+extension=json.so
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;重啟服務:09f7db7722d20223293c2a9e390f1cd8&#34;&gt;重啟服務&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ service httpd restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;檢查json模組是否有載入:09f7db7722d20223293c2a9e390f1cd8&#34;&gt;檢查JSON模組是否有載入&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ php -r &amp;quot;phpinfo();&amp;quot; | grep &#39;json&#39;
+$ json
+$ json support =&amp;gt; enabled
+$ json version =&amp;gt; 1.2.1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣就完成囉!!!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>管理PHP Library的利器Composer</title>
+      <link>http://localhost:1313/post/php/guan_li_php_library_de_li_qi_composer/</link>
+      <pubDate>Thu, 04 Jul 2013 12:36:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/php/guan_li_php_library_de_li_qi_composer/</guid>
+      <description>
+
+&lt;p&gt;在之前試玩&lt;a href=&#34;http://rubyonrails.org/&#34;&gt;Ruby On Rails&lt;/a&gt;的時候就覺得有&lt;a href=&#34;http://rubygems.org/&#34;&gt;Gem&lt;/a&gt;一整個就是超好用的吶!!所以前陣子公司導入Gitlab之後順勢要我研究一下PHP的&lt;a href=&#34;http://getcomposer.org/&#34;&gt;Composer&lt;/a&gt;，想不到還有支援Github。所以做個紀錄。&lt;/p&gt;
+
+&lt;h3 id=&#34;安裝php-composer:484fb5ea3564e0343a8972340d5a0d91&#34;&gt;安裝PHP Composer&lt;/h3&gt;
+
+&lt;p&gt;安裝在各自專案時&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkdir /var/www/html/example
+$ sudo curl -s https://getcomposer.org/installer | sudo php
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/guan_li_php_library_de_li_qi_composer/composer-1.png&#34; alt=&#34;install composer&#34; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;我安裝時有出現警告訊息是因為我的PHP版本是5.3.3他建議我升級到5.3.4或更高，否則可能導致Composer不穩定&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;我自己是安裝在/usr/local/bin&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /usr/local/bin
+$ sudo curl -s https://getcomposer.org/installer | sudo php
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可建立指向&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ln -s /usr/local/bin/composer.phar /usr/bin/composer
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣不管在哪個專案只要建立composer.json都可以使用了。&lt;/p&gt;
+
+&lt;h3 id=&#34;在php專案建立composer:484fb5ea3564e0343a8972340d5a0d91&#34;&gt;在PHP專案建立Composer&lt;/h3&gt;
+
+&lt;p&gt;建立composer.json&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /var/www/html/example
+$ vim composer.json
+{
+    &amp;quot;require&amp;quot;: {
+        &amp;quot;monolog/monolog&amp;quot;: &amp;quot;1.2.*&amp;quot;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;建立後執行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ composer install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;專案目錄底下就會產生vendor資料夾，裏頭就是在composer.json有設定要引入的library。&lt;/p&gt;
+
+&lt;p&gt;Composer官網也有提供線上的&lt;a href=&#34;https://packagist.org/&#34;&gt;Library&lt;/a&gt;可以使用。讚!!&lt;/p&gt;
+
+&lt;h3 id=&#34;使用github上的repository:484fb5ea3564e0343a8972340d5a0d91&#34;&gt;使用Github上的Repository&lt;/h3&gt;
+
+&lt;p&gt;把library放到github上管理，然後再用composer引入各自的專案，這豈不是太方便了!!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim composer.json
+{
+    &amp;quot;name&amp;quot;: &amp;quot;bom-solution&amp;quot;,
+    &amp;quot;description&amp;quot;: &amp;quot;bom solution&amp;quot;,
+    &amp;quot;homepage&amp;quot;: &amp;quot;https://github.com/alanmoment/bom-solution&amp;quot;,
+    &amp;quot;repositories&amp;quot;: [{
+    &amp;quot;type&amp;quot;: &amp;quot;package&amp;quot;,
+    &amp;quot;package&amp;quot;: {
+        &amp;quot;name&amp;quot;: &amp;quot;alanmoment/bom-solution&amp;quot;,
+        &amp;quot;version&amp;quot;: &amp;quot;v0.1&amp;quot;,
+        &amp;quot;source&amp;quot;: {
+                &amp;quot;url&amp;quot;: &amp;quot;git@github.com:alanmoment/bom-solution.git&amp;quot;,
+                &amp;quot;type&amp;quot;: &amp;quot;git&amp;quot;,
+                &amp;quot;reference&amp;quot;: &amp;quot;v0.1&amp;quot;
+        }
+        }
+    }],
+    &amp;quot;require&amp;quot;: {
+        &amp;quot;php&amp;quot;: &amp;quot;&amp;gt;=5.3.3&amp;quot;,
+        &amp;quot;alanmoment/bom-solution&amp;quot;: &amp;quot;v0.1&amp;quot;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;建立github的composer之前必須先在你的repository建立tag&lt;/p&gt;
+
+&lt;p&gt;alanmoment是我的github的帳號&lt;/p&gt;
+
+&lt;p&gt;bom-solution是我的repository&lt;/p&gt;
+
+&lt;p&gt;v0.1是我tag的版號&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;存檔後執行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ composer install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;會發生以下錯誤&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Loading composer repositories with package information
+Installing dependencies (including require-dev) from lock file
+Nothing to install or update
+Generating autoload files
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這是因為執行過composer install之後目錄底下也會產生一隻composer.lock檔案，要再次執行前先把他刪掉，就可以正常執行囉
+。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/guan_li_php_library_de_li_qi_composer/composer.png&#34; alt=&#34;composer install&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;完成囉!!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

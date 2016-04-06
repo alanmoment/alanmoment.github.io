@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  	<meta property="og:title" content=" Laravel 首發 !!! &middot;  Hello World!!" />
+  	<meta property="og:site_name" content="Hello World!!" />
+  	<meta property="og:url" content="http://localhost:1313/post/php/laravel_shou_fa/" />
+
+    
+  	<meta property="og:type" content="article" />
+
+    <meta property="og:article:published_time" content="2014-08-19T11:11:00Z" />
+
+    
+    <meta property="og:article:tag" content="php" />
+    
+    <meta property="og:article:tag" content="laravel" />
+    
+    
+
+  <title>
+     Laravel 首發 !!! &middot;  Hello World!!
+  </title>
+
+    <meta name="description" content="you can do anything you want to do." />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
+
+
+    
+      
+          <link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="Hello World!!" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.15" />
+
+    <link rel="canonical" href="http://localhost:1313/post/php/laravel_shou_fa/" />
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/">Home</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/page/about/">About me</a>
+            </li>
+        
+    </ul>
+    
+    
+    <a class="subscribe-button icon-feed" href="http://localhost:1313/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+
+<header class="main-header post-head no-cover">
+  <nav class="main-nav clearfix">
+
+
+  
+      <a class="blog-logo" href="http://localhost:1313/"><img src="http://localhost:1313//images/517273.jpg" alt="Home" /></a>
+  
+  
+      <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+  
+  </nav>
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post post">
+
+    <header class="post-header">
+        <h1 class="post-title">Laravel 首發 !!!</h1>
+        <small>雖然Laravel已經出現頗久，最近總算開始動動手了，有鑑於去年開始使用Ruby on Rails，發現說Laravel也太像了吧。據匿名的朋友說...</small>
+
+        <section class="post-meta">
+        
+          <time class="post-date" datetime="2014-08-19T11:11:00Z">
+            Aug 19, 2014
+          </time>
+        
+         
+          <span class="post-tag small"><a href="http://localhost:1313/tags/php/">#php</a></span>
+         
+          <span class="post-tag small"><a href="http://localhost:1313/tags/laravel/">#laravel</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+
+<p>雖然<a href="http://laravel.com/">Laravel</a>已經出現頗久，最近總算開始動動手了，有鑑於去年開始使用Ruby on Rails，發現說Laravel也太像了吧。據匿名的朋友說現在的Framework幾乎都是<code>參考</code>Ruby on Rails。而這次也趁機再多用幾種工具，</p>
+
+<ul>
+<li><a href="https://www.nitrous.io">Nitrous.io</a></li>
+<li>AWS S3</li>
+<li><a href="https://www.heroku.com/">Heroku</a></li>
+</ul>
+
+<p>每次自己開專案都想用不同的工具，而現在的工具越來越簡單，若是不瞭解原理，那豈不是很快被淘汰了嗎?</p>
+
+<h2 id="建立laravel:ff06a00f5058a348bf22bfc692f8ae74">建立Laravel</h2>
+
+<p>現在的環境，撰寫如何建立似乎已經不怎麼高手了，因為越來越簡單，而<a href="http://laravel.com/docs/quick">官網</a>寫的也很好。所以就不再Copy了，倒是因為要使用Framework有遇到一些<code>PHP module</code>的問題。</p>
+
+<p>就以前的開發環境都會有<a href="http://php.net/manual/en/book.mcrypt.php">php-mcrypt</a>這個模組，但這次使用的環境竟然就真的沒有，或許是版本過新、或是MIS沒有安裝。不管，反正遇到問題就是要解決了</p>
+
+<p>在CentOS 6.7中，使用yum找不到php-mcrypt了，必須要安裝另外的套件尋找。</p>
+
+<pre><code>$ sudo rpm -ivh http://dl.fedoraproject.org/pub/epel/beta/7/x86_64/epel-release-7-0.2.noarch.rpm
+$ sudo rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+$ sudo yum --enablerepo=remi install php-mcrypt.x86_64
+$ sudo service httpd restart
+</code></pre>
+
+<p><code>php -m</code>就可以看到<code>mcrypt</code>模組了。</p>
+
+<h2 id="使用laravel:ff06a00f5058a348bf22bfc692f8ae74">使用Laravel</h2>
+
+<p>使用起來真的是很順手，因為幾乎跟Ruby on Rails一樣了，但畢竟不是很熟手，只記錄有用到的。</p>
+
+<h3 id="routes:ff06a00f5058a348bf22bfc692f8ae74">Routes</h3>
+
+<p>進入網站的各個位址都會經過route。</p>
+
+<p>/secret直接401</p>
+
+<pre><code>Route::any('/secret', function() {
+    return Response::make('Unauthorized', 401);
+});
+</code></pre>
+
+<p>/form只接受post並且在之前會先檢查ip</p>
+
+<pre><code>Route::match(
+    array('POST'), '/form', array('before' =&gt; 'ipcheck', 'uses' =&gt; 'HomeController@purchase')
+);
+</code></pre>
+
+<h3 id="filters:ff06a00f5058a348bf22bfc692f8ae74">Filters</h3>
+
+<p>是用來過濾各種請求，有App層級也有Controller的，可用下例程式碼過濾IP。</p>
+
+<pre><code>Route::filter('ipcheck', function() {
+    if (!preg_match(&quot;/127\.0\.0\.1/i&quot;, $_SERVER['REMOTE_ADDR']) {
+        return Redirect::to('/');
+    }
+});
+</code></pre>
+
+<h3 id="app:ff06a00f5058a348bf22bfc692f8ae74">App</h3>
+
+<p>app/config/app.php</p>
+
+<ul>
+<li>debug =&gt; 是否開啓除錯</li>
+<li>url =&gt; 網站預設網址</li>
+</ul>
+
+<p>透過一些static method也能存取其中屬性。</p>
+
+<pre><code>Config::set('app.url', STATIC_HOST);
+Config::get('app.url');
+</code></pre>
+
+<h3 id="database:ff06a00f5058a348bf22bfc692f8ae74">Database</h3>
+
+<p>Database當然也有好用的ORM，而我覺得好用的程度跟Ruby有得比唷。</p>
+
+<p>app/config/database.php</p>
+
+<ul>
+<li>default =&gt; 預設的資料庫</li>
+<li>connections =&gt; 資料庫連線位址、帳號、密碼&hellip;等</li>
+<li>redis =&gt; 好用的快取</li>
+</ul>
+
+<p>透過attribute可以改變連線的資料庫、使用資料表、欄位是否使用&hellip;等。</p>
+
+<pre><code>class User extends Eloquent {
+
+    protected $connection = DATABASE;
+
+    protected $table = TABLE;
+
+    public $timestamps = false;
+
+    public function userinfo() {
+        return $this-&gt;hasOne('Userinfo');
+    }
+
+}
+
+class Userinfo extends Eloquent {
+
+    protected $connection = DATABASE;
+
+    protected $table = 'user_info';
+
+    public function user() {
+        return $this-&gt;belongsTo('User');
+    }
+
+}
+</code></pre>
+
+<p>當資料表有關聯，可以透過function設定關係，上例關係是User有一個Userinfo，而Userinfo也相依於User，如此在使用時可利用下例程式碼存取到userinfo的資料，</p>
+
+<pre><code>User::with('userinfo')-&gt;find(1)-&gt;first();
+</code></pre>
+
+<p>若是沒有設定，也可以利用下利存取，但似乎就比較沒有彈性。</p>
+
+<pre><code>User::leftJoin('user_info as info')-&gt;find(1).first();
+</code></pre>
+
+<p>累了&hellip;連laravel都沒紀錄完&hellip;.下回再打&hellip;</p>
+
+    </section>
+
+
+  <footer class="post-footer">
+
+
+    
+    <figure class="author-image">
+        <a class="img" href="http://localhost:1313/" style="background-image: url(http://localhost:1313//images/517273.jpg)"><span class="hidden">Alan's Picture</span></a>
+    </figure>
+    
+
+    
+
+
+
+
+
+<section class="author">
+  <h4><a href="http://localhost:1313/">Alan</a></h4>
+  
+  <p>Read <a href="http://localhost:1313/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    
+    
+  </div>
+</section>
+
+
+
+    
+<section class="share">
+  <h4>Share this post</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=Laravel%20%e9%a6%96%e7%99%bc%20%21%21%21&amp;url=http%3a%2f%2flocalhost%3a1313%2fpost%2fphp%2flaravel_shou_fa%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fphp%2flaravel_shou_fa%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fphp%2flaravel_shou_fa%2f&amp;description=Laravel%20%e9%a6%96%e7%99%bc%20%21%21%21"
+      onclick="window.open(this.href, 'pinterest-share','width=580,height=296');return false;">
+      <span class="hidden">Pinterest</span>
+  </a>
+  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fphp%2flaravel_shou_fa%2f"
+     onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+      <span class="hidden">Google+</span>
+  </a>
+</section>
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'alanmoment';
+  var disqus_url = 'http:\/\/localhost:1313\/post\/php\/laravel_shou_fa\/';
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+  </footer>
+</article>
+
+</main>
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Hello World!!</a> &copy; Copyright Alan - 2016</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/index.js"></script>
+    
+</body>
+</html>
+

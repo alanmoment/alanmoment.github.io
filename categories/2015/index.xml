@@ -1,0 +1,818 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2015 on Hello World!!</title>
+    <link>http://localhost:1313/categories/2015/</link>
+    <description>Recent content in 2015 on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Thu, 03 Sep 2015 00:06:44 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/2015/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Ditched AngularJS for React</title>
+      <link>http://localhost:1313/post/javascript/ditched_angularjs_for_react/</link>
+      <pubDate>Thu, 03 Sep 2015 00:06:44 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/javascript/ditched_angularjs_for_react/</guid>
+      <description>&lt;p&gt;去年認識並嘗試使用&lt;code&gt;AngularJS&lt;/code&gt;，我每次起步都是直接實作的，超精實!! 因為這讓我可以快速的理解這個東西到底在幹些甚麼，所以我用它來做一張客戶表單。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;AngularJS&lt;/code&gt;在操作 UI 上讓我覺得很驚艷，大概是&lt;code&gt;jQuery&lt;/code&gt;醜陋的程式碼我已經受不了了，而&lt;code&gt;Html&lt;/code&gt;相對的也變得很難整理，因為要在裡頭嵌入很多的&lt;code&gt;ng-xxx&lt;/code&gt;，若是視覺設計交付版面，會產生額外的負擔，而效能上也令我傻眼，這張客戶資料表要完整的載入並開始操作非常的消耗資源…慢到不行，或許是我沒有深入的原因，總之各種原因我放棄了。&lt;/p&gt;
+
+&lt;p&gt;直到最近才有時間嘗試 Facebook 發怖的&lt;a href=&#34;https://facebook.github.io/react/index.html&#34;&gt;React&lt;/a&gt;一用就讓我愛上了…雖然一開始並不熟手，但我一如往常的試作一張客戶表單…實在讓我太感動了…想不到前端的程式碼可以讓我感覺到很舒服，大概是中了&lt;a href=&#34;https://zh.wikipedia.org/wiki/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1&#34;&gt;OOP&lt;/a&gt;的毒。而且 &lt;code&gt;React&lt;/code&gt; + &lt;code&gt;Semantic-UI&lt;/code&gt; 實在太棒啦!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ruby on Rails deploy on Heroku</title>
+      <link>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_deploy_on_heroku/</link>
+      <pubDate>Sat, 16 May 2015 13:16:36 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_deploy_on_heroku/</guid>
+      <description>
+
+&lt;p&gt;好久沒碰 Ruby on Rails 一碰就會有問題，也早就習慣了，昨天晚上把做好很久的網站 Deploy 到 &lt;a href=&#34;https://www.google.com.tw/url?sa=t&amp;amp;rct=j&amp;amp;q=&amp;amp;esrc=s&amp;amp;source=web&amp;amp;cd=1&amp;amp;cad=rja&amp;amp;uact=8&amp;amp;ved=0CBwQFjAA&amp;amp;url=https%3A%2F%2Fwww.heroku.com%2F&amp;amp;ei=2c1WVeaWCoOe8QW3moCoAw&amp;amp;usg=AFQjCNF8-hoB8iHVyZ2dDq3bYi_oSmHVtg&amp;amp;sig2=OTukXXAApyRuS2ZjqBu2eQ&amp;amp;bvm=bv.93564037,d.dGc&#34;&gt;Heroku&lt;/a&gt;，就又出現問題了！有些問題是原本就存在的，還是紀錄一下。&lt;/p&gt;
+
+&lt;h2 id=&#34;osx-安裝-postgresql:396b4ba547ef46fb6949aa6348ba269f&#34;&gt;OSX 安裝 PostgreSQL&lt;/h2&gt;
+
+&lt;p&gt;因為 &lt;a href=&#34;https://devcenter.heroku.com/articles/sqlite3&#34;&gt;Heroku 不支援 Sqlite&lt;/a&gt;，得另外安裝 PostgreSQL，而我原本以為有安裝&lt;a href=&#34;http://postgresapp.com&#34;&gt;應用程式&lt;/a&gt;，就不用特別再安裝，想不到還是出現錯誤了。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ brew install Postgresql
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安裝後還是出現錯誤&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Error loading RubyGems plugin &amp;quot;/Users/alan/.rvm/gems/ruby-2.0.0-p353/gems/executable-hooks-1.3.2/lib/rubygems_plugin.rb&amp;quot;: dlopen(/Users/alan/.rvm/rubies/ruby-2.0.0-p353/lib/ruby/2.0.0/x86_64-darwin13.0.0/openssl.bundle, 9): Symbol not found: _SSLv2_client_method
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Google 到的解決辦法就是 RVM 重裝&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ \curl -L https://get.rvm.io | bash -s stable —ruby
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;postgresql-migrate-test:396b4ba547ef46fb6949aa6348ba269f&#34;&gt;PostgreSQL Migrate Test&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rake db:migrate RAILS_ENV=development
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;部署前準備:396b4ba547ef46fb6949aa6348ba269f&#34;&gt;部署前準備&lt;/h2&gt;
+
+&lt;p&gt;在 application.rb 設定&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ config.serve_static_assets = true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;執行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rake assets:precompile
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;專案底下的 public/assets 就會出現打包好的 resource，要引入圖片，程式碼得這樣寫。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;image_path(&amp;quot;bg.jpg&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;deploy-heroku:396b4ba547ef46fb6949aa6348ba269f&#34;&gt;Deploy Heroku&lt;/h1&gt;
+
+&lt;p&gt;都處理完畢就可以走正常流程部署到 Heroku 了。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ heroku login
+$ heroku git:clone -a PROJECT
+$ git add .
+$ git commit -am &amp;quot;make it better&amp;quot;
+$ git push heroku master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;啟動&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ heroku ps:scale web=1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;部署完畢可以用 Terminal 看 log&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ heroku logs -t
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;重新啟動&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ heroku restart
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Baby Help on Tessel</title>
+      <link>http://localhost:1313/post/iot/tessel/baby_help_on_tessel/</link>
+      <pubDate>Mon, 11 May 2015 01:06:12 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/iot/tessel/baby_help_on_tessel/</guid>
+      <description>
+
+&lt;h1 id=&#34;發想:c9733353a2e7126955c8e89741802bbb&#34;&gt;發想&lt;/h1&gt;
+
+&lt;p&gt;突然想到小朋友在嬰兒時期，常常一個人在房間睡覺，不曉得什麼時候會哭。所以市面上有產品是偵測到嬰兒的哭聲會嗡嗡的叫，套用在 Tessel，我就想到我也可以實現了。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Tessel&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://tessel.io/modules#module-ambient&#34;&gt;Ambient Module&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://tessel.io/modules#module-camera&#34;&gt;Camera Module&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/baby_help_on_tessel/IMG_3953.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;聲音偵測:c9733353a2e7126955c8e89741802bbb&#34;&gt;聲音偵測&lt;/h1&gt;
+
+&lt;p&gt;用來偵測嬰兒哭的時候要觸發的事件，還沒有調整範圍。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# index.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在這邊會先跟 wifi 連線。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# wifi-control.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;照片上傳-slack:c9733353a2e7126955c8e89741802bbb&#34;&gt;照片上傳 Slack&lt;/h1&gt;
+
+&lt;p&gt;只要偵測到異常，就會觸發照相，然後上傳到 Slack，一整個超愛用 Slack&amp;hellip;。相關檔案上傳可以參考&lt;a href=&#34;https://api.slack.com/methods/files.upload&#34;&gt;文件&lt;/a&gt;，只需要申請一組 &lt;a href=&#34;https://api.slack.com/web&#34;&gt;Token&lt;/a&gt; 就可以傳到指定的 &lt;code&gt;channels&lt;/code&gt;，吃了不少苦頭，主要是不熟悉 NodeJS，不過好險最後有找到&lt;a href=&#34;https://projects.tessel.io/projects/tesselcam&#34;&gt;參考&lt;/a&gt;的。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# send_notify/index.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;完成！！好開心啊！&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tessel run index.js --upload-dir ./
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+INFO Bundling directory /Users/alan/SourceTree/baby-help
+INFO Deploying bundle (530.00 KB)...
+INFO Running script...
+System will be start...
+Light level: 0.01464844   Sound Level: 0.01855469
+Light level: 0.01464844   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.01855469
+connect emitted {
+ dns : 168.95.192.1,
+ ip : 192.168.1.46,
+ event : status,
+ connected : 1,
+ dhcp : 192.168.1.1,
+ ssid : Alan 的 AirPort Time Capsule,
+ gateway : 192.168.1.1
+}
+Light level: 0.01464844   Sound Level: 0.01855469
+Light level: 0.01464844   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.01855469
+Light level: 0.01464844   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.01855469
+Light level: 0.01464844   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.02050781
+Something happened with sound:  0.1005859375
+Light level: 0.01562500   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.01855469
+Light level: 0.01464844   Sound Level: 0.01855469
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;只是畫素很差&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/baby_help_on_tessel/baby-help.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;程式碼都放到 &lt;a href=&#34;https://github.com/alanmoment/baby-help&#34;&gt;Github&lt;/a&gt; 了。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Data Encrypt &amp; Decrypt</title>
+      <link>http://localhost:1313/post/php/data_encrypt_&amp;_decrypt/</link>
+      <pubDate>Tue, 05 May 2015 23:59:25 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/php/data_encrypt_&amp;_decrypt/</guid>
+      <description>&lt;p&gt;今天把資料的加解密整理了一下也丟到 &lt;a href=&#34;https://github.com/alanmoment/rsa-util&#34;&gt;Github&lt;/a&gt; 了，不過只有 Server 的，雖然也可以玩玩看加解密，但也蠻奇怪的，加密端與解密端應該是要不同的平台，還要再找時間把 Android 的加密也整理一下。不曉得又要拖到什麼時候&amp;hellip;哈。&lt;/p&gt;
+
+&lt;p&gt;只要在自己的 &lt;code&gt;composer.json&lt;/code&gt; 加上設定檔就可以囉！&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;repositories&amp;quot;: [
+        {
+            &amp;quot;type&amp;quot;: &amp;quot;git&amp;quot;,
+            &amp;quot;url&amp;quot;: &amp;quot;https://github.com/alanmoment/rsa-util.git&amp;quot;
+        }
+    ],
+    &amp;quot;require&amp;quot;: {
+        &amp;quot;alanmoment/rsa-util&amp;quot;: &amp;quot;dev-master&amp;quot;
+    },
+    &amp;quot;minimum-stability&amp;quot;: &amp;quot;dev&amp;quot;,
+    &amp;quot;autoload&amp;quot;: {
+        &amp;quot;classmap&amp;quot;: [
+            &amp;quot;vendor/alanmoment&amp;quot;
+        ]
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;範例程式碼&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# index.php
+require __DIR__ . &#39;/vendor/autoload.php&#39;;
+
+use Rsa\RsaUtil;
+
+$RsaUtil = new RsaUtil();
+$RsaUtil-&amp;gt;setKeyStorePath(&amp;quot;./keystores/&amp;quot;);
+$encrypt = $RsaUtil-&amp;gt;generate()-&amp;gt;encrypt(&amp;quot;I am test data.&amp;quot;);
+echo $encrypt;
+
+$decrypted = $RsaUtil-&amp;gt;decrypt($encrypt);
+echo $decrypted;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Git Push Notify to Slack on Gitlab</title>
+      <link>http://localhost:1313/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/</link>
+      <pubDate>Mon, 04 May 2015 17:03:49 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/</guid>
+      <description>&lt;p&gt;已經用了許久的 &lt;code&gt;git push&lt;/code&gt; 通知 Slack，在今天補一下筆記。&lt;/p&gt;
+
+&lt;p&gt;首先還是得先申請一個 WebHook Url，可以參考這邊 &lt;a href=&#34;http://localhost:1313/post/117952459648/connect-to-slack-on-tessel&#34;&gt;connect-to-slack-on-tessel&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;Gitlab 在 &lt;code&gt;7.5.1&lt;/code&gt; 版之後，就有支援與 Slack 串接，之前測試超久&amp;hellip;都沒辦法通知，也沒有Error Message。&lt;/p&gt;
+
+&lt;p&gt;在 Gitlab 上選擇要設定的 Project，然後選擇 Settings &amp;gt; Services 依照下圖這樣設定就完成囉！！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/gitlab-to-slack.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;每次只要設定的 Project 有 &lt;code&gt;git push&lt;/code&gt; 那就會推播相關資訊到 Slack Channel。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/slack-notify.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Connect to Slack on Tessel</title>
+      <link>http://localhost:1313/post/iot/tessel/connect_to_slack_on_tessel/</link>
+      <pubDate>Sun, 03 May 2015 01:41:16 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/iot/tessel/connect_to_slack_on_tessel/</guid>
+      <description>
+
+&lt;h2 id=&#34;申請-slack:8decd088fac1a252c57ee8ff1a55a893&#34;&gt;申請 Slack&lt;/h2&gt;
+
+&lt;p&gt;因為 &lt;a href=&#34;https://slack.com&#34;&gt;Slack&lt;/a&gt; 非常方便且好用，所以我第一個想到要串接的對象就是它，接連幾天的測試，已經能透過 Tessel 發送訊息至 Slack Channel。&lt;/p&gt;
+
+&lt;p&gt;首先得先擁有一組 Slack 的帳號與 Channel，再設置 Incoming WebHooks。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/connect_to_slack_on_tessel/incoming-webhooks.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;便可取得 Webhook Url&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/connect_to_slack_on_tessel/webhooks-url.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;tessel-wifi:8decd088fac1a252c57ee8ff1a55a893&#34;&gt;Tessel Wifi&lt;/h2&gt;
+
+&lt;p&gt;先讓 Tessel 連接家中的 Wifi&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tessel wifi -n &#39;Alan 的 AirPort Time Capsule&#39; -p &#39;PASSWORD&#39;
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+INFO Connecting to &amp;quot;Alan 的 AirPort Time Capsule&amp;quot; with wpa2 security...
+INFO Acquiring IP address.
+..
+INFO Connected!
+
+IP   192.168.1.46
+DNS  168.95.192.1
+DHCP     192.168.1.1
+Gateway  192.168.1.1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;依照 Tessel 在官網上 &lt;a href=&#34;http://start.tessel.io/wifi&#34;&gt;Wifi&lt;/a&gt; 的範例，修改一下程式碼：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# wifi-control.js
+
+var https = require(&#39;https&#39;);
+
+...
+...
+wifi.on(&#39;connect&#39;, function(data) {
+
+    console.log(&amp;quot;connect emitted&amp;quot;, data);
+
+    var json = JSON.parse(&#39;{&amp;quot;text&amp;quot;:&amp;quot;This is a line of text in a channel.\nAnd this is another line of text.&amp;quot;}&#39;);
+    var postData = &#39;payload=&#39; + JSON.stringify(json);
+
+    var options = {
+        hostname: &#39;hooks.slack.com&#39;,
+        port: 443,
+        path: &#39;/services/T030MA704/B04MARY2F/clicTENx48f4h5v9OePzePkH&#39;,
+        method: &#39;POST&#39;,
+        headers: {
+            &#39;Content-Type&#39;: &#39;application/x-www-form-urlencoded&#39;,
+            &#39;Content-Length&#39;: postData.length
+        }
+    };
+
+    // Setup the request.  The options parameter is
+    // the object we defined above.
+    var req = https.request(options, function(res) {
+        res.setEncoding(&#39;utf-8&#39;);
+        var responseString = &#39;&#39;;
+
+        res.on(&#39;data&#39;, function(data) {
+            responseString += data;
+        });
+
+        res.on(&#39;end&#39;, function() {
+            console.log(responseString);
+        });
+    });
+
+    req.on(&#39;error&#39;, function(e) {
+        console.log(&#39;something error.&#39;);
+    });
+
+    req.write(postData);
+    req.end();
+
+}
+...
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;因為 Slack 是透過 &lt;code&gt;https&lt;/code&gt; 發送，所以這邊得使用 &lt;code&gt;https.request&lt;/code&gt; 來傳遞封包。&lt;/p&gt;
+
+&lt;p&gt;運行 Wifi-control.js 測試是否可以正常傳送至 Slack Channel。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tessel run wifi-control.js
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+INFO Bundling directory /Users/alan/Documents/tessel-code
+INFO Deploying bundle (8.87 MB)...
+INFO Running script...
+connect emitted {
+ dns : 168.95.192.1,
+ ip : 192.168.1.46,
+ event : status,
+ connected : 1,
+ dhcp : 192.168.1.1,
+ ssid : Alan 的 AirPort Time Capsule,
+ gateway : 192.168.1.1
+}
+ok
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;測試可以正常收到囉！！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/connect_to_slack_on_tessel/wifi-test-on-slack.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如此就可以應用在各種需要通知的狀況上，太棒了！&lt;/p&gt;
+
+&lt;h2 id=&#34;wifi-斷線:8decd088fac1a252c57ee8ff1a55a893&#34;&gt;Wifi 斷線&lt;/h2&gt;
+
+&lt;p&gt;要如何讓 Tessel 斷開 wifi 呢，只要下這行指令：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tessel wifi -d
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+Erasing saved wifi profiles
+Erased wifi profiles
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;太方便了&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>網頁教學初體驗</title>
+      <link>http://localhost:1313/post/other/wang_ye_jiao_xue_chu_ti_yan/</link>
+      <pubDate>Tue, 28 Apr 2015 00:10:25 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/other/wang_ye_jiao_xue_chu_ti_yan/</guid>
+      <description>&lt;p&gt;在工作的需求上，今天指導幾位同事有關於網頁開發的基本觀念，發現有時候自己懂得，曾經經歷的挫折，或許對其他人來說是第一次的遭遇，但因為時間因素，沒有辦法好好的講解，只有短短的2個小時根本講不到什麼&amp;hellip;不過或許是我還抓不到指導的訣竅。&lt;/p&gt;
+
+&lt;p&gt;針對這次的備課有編了一本&lt;a href=&#34;http://alanmoment.gitbooks.io/web-guide/content/&#34;&gt;GitBook&lt;/a&gt;，希望下次會更好。只是說&amp;hellip;下次不想講 &lt;code&gt;CI&lt;/code&gt;，我比較想講喜歡的 &lt;code&gt;Laravel&lt;/code&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>很潮的 Tessel</title>
+      <link>http://localhost:1313/post/iot/tessel/hen_chao_de_tessel/</link>
+      <pubDate>Sat, 18 Apr 2015 03:49:59 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/iot/tessel/hen_chao_de_tessel/</guid>
+      <description>&lt;p&gt;這個夢寐以求的版子，終於狠下心進口了！只是這小玩意兒的身世有點可憐，竟然被郵差送錯地方&amp;hellip;而那個人也很奇怪，東西不是自己的也收下來了！還拆封！！！到底是為什麼敢拆不是自己的東西！！驗收到凌晨4點&amp;hellip;好險東西都正常。&lt;/p&gt;
+
+&lt;p&gt;先下載 Tessel lib&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ npm install -g tessel
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;要更新 Tessel lib 否則會無法執行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tessel update
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+INFO Checking for latest firmware...
+INFO Wifi version is also outdated.
+INFO Downloading remote file https://builds.tessel.io/wifi/1.28.bin
+INFO Wifi patch uploaded... waiting for it to apply (10s)
+INFO ...
+INFO ...
+INFO ...
+INFO ...
+INFO ...
+INFO ...
+INFO
+INFO Downloading remote file https://builds.tessel.io/firmware/tessel-firmware-current.bin
+INFO Updating firmware... please wait. Tessel will reset itself after the update
+INFO Complete  1175988 /1175988
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;建立一個官方的範例測試&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// blinky.js
+
+// Import the interface to Tessel hardware
+var tessel = require(&#39;tessel&#39;);
+
+// Set the led pins as outputs with initial states
+// Truthy initial state sets the pin high
+// Falsy sets it low.
+var led1 = tessel.led[0].output(1);
+var led2 = tessel.led[1].output(0);
+
+setInterval(function () {
+    console.log(&amp;quot;I&#39;m blinking! (Press CTRL + C to stop)&amp;quot;);
+    // Toggle the led states
+    led1.toggle();
+    led2.toggle();
+}, 100);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;OK，執行成功就會看到藍綠兩個燈在閃爍！&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tessel run blinky.js
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+INFO Bundling directory /Users/alan/Documents/tessel-code
+INFO Deploying bundle (4.50 KB)...
+INFO Running script...
+I&#39;m blinking! (Press CTRL + C to stop)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/hen_chao_de_tessel/IMG_2308.jpg&#34; alt=&#34;example&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Tessel 真的不錯，除了程式語言可以用比較熟悉的 Javascript，Module 也用&lt;code&gt;npm&lt;/code&gt;管理，很順暢。整個在水準之上，看得出來團隊很用心的在開發，而我也預購了 Tessel 2 的新版子，因為我覺得非常棒。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Django &#43; Python 開發環境建置</title>
+      <link>http://localhost:1313/post/python/django_&#43;_python_kai_fa_huan_jing_jian_zhi/</link>
+      <pubDate>Fri, 27 Feb 2015 00:16:10 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/python/django_&#43;_python_kai_fa_huan_jing_jian_zhi/</guid>
+      <description>
+
+&lt;h1 id=&#34;python:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Python&lt;/h1&gt;
+
+&lt;p&gt;開發Pythone時也可以像rvm，nvm的虛擬環境就是Virtualenv了，對於我這種有潔癖的人是超級需要的啊！&lt;/p&gt;
+
+&lt;h2 id=&#34;pip:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Pip&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;download &lt;a href=&#34;https://bootstrap.pypa.io/get-pip.py&#34;&gt;get-pip.py&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python get-pip.py
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;virtualenv:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Virtualenv&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;install&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install virtualenv
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Linux or OS X need &lt;code&gt;sudo&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;setup&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ virtualenv ENV
+$ source ENV/bin/activate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;啟動 virtualenv，從此只要在 virtualenv 下面安裝的 package 都只會存在于這個 virtualenv 當中。&lt;/p&gt;
+
+&lt;h2 id=&#34;virtualenvwrapper:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Virtualenvwrapper&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;將所有的虛擬環境整合在一個目錄下。&lt;/li&gt;
+&lt;li&gt;管理（新增、移除、複製）所有的虛擬環境。&lt;/li&gt;
+&lt;li&gt;可以使用一個命令切換虛擬環境。&lt;/li&gt;
+&lt;li&gt;Tab 補全虛擬環境的名字。&lt;/li&gt;
+&lt;li&gt;每個操作都提供允許使用者自訂的 hooks。&lt;/li&gt;
+&lt;li&gt;可撰寫容易分享的 extension plugin 系統。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;install&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install virtualenvwrapper
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;新增虛擬環境&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkvirtualenv [-i package] [-r requirements_file] [virtualenv options] ENVNAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;設定路徑&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export PIP_VIRTUALENV_BASE=$WORKON_HOME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;列出所有的虛擬環境&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ lsvirtualenv
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;移除虛擬環境&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rmvirtualenv ENVNAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;複製虛擬環境&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cpvirtualenv ENVNAME TARGETENVNAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;啟動虛擬環境&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ workon [environment_name]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;離開虛擬環境&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ deactivate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Python 3&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ which python3
+$ mkvirtualenv --python=/usr/bin/python3 python3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果想要避免 pip 在沒有進入虛擬環境時被使用，可以在 ~/.bashrc 加上：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export PIP_REQUIRE_VIRTUALENV=true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;build-django:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Build Django&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;install&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install django
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;requirements&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install -r requirements.txt
+$ pip freeze &amp;gt; requirements.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;** start **&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ django-admin.py startproject PROJECT_NAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;run&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py runserver
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;create app&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py startapp APP_NAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;model&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;settings.py&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;INSTALLED_APPS = (
+    ...
+    &#39;customer&#39;
+    ...
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;models.py&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Customer(models.Model):
+    content = models.TextField()
+
+    def __unicode__(self):
+        return self.content
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;first&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py syncdb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;Your models have changes&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py makemigrations
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;generate&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py migrate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;single change&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py makemigrations MODEL
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;rollback&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py migrate system zero
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;django-testcase:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Django TestCase&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;console usage&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py test
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;reference:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Reference&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.haogongju.net/art/2395132&#34;&gt;http://www.haogongju.net/art/2395132&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ruby on Rails 小問題</title>
+      <link>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_xiao_wen_ti/</link>
+      <pubDate>Sun, 04 Jan 2015 23:45:08 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_xiao_wen_ti/</guid>
+      <description>&lt;p&gt;安裝許久的 gem 太久沒更新了遇到一些麻煩，又剛好今天發現 Google Drive 以前可以用 Login 已經被取消了&amp;hellip;天吶&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;首先因為改了與 Google Drive 串接的 API 所以出現了 SSLError&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Faraday::SSLError (SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify failed):
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這個找很久&amp;hellip;後來是把 gem update 就解決了&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ gem update
+$ gem update --system
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;而另外一個問題是一直很煩的，RVM 老是會出現一些 Warngin 今天惱了，找了方法來解決&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Warning! PATH is not properly set up, &#39;/Users/alan/.rvm/gems/ruby-2.2.1/bin&#39; is not at first place,
+         usually this is caused by shell initialization files - check them for &#39;PATH=...&#39; entries,
+         it might also help to re-add RVM to your dotfiles: &#39;rvm get stable --auto-dotfiles&#39;,
+         to fix temporarily in this shell session run: &#39;rvm use ruby-2.2.1’.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最後還是把 RVM 整個移除重裝了，每次都忘記，這次就筆記起來， RVM 沒辦法用指令移除的話，可以直接整個砍掉，我這樣做是沒問題。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rvm implode
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rm -rf ~/.rvm
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;重新安裝 RVM&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ curl -sSL https://get.rvm.io | bash -s stable
+$ rvm install 2.2.2
+$ rvm 2.2.2 --default
+$ gem install bundle
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;修改 .bash_profile&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;## rvm
+PATH=&amp;quot;$GEM_HOME/bin:$HOME/.rvm/bin:$PATH&amp;quot; # Add RVM to PATH for scripting
+[ -s ${HOME}/.rvm/scripts/rvm ] &amp;amp;&amp;amp; source ${HOME}/.rvm/scripts/rvm
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Redmine之基本建置與Scrum應用</title>
+      <link>http://localhost:1313/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/</link>
+      <pubDate>Tue, 18 Feb 2014 05:38:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/</guid>
+      <description>
+
+&lt;p&gt;工作上一直都有在應用 &lt;a href=&#34;http://www.redmine.org/&#34;&gt;Redmine&lt;/a&gt; 今天嘗試自己建立，所以又開始在亂搞了! 其實是最近自己做一個專案，也想試著管理一次 Scrum。&lt;/p&gt;
+
+&lt;p&gt;在 &lt;a href=&#34;http://www.redmine.org/projects/redmine/wiki/RedmineInstall&#34;&gt;RedmineInstall&lt;/a&gt; 有很詳細的安裝流程，安裝過程我也沒遇到甚麼困難的地方。所以在這邊就先略過了。&lt;/p&gt;
+
+&lt;p&gt;因為我自己建立的服務太多了，我習慣了 Apache 所以這次一樣是用 &lt;a href=&#34;http://localhost:1313/post/94171211238/apache-tomcat&#34;&gt;mod_proxy&lt;/a&gt; 的方式建立服務。&lt;/p&gt;
+
+&lt;p&gt;另外就是紀錄一套 Redmine 的 plugin。 &lt;a href=&#34;http://www.redminebacklogs.net/en/installation.html&#34;&gt;Backlogs&lt;/a&gt; 對 Scrum 有不錯的支援。有興趣可以安裝看看。&lt;/p&gt;
+
+&lt;h2 id=&#34;整合-git-repository:b4d07b34783eca6c610f848528399fd3&#34;&gt;整合 Git Repository&lt;/h2&gt;
+
+&lt;p&gt;Redmin 只能存取 local 端的 repository 所以沒辦法用 &lt;code&gt;git@git.ocomm.com.tw&lt;/code&gt; 這種方式存取遠端。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkdir /home/git/mirrors
+$ cd /home/git/mirrors
+$ git clone --mirror /home/git/mirrors/repo.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;設定權限給 &lt;code&gt;git&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ chown -R git:git repo.git
+$ cd repo.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;建立 &lt;code&gt;post-receive&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim post-receive
+#!/bin/sh
+/usr/bin/git push --mirror /home/git/mirrors/repo.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;改變 &lt;code&gt;post-receive&lt;/code&gt; 權限&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ chown git:git post-receive
+$ chmod 700 post-receive
+$ chmod a+rX -R ./
+$ git config --add core.sharedRepository 644
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最後在 Project &amp;gt; Settings &amp;gt; Repository 設定路徑。 Redmine 儲存機制需要一點時間處理資訊。&lt;/p&gt;
+
+&lt;p&gt;專案管理真的是一門學問，我才正要起步呢。&lt;/p&gt;
+
+&lt;h2 id=&#34;backlogs:b4d07b34783eca6c610f848528399fd3&#34;&gt;Backlogs&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /path/to/redmine/plugins
+$ git clone git://github.com/backlogs/redmine_backlogs.git
+$ cd redmine_backlogs
+$ bundle exec rake db:migrate
+$ cd /path/to/redmine
+$ bundle exec rake redmine:backlogs:install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;基本上這樣就完成了，官網有詳細的步驟。之後進入 Redmine 就會看到 Scrum 統計。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/backlog.png&#34; alt=&#34;backlog&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可以進入附加元件設置相關設定，另外我在網站管理的設定是以 Scrum 為主。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;追蹤標籤清單&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;bugs&lt;/li&gt;
+&lt;li&gt;features&lt;/li&gt;
+&lt;li&gt;supports&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;列舉值清單&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Design&lt;/li&gt;
+&lt;li&gt;TDD&lt;/li&gt;
+&lt;li&gt;Develop&lt;/li&gt;
+&lt;li&gt;User test&lt;/li&gt;
+&lt;li&gt;Release&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;我就是這樣開始使用，之後的設定再慢慢加。&lt;/p&gt;
+
+&lt;p&gt;這是以 Redmine 本身的問題清單來看&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/scrum.png&#34; alt=&#34;scrum&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;這個是以 Backlog 來看
+&lt;img src=&#34;http://localhost:1313/images/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/scrum-1.png&#34; alt=&#34;backlog-scrum&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;issue:b4d07b34783eca6c610f848528399fd3&#34;&gt;Issue&lt;/h2&gt;
+
+&lt;p&gt;1/8/2014 6:11:59 PM&lt;/p&gt;
+
+&lt;p&gt;寄發郵件不知道為什麼 &lt;code&gt;address&lt;/code&gt; 設定自己的網域會寄不出去，會出現 &lt;code&gt;554 5.7.1 : relay access denied&lt;/code&gt; 這個 error，我是在&lt;a href=&#34;http://www.redmine.org/boards/1/topics/39783&#34;&gt;官網&lt;/a&gt;找到答案的，把 &lt;code&gt;address&lt;/code&gt; 改成 &lt;code&gt;localhost&lt;/code&gt; 就可以了。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

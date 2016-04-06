@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pages on Hello World!!</title>
+    <link>http://localhost:1313/page/</link>
+    <description>Recent content in Pages on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <atom:link href="http://localhost:1313/page/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title></title>
+      <link>http://localhost:1313/page/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/page/about/</guid>
+      <description>
+
+&lt;h1 id=&#34;who-am-i:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Who am I?&lt;/h1&gt;
+
+&lt;p&gt;無俚頭、天馬行空、胡思亂想都可以套用在我的身上，偶爾會扶老太太過馬路&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;我沒有資優生的天賦，出來混全憑三樣，&lt;strong&gt;夠狠&lt;/strong&gt;、&lt;strong&gt;義氣&lt;/strong&gt;、&lt;strong&gt;兄弟多&lt;/strong&gt;!!&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

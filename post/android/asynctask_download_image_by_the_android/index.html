@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  	<meta property="og:title" content=" AsyncTask download image by the Android &middot;  Hello World!!" />
+  	<meta property="og:site_name" content="Hello World!!" />
+  	<meta property="og:url" content="http://localhost:1313/post/android/asynctask_download_image_by_the_android/" />
+
+    
+  	<meta property="og:type" content="article" />
+
+    <meta property="og:article:published_time" content="2013-10-18T00:22:00Z" />
+
+    
+    <meta property="og:article:tag" content="android" />
+    
+    
+
+  <title>
+     AsyncTask download image by the Android &middot;  Hello World!!
+  </title>
+
+    <meta name="description" content="you can do anything you want to do." />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
+
+
+    
+      
+          <link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="Hello World!!" />
+      
+      
+    
+    <meta name="generator" content="Hugo 0.15" />
+
+    <link rel="canonical" href="http://localhost:1313/post/android/asynctask_download_image_by_the_android/" />
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/">Home</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/page/about/">About me</a>
+            </li>
+        
+    </ul>
+    
+    
+    <a class="subscribe-button icon-feed" href="http://localhost:1313/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+
+<header class="main-header post-head no-cover">
+  <nav class="main-nav clearfix">
+
+
+  
+      <a class="blog-logo" href="http://localhost:1313/"><img src="http://localhost:1313//images/517273.jpg" alt="Home" /></a>
+  
+  
+      <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+  
+  </nav>
+</header>
+
+
+
+<main class="content" role="main">
+
+
+
+
+  <article class="post post">
+
+    <header class="post-header">
+        <h1 class="post-title">AsyncTask download image by the Android</h1>
+        <small>開發Android時常需要呈現圖片，但不可能圖片都是從Drawable中撈出來，一定有時需要從ImageServer或是透過網址取得圖片。...</small>
+
+        <section class="post-meta">
+        
+          <time class="post-date" datetime="2013-10-18T00:22:00Z">
+            Oct 18, 2013
+          </time>
+        
+         
+          <span class="post-tag small"><a href="http://localhost:1313/tags/android/">#android</a></span>
+         
+        </section>
+    </header>
+
+    <section class="post-content">
+      
+
+<p>開發Android時常需要呈現圖片，但不可能圖片都是從Drawable中撈出來，一定有時需要從ImageServer或是透過網址取得圖片。</p>
+
+<p>若是用一般的方式解決</p>
+
+<pre><code>  try {
+     URL url = new URL(imageUrl);
+     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+     connection.setDoInput(true);
+     connection.connect();
+     InputStream input = connection.getInputStream();
+     Bitmap bitmap = BitmapFactory.decodeStrea (input);
+     return bitmap;
+  } catch (IOException e) {
+     e.printStackTrace();
+     return null;
+  }
+</code></pre>
+
+<p>這樣子會造成讀取完圖片才會往下繼續執行的窘境，如果Timeout那畫面會停留更久。所以要用<a href="http://developer.android.com/reference/android/os/AsyncTask.html">AsyncTask</a>的特性來實作這個功能。</p>
+
+<p>Android 4.0之後為了避免跟網路溝通時造成畫面停滯的問題，在與網路溝通的程式碼中必須要用執行緒的方式來進行與網路的溝通。</p>
+
+<h2 id="建立imagedownloadtask:12a55c7193edd0d3a47202a506515205">建立ImageDownloadTask</h2>
+
+<p>先在AndroidManifest.xml開啟網路權限</p>
+
+<pre><code>&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;&gt;&lt;/uses-permission&gt;
+</code></pre>
+
+<p>為了避免在短時間內下載重複的圖片，所以用url當作key做了cache的機制<code>imageCache.put(params[0], mIcon11)</code>，只要cache中不超過空間限制，都不會重複向遠端撈取圖片。</p>
+
+<pre><code>package com.example.test;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.support.v4.util.LruCache;
+import android.util.Log;
+import android.widget.ImageView;
+
+import java.io.InputStream;
+import java.net.URLConnection;
+
+/**
+ * 遠端下載圖片
+ *
+ * @author Alan
+ * @since 2013/10/05
+ */
+public class ImageDownloadTask extends AsyncTask&lt;string void bitmap&gt; {
+    private static final String LOG_TAG = ImageDownloadTask.class.getName();
+    private ImageView bmImage;
+    private static LruCache imageCache;
+    private static final int CACHE_SIZE = 1; //1MB
+
+    public ImageDownloadTask(ImageView bmImage) {
+        this.bmImage = bmImage;
+
+        // 設定圖片快取
+        if (imageCache == null) {
+            imageCache = new LruCache(CACHE_SIZE * 1024 * 1024);
+        }
+
+    }
+
+    protected Bitmap doInBackground(String... params) {
+        if (imageCache.get(params[0]) == null) {
+            android.graphics.Bitmap mIcon11 = null;
+            URLConnection urlConnection = null;
+            InputStream in = null;
+            try {
+                urlConnection = new java.net.URL(params[0]).openConnection();
+                urlConnection.setConnectTimeout(3 * 1000);
+                urlConnection.setReadTimeout(10 * 1000);
+                in = urlConnection.getInputStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+
+                // 記錄已下載圖片的快取
+                imageCache.put(params[0], mIcon11);
+                in.close();
+            } catch (Exception e) {
+                Log.e(LOG_TAG, e.getMessage());
+                e.printStackTrace();
+            }
+
+            return mIcon11;
+        } else {
+            return (Bitmap) imageCache.get(params[0]);
+
+        }
+
+    }
+
+    protected void onPostExecute(android.graphics.Bitmap result) {
+        super.onPreExecute();
+
+        // 設定圖片物件
+        bmImage.setImageBitmap(result);
+        this.bmImage = null;
+    }
+
+}
+</code></pre>
+
+<p>用起來很簡單</p>
+
+<pre><code>ImageView iv = new ImageView(this);
+ImageDownloadTask imageDownloadTask = new ImageDownloadTask(iv);
+imageDownloadTask.execute(imageUrl);
+</code></pre>
+
+    </section>
+
+
+  <footer class="post-footer">
+
+
+    
+    <figure class="author-image">
+        <a class="img" href="http://localhost:1313/" style="background-image: url(http://localhost:1313//images/517273.jpg)"><span class="hidden">Alan's Picture</span></a>
+    </figure>
+    
+
+    
+
+
+
+
+
+<section class="author">
+  <h4><a href="http://localhost:1313/">Alan</a></h4>
+  
+  <p>Read <a href="http://localhost:1313/">more posts</a> by this author.</p>
+  
+  <div class="author-meta">
+    
+    
+  </div>
+</section>
+
+
+
+    
+<section class="share">
+  <h4>Share this post</h4>
+  <a class="icon-twitter" style="font-size: 1.4em" href="https://twitter.com/share?text=AsyncTask%20download%20image%20by%20the%20Android&amp;url=http%3a%2f%2flocalhost%3a1313%2fpost%2fandroid%2fasynctask_download_image_by_the_android%2f"
+      onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+      <span class="hidden">Twitter</span>
+  </a>
+  <a class="icon-facebook" style="font-size: 1.4em" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fpost%2fandroid%2fasynctask_download_image_by_the_android%2f"
+      onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+      <span class="hidden">Facebook</span>
+  </a>
+  <a class="icon-pinterest" style="font-size: 1.4em" href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fandroid%2fasynctask_download_image_by_the_android%2f&amp;description=AsyncTask%20download%20image%20by%20the%20Android"
+      onclick="window.open(this.href, 'pinterest-share','width=580,height=296');return false;">
+      <span class="hidden">Pinterest</span>
+  </a>
+  <a class="icon-google-plus" style="font-size: 1.4em" href="https://plus.google.com/share?url=http%3a%2f%2flocalhost%3a1313%2fpost%2fandroid%2fasynctask_download_image_by_the_android%2f"
+     onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+      <span class="hidden">Google+</span>
+  </a>
+</section>
+
+
+
+    
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'alanmoment';
+  var disqus_url = 'http:\/\/localhost:1313\/post\/android\/asynctask_download_image_by_the_android\/';
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+
+  </footer>
+</article>
+
+</main>
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Hello World!!</a> &copy; Copyright Alan - 2016</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/index.js"></script>
+    
+</body>
+</html>
+

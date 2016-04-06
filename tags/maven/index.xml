@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Maven on Hello World!!</title>
+    <link>http://localhost:1313/tags/maven/</link>
+    <description>Recent content in Maven on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Tue, 03 Sep 2013 18:50:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/maven/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Android zipcode library of maven</title>
+      <link>http://localhost:1313/post/android/android_zipcode_library_of_maven/</link>
+      <pubDate>Tue, 03 Sep 2013 18:50:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/android/android_zipcode_library_of_maven/</guid>
+      <description>
+
+&lt;p&gt;最近在做Android app時需要用到縣市、區域這些資料，做過網站的，都知道處理這個很煩啊!所以大多都會抽出來另外處理，封裝成Component好方便使用，但是在Android上要是把縣市、區域、郵遞區號放到strings.xml裡面，我想是會瘋掉的，維護、擴充也不容易。我就是建完才後悔的&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/android_studio_city_list.png&#34; alt=&#34;android studio city list&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/android_studio_area_list.png&#34; alt=&#34;android studio area list&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;有個不錯的方法就是將資料用json的格式存成一隻檔案，然後自己寫抓取json的util放到Android的libs，這樣要使用就很方便了。&lt;/p&gt;
+
+&lt;h3 id=&#34;eclipse安裝maven:9bf3f2b1461ea7d05882004b3695b9ca&#34;&gt;Eclipse安裝Maven&lt;/h3&gt;
+
+&lt;p&gt;使用Eclipse plugin安裝Maven，在Install new software中點選Add輸入下列資料。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Name：Maven Plugin&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;p&gt;Location：&lt;a href=&#34;http://download.eclipse.org/technology/m2e/releases&#34;&gt;http://download.eclipse.org/technology/m2e/releases&lt;/a&gt;&lt;/p&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;若是發生不能安裝的錯誤還有另外一個&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Name：Indigo&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;p&gt;Location：&lt;a href=&#34;http://download.eclipse.org/releases/indigo&#34;&gt;http://download.eclipse.org/releases/indigo&lt;/a&gt;&lt;/p&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;在這個套件裡尋找Maven並且安裝&lt;/p&gt;
+
+&lt;h3 id=&#34;安裝maven工具:9bf3f2b1461ea7d05882004b3695b9ca&#34;&gt;安裝Maven工具&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://maven.apache.org/download.cgi&#34;&gt;Maven官網&lt;/a&gt;下載Maven 3.1.0 (Binary tar.gz)，放哪裡都可以但是建議不要放在含有空白或特殊字元的資料夾，最後要在環境變數加上以下變數。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;變數名稱：MAVEN_HOME&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;變數值：C:\你的目錄\apache-maven-3.1.0&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;在Path變數尾端加上MAVEN_HOME&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;%MAVEN_HOME%\bin;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;建立maven-project:9bf3f2b1461ea7d05882004b3695b9ca&#34;&gt;建立Maven project&lt;/h3&gt;
+
+&lt;p&gt;為了方便自己管理library所以我建立了maven project&lt;/p&gt;
+
+&lt;p&gt;Step 1.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/create_maven_project.png&#34; alt=&#34;create maven project step 1&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Step 2.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/create_maven_project_2.png&#34; alt=&#34;create maven project step 2&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Step 3.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/create_maven_project_step_3.png&#34; alt=&#34;create maven project step 3&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;修改pom-xml:9bf3f2b1461ea7d05882004b3695b9ca&#34;&gt;修改pom.xml&lt;/h3&gt;
+
+&lt;p&gt;因為要解析json格式，所以在這邊需要引入&lt;a href=&#34;https://code.google.com/p/google-gson/&#34;&gt;google-gson&lt;/a&gt;的dependency，為什麼不用&lt;a href=&#34;https://code.google.com/p/json-simple/&#34;&gt;json-simple&lt;/a&gt;呢，因為Android並沒有支援這個library。&lt;/p&gt;
+
+&lt;p&gt;在&lt;dependencies&gt;&lt;/dependencies&gt;&amp;gt;標籤中加入&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;&amp;lt;groupid&amp;gt;com.google.code.gson&amp;lt;/groupid&amp;gt;&amp;lt;artifactid&amp;gt;gson&amp;lt;/artifactid&amp;gt;&amp;lt;version&amp;gt;2.2.4&amp;lt;/version&amp;gt;&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在project中Maven Dependencies就會增加gson library&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/gson_dependencies.png&#34; alt=&#34;gson dependencies&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;建立zipcode-json:9bf3f2b1461ea7d05882004b3695b9ca&#34;&gt;建立zipcode.json&lt;/h3&gt;
+
+&lt;p&gt;依照下圖的格式建立zipcode.json&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/zipcode_json.png&#34; alt=&#34;zipcode.json&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;將zipcode.json放置在src/main/resources，並且修改pom.xml，這樣在使用maven install就能夾帶檔案。&lt;/p&gt;
+
+&lt;p&gt;在&lt;project&gt;&lt;/project&gt;&amp;gt;標籤中加入&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;build&amp;gt;&amp;lt;resources&amp;gt;&amp;lt;resource&amp;gt;&amp;lt;directory&amp;gt;src/main/resources&amp;lt;/directory&amp;gt;&amp;lt;includes&amp;gt;&amp;lt;include&amp;gt;zipcode.json&amp;lt;/include&amp;gt;&amp;lt;/includes&amp;gt;&amp;lt;/resource&amp;gt;&amp;lt;/resources&amp;gt;&amp;lt;/build&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;建立zipcode-library:9bf3f2b1461ea7d05882004b3695b9ca&#34;&gt;建立Zipcode Library&lt;/h3&gt;
+
+&lt;p&gt;建立InputStreamReader讀取json資料，再用gson解析讀取完畢再關掉。
+因為gson會主動幫字串加上雙引號，所以取資料出來必須要用getAsString()，不能用toString()，否則雙引號不會濾掉。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package com.zipcode_util;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+public class ZipcodeComponent {
+
+    private static final String ZIPCODE_FILE = &amp;quot;zipcode.json&amp;quot;;
+    private static JsonObject jsonObject;
+
+    /**
+     * Json file io
+     * @return JsonObject jsonObject
+     */
+    private JsonObject getJsonObject()
+    {
+        if (jsonObject == null) {
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(ZipcodeComponent.class
+                            .getClassLoader().getResourceAsStream(
+                                    ZipcodeComponent.ZIPCODE_FILE)));
+            jsonObject = new Gson().fromJson(br, JsonObject.class);
+
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return jsonObject;
+    }
+
+    /**
+     * Get city name
+     * @return List&amp;lt;string&amp;gt; citys
+     */
+    public String[] listCities()
+    {
+        JsonArray jsonArray = getJsonObject().getAsJsonArray(&amp;quot;city&amp;quot;);
+
+        String[] cities = new String[jsonArray.size()];
+        int i;
+        for (i=0; i&amp;lt;jsonarray.size i cities jsonarray.get return zipcode util package com.zipcode_util import junit.framework.test junit.framework.testcase junit.framework.testsuite unit test for simple app. public class apptest extends testcase create the case testname name of string super zipcodecomponent system.out.println suite tests being tested static new testsuite apptest.class rigourous :- void testapp asserttrue true tree plugin tool mvn clean install project&amp;gt;&amp;lt;/jsonarray.size&amp;gt;&amp;lt;/string&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

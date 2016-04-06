@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  	<meta property="og:title" content=" Node.Js &middot;  Hello World!!" />
+  	<meta property="og:site_name" content="Hello World!!" />
+  	<meta property="og:url" content="http://localhost:1313/tags/node/index.js/" />
+
+    
+    <meta property="og:type" content="website" />
+    
+
+  <title>
+     Node.Js &middot;  Hello World!!
+  </title>
+
+    <meta name="description" content="you can do anything you want to do." />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
+
+
+    
+      
+          <link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="Hello World!!" />
+      
+      
+        <link href="http://localhost:1313/tags/node.js/index.xml" rel="alternate" type="application/rss+xml" title="Node.Js &middot; Hello World!!" />
+      
+    
+    <meta name="generator" content="Hugo 0.15" />
+
+    <link rel="canonical" href="http://localhost:1313/tags/node/index.js/" />
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/">Home</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/page/about/">About me</a>
+            </li>
+        
+    </ul>
+    
+    
+    <a class="subscribe-button icon-feed" href="http://localhost:1313/tags/node.js/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+
+	<header class="main-header tag-head" style="background-image: url(http://localhost:1313//images/Iron_man.jpg)">
+
+    <nav class="main-nav overlay clearfix">
+      
+        <a class="blog-logo" href="http://localhost:1313/"><img src="http://localhost:1313//images/517273.jpg" alt="Home" /></a>
+      
+      
+          <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+      
+    </nav>
+    <div class="vertical">
+        <div class="main-header-content inner">
+            <h1 class="page-title">Node.Js</h1>
+            <h2 class="page-description">
+                
+            </h2>
+        </div>
+    </div>
+</header>
+
+<main class="content" role="main">
+    
+
+	<div class="extra-pagination inner">
+    <nav class="pagination" role="navigation">
+	
+	<span class="page-number">Page 1 of 1</span>
+	
+</nav>
+
+	</div>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/javascript/centos_an_zhuang_node__js_0__8__5/">CentOS 安装 Node.js 0.8.5</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>很久很久以前，開發過社交網站，當時以Facebook與Plurk當作目標(瘋了)，但是最後還是以失敗收場。 那時候研究過Facebook與Plurk的留言機制，一直苦無方案可以解決&rdquo;即時&rdquo;的問題&hellip;也猜不透他們到底是怎麼做到的，一定有人說明明就很多方法，但那是四年前吶&hellip; 當時還試圖用Ajax來解決，發現!!可以耶。開心之餘的測試下。第二個人再來請求就死翹翹了&hellip;因為用timer會使的請求網頁一直處於等待回應的狀態。 於是呢&hellip;又重頭來開始找方法，最後皇天不負苦心人(已經快要爆肝)發現了Node.js它有worker的機制，當時他還在0.2.2的版本呢!有夠古老。所以現在來回味一下!! 安装Node.js前置作業 Node.js 0.8.5的安裝，需要python 2.7，大部分安装失敗，都是因為python版本過低。 $ python -V Python 2.4.3 Node.js 0.8.5依賴的library $ yum install -y bzip2* 開始安裝python $ wget http://www.python.org/ftp/python/2.7.3/Python-2.7.3.tgz $ tar zvxf Python-2.7.3.tgz $ cd Python-2.7.3 $ ./configure $ make &amp;&amp; make install 因為系統預設是指向2.4.3，所以要重新建立連接，但是yum是在python 2.4.3才可以正常使用，所以不要隨便移除。 $ mv /usr/bin/python /usr/bin/python.bak $ ln -s /usr/local/bin/python2.7 /usr/bin/python 檢查python指向是否成功 $ python -V Python 2.7.3 安裝Node.js 可以到官網選擇合適的版本下載也可以用github上的版本。 $ wget 'http://nodejs.org/dist/v0.8.5/node-v0.8.5.tar.gz' $ tar zvxf node-v0.8.5.tar.gz $ cd node-v0.8.5./configure $ make &amp;&amp; <a class="read-more" href="http://localhost:1313/post/javascript/centos_an_zhuang_node__js_0__8__5/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/javascript/">#javascript</a>,
+            
+                <a href="http://localhost:1313/tags/node.js/">#node.js</a>,
+            
+        
+        <time class="post-date" datetime="2013-07-10T17:04:00Z">
+            10 Jul 2013
+        </time>
+    </footer>
+</article>
+
+	
+
+	<nav class="pagination" role="navigation">
+	
+	<span class="page-number">Page 1 of 1</span>
+	
+</nav>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Hello World!!</a> &copy; Copyright Alan - 2016</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/index.js"></script>
+    
+</body>
+</html>

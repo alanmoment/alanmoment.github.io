@@ -1,0 +1,1194 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cooperation on Hello World!!</title>
+    <link>http://localhost:1313/tags/cooperation/</link>
+    <description>Recent content in Cooperation on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Fri, 25 Mar 2016 14:11:16 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/cooperation/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>phabricator-extensions-Sprint 無法抓到正確的 Story Points</title>
+      <link>http://localhost:1313/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</link>
+      <pubDate>Fri, 25 Mar 2016 14:11:16 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</guid>
+      <description>
+
+&lt;p&gt;在版號為 &lt;code&gt;741e2ef4b1150f9a9e4b121218b3ea536289968d&lt;/code&gt; 之後的版本，因為 story points 變更欄位，所以 burndown chart 會沒辦法抓到正確的 point。&lt;/p&gt;
+
+&lt;p&gt;可以在&lt;a href=&#34;https://secure.phabricator.com/T10350&#34;&gt;官方&lt;/a&gt;這邊找到答案，但是並不是環境都一樣，所以必須要調整一下。&lt;/p&gt;
+
+&lt;h2 id=&#34;複製-copy-points-php:aa411f32faf1b5d8c7aa2a14f8b5ff0d&#34;&gt;複製 copy_points.php&lt;/h2&gt;
+
+&lt;p&gt;將&lt;a href=&#34;https://secure.phabricator.com/P1940&#34;&gt;檔案&lt;/a&gt;複製到 phabricator 目錄底下，如果你的資料庫名稱不是 &lt;code&gt;phabricator_maniphest&lt;/code&gt;，那就要修改，第 &lt;code&gt;106&lt;/code&gt; 行，如我就修改為 &lt;code&gt;default_maniphest&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env php
+&amp;lt;?php // See &amp;lt;https://secure.phabricator.com/T10350&amp;gt; for discussion.
+
+require_once &#39;scripts/__init_script__.php&#39;;
+
+$args = new PhutilArgumentParser($argv);
+$args-&amp;gt;parseStandardArguments();
+$args-&amp;gt;parse(
+  array(
+    array(
+      &#39;name&#39;  =&amp;gt; &#39;field&#39;,
+      &#39;param&#39; =&amp;gt; &#39;key&#39;,
+      &#39;help&#39;  =&amp;gt; pht(&#39;Field to migrate.&#39;),
+    )
+  ));
+
+$task = new ManiphestTask();
+$fields = PhabricatorCustomField::getObjectFields(
+  $task,
+  PhabricatorCustomField::ROLE_EDIT);
+
+$field_map = $fields-&amp;gt;getFields();
+$field_list = implode(&#39;, &#39;, array_keys($field_map));
+
+if (!$field_map) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;You do not have any custom fields defined in Maniphest, so there is &#39;.
+      &#39;nowhere that points can be copied from.&#39;));
+}
+
+$field_key = $args-&amp;gt;getArg(&#39;field&#39;);
+if (!strlen($field_key)) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;Use --field to specify which field to copy points from. Available &#39;.
+      &#39;fields are: %s.&#39;,
+      $field_list));
+}
+
+$field = idx($field_map, $field_key);
+if (!$field) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;Field &amp;quot;%s&amp;quot; is not a valid field. Available fields are: %s.&#39;,
+      $field_key,
+      $field_list));
+}
+
+$proxy = $field-&amp;gt;getProxy();
+if (!$proxy) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;Field &amp;quot;%s&amp;quot; is not a standard custom field, and can not be migrated.&#39;,
+      $field_key,
+      $field_list));
+}
+
+if (!($proxy instanceof PhabricatorStandardCustomFieldInt)) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;Field &amp;quot;%s&amp;quot; is not an &amp;quot;int&amp;quot; field, and can not be migrated.&#39;,
+      $field_key,
+      $field_list));
+}
+
+$storage = $field-&amp;gt;newStorageObject();
+$conn_r = $storage-&amp;gt;establishConnection(&#39;r&#39;);
+
+$value_rows = queryfx_all(
+  $conn_r,
+  &#39;SELECT objectPHID, fieldValue FROM %T WHERE fieldIndex = %s
+    AND fieldValue IS NOT NULL&#39;,
+  $storage-&amp;gt;getTableName(),
+  $field-&amp;gt;getFieldIndex());
+$value_map = ipull($value_rows, &#39;fieldValue&#39;, &#39;objectPHID&#39;);
+
+$id_rows = queryfx_all(
+  $conn_r,
+  &#39;SELECT phid, id, points FROM %T&#39;,
+  $task-&amp;gt;getTableName());
+$id_map = ipull($id_rows, null, &#39;phid&#39;);
+
+foreach ($value_map as $phid =&amp;gt; $value) {
+  $dict = idx($id_map, $phid, array());
+  $id = idx($dict, &#39;id&#39;);
+  $current_points = idx($dict, &#39;points&#39;);
+
+  if (!$id) {
+    continue;
+  }
+
+  if ($current_points !== null) {
+    continue;
+  }
+
+  if ($value === null) {
+    continue;
+  }
+
+  $sql = qsprintf(
+    $conn_r,
+    &#39;UPDATE %T.%T SET points = %f WHERE id = %d;&#39;,
+    &#39;phabricator_maniphest&#39;,
+    $task-&amp;gt;getTableName(),
+    $value,
+    $id);
+
+  echo $sql.&amp;quot;\n&amp;quot;;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;更改權限:aa411f32faf1b5d8c7aa2a14f8b5ff0d&#34;&gt;更改權限&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ chmod +x copy_points.php
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;執行:aa411f32faf1b5d8c7aa2a14f8b5ff0d&#34;&gt;執行&lt;/h2&gt;
+
+&lt;p&gt;必須要去套件原始檔去看原始的 &lt;a href=&#34;https://github.com/wikimedia/phabricator-extensions-Sprint/blob/master/src/customfield/SprintTaskStoryPointsField.php&#34;&gt;story point&lt;/a&gt; 欄位是什麼，我查到的結果是 &lt;code&gt;isdc:sprint:storypoints&lt;/code&gt;，所以修改如下。&lt;/p&gt;
+
+&lt;p&gt;另外要注意自己之前輸入 story points 時是否有用到非數字的字元，有的話會出錯，得先去修改。可以在 &lt;code&gt;default_maniphest.maniphest_customfieldstorage&lt;/code&gt; 這張資料表去查看。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./copy_points.php --field isdc:sprint:storypoints &amp;gt; points.sql
+$ cat points.sql # Look at the results and sanity check them.
+$ cat points.sql | mysql -u root
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Phabricator 基本應用</title>
+      <link>http://localhost:1313/post/cooperation/phabricator/phabricator_ji_ben_ying_yong/</link>
+      <pubDate>Fri, 06 Jun 2014 23:36:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/cooperation/phabricator/phabricator_ji_ben_ying_yong/</guid>
+      <description>
+
+&lt;h2 id=&#34;create-maniphest:e921b76cadbcd20db381f231dd58b830&#34;&gt;Create Maniphest&lt;/h2&gt;
+
+&lt;p&gt;在這可建立 &lt;code&gt;Task&lt;/code&gt; 指派給某一個人，目前發現最大的功用是當在 review code 的時候可以讓 commit 加入某一個 task。&lt;/p&gt;
+
+&lt;h2 id=&#34;create-herald-rule:e921b76cadbcd20db381f231dd58b830&#34;&gt;Create Herald Rule&lt;/h2&gt;
+
+&lt;p&gt;在 &lt;code&gt;Herald&lt;/code&gt; 的頁面 &lt;code&gt;Create Herald Rule&lt;/code&gt; 建立一條新規則&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Commits&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Commits 的規則是當 repositories 有提交程式碼的時候皆會通知&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Differential Revisions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Differential Revisions&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Maniphest Tasks&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Maniphest Tasks 的規則是當有建立或修改 task 皆會通知&lt;/p&gt;
+
+&lt;h3 id=&#34;規則隸屬:e921b76cadbcd20db381f231dd58b830&#34;&gt;規則隸屬&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Personal&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;個人的規則&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Object&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;版本庫的規則&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Global&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;全域規則&lt;/p&gt;
+
+&lt;h3 id=&#34;設定規則:e921b76cadbcd20db381f231dd58b830&#34;&gt;設定規則&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Personal&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Conditions&lt;/p&gt;
+
+&lt;p&gt;When &lt;code&gt;all of&lt;/code&gt; these conditions are met:
+&lt;code&gt;Repository is any of test_repository&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;還在摸索中，所以就先通用只要是版本庫的 commit 都通知我&lt;/p&gt;
+
+&lt;p&gt;Action&lt;/p&gt;
+
+&lt;p&gt;Take these actions every time this rule matches:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Add me to CC&lt;/code&gt; : cc mail 通知我&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Send me an email&lt;/code&gt; : mail 通知我&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Mark with flag&lt;/code&gt; : 建立 flag，還可以選顏色&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Trigger an Audit by me&lt;/code&gt; : 通知我 review code&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Do nothing&lt;/code&gt; : 什麼都不做&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;** Maniphest Tasks**&lt;/p&gt;
+
+&lt;p&gt;Conditions&lt;/p&gt;
+
+&lt;p&gt;When &lt;code&gt;all of&lt;/code&gt; these conditions are met:
+&lt;code&gt;Assignee is any of alan&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;task 則是設定指派給我的都通知我&lt;/p&gt;
+
+&lt;p&gt;Action&lt;/p&gt;
+
+&lt;p&gt;Take these actions every time this rule matches:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Assign task to me&lt;/code&gt; : 指派給我自己&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;只有這個規則比較不一樣。&lt;/p&gt;
+
+&lt;h2 id=&#34;owners:e921b76cadbcd20db381f231dd58b830&#34;&gt;Owners&lt;/h2&gt;
+
+&lt;p&gt;若覺得要設定一堆規則很麻煩，有發現另外一個比較簡單的&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;在 &lt;code&gt;Owners&lt;/code&gt; 可以 &lt;code&gt;Create Package&lt;/code&gt; 在這邊選擇 &lt;code&gt;Repository&lt;/code&gt; 並設定 path。這樣當版本庫有異動的時候就都會通知。&lt;/p&gt;
+
+&lt;h2 id=&#34;email-設定:e921b76cadbcd20db381f231dd58b830&#34;&gt;Email 設定&lt;/h2&gt;
+
+&lt;p&gt;在 &lt;code&gt;Config&lt;/code&gt; 有兩個地方可以設定 email 一個是 &lt;code&gt;Mail&lt;/code&gt; 另一個是 &lt;code&gt;PHPMailer&lt;/code&gt; 就選擇比較簡單的設定即可，我自己設定兩個&amp;hellip;結果好像會發兩封信&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;郵件伺服器&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;phpmailer.mailer
+Configure mailer used by PHPMailer.
+Current Value: &amp;quot;smtp&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;郵件伺服器 domain&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;phpmailer.smtp-host
+Host for SMTP.
+Current Value: domain.com.tw
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;郵件伺服器 port&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;phpmailer.smtp-port
+Port for SMTP.
+Current Value: 25
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;是否加密&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;phpmailer.smtp-protocol
+Configure TLS or SSL for SMTP.
+Current Value: null
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;帳號&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;phpmailer.smtp-user
+Username for SMTP.
+Current Value: &amp;quot;root&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;密碼&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;phpmailer.smtp-password
+Password for SMTP.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Phabricator 建置很久了這兩天才開始在學著用，覺得 &lt;a href=&#34;http://localhost:1313/post/94171590878/install-phabricator-and-run-on-the-gitlab&#34;&gt;Phabricator&lt;/a&gt; 對於 teamwork 的幫助不亞於 &lt;a href=&#34;http://localhost:1313/post/94170890773/github-gitlab&#34;&gt;Gitlab&lt;/a&gt; ，有時候在合併版本發生衝突的時候才開始在看為什麼會有衝突，總覺得很不爽。所以若能即時知道，團隊裡有誰做了甚麼樣的提交，相信對於開發中以及開發完的上線都會很有幫助。&lt;/p&gt;
+
+&lt;p&gt;但是網路上的資訊有點少，要摸索清楚整個系統有點吃力，每一樣都要 &lt;code&gt;try error&lt;/code&gt;，文章寫起來也有點凌亂，不管了，慢慢整理吧。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Redmine之基本建置與Scrum應用</title>
+      <link>http://localhost:1313/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/</link>
+      <pubDate>Tue, 18 Feb 2014 05:38:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/</guid>
+      <description>
+
+&lt;p&gt;工作上一直都有在應用 &lt;a href=&#34;http://www.redmine.org/&#34;&gt;Redmine&lt;/a&gt; 今天嘗試自己建立，所以又開始在亂搞了! 其實是最近自己做一個專案，也想試著管理一次 Scrum。&lt;/p&gt;
+
+&lt;p&gt;在 &lt;a href=&#34;http://www.redmine.org/projects/redmine/wiki/RedmineInstall&#34;&gt;RedmineInstall&lt;/a&gt; 有很詳細的安裝流程，安裝過程我也沒遇到甚麼困難的地方。所以在這邊就先略過了。&lt;/p&gt;
+
+&lt;p&gt;因為我自己建立的服務太多了，我習慣了 Apache 所以這次一樣是用 &lt;a href=&#34;http://localhost:1313/post/94171211238/apache-tomcat&#34;&gt;mod_proxy&lt;/a&gt; 的方式建立服務。&lt;/p&gt;
+
+&lt;p&gt;另外就是紀錄一套 Redmine 的 plugin。 &lt;a href=&#34;http://www.redminebacklogs.net/en/installation.html&#34;&gt;Backlogs&lt;/a&gt; 對 Scrum 有不錯的支援。有興趣可以安裝看看。&lt;/p&gt;
+
+&lt;h2 id=&#34;整合-git-repository:b4d07b34783eca6c610f848528399fd3&#34;&gt;整合 Git Repository&lt;/h2&gt;
+
+&lt;p&gt;Redmin 只能存取 local 端的 repository 所以沒辦法用 &lt;code&gt;git@git.ocomm.com.tw&lt;/code&gt; 這種方式存取遠端。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkdir /home/git/mirrors
+$ cd /home/git/mirrors
+$ git clone --mirror /home/git/mirrors/repo.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;設定權限給 &lt;code&gt;git&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ chown -R git:git repo.git
+$ cd repo.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;建立 &lt;code&gt;post-receive&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim post-receive
+#!/bin/sh
+/usr/bin/git push --mirror /home/git/mirrors/repo.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;改變 &lt;code&gt;post-receive&lt;/code&gt; 權限&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ chown git:git post-receive
+$ chmod 700 post-receive
+$ chmod a+rX -R ./
+$ git config --add core.sharedRepository 644
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最後在 Project &amp;gt; Settings &amp;gt; Repository 設定路徑。 Redmine 儲存機制需要一點時間處理資訊。&lt;/p&gt;
+
+&lt;p&gt;專案管理真的是一門學問，我才正要起步呢。&lt;/p&gt;
+
+&lt;h2 id=&#34;backlogs:b4d07b34783eca6c610f848528399fd3&#34;&gt;Backlogs&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /path/to/redmine/plugins
+$ git clone git://github.com/backlogs/redmine_backlogs.git
+$ cd redmine_backlogs
+$ bundle exec rake db:migrate
+$ cd /path/to/redmine
+$ bundle exec rake redmine:backlogs:install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;基本上這樣就完成了，官網有詳細的步驟。之後進入 Redmine 就會看到 Scrum 統計。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/backlog.png&#34; alt=&#34;backlog&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可以進入附加元件設置相關設定，另外我在網站管理的設定是以 Scrum 為主。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;追蹤標籤清單&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;bugs&lt;/li&gt;
+&lt;li&gt;features&lt;/li&gt;
+&lt;li&gt;supports&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;列舉值清單&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Design&lt;/li&gt;
+&lt;li&gt;TDD&lt;/li&gt;
+&lt;li&gt;Develop&lt;/li&gt;
+&lt;li&gt;User test&lt;/li&gt;
+&lt;li&gt;Release&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;我就是這樣開始使用，之後的設定再慢慢加。&lt;/p&gt;
+
+&lt;p&gt;這是以 Redmine 本身的問題清單來看&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/scrum.png&#34; alt=&#34;scrum&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;這個是以 Backlog 來看
+&lt;img src=&#34;http://localhost:1313/images/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/scrum-1.png&#34; alt=&#34;backlog-scrum&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;issue:b4d07b34783eca6c610f848528399fd3&#34;&gt;Issue&lt;/h2&gt;
+
+&lt;p&gt;1/8/2014 6:11:59 PM&lt;/p&gt;
+
+&lt;p&gt;寄發郵件不知道為什麼 &lt;code&gt;address&lt;/code&gt; 設定自己的網域會寄不出去，會出現 &lt;code&gt;554 5.7.1 : relay access denied&lt;/code&gt; 這個 error，我是在&lt;a href=&#34;http://www.redmine.org/boards/1/topics/39783&#34;&gt;官網&lt;/a&gt;找到答案的，把 &lt;code&gt;address&lt;/code&gt; 改成 &lt;code&gt;localhost&lt;/code&gt; 就可以了。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Phabricator review code應用</title>
+      <link>http://localhost:1313/post/cooperation/phabricator/phabricator_review_codeying_yong/</link>
+      <pubDate>Thu, 23 Jan 2014 14:01:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/cooperation/phabricator/phabricator_review_codeying_yong/</guid>
+      <description>
+
+&lt;h2 id=&#34;review-code-前置設定:23ce2a5d00bbdd1941d3d8135a4e9cc0&#34;&gt;Review code 前置設定&lt;/h2&gt;
+
+&lt;p&gt;在 Config &amp;gt; Diffusion 設定&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;diffusion.ssh-port  &amp;quot;your ssh port&amp;quot;
+diffusion.ssh-user  &amp;quot;your username&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或是 command line 執行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /path/to/phabricator
+$ ./bin/config set diffusion.ssh-user &amp;quot;your username&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在 Config &amp;gt; Daemon &amp;gt; sphd.user 設定&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;phd.user    &amp;quot;your username&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或是 command line 執行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./bin/config set phd.user &amp;quot;your username&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;要注意的就是 Config &amp;gt; Conduit &amp;gt; conduit.servers 是否有設定，我是預設留空的。&lt;/p&gt;
+
+&lt;h2 id=&#34;create-repository:23ce2a5d00bbdd1941d3d8135a4e9cc0&#34;&gt;Create Repository&lt;/h2&gt;
+
+&lt;p&gt;因為有新版的 Repository 設定，所以&lt;a href=&#34;http://localhost:1313/post/94171590878/install-phabricator-and-run-on-the-gitlab&#34;&gt;舊版&lt;/a&gt;的已經不適用，新版的設定中有更清楚的設置流程了。&lt;/p&gt;
+
+&lt;p&gt;按下 Create Repository 開始建立需要 Review 的版本庫。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Repository Type 選擇使用的版本控制系統。&lt;/li&gt;
+&lt;li&gt;Repository Name and Location 輸入人類看的懂的標題，以及版本控制 &lt;code&gt;Callsign&lt;/code&gt; ，官網的範例是取專案第一個字母，必須要為大寫。譬如專案名字是 &lt;code&gt;Test&lt;/code&gt; 那 &lt;code&gt;Callsign&lt;/code&gt; 就是 &lt;code&gt;T&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;Policies 選擇可以控制這個版本庫的群組、會員。&lt;/li&gt;
+&lt;li&gt;Repository Ready! 開始建立新的版本庫，或是略過直接到設定檔設定。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;我都是到第四步之後直接選 &lt;code&gt;Configure More Options First&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;這邊有兩種方式，可以提供 review 的服務，一是用 Phabricator 自帶的 &lt;code&gt;Host Repository on Phabricator&lt;/code&gt;，可以參考&lt;a href=&#34;http://www.phabricator.com/docs/phabricator/article/Diffusion_User_Guide_Repository_Hosting.html&#34;&gt;官網設定&lt;/a&gt;，這個服務是方便自動 merge，push。但是當我完成官網上的設定後，提交 review code 的請求在驗證 ssh 會出問題，導致一直無法自動 push，無法收到需要 review 的請求，所以後來放棄，改用 &lt;code&gt;Host Repository Elsewhere&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;當 &lt;code&gt;Host Repository Elsewhere&lt;/code&gt; 的設定都完成了，接著設定 &lt;code&gt;Remote&lt;/code&gt; ，Remote URI 選擇版本庫位置，當然也可以用 Github 上的，Credential 則是看使用的是哪一種方式，若是用 &lt;code&gt;git@&lt;/code&gt; 那就必須要增加 private key，若是用 &lt;code&gt;http&lt;/code&gt; 那就必須要增加 password 的驗證方式。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Local&lt;/code&gt; 則是放置 repo 的地方，&lt;code&gt;Branches&lt;/code&gt; 選擇預設 track 的分支、或是只 track 哪一個分支，最後是 Autoclose Only，這個設定要相當小心，因為當提交 Review 通過後，會自動關閉分支。可在 &lt;code&gt;Actions&lt;/code&gt; 中關閉。&lt;/p&gt;
+
+&lt;p&gt;這些設定都完成後就可以啟動 Daemons, 因為這很常使用所以我寫了一隻 shell script
+放在 &lt;code&gt;.bashrc&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim ~/.bashrc
+# Phabricator service
+function phb(){
+        if [ &amp;quot;$1&amp;quot; == &amp;quot;home&amp;quot; ]; then
+                cd /path/to/phabricator/
+        elif [ &amp;quot;$1&amp;quot; == &amp;quot;start&amp;quot; ]; then
+                /path/to/phabricator/bin/phd start
+        elif [ &amp;quot;$1&amp;quot; == &amp;quot;stop&amp;quot; ]; then
+                /path/to/phabricator/bin/phd stop
+        elif [ &amp;quot;$1&amp;quot; == &amp;quot;restart&amp;quot; ]; then
+                /path/to/phabricator/bin/phd restart
+        elif [ &amp;quot;$1&amp;quot; == &amp;quot;edit&amp;quot; ]; then
+                rm -rf /path/to/phabricator/local/$2
+                /path/to/phabricator/bin/repository edit $2 --as webuser --local-path $3
+        elif [ &amp;quot;$1&amp;quot; == &amp;quot;delete&amp;quot; ]; then
+                rm -rf /path/to/phabricator/local/$2
+                /path/to/phabricator/bin/repository delete $2
+        fi
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣就可以用 &lt;code&gt;phb start&lt;/code&gt; 啟動了。&lt;/p&gt;
+
+&lt;h2 id=&#34;設置-arcanist:23ce2a5d00bbdd1941d3d8135a4e9cc0&#34;&gt;設置 Arcanist&lt;/h2&gt;
+
+&lt;p&gt;在官網的&lt;a href=&#34;http://www.phabricator.com/docs/phabricator/article/Arcanist_User_Guide.html&#34;&gt;設置教學&lt;/a&gt;很簡單易懂，安裝完也必須設定變數：&lt;/p&gt;
+
+&lt;p&gt;在 Linux 上需要設定 &lt;code&gt;EDITOR&lt;/code&gt; 及 &lt;code&gt;arcanist&lt;/code&gt; 的路徑環境變數。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim ~/.bashrc
+export PATH=&amp;quot;$PATH:/path/to/phabricator/arcanist/bin/&amp;quot;
+export EDITOR=$(which vim)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在 Windows 上需要設定 &lt;code&gt;core.editor&lt;/code&gt; 及 &lt;code&gt;arcanist&lt;/code&gt; 的路徑環境變數。&lt;/p&gt;
+
+&lt;p&gt;打開 cmd.exe 輸入&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git config --global core.editor &amp;quot;C:\Windows\notepad.exe&amp;quot; fileeditor
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;就會在 &lt;code&gt;.gitconfig&lt;/code&gt; 產生&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;editor = C:\\Windows\\notepad.exe fileeditor
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接下來就可以開始提交 review 請求&lt;/p&gt;
+
+&lt;h2 id=&#34;提交程式碼:23ce2a5d00bbdd1941d3d8135a4e9cc0&#34;&gt;提交程式碼&lt;/h2&gt;
+
+&lt;p&gt;在這邊記錄以 Linux 的方式提交，試著執行 arc&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ arc
+Usage Exception: No command provided. Try &#39;arc help&#39;.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;若出現這個錯誤訊息，表示 &lt;code&gt;arc&lt;/code&gt; 已經設定成功。&lt;/p&gt;
+
+&lt;p&gt;檢查當前檔案狀態&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git commit -a
+# On branch master
+# Untracked files:
+#   (use &amp;quot;git add &amp;lt;file&amp;gt;...&amp;quot; to include in what will be committed)
+#
+#       alan_test.txt
+nothing added to commit but untracked files present (use &amp;quot;git add&amp;quot; to track)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;把 alan_test.txt 提交 review，從原本的 &lt;code&gt;git add&lt;/code&gt; 改執行 &lt;code&gt;arc diff&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ arc diff
+Usage Exception: YOU NEED TO INSTALL A CERTIFICATE TO LOGIN TO PHABRICATOR
+
+You are trying to connect to &#39;http://phabricator.example.tw/api/&#39; but do not have a certificate installed for this host. Run:
+
+      $ arc install-certificate
+
+...to install one.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;會發生錯誤是因為尚未設定 &lt;code&gt;certificate&lt;/code&gt; 系統通知該做什麼設定。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ arc install-certificate
+Installing certificate for &#39;http://phabricator.example.tw/api/&#39;...
+Trying to connect to server...
+Connection OK!
+
+LOGIN TO PHABRICATOR
+Open this page in your browser and login to Phabricator if necessary:
+
+    http://phabricator.example.tw/conduit/token/
+
+Then paste the token on that page below.
+
+    Paste token from that page:
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;打開瀏覽器訪問 &lt;code&gt;http://phabricator.example.tw/conduit/token/&lt;/code&gt;，並且登入要連結  Phabricator 上的 user。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-certificate.png&#34; alt=&#34;arc-certificate&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;取得 &lt;code&gt;Token&lt;/code&gt;，並且輸入上一步驟的設定。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Installing certificate for &#39;http://phabricator.example.tw/api/&#39;...
+Trying to connect to server...
+Connection OK!
+
+LOGIN TO PHABRICATOR
+Open this page in your browser and login to Phabricator if necessary:
+
+    http://phabricator.example.tw/conduit/token/
+
+Then paste the token on that page below.
+
+    Paste token from that page: dbl2l5kvjiefbhv2ex--------jsi2idmiktnkswr
+
+Downloading authentication certificate...
+Installing certificate for &#39;alan&#39;...
+Writing ~/.arcrc...
+ SUCCESS!  Certificate installed.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;設定成功，打開 &lt;code&gt;.arcrc&lt;/code&gt; 就會發現設定是 Phabricator 的 user。&lt;/p&gt;
+
+&lt;p&gt;再次執行提交&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ arc diff
+You have untracked files in this working copy.
+
+  Working copy: /home/alan/test/
+
+  Untracked files in working copy:
+    alan_test.txt
+
+Since you don&#39;t have &#39;.gitignore&#39; rules for these files and have not listed
+them in &#39;.git/info/exclude&#39;, you may have forgotten to &#39;git add&#39; them to your
+commit.
+
+
+Do you want to add this file to the commit? [y/N] y
+
+
+
+Enter commit message: alan arc test
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接下來會跳轉到輸入詳細的資訊&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;alan arc test
+
+Summary: my first test
+
+Test Plan: none
+
+Reviewers: webuser
+
+CC:
+
+# Tip: Use &amp;quot;Fixes T123&amp;quot; in your summary to mark that the current revision
+# completes a given task.
+
+# NEW DIFFERENTIAL REVISION
+# Describe the changes in this new revision.
+#
+# Included commits in branch master:
+#
+#         5780b5046d43 alan arc test
+#
+# arc could not identify any existing revision in your working copy.
+# If you intended to update an existing revision, use:
+#
+#   $ arc diff --update &amp;lt;revision&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;:wq&lt;/code&gt; 儲存後離開會開始提交&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Linting...
+No lint engine configured for this project.
+Running unit tests...
+No unit test engine is configured for this project.
+Updating commit message...
+Created a new Differential revision:
+        Revision URI: http://phabricator.example.tw/D21
+
+Included changes:
+  A       alan_test.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這邊個資訊是在告知提交的資訊中沒有交代要 test，及 review 版號是 &lt;code&gt;D21&lt;/code&gt; 包含改變的檔案清單，這樣就完成了 client 的提交。因為在 &lt;code&gt;Reviewers:&lt;/code&gt; 填寫的是 webuser，所以他會收到通知。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-5.png&#34; alt=&#34;arc-notify&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;接下來就可以看到詳細的資料，alan 改變了檔案提交了程式碼，webuser 需要透過介面完成審核。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-6.png&#34; alt=&#34;arc-review&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-7.png&#34; alt=&#34;arc-accpet&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;當 webuser 完成了審核，同意了。alan 也會收到通過的通知。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-8.png&#34; alt=&#34;arc-review-ok&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;alan 也可以看到詳細的資訊。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-9.png&#34; alt=&#34;arc-review-ok-info&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;這時候就可以把改變的檔案 push 上版本庫，若是按正常流程要 &lt;code&gt;git add&lt;/code&gt;, &lt;code&gt;git commit&lt;/code&gt;，但是在這邊只需要執行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ arc amend
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或是&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ arc land &#39;branch name&#39; D版號
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;amend&lt;/code&gt; 是提交全部已經通過審核的版本，而 &lt;code&gt;land&lt;/code&gt; 則可以單獨指定，&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ arc amend
+Amending commit message to reflect revision D21: alan arc test.
+Closing revision D21 &#39;alan arc test&#39;...
+You may now push this commit upstream, as appropriate (e.g. with &#39;git push&#39;,
+or &#39;git svn dcommit&#39;, or by printing and faxing it).
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;系統通知完成 &lt;code&gt;D21&lt;/code&gt; 的提交，並且要自己執行 &lt;code&gt;git push&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git push
+Counting objects: 4, done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 373 bytes, done.
+Total 3 (delta 1), reused 0 (delta 0)
+To git@git.ocomm.com.tw:home/test.git
+   1d4af3f..d885ebb  master -&amp;gt; master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;若是沒在網站介面審核通過就直接執行 &lt;code&gt;arc diff&lt;/code&gt; 會有提示訊息出縣，要求先通過審核。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ arc diff
+Amending commit message to reflect revision.
+Done.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣就完成囉!! 回到網站介面可以發現，版本庫中已經完成一次提交。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-down.png&#34; alt=&#34;arc-down&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Install Phabricator and run on the Gitlab</title>
+      <link>http://localhost:1313/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/</link>
+      <pubDate>Sat, 14 Sep 2013 11:09:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/</guid>
+      <description>
+
+&lt;p&gt;最近跑的專案都是四個人以上同時開發，有時候程式碼被改了，Pull下來改完衝突，發現程式碼都會錯亂。排除每個人對Git熟練度，我覺得Gitlab對於Review code做的似乎不是很友善。&lt;a href=&#34;http://zh.wikipedia.org/wiki/Scrum&#34;&gt;Scrum&lt;/a&gt;在跑的時候碰到這類型的問題，每次要解決都要花不少時間。&lt;/p&gt;
+
+&lt;p&gt;在某一次尋找Git相關教學的時候發現了一個蠻冷門的東西&lt;a href=&#34;http://phabricator.org/&#34;&gt;Phabricator&lt;/a&gt;，當初看到這套的時候第一印象就覺得這也是版本控制，所以加入最愛後就沒再理他，當碰到最近的問題，才想到我似乎在哪裡有看到這種問題的Solution。&lt;/p&gt;
+
+&lt;p&gt;這一套Phabricator是Facebook釋出的Open source，Facebook也是為了解決Review Code, Track Bugs, Browse Source&amp;hellip;等等這些問題才會開發這一套系統。&lt;/p&gt;
+
+&lt;h3 id=&#34;開始安裝:888264b10d737104c915f0a35cff56c6&#34;&gt;開始安裝&lt;/h3&gt;
+
+&lt;p&gt;在官網是很詳細的安裝方式我在這邊粗略的介紹一下。&lt;/p&gt;
+
+&lt;p&gt;要使用Phabricator一定得先安裝git, apache, mysql, php, php extensions (mbstring, iconv&amp;hellip;等)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;git (usually called &amp;ldquo;git&amp;rdquo; in package management systems)&lt;/li&gt;
+&lt;li&gt;Apache (usually &amp;ldquo;httpd&amp;rdquo; or &amp;ldquo;apache2&amp;rdquo;) (or nginx)&lt;/li&gt;
+&lt;li&gt;MySQL Server (usually &amp;ldquo;mysqld&amp;rdquo; or &amp;ldquo;mysql-server&amp;rdquo;)&lt;/li&gt;
+&lt;li&gt;PHP (usually &amp;ldquo;php&amp;rdquo;)&lt;/li&gt;
+&lt;li&gt;Required PHP extensions: mbstring, iconv, mysql (or mysqli), curl, pcntl (these might be something like &amp;ldquo;php-mysql&amp;rdquo; or &amp;ldquo;php5-mysql&amp;rdquo;)&lt;/li&gt;
+&lt;li&gt;Optional PHP extensions: gd, apc (special instructions for APC are available below if you have difficulty installing it), xhprof (instructions below, you only need this if you are developing Phabricator)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;他還有些版本的限制，必需要注意。安裝以上是比較基本的，接下來就是clone。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd somewhere/ # pick some install directory
+somewhere/ $ git clone git://github.com/facebook/libphutil.git
+somewhere/ $ git clone git://github.com/facebook/arcanist.git
+somewhere/ $ git clone git://github.com/facebook/phabricator.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;clone下來最好就在libphutil、arcanist、phabricator先執行&lt;code&gt;git pull&lt;/code&gt;因為我沒有這樣做，多花了一個小時找問題阿&amp;hellip;結果根本就不是最新的版本。&lt;/p&gt;
+
+&lt;p&gt;另外可以選擇是不是要安裝APC、XHProf&lt;/p&gt;
+
+&lt;h3 id=&#34;修改httpd-vhosts-conf:888264b10d737104c915f0a35cff56c6&#34;&gt;修改httpd-vhosts.conf&lt;/h3&gt;
+
+&lt;p&gt;我的東西大部份都是部屬在Apache上這個也不例外。所以我加上sub domain相關的參數。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /etc/httpd/conf.d/httpd-vhosts.conf
+&amp;lt;virtualhost&amp;gt;
+        # Change this to the domain which points to your host.
+        ServerName phabricator.example.com.tw
+        # Change this to the path where you put &#39;phabricator&#39; when you checked it
+        # out from GitHub when following the Installation Guide.
+        #
+        # Make sure you include &amp;quot;/webroot&amp;quot; at the end!
+        DocumentRoot /path/to/phabricator/webroot
+
+        RewriteEngine on
+        RewriteRule ^/rsrc/(.*)     -                       [L,QSA]
+        RewriteRule ^/favicon.ico   -                       [L,QSA]
+        RewriteRule ^(.*)$          /index.php?__path__=$1  [B,L,QSA]
+        &amp;lt;directory&amp;gt;
+                Order allow,deny
+                Allow from all
+        &amp;lt;/directory&amp;gt;&amp;lt;/virtualhost&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;設定完domain訪問設定的網址，依照指示要先設定Mysql。&lt;/p&gt;
+
+&lt;h3 id=&#34;設定mysql:888264b10d737104c915f0a35cff56c6&#34;&gt;設定Mysql&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /somewhere/phabricator/
+$ ./bin/config set mysql.host mysql主機
+Set &#39;mysql.host&#39; in local configuration.
+$ ./bin/config set mysql.user mysql帳號
+Set &#39;mysql.user&#39; in local configuration.
+$ ./bin/config set mysql.pass mysql密碼
+Set &#39;mysql.pass&#39; in local configuration.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;phabricator-upgrade:888264b10d737104c915f0a35cff56c6&#34;&gt;Phabricator upgrade&lt;/h3&gt;
+
+&lt;p&gt;更新到最新的版本會有下列訊息。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./bin/storage upgrade
+Before running storage upgrades, you should take down the Phabricator web
+interface and stop any running Phabricator daemons (you can disable this
+warning with --force).
+
+    Are you ready to continue? [y/N] y
+
+Loading quickstart template...
+Applying patch &#39;phabricator:db.conpherence&#39;...
+Applying patch &#39;phabricator:db.token&#39;...
+Applying patch &#39;phabricator:db.releeph&#39;...
+Applying patch &#39;phabricator:db.phlux&#39;...
+Applying patch &#39;phabricator:db.phortune&#39;...
+Applying patch &#39;phabricator:db.phrequent&#39;...
+Applying patch &#39;phabricator:db.diviner&#39;...
+...
+...
+Done.
+Storage is up to date. Use &#39;storage status&#39; for details.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;更新完畢後再回去網頁，會看到登入畫面。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/login.png&#34; alt=&#34;phabricator login&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;設定admin帳號:888264b10d737104c915f0a35cff56c6&#34;&gt;設定Admin帳號&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./bin/accountadmin
+Enter a username to create a new account or edit an existing account.
+
+    Enter a username: admin
+There is no existing user account &#39;admin&#39;.
+
+
+    Do you want to create a new &#39;admin&#39; account? [Y/n] Y
+
+
+
+    Enter user real name: admin
+
+
+    Enter user email address: xxx@xxxx
+
+
+    Enter a password for this user [blank to leave unchanged]:
+
+    Should this user be a system agent? [y/N] y
+
+
+
+    Should this user be an administrator? [y/N] y
+
+
+
+ACCOUNT SUMMARY
+
+               OLD VALUE                        NEW VALUE
+    Username                                    admin
+   Real Name                                    admin
+       Email                                    xxx@xxxx
+    Password                                    Updated
+System Agent   N                                Y
+       Admin   N                                Y
+
+
+
+    Save these changes? [Y/n] y
+
+Saved changes.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最後就是需要開啟背景執行。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./bin/config set phabricator.base-uri &#39;http://phabricator.example.com.tw/&#39;
+Set &#39;phabricator.base-uri&#39; in local configuration.
+$ ./bin/phd start
+Staging launch...
+NOTE: Logs will appear in &#39;/var/tmp/phd/log/daemons.log&#39;.
+
+Launching &#39;PhabricatorRepositoryPullLocalDaemon&#39;...
+Launching &#39;PhabricatorGarbageCollectorDaemon&#39;...
+Launching &#39;PhabricatorTaskmasterDaemon&#39;...
+Launching &#39;PhabricatorTaskmasterDaemon&#39;...
+Launching &#39;PhabricatorTaskmasterDaemon&#39;...
+Launching &#39;PhabricatorTaskmasterDaemon&#39;...
+Done.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣就完成了，我覺得他的安裝非常簡單。安裝下來我也沒遇到什麼大問題。&lt;/p&gt;
+
+&lt;h3 id=&#34;與gitlab串接:888264b10d737104c915f0a35cff56c6&#34;&gt;與Gitlab串接&lt;/h3&gt;
+
+&lt;p&gt;登入後在左邊的選單依序點選&lt;/p&gt;
+
+&lt;p&gt;ADMINISTRATION &amp;gt; Repositories &amp;gt; Create New Repository&lt;/p&gt;
+
+&lt;p&gt;表單中填入&lt;/p&gt;
+
+&lt;p&gt;Name: yout project name&lt;/p&gt;
+
+&lt;p&gt;Callsign: VCS&lt;/p&gt;
+
+&lt;p&gt;Type: Git&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Callsign為什麼是VCS因為&lt;a href=&#34;http://www.phabricator.com/docs/phabricator/article/Diffusion_User_Guide.html&#34;&gt;這邊&lt;/a&gt;有相關的設定可以參考。&lt;/p&gt;
+
+&lt;p&gt;It is followed by the repository callsign, and then a VCS-specific commit identifier (for SVN, the commit number; for Git and Mercurial, the commit hash)。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;下一步後依序設定：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Basics&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Tracking: Enabled&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Remote URI&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Repository URI: your repository url&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Repository Information&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Local Path: your project path&lt;/p&gt;
+
+&lt;p&gt;Track Only: your want track branches&lt;/p&gt;
+
+&lt;p&gt;設定完就可以看到&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/create_repository.png&#34; alt=&#34;phabricator create repository&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;點選View in Diffusion可以看到這個repository的各種記錄&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/repository_track.png&#34; alt=&#34;phabricator repository track&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;若在某一次的記錄review code發現有問題都可以在diffusion &amp;gt; Raise Concern，回報都會有紀錄存在直到消除Raise Concern。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/repository_track_tree.png&#34; alt=&#34;phabricator repository track tree&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Gitlab 4.1 upgrade to Gitlab 6.0超偷懶方法</title>
+      <link>http://localhost:1313/post/cooperation/gitlab/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/</link>
+      <pubDate>Fri, 06 Sep 2013 10:53:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/cooperation/gitlab/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://blog.gitlab.org/&#34;&gt;Gitlab&lt;/a&gt;官方網站已經釋出&lt;a href=&#34;http://blog.gitlab.org/gitlab-6-dot-0-released/&#34;&gt;Gitlab 6.0&lt;/a&gt;了，我的版本卻還在4.1。所以忍不住手癢，試試看4.1升級到6.0，但是這中間的版本實在太多啦。要一個一個升級，不知道又會遇到什麼問題。所幸愛亂搞的我，想到了妙招，如果我重新安裝6.0但是使用的是原本的4.1資料表，是不是也可以正常運作呢? 因為Gitlab的migrate應該是不會影響到以前的資料。&lt;/p&gt;
+
+&lt;p&gt;備份以下東西，以防止不能運作後，還能回復成4.1的版本&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Mysql中的gitlabhq_production資料庫&lt;/li&gt;
+&lt;li&gt;/etc/init.d/gitlab&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;再來就先停止Gitlab的運行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ service gitlab stop
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然後依照&lt;a href=&#34;https://github.com/gitlabhq/gitlabhq/blob/6-0-stable/doc/install/installation.md&#34;&gt;官網&lt;/a&gt;的安裝步驟。但只執行到&lt;code&gt;bundle install&lt;/code&gt;。因為要使用到原本的資料庫。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;bundle install --deployment --without development test postgres aws
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;再來依照官網&lt;a href=&#34;https://github.com/gitlabhq/gitlabhq/blob/master/doc/update/5.4-to-6.0.md&#34;&gt;5.4升級到6.0&lt;/a&gt;的文件，執行下列程序。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo -u git -H bundle exec rake db:migrate RAILS_ENV=production
+sudo -u git -H bundle exec rake migrate_groups RAILS_ENV=production
+sudo -u git -H bundle exec rake migrate_global_projects RAILS_ENV=production
+sudo -u git -H bundle exec rake migrate_keys RAILS_ENV=production
+sudo -u git -H bundle exec rake migrate_inline_notes RAILS_ENV=production
+sudo -u git -H bundle exec rake gitlab:satellites:create RAILS_ENV=production
+
+# Clear redis cache
+sudo -u git -H bundle exec rake cache:clear RAILS_ENV=production
+
+# Clear and precompile assets
+sudo -u git -H bundle exec rake assets:clean RAILS_ENV=production
+sudo -u git -H bundle exec rake assets:precompile RAILS_ENV=production
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;取得啟動腳本&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;curl --output /etc/init.d/gitlab https://raw.github.com/gitlabhq/gitlab-recipes/master/init.d/gitlab
+chkconfig --add gitlab
+chkconfig gitlab on
+chmod +x /etc/init.d/gitlab
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;因為我的gitlab是掛在apache上的所以還要修改httpd-vhosts.conf&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /etc/httpd/conf.d/httpd-vhosts.conf
+&amp;lt;virtualhost&amp;gt;
+  ServerName git.ocomm.com.tw
+  DocumentRoot /home/git/gitlab/public
+
+  # !!! Be sure to point DocumentRoot to &#39;public&#39;!
+  &amp;lt;directory&amp;gt;
+    # This relaxes Apache security settings.
+    AllowOverride all
+    # MultiViews must be turned off.
+    Options -MultiViews
+  &amp;lt;/directory&amp;gt;&amp;lt;/virtualhost&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;重新啟動apache&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ service httpd restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;重新啟動gitlab&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ service gitlab start
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;真的成功了&amp;hellip;哈!!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/gitlab/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/gitlab6_0.png&#34; alt=&#34;gitlab 6.0&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;這中間遇到了一些問題，因為redis我有另外使用，所以沒有bind IP，也開了requirepass致使我的redis一直無法被gitlab正常使用，最後修改redis.conf才可以正常安裝。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /etc/redis/redis.conf
+bind 127.0.0.1 #加回來
+#requirepass *redis* #註解起來否則gitlab無法正常使用
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以及升級完6.0後在clone一直會問git這個使用者的密碼，在&lt;a href=&#34;https://github.com/gitlabhq/gitlab-public-wiki/wiki/Trouble-Shooting-Guide&#34;&gt;這邊&lt;/a&gt;也有提到這個問題。必須在authorized_keys加上這一段就不會再問了。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /home/git/.ssh/authorized_keys
+command=&amp;quot;/home/git/gitlab/apps/gitlab/gitlab-shell/bin/gitlab-shell key-2&amp;quot;,no-port-forwarding,no-X11-forwarding,no-agent-forwarding,no-pty
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>建置專屬自己的Github之Gitlab</title>
+      <link>http://localhost:1313/post/cooperation/gitlab/jian_zhi_zhuan_shu_zi_ji_de_github_zhi_gitlab/</link>
+      <pubDate>Fri, 28 Jun 2013 13:46:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/cooperation/gitlab/jian_zhi_zhuan_shu_zi_ji_de_github_zhi_gitlab/</guid>
+      <description>
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/&#34;&gt;Github&lt;/a&gt;用久了就覺得這一切真是太方便了!!但是呢，有些程式碼就是不太方便放在別人那邊，不管自己寫的code是不是有到那種程度，人就是想把屬於自己的東西留給自己欣賞，這個時候&lt;a href=&#34;http://gitlab.org/&#34;&gt;Gitlab&lt;/a&gt;就是你的救星啦!!!&lt;/p&gt;
+
+&lt;h3 id=&#34;安裝rvm-ruby:8cb0ead533c4138eb4c4e8233e7b7773&#34;&gt;安裝Rvm Ruby&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ curl -L https://get.rvm.io | bash -s stable --ruby
+$ rvm install 1.9.3
+$ rvm use 1.9.3
+$ rvm rubygems latest
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;下載並安裝git-core:8cb0ead533c4138eb4c4e8233e7b7773&#34;&gt;下載並安裝git-core&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /tmp
+$ wget &#39;https://git-core.googlecode.com/files/git-1.7.11.tar.gz&#39;
+$ tar zxvf git-1.7.11.tar.gz
+$ cd git-1.7.11
+$ ./configure
+$ make
+$ make install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;安裝gitlab所需套件:8cb0ead533c4138eb4c4e8233e7b7773&#34;&gt;安裝Gitlab所需套件&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ yum install openssl openssl-devel zlib zlib-devel mysql mysql-devel sqlite sqlite-devel libicu-devel
+$ wget &#39;http://peak.telecommunity.com/dist/ez_setup.py&#39;
+$ python ez_setup.py
+$ easy_install pip
+$ pip install pygments
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;安裝redis:8cb0ead533c4138eb4c4e8233e7b7773&#34;&gt;安裝Redis&lt;/h3&gt;
+
+&lt;p&gt;我自己覺得&lt;a href=&#34;http://redis.io/&#34;&gt;Redis&lt;/a&gt;有點像&lt;a href=&#34;http://memcached.org/&#34;&gt;Memcache&lt;/a&gt;，底層的實作我就不太清楚。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ wget &#39;http://redis.googlecode.com/files/redis-2.4.15.tar.gz&#39;
+$ tar xzf redis-2.4.5.tar.gz
+$ cd redis-2.4.5
+$ make
+$ make install
+$ cd utils
+$ ./install_server.sh
+$ mkdir /etc/redis /var/lib/redis
+$ cp src/redis-server src/redis-cli /usr/local/bin/
+$ cp redis.conf /etc/redis/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;將設定值修改如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /etc/redis/redis.conf
+daemonize yes
+bind 127.0.0.1  /home/git/.profile&#39;
+$ sudo -u git -i -H /home/git/gitolite/src/gl-system-install
+$ cp /home/gitlab/.ssh/id_rsa.pub /home/git/gitlab.pub
+$ chmod 777 /home/git/gitlab.pub
+
+$ sudo -u git -H sed -i &#39;s/0077/0007/g&#39; /home/git/share/gitolite/conf/example.gitolite.rc
+$ sudo -u git -H sh -c &amp;quot;PATH=/home/git/bin:$PATH; gl-setup -q /home/git/gitlab.pub&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;修改資料夾權限及擁有者:8cb0ead533c4138eb4c4e8233e7b7773&#34;&gt;修改資料夾權限及擁有者&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ chmod -R g+rwX /home/git/repositories/
+$ chown -R git:git /home/git/repositories/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;測試gitlab是否可以正常下載gitolite管理檔案庫:8cb0ead533c4138eb4c4e8233e7b7773&#34;&gt;測試Gitlab是否可以正常下載Gitolite管理檔案庫&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ su - gitlab
+$ git clone git@localhost:gitolite-admin.git /tmp/gitolite-admin
+$ rm -rf /tmp/gitolite-admin
+$ exit
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;設定gitlab:8cb0ead533c4138eb4c4e8233e7b7773&#34;&gt;設定Gitlab&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ gem install charlock_holmes
+$ gem install bundler
+$ bundle install
+$ su - gitlab
+$ git clone http://github.com/gitlabhq/gitlabhq.git gitlab
+$ cd gitlab
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用MySQL，複製設定檔，修改資料庫登入帳號及密碼&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cp config/database.yml.mysql config/database.yml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;修改gitlab.yml&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cp config/gitlab.yml.example config/gitlab.yml
+$ vim config/gitlab.yml
+## GitLab settings
+gitlab:
+  ## Web server settings
+  #host: localhost
+  host: git.ocomm.com.tw  這個步驟當時搞好久，結果是要自己先建立資料庫...
+
+$ bundle exec rake gitlab:app:setup RAILS_ENV=production
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;確認狀態&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ bundle exec rake gitlab:app:status RAILS_ENV=production
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;passenger佈署gitlab:8cb0ead533c4138eb4c4e8233e7b7773&#34;&gt;Passenger佈署Gitlab&lt;/h3&gt;
+
+&lt;p&gt;Gitlab也需要伺服器來運作，可以選擇&lt;a href=&#34;http://nginx.org/&#34;&gt;Nginx&lt;/a&gt;，但是因為我慣用Apache所以選擇用Passenger，&lt;a href=&#34;https://www.phusionpassenger.com/download&#34;&gt;官網&lt;/a&gt;這邊有詳細的流程介紹，他的安裝非常方便。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ gem install passenger
+$ passenger-install-apache
+$ passenger start
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;添加gitlab的VirtualHost&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /etc/httpd/conf.d/httpd-vhosts.conf
+&amp;lt;virtualhost&amp;gt;
+    ServerName git.ocomm.com.tw
+    DocumentRoot /home/gitlab/gitlab/public
+
+    # !!! Be sure to point DocumentRoot to &#39;public&#39;!
+    &amp;lt;directory&amp;gt;
+        # This relaxes Apache security settings.
+        AllowOverride all
+        # MultiViews must be turned off.
+        Options -MultiViews
+    &amp;lt;/directory&amp;gt;&amp;lt;/virtualhost&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;若在網頁上出現錯誤訊息 No such file or directory – git ls-files 請執行以下指令&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ln -ns /usr/local/bin/git /usr/bin/git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;啟動伺服器測試:8cb0ead533c4138eb4c4e8233e7b7773&#34;&gt;啟動伺服器測試&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ bundle exec rails s -e production
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;預設帳號密碼是：admin@local.host / 5iveL!fe&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/gitlab/jian_zhi_zhuan_shu_zi_ji_de_github_zhi_gitlab/gitlab.png&#34; alt=&#34;Gitlab&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;太爽啦。完成了。就是長這樣!!! 建立帳號登入看看吧&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/gitlab/jian_zhi_zhuan_shu_zi_ji_de_github_zhi_gitlab/gitlab-login.png&#34; alt=&#34;Gitlab sign in&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;參考資料：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://gitlab.org/&#34;&gt;Gitlab官網&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ide on Hello World!!</title>
+    <link>http://localhost:1313/tags/ide/</link>
+    <description>Recent content in Ide on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Mon, 04 May 2015 17:03:49 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/ide/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Git Push Notify to Slack on Gitlab</title>
+      <link>http://localhost:1313/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/</link>
+      <pubDate>Mon, 04 May 2015 17:03:49 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/</guid>
+      <description>&lt;p&gt;已經用了許久的 &lt;code&gt;git push&lt;/code&gt; 通知 Slack，在今天補一下筆記。&lt;/p&gt;
+
+&lt;p&gt;首先還是得先申請一個 WebHook Url，可以參考這邊 &lt;a href=&#34;http://localhost:1313/post/117952459648/connect-to-slack-on-tessel&#34;&gt;connect-to-slack-on-tessel&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;Gitlab 在 &lt;code&gt;7.5.1&lt;/code&gt; 版之後，就有支援與 Slack 串接，之前測試超久&amp;hellip;都沒辦法通知，也沒有Error Message。&lt;/p&gt;
+
+&lt;p&gt;在 Gitlab 上選擇要設定的 Project，然後選擇 Settings &amp;gt; Services 依照下圖這樣設定就完成囉！！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/gitlab-to-slack.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;每次只要設定的 Project 有 &lt;code&gt;git push&lt;/code&gt; 那就會推播相關資訊到 Slack Channel。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/slack-notify.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>用NetBeans開發Ruby On Rails</title>
+      <link>http://localhost:1313/post/ide/yong_netbeans_kai_fa_ruby_on_rails/</link>
+      <pubDate>Fri, 04 Oct 2013 23:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/ide/yong_netbeans_kai_fa_ruby_on_rails/</guid>
+      <description>
+
+&lt;p&gt;NetBeans除了能開發PHP、Java、..等等的這些程式語言，其實也早就有Plugin能支援開發Ruby哦。&lt;/p&gt;
+
+&lt;h3 id=&#34;下載railsinstaller:e64cef644c1de5b53cdfc3ea489d116e&#34;&gt;下載RailsInstaller&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://railsinstaller.org/&#34;&gt;RailsInstaller&lt;/a&gt;有完整的開發環境。一包就搞定。&lt;/p&gt;
+
+&lt;h3 id=&#34;下載ruby-and-rails-plugin:e64cef644c1de5b53cdfc3ea489d116e&#34;&gt;下載Ruby and Rails Plugin&lt;/h3&gt;
+
+&lt;p&gt;從官網的&lt;a href=&#34;http://plugins.netbeans.org/plugin/38549/ruby-and-rails&#34;&gt;Plugins&lt;/a&gt;下載完畢後從NetBeans的功能選項中選擇&lt;/p&gt;
+
+&lt;p&gt;Tools→Plugins&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/ide/yong_netbeans_kai_fa_ruby_on_rails/netbeans-ror-plugin.png&#34; alt=&#34;plugins&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在安裝其他的plugins之前，必須先選擇安裝org-jruby-jruby.jar，讓NetBeans可以支援Ruby&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/ide/yong_netbeans_kai_fa_ruby_on_rails/netbeans-ror-plugin-1.png&#34; alt=&#34;org-jruby-jruby.jar&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;再來安裝其他的plugins就不會出現錯誤訊息&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/ide/yong_netbeans_kai_fa_ruby_on_rails/netbeans-ror-plugin-2.png&#34; alt=&#34;Ruby and Rails plugins&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;全部安裝完畢後，就可以在功能選項中建立Ruby On Rails的Application囉。&lt;/p&gt;
+
+&lt;p&gt;File→New Project&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/ide/yong_netbeans_kai_fa_ruby_on_rails/netbeans-ror-plugin-3.png&#34; alt=&#34;New Project&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;雖然我使用NetBeans已經很長一段時間了，但是主要用他來開發PHP，開發PHP是很好用沒錯。要用他來開發RoR是有點勉強阿&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;所以其實我裝完之後就沒再使用了，我個人比較推薦&lt;a href=&#34;http://www.aptana.com/&#34;&gt;Aptana Studio&lt;/a&gt;，畫面看起來也比較舒服。&lt;/p&gt;
+
+&lt;h2 id=&#34;發生錯誤:e64cef644c1de5b53cdfc3ea489d116e&#34;&gt;發生錯誤&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;6/23/2013 4:57:01 PM&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;建立project之後執行run，發現console有錯誤訊息如下&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/ide/yong_netbeans_kai_fa_ruby_on_rails/netbeans-ror-plugin-4.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;WARN  Could not determine content-length of response body. Set content-length of the response or set Response#chunked = true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在C:\RailsInstaller\Ruby1.9.3\lib\ruby\1.9.1\webrick\httpresponse.rb搜尋&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if chunked? || @header[&#39;content-length&#39;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;替換為&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if chunked? || @header[&#39;content-length&#39;] || @status == 304 || @status == 204
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;即可解決&lt;/p&gt;
+
+&lt;p&gt;參考：&lt;a href=&#34;http://richardjoo.wordpress.com/2013/01/15/warn-could-not-determine-content-length-of-response-body-set-content-length-of-the-response-or-set-responsechunked-true/&#34;&gt;http://richardjoo.wordpress.com/2013/01/15/warn-could-not-determine-content-length-of-response-body-set-content-length-of-the-response-or-set-responsechunked-true/&lt;/a&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;6/23/2013 11:57:01 PM&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;當更改固定首頁的時候出現錯誤訊息如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ExecJS::RuntimeError in Home#index
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以到C:\RailsInstaller\Ruby1.9.3\lib\ruby\gems\1.9.1\gems\execjs-1.4.0\lib\execjs\runtimes.rb搜尋cscript //E:jscript //Nologo //U&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;JScript = ExternalRuntime.new(
+    :name        =&amp;gt; &amp;quot;JScript&amp;quot;,
+    :command     =&amp;gt; &amp;quot;cscript //E:jscript //Nologo //U&amp;quot;,
+    :runner_path =&amp;gt; ExecJS.root + &amp;quot;/support/jscript_runner.js&amp;quot;,
+    :encoding    =&amp;gt; &#39;UTF-16LE&#39; # CScript with //U returns UTF-16LE
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;替換成&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;JScript = ExternalRuntime.new(
+    :name        =&amp;gt; &amp;quot;JScript&amp;quot;,
+    :command     =&amp;gt; &amp;quot;cscript //E:jscript //Nologo&amp;quot;,
+    :runner_path =&amp;gt; ExecJS.root + &amp;quot;/support/jscript_runner.js&amp;quot;,
+    :encoding    =&amp;gt; &#39;UTF-8&#39; # CScript with //U returns UTF-16LE
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;參考：&lt;a href=&#34;http://stackoverflow.com/questions/14283465/issue-with-upgrade-to-rails-3-2-11-execjsruntimeerror-in-static-pageshome&#34;&gt;http://stackoverflow.com/questions/14283465/issue-with-upgrade-to-rails-3-2-11-execjsruntimeerror-in-static-pageshome&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Netbeans console中文亂碼解決方法</title>
+      <link>http://localhost:1313/post/ide/netbeans_consolezhong_wen_luan_ma_jie_jue_fang_fa/</link>
+      <pubDate>Mon, 26 Aug 2013 10:45:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/ide/netbeans_consolezhong_wen_luan_ma_jie_jue_fang_fa/</guid>
+      <description>&lt;p&gt;以我為範例我是安裝在&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;C:\Program Files (x86)\NetBeans 7.3.1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;打開&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;C:\Program Files (x86)\NetBeans 7.3.1\etc\netbeans.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;編輯其中的這一行：&lt;/p&gt;
+
+&lt;p&gt;netbeans_default_options=&amp;ldquo;-J-client -J-Xss2m -J-Xms32m -J-XX:PermSize=32m -J-XX:MaxPermSize=200m -J-Xverify:none -J-Dapple.laf.useScreenMenuBar=true &lt;strong&gt;-J-Dfile.encoding=utf8&lt;/strong&gt; &amp;ndash;fontsize 12&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;加入粗體的部分，然後重新啟動Netbeans。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

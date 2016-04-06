@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Composer on Hello World!!</title>
+    <link>http://localhost:1313/tags/composer/</link>
+    <description>Recent content in Composer on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Thu, 04 Jul 2013 12:36:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/composer/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>管理PHP Library的利器Composer</title>
+      <link>http://localhost:1313/post/php/guan_li_php_library_de_li_qi_composer/</link>
+      <pubDate>Thu, 04 Jul 2013 12:36:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/php/guan_li_php_library_de_li_qi_composer/</guid>
+      <description>
+
+&lt;p&gt;在之前試玩&lt;a href=&#34;http://rubyonrails.org/&#34;&gt;Ruby On Rails&lt;/a&gt;的時候就覺得有&lt;a href=&#34;http://rubygems.org/&#34;&gt;Gem&lt;/a&gt;一整個就是超好用的吶!!所以前陣子公司導入Gitlab之後順勢要我研究一下PHP的&lt;a href=&#34;http://getcomposer.org/&#34;&gt;Composer&lt;/a&gt;，想不到還有支援Github。所以做個紀錄。&lt;/p&gt;
+
+&lt;h3 id=&#34;安裝php-composer:484fb5ea3564e0343a8972340d5a0d91&#34;&gt;安裝PHP Composer&lt;/h3&gt;
+
+&lt;p&gt;安裝在各自專案時&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkdir /var/www/html/example
+$ sudo curl -s https://getcomposer.org/installer | sudo php
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/guan_li_php_library_de_li_qi_composer/composer-1.png&#34; alt=&#34;install composer&#34; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;我安裝時有出現警告訊息是因為我的PHP版本是5.3.3他建議我升級到5.3.4或更高，否則可能導致Composer不穩定&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;我自己是安裝在/usr/local/bin&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /usr/local/bin
+$ sudo curl -s https://getcomposer.org/installer | sudo php
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可建立指向&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ln -s /usr/local/bin/composer.phar /usr/bin/composer
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣不管在哪個專案只要建立composer.json都可以使用了。&lt;/p&gt;
+
+&lt;h3 id=&#34;在php專案建立composer:484fb5ea3564e0343a8972340d5a0d91&#34;&gt;在PHP專案建立Composer&lt;/h3&gt;
+
+&lt;p&gt;建立composer.json&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd /var/www/html/example
+$ vim composer.json
+{
+    &amp;quot;require&amp;quot;: {
+        &amp;quot;monolog/monolog&amp;quot;: &amp;quot;1.2.*&amp;quot;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;建立後執行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ composer install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;專案目錄底下就會產生vendor資料夾，裏頭就是在composer.json有設定要引入的library。&lt;/p&gt;
+
+&lt;p&gt;Composer官網也有提供線上的&lt;a href=&#34;https://packagist.org/&#34;&gt;Library&lt;/a&gt;可以使用。讚!!&lt;/p&gt;
+
+&lt;h3 id=&#34;使用github上的repository:484fb5ea3564e0343a8972340d5a0d91&#34;&gt;使用Github上的Repository&lt;/h3&gt;
+
+&lt;p&gt;把library放到github上管理，然後再用composer引入各自的專案，這豈不是太方便了!!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim composer.json
+{
+    &amp;quot;name&amp;quot;: &amp;quot;bom-solution&amp;quot;,
+    &amp;quot;description&amp;quot;: &amp;quot;bom solution&amp;quot;,
+    &amp;quot;homepage&amp;quot;: &amp;quot;https://github.com/alanmoment/bom-solution&amp;quot;,
+    &amp;quot;repositories&amp;quot;: [{
+    &amp;quot;type&amp;quot;: &amp;quot;package&amp;quot;,
+    &amp;quot;package&amp;quot;: {
+        &amp;quot;name&amp;quot;: &amp;quot;alanmoment/bom-solution&amp;quot;,
+        &amp;quot;version&amp;quot;: &amp;quot;v0.1&amp;quot;,
+        &amp;quot;source&amp;quot;: {
+                &amp;quot;url&amp;quot;: &amp;quot;git@github.com:alanmoment/bom-solution.git&amp;quot;,
+                &amp;quot;type&amp;quot;: &amp;quot;git&amp;quot;,
+                &amp;quot;reference&amp;quot;: &amp;quot;v0.1&amp;quot;
+        }
+        }
+    }],
+    &amp;quot;require&amp;quot;: {
+        &amp;quot;php&amp;quot;: &amp;quot;&amp;gt;=5.3.3&amp;quot;,
+        &amp;quot;alanmoment/bom-solution&amp;quot;: &amp;quot;v0.1&amp;quot;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;建立github的composer之前必須先在你的repository建立tag&lt;/p&gt;
+
+&lt;p&gt;alanmoment是我的github的帳號&lt;/p&gt;
+
+&lt;p&gt;bom-solution是我的repository&lt;/p&gt;
+
+&lt;p&gt;v0.1是我tag的版號&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;存檔後執行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ composer install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;會發生以下錯誤&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Loading composer repositories with package information
+Installing dependencies (including require-dev) from lock file
+Nothing to install or update
+Generating autoload files
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這是因為執行過composer install之後目錄底下也會產生一隻composer.lock檔案，要再次執行前先把他刪掉，就可以正常執行囉
+。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/guan_li_php_library_de_li_qi_composer/composer.png&#34; alt=&#34;composer install&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;完成囉!!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

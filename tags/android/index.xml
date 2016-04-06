@@ -1,0 +1,825 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android on Hello World!!</title>
+    <link>http://localhost:1313/tags/android/</link>
+    <description>Recent content in Android on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Thu, 28 Nov 2013 16:19:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Android Universal Image Loader</title>
+      <link>http://localhost:1313/post/android/android_universal_image_loader/</link>
+      <pubDate>Thu, 28 Nov 2013 16:19:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/android/android_universal_image_loader/</guid>
+      <description>
+
+&lt;p&gt;開發了一陣子的Android，一開始著墨在功能是否能正常運作，現在注重的地方在校能，因為常發生閃退，或未知的錯誤，這邊要講一下下載遠端的圖片加強版。&lt;/p&gt;
+
+&lt;p&gt;繼上次發表&lt;a href=&#34;http://localhost:1313/post/94171840648/asynctask-download-image-by-the-android&#34;&gt;AsyncTask Download Image by the Android&lt;/a&gt;，這一篇發現了其中有些問題。若是大量的圖片，會產生大量的AsyncTask，會造成閃退，以及其他的AsyncTask無法運作，所以有個工具是&lt;a href=&#34;https://github.com/nostra13/Android-Universal-Image-Loader&#34;&gt;Android-Universal-Image-Loader&lt;/a&gt;，它已經幫使用者處理這部份的問題了，使用起來也很簡單。也不會有AsyncTask阻塞的問題。&lt;/p&gt;
+
+&lt;h2 id=&#34;gradle:4be01060b10895987e3f66b2041260d1&#34;&gt;Gradle&lt;/h2&gt;
+
+&lt;p&gt;有兩種方式載入jar檔&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;官網下載jar檔放進libs，在build.gradle的dependencies中建立&lt;code&gt;compile files(&#39;libs/universal-image-loader-1.8.6.jar&#39;)&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;自動下載，在build.gradle的dependencies中建立 &lt;code&gt;compile &#39;com.nostra13.universalimageloader:universal-image-loader:1.8.6&#39;&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;usage:4be01060b10895987e3f66b2041260d1&#34;&gt;Usage&lt;/h2&gt;
+
+&lt;p&gt;我自己寫一隻方便使用的Base&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/**
+ * ImageLoader Base
+ *
+ * @author Alan
+ * @since 2013/09/06
+ */
+public class BaseImageLoader {
+
+    private static ImageLoader imageLoader;
+    private static DisplayImageOptions options;
+
+    private String path = &amp;quot;loader_cache&amp;quot;;
+    private int stubImage = R.drawable.default;
+    private int emptyImage = R.drawable.default;
+    private int failImage = R.drawable.default;
+    private int fadeInTimestamp = 500;
+
+    public BaseImageLoader(Context context) {
+        File cacheDir = StorageUtils.getOwnCacheDirectory(context, path);
+        imageLoader = com.nostra13.universalimageloader.core.ImageLoader.getInstance();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
+                .discCache(new UnlimitedDiscCache(cacheDir)) // 存在SDcard
+                .discCacheFileNameGenerator(new HashCodeFileNameGenerator())
+                .discCacheExtraOptions(480, 800, Bitmap.CompressFormat.JPEG, 75, null)
+                .discCacheSize(50 * 1024 * 1024) // 快取圖片尺寸
+                .discCacheFileCount(100) // 快取數量
+                .build();
+        imageLoader.init(config);
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public void setStubImage(int stubImage) {
+        this.stubImage = stubImage;
+    }
+
+    public void setEmptyImage(int emptyImage) {
+        this.emptyImage = emptyImage;
+    }
+
+    public void setFailImage(int failImage) {
+        this.failImage = failImage;
+    }
+
+    /**
+     * 清除暫存檔
+     */
+    public void clear() {
+        imageLoader.clearDiscCache();
+        imageLoader.clearMemoryCache();
+    }
+
+    public ImageLoader getImageLoader() {
+        return imageLoader;
+    }
+
+    public DisplayImageOptions getOptions() {
+        options = new DisplayImageOptions.Builder()
+                .showStubImage(stubImage) // 載入中顯示的圖片
+                .showImageForEmptyUri(emptyImage) // 找不到連結或是錯誤顯示的圖片
+                .showImageOnFail(failImage) // 圖片解碼錯誤顯示的圖片
+                .imageScaleType(ImageScaleType.EXACTLY) // 圖片縮放方式
+                .cacheInMemory(true)
+                .cacheOnDisc(true)
+//                .displayer(new RoundedBitmapDisplayer(20)) // 載入的圖片加工圓角
+                .displayer(new FadeInBitmapDisplayer(fadeInTimestamp)) // 設置圖片漸顯的時間
+//                .displayer(new SimpleBitmapDisplayer()) // 正常顯示一張圖片
+                .build();
+        return options;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;有了這隻Base的在外面呼叫只需要&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// 建立Base物件
+BaseImageLoader baseImageLoader = new BaseImageLoader(this);
+
+// 顯示圖片
+ImageView image = (ImageView) convertView.findViewById(R.id.photo);
+baseImageLoader.getImageLoader().displayImage(item.getCover(), image, baseImageLoader.getOptions());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;打完收工。用了這個套件，我一次下載幾千張圖片，都不會有閃退的情況了。而且它有很多特性非常方便，諸如圖片圓角、載入中的顯示、找不到圖片的顯示等等，我只列出我需要用到的。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Use Thread control Android UI</title>
+      <link>http://localhost:1313/post/android/use_thread_control_android_ui/</link>
+      <pubDate>Mon, 11 Nov 2013 11:04:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/android/use_thread_control_android_ui/</guid>
+      <description>&lt;p&gt;在開發Android app若要用Thread改變UI的話會遇到這個Exception&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;android.view.ViewRootImpl$CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views.
+at android.view.ViewRootImpl.checkThread(ViewRootImpl.java:4637)
+at android.view.ViewRootImpl.invalidateChildInParent(ViewRootImpl.java:876)
+at android.view.ViewGroup.invalidateChild(ViewGroup.java:4174)
+at android.view.View.invalidate(View.java:10313)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;原因是Android不允許onCreate之後再建立Thread改變UI，所以得透過他提供的方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// run on ui thread
+runOnUiThread(new Runnable() {
+    public void run() {
+        // TODO
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣就可以透過Thread來執行改變UI的事件了。&lt;/p&gt;
+
+&lt;p&gt;完整的範例如下，透過Thread 5秒後改變某個UI的屬性&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Start thread
+@Override
+protected void onResume()
+{
+    super.onResume();
+    myThread.start();
+}
+
+// Stop thread
+@Override
+public void onPause()
+{
+    super.onPause();
+    myThread.interrupt();
+}
+
+// Execute thread after 5s.
+final Thread myThread = new Thread() {
+    public void run() {
+        try {
+            this.sleep(5000);
+            // run on ui thread
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    // TODO
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AsyncTask download image by the Android</title>
+      <link>http://localhost:1313/post/android/asynctask_download_image_by_the_android/</link>
+      <pubDate>Fri, 18 Oct 2013 00:22:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/android/asynctask_download_image_by_the_android/</guid>
+      <description>
+
+&lt;p&gt;開發Android時常需要呈現圖片，但不可能圖片都是從Drawable中撈出來，一定有時需要從ImageServer或是透過網址取得圖片。&lt;/p&gt;
+
+&lt;p&gt;若是用一般的方式解決&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  try {
+     URL url = new URL(imageUrl);
+     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+     connection.setDoInput(true);
+     connection.connect();
+     InputStream input = connection.getInputStream();
+     Bitmap bitmap = BitmapFactory.decodeStrea (input);
+     return bitmap;
+  } catch (IOException e) {
+     e.printStackTrace();
+     return null;
+  }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;這樣子會造成讀取完圖片才會往下繼續執行的窘境，如果Timeout那畫面會停留更久。所以要用&lt;a href=&#34;http://developer.android.com/reference/android/os/AsyncTask.html&#34;&gt;AsyncTask&lt;/a&gt;的特性來實作這個功能。&lt;/p&gt;
+
+&lt;p&gt;Android 4.0之後為了避免跟網路溝通時造成畫面停滯的問題，在與網路溝通的程式碼中必須要用執行緒的方式來進行與網路的溝通。&lt;/p&gt;
+
+&lt;h2 id=&#34;建立imagedownloadtask:12a55c7193edd0d3a47202a506515205&#34;&gt;建立ImageDownloadTask&lt;/h2&gt;
+
+&lt;p&gt;先在AndroidManifest.xml開啟網路權限&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;uses-permission android:name=&amp;quot;android.permission.INTERNET&amp;quot;&amp;gt;&amp;lt;/uses-permission&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;為了避免在短時間內下載重複的圖片，所以用url當作key做了cache的機制&lt;code&gt;imageCache.put(params[0], mIcon11)&lt;/code&gt;，只要cache中不超過空間限制，都不會重複向遠端撈取圖片。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package com.example.test;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.support.v4.util.LruCache;
+import android.util.Log;
+import android.widget.ImageView;
+
+import java.io.InputStream;
+import java.net.URLConnection;
+
+/**
+ * 遠端下載圖片
+ *
+ * @author Alan
+ * @since 2013/10/05
+ */
+public class ImageDownloadTask extends AsyncTask&amp;lt;string void bitmap&amp;gt; {
+    private static final String LOG_TAG = ImageDownloadTask.class.getName();
+    private ImageView bmImage;
+    private static LruCache imageCache;
+    private static final int CACHE_SIZE = 1; //1MB
+
+    public ImageDownloadTask(ImageView bmImage) {
+        this.bmImage = bmImage;
+
+        // 設定圖片快取
+        if (imageCache == null) {
+            imageCache = new LruCache(CACHE_SIZE * 1024 * 1024);
+        }
+
+    }
+
+    protected Bitmap doInBackground(String... params) {
+        if (imageCache.get(params[0]) == null) {
+            android.graphics.Bitmap mIcon11 = null;
+            URLConnection urlConnection = null;
+            InputStream in = null;
+            try {
+                urlConnection = new java.net.URL(params[0]).openConnection();
+                urlConnection.setConnectTimeout(3 * 1000);
+                urlConnection.setReadTimeout(10 * 1000);
+                in = urlConnection.getInputStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+
+                // 記錄已下載圖片的快取
+                imageCache.put(params[0], mIcon11);
+                in.close();
+            } catch (Exception e) {
+                Log.e(LOG_TAG, e.getMessage());
+                e.printStackTrace();
+            }
+
+            return mIcon11;
+        } else {
+            return (Bitmap) imageCache.get(params[0]);
+
+        }
+
+    }
+
+    protected void onPostExecute(android.graphics.Bitmap result) {
+        super.onPreExecute();
+
+        // 設定圖片物件
+        bmImage.setImageBitmap(result);
+        this.bmImage = null;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;用起來很簡單&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ImageView iv = new ImageView(this);
+ImageDownloadTask imageDownloadTask = new ImageDownloadTask(iv);
+imageDownloadTask.execute(imageUrl);
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>ProgressBar while loading ListView of Android</title>
+      <link>http://localhost:1313/post/android/progressbar_while_loading_listview_of_android/</link>
+      <pubDate>Fri, 11 Oct 2013 10:24:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/android/progressbar_while_loading_listview_of_android/</guid>
+      <description>
+
+&lt;p&gt;ListView通常是用來顯示列表的Widget，但是一般不可能直接從不管是遠端的Database或是Sqlite撈出全部的資料然後直接顯示，一定是分批撈取分批顯示。&lt;/p&gt;
+
+&lt;p&gt;這時就需要一個Loading畫面讓Client知道說，當前正在載入資料。不管是跳Dialog或是像Facebook一樣在畫面Bottom顯示Loading layout都可以。&lt;/p&gt;
+
+&lt;p&gt;我採取的是像Facebook一樣的方式呈現。&lt;/p&gt;
+
+&lt;h2 id=&#34;建立mainactivity-java:faa8f77b26bd0d6e4709b948d5897e6a&#34;&gt;建立MainActivity.java&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;simpleAdapter&lt;/code&gt;可另外設置R.layout.listview_item讓ListView中的資料吃別隻xml。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package com.example.test;
+
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.widget.AbsListView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class MainActivity extends Activity {
+
+    private String TAG_LOG = MainActivity.class.getName();
+    // ViewList需要用到的制定鍵值
+    String[] adapterKey;
+    // ViewList需要用到的制定鍵值
+    int[] adapterViewKey;
+    // 顯示讀取畫面的容器
+    LinearLayout loadingLayout;
+    // 顯示列表的容器
+    ListView listView;
+    // 列表
+    SimpleAdapter simpleAdapter;
+    // 列表資料
+    List&amp;lt;map object&amp;gt;&amp;gt; items = new ArrayList&amp;lt;map object&amp;gt;&amp;gt;();
+
+    /**
+     * 取資料
+     * @param items
+     * @return
+     */
+    private List&amp;lt;map object&amp;gt;&amp;gt; getData(List&amp;lt;map object&amp;gt;&amp;gt; items, String[] adapterKey)
+    {
+        Integer limitCount = items.size() + 10;
+        for (Integer count = items.size(); count&amp;lt;limitcount count map object&amp;gt; item = new HashMap&amp;lt;string object&amp;gt;();
+            item.put(adapterKey[0], count+1);
+            items.add(item);
+        }
+        return items;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        listView = (ListView) findViewById(R.id.listView);
+
+        // 設定ListView相對應的View
+        adapterKey = new String[]{&amp;quot;number&amp;quot;};
+        adapterViewKey = new int[]{R.id.txtNumber};
+
+        // 取得資料並且設定Adapter
+        items = getData(items, adapterKey);
+        simpleAdapter = new SimpleAdapter(
+                MainActivity.this,
+                items,
+                R.layout.listview_item,
+                adapterKey,
+                adapterViewKey
+        );
+
+
+        // Set loading view before of set setAdapter
+        loadingLayout = getLoadingLayout(MainActivity.this, null);
+        listView.addFooterView(loadingLayout);
+        listView.setAdapter(simpleAdapter);
+        listView.setOnScrollListener(moreItemScrollListener);
+    }
+
+    // 已經到資料結尾
+    boolean isEnd = false;
+
+    /**
+     * 聆聽往上滑動讀取更多物件的事件，會在下方顯示讀取狀態
+     */
+    private AbsListView.OnScrollListener moreItemScrollListener = new AbsListView.OnScrollListener() {
+
+        // 可以再次載資料
+        boolean canLoadData = false;
+        // 在讀取資料中
+        boolean isLoadingMode = false;
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            //如果不是在讀取資料的狀態、還有資料可以讀取
+            if (firstVisibleItem + visibleItemCount == totalItemCount &amp;amp;&amp;amp; totalItemCount &amp;gt; 0 &amp;amp;&amp;amp; !isLoadingMode &amp;amp;&amp;amp; !isEnd) {
+                canLoadData = true;
+                Log.d(TAG_LOG, &amp;quot;can load&amp;quot;);
+            }
+        }
+
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            //當ListView拉到底,且沒在載入資料時，而且還有資料可以讀取
+            if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE &amp;amp;&amp;amp; canLoadData &amp;amp;&amp;amp; !isLoadingMode &amp;amp;&amp;amp; !isEnd) {
+                // 再次撈取資料前先關閉可以撈取資料的狀態
+                Log.d(TAG_LOG, &amp;quot;loading&amp;quot;);
+                isLoadingMode = true;
+                loadMoreData();
+
+                //通知Adapter更新
+                simpleAdapter.notifyDataSetChanged();
+                canLoadData = false;
+                isLoadingMode = false;
+            }
+        }
+    };
+
+    /**
+     * 處理要求更多物件
+     */
+    private void loadMoreData() {
+        if (this.items.size() = 30 &amp;amp;&amp;amp; !isEnd) {
+            isEnd = true;
+            this.listView.removeFooterView(this.loadingLayout);
+            Log.d(TAG_LOG, &amp;quot;can&#39;t load again&amp;quot;);
+        }
+    }
+
+    /**
+     * Get loading view layout object
+     *
+     * @param context
+     * @param msg
+     * @return LinearLayout
+     */
+    public LinearLayout getLoadingLayout(Context context, String msg) {
+        if (msg == null || msg == &amp;quot;&amp;quot;)
+            msg = context.getResources().getString(R.string.loading_text);
+
+        Log.d(&amp;quot;Util&amp;quot;, &amp;quot;Loading screen&amp;quot;);
+        LinearLayout.LayoutParams WClayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams FFlayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT);
+
+        LinearLayout layout = new LinearLayout(context);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+        ProgressBar progressBar = new ProgressBar(context);
+        progressBar.setPadding(0, 0, 15, 0);
+        layout.addView(progressBar, WClayoutParams);
+
+        TextView textView = new TextView(context);
+        textView.setText(msg);
+        textView.setGravity(Gravity.CENTER_VERTICAL);
+
+        layout.addView(textView, FFlayoutParams);
+        layout.setGravity(Gravity.CENTER);
+
+        LinearLayout loadingLayout = new LinearLayout(context);
+        loadingLayout.addView(layout, WClayoutParams);
+        loadingLayout.setGravity(Gravity.CENTER);
+
+        return loadingLayout;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;getLoadingLayout&lt;/code&gt;函式是用在當手勢往上滑畫面在最底部時要顯示讀取資料中的Loading畫面。&lt;/p&gt;
+
+&lt;p&gt;Loading layout並不是當讀取時才出現，而是他一直置於ListView最底部，所以讀取不到資料時要將Loading layout移除&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;this.listView.removeFooterView(this.loadingLayout);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;執行後就會是這樣&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/progressbar_while_loading_listview_of_android/loading.png&#34; alt=&#34;Loading&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/progressbar_while_loading_listview_of_android/load_end.png&#34; alt=&#34;Loading end&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Android use foreign object of OrmLite</title>
+      <link>http://localhost:1313/post/android/android_use_foreign_object_of_ormlite/</link>
+      <pubDate>Tue, 01 Oct 2013 00:58:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/android/android_use_foreign_object_of_ormlite/</guid>
+      <description>
+
+&lt;p&gt;Android也有很好用的ActiveRecord可以應用，&lt;a href=&#34;http://ormlite.com/&#34;&gt;OrmLite&lt;/a&gt;提供了非常多的函式方便應用，架構也非常清楚，在跟SqlLite溝通時不再需要自己造輪子。&lt;/p&gt;
+
+&lt;p&gt;這邊記錄當ValueObject有繼承關係，又必須要有主附表關係時OrmLite的Foreign Key應用方法。&lt;/p&gt;
+
+&lt;h3 id=&#34;建立major:386ec736a3ee3c1e4401f2be35394f74&#34;&gt;建立Major&lt;/h3&gt;
+
+&lt;p&gt;類似像MySql的主附表應用，主表如下，&lt;code&gt;@DatabaseTable&lt;/code&gt;是用在若要另外建立表名，則必須要設定這個值，若沒設定預設會用class的名字建立。
+&lt;code&gt;@DatabaseField&lt;/code&gt;則是欄位名稱。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package com.data;
+
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+/**
+ * Created by Alan on 2013/9/18.
+ */
+@DatabaseTable(tableName=&amp;quot;Major&amp;quot;)
+public class Major {
+
+    @DatabaseField
+    private String parent;
+
+    public void setParent(String parent)
+    {
+        this.parent = parent;
+    }
+
+    public String getParent()
+    {
+        return this.parent;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;建立minor:386ec736a3ee3c1e4401f2be35394f74&#34;&gt;建立Minor&lt;/h3&gt;
+
+&lt;p&gt;當Minor與Major是繼承關係時，同時又必須要包含另外的物件。這邊的&lt;code&gt;@DatabaseField&lt;/code&gt;在參數中有&lt;code&gt;foreign&lt;/code&gt;代表著這個屬性是外部鍵，指向另外一個物件的主鍵。並且&lt;code&gt;foreignAutoRefresh&lt;/code&gt;是新增一筆資料後不用另外refresh。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package com.data;
+
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+/**
+ * Created by Alan on 2013/9/18.
+ */
+@DatabaseTable(tableName = &amp;quot;Minor&amp;quot;)
+public class Minor extends Major {
+
+    @DatabaseField(foreign=true, foreignAutoRefresh=true)
+    private Other other;
+
+    public Minor()
+    {
+    }
+
+    @DatabaseField
+    private String child;
+
+    public void setChild(String child)
+    {
+        this.child = child;
+    }
+
+    public String getChild()
+    {
+        return this.child;
+    }
+
+    /**
+     * 設定外部物件
+     */
+    public void setOther(Other other)
+    {
+        this.other = other;
+    }
+
+    /**
+     * 取得外部物件
+     */
+    public Other getOther()
+    {
+        return this.other;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;建立外部物件:386ec736a3ee3c1e4401f2be35394f74&#34;&gt;建立外部物件&lt;/h3&gt;
+
+&lt;p&gt;外部物件若要和別的物件有Composition的關係，在這邊必須要有主鍵，而我設定&lt;code&gt;generatedId=true&lt;/code&gt;就類似MySql的&lt;code&gt;auto_increment&lt;/code&gt;屬性，讓物件可以自動生成ID，以便和別的物件建立指向關係。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package com.data;
+
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+/**
+ * Created by Alan on 2013/9/18.
+ */
+@DatabaseTable(tableName=&amp;quot;Other&amp;quot;)
+public class Other {
+
+    @DatabaseField(generatedId=true)
+    private Long id;
+
+    @DatabaseField
+    private String name;
+
+    public Other()
+    {
+    }
+
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
+
+    public Long getId()
+    {
+        return this.id;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getName()
+    {
+        return this.name;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;usage:386ec736a3ee3c1e4401f2be35394f74&#34;&gt;Usage&lt;/h3&gt;
+
+&lt;p&gt;當這些關係建立後。可以用下列方法取得主物件的屬性&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Minor minor = new Minor();
+minor.getParent();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;也可以用下列方法取得外部物件的屬性。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Minor minor = new Minor();
+minor.getOther().getName();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;我覺得用起來超方便的，而且架構很清楚。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Android zipcode library of maven</title>
+      <link>http://localhost:1313/post/android/android_zipcode_library_of_maven/</link>
+      <pubDate>Tue, 03 Sep 2013 18:50:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/android/android_zipcode_library_of_maven/</guid>
+      <description>
+
+&lt;p&gt;最近在做Android app時需要用到縣市、區域這些資料，做過網站的，都知道處理這個很煩啊!所以大多都會抽出來另外處理，封裝成Component好方便使用，但是在Android上要是把縣市、區域、郵遞區號放到strings.xml裡面，我想是會瘋掉的，維護、擴充也不容易。我就是建完才後悔的&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/android_studio_city_list.png&#34; alt=&#34;android studio city list&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/android_studio_area_list.png&#34; alt=&#34;android studio area list&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;有個不錯的方法就是將資料用json的格式存成一隻檔案，然後自己寫抓取json的util放到Android的libs，這樣要使用就很方便了。&lt;/p&gt;
+
+&lt;h3 id=&#34;eclipse安裝maven:9bf3f2b1461ea7d05882004b3695b9ca&#34;&gt;Eclipse安裝Maven&lt;/h3&gt;
+
+&lt;p&gt;使用Eclipse plugin安裝Maven，在Install new software中點選Add輸入下列資料。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Name：Maven Plugin&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;p&gt;Location：&lt;a href=&#34;http://download.eclipse.org/technology/m2e/releases&#34;&gt;http://download.eclipse.org/technology/m2e/releases&lt;/a&gt;&lt;/p&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;若是發生不能安裝的錯誤還有另外一個&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Name：Indigo&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;p&gt;Location：&lt;a href=&#34;http://download.eclipse.org/releases/indigo&#34;&gt;http://download.eclipse.org/releases/indigo&lt;/a&gt;&lt;/p&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;在這個套件裡尋找Maven並且安裝&lt;/p&gt;
+
+&lt;h3 id=&#34;安裝maven工具:9bf3f2b1461ea7d05882004b3695b9ca&#34;&gt;安裝Maven工具&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://maven.apache.org/download.cgi&#34;&gt;Maven官網&lt;/a&gt;下載Maven 3.1.0 (Binary tar.gz)，放哪裡都可以但是建議不要放在含有空白或特殊字元的資料夾，最後要在環境變數加上以下變數。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;變數名稱：MAVEN_HOME&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;變數值：C:\你的目錄\apache-maven-3.1.0&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;在Path變數尾端加上MAVEN_HOME&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;%MAVEN_HOME%\bin;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;建立maven-project:9bf3f2b1461ea7d05882004b3695b9ca&#34;&gt;建立Maven project&lt;/h3&gt;
+
+&lt;p&gt;為了方便自己管理library所以我建立了maven project&lt;/p&gt;
+
+&lt;p&gt;Step 1.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/create_maven_project.png&#34; alt=&#34;create maven project step 1&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Step 2.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/create_maven_project_2.png&#34; alt=&#34;create maven project step 2&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Step 3.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/create_maven_project_step_3.png&#34; alt=&#34;create maven project step 3&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;修改pom-xml:9bf3f2b1461ea7d05882004b3695b9ca&#34;&gt;修改pom.xml&lt;/h3&gt;
+
+&lt;p&gt;因為要解析json格式，所以在這邊需要引入&lt;a href=&#34;https://code.google.com/p/google-gson/&#34;&gt;google-gson&lt;/a&gt;的dependency，為什麼不用&lt;a href=&#34;https://code.google.com/p/json-simple/&#34;&gt;json-simple&lt;/a&gt;呢，因為Android並沒有支援這個library。&lt;/p&gt;
+
+&lt;p&gt;在&lt;dependencies&gt;&lt;/dependencies&gt;&amp;gt;標籤中加入&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;&amp;lt;groupid&amp;gt;com.google.code.gson&amp;lt;/groupid&amp;gt;&amp;lt;artifactid&amp;gt;gson&amp;lt;/artifactid&amp;gt;&amp;lt;version&amp;gt;2.2.4&amp;lt;/version&amp;gt;&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在project中Maven Dependencies就會增加gson library&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/gson_dependencies.png&#34; alt=&#34;gson dependencies&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;建立zipcode-json:9bf3f2b1461ea7d05882004b3695b9ca&#34;&gt;建立zipcode.json&lt;/h3&gt;
+
+&lt;p&gt;依照下圖的格式建立zipcode.json&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/zipcode_json.png&#34; alt=&#34;zipcode.json&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;將zipcode.json放置在src/main/resources，並且修改pom.xml，這樣在使用maven install就能夾帶檔案。&lt;/p&gt;
+
+&lt;p&gt;在&lt;project&gt;&lt;/project&gt;&amp;gt;標籤中加入&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;build&amp;gt;&amp;lt;resources&amp;gt;&amp;lt;resource&amp;gt;&amp;lt;directory&amp;gt;src/main/resources&amp;lt;/directory&amp;gt;&amp;lt;includes&amp;gt;&amp;lt;include&amp;gt;zipcode.json&amp;lt;/include&amp;gt;&amp;lt;/includes&amp;gt;&amp;lt;/resource&amp;gt;&amp;lt;/resources&amp;gt;&amp;lt;/build&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;建立zipcode-library:9bf3f2b1461ea7d05882004b3695b9ca&#34;&gt;建立Zipcode Library&lt;/h3&gt;
+
+&lt;p&gt;建立InputStreamReader讀取json資料，再用gson解析讀取完畢再關掉。
+因為gson會主動幫字串加上雙引號，所以取資料出來必須要用getAsString()，不能用toString()，否則雙引號不會濾掉。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package com.zipcode_util;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+public class ZipcodeComponent {
+
+    private static final String ZIPCODE_FILE = &amp;quot;zipcode.json&amp;quot;;
+    private static JsonObject jsonObject;
+
+    /**
+     * Json file io
+     * @return JsonObject jsonObject
+     */
+    private JsonObject getJsonObject()
+    {
+        if (jsonObject == null) {
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(ZipcodeComponent.class
+                            .getClassLoader().getResourceAsStream(
+                                    ZipcodeComponent.ZIPCODE_FILE)));
+            jsonObject = new Gson().fromJson(br, JsonObject.class);
+
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return jsonObject;
+    }
+
+    /**
+     * Get city name
+     * @return List&amp;lt;string&amp;gt; citys
+     */
+    public String[] listCities()
+    {
+        JsonArray jsonArray = getJsonObject().getAsJsonArray(&amp;quot;city&amp;quot;);
+
+        String[] cities = new String[jsonArray.size()];
+        int i;
+        for (i=0; i&amp;lt;jsonarray.size i cities jsonarray.get return zipcode util package com.zipcode_util import junit.framework.test junit.framework.testcase junit.framework.testsuite unit test for simple app. public class apptest extends testcase create the case testname name of string super zipcodecomponent system.out.println suite tests being tested static new testsuite apptest.class rigourous :- void testapp asserttrue true tree plugin tool mvn clean install project&amp;gt;&amp;lt;/jsonarray.size&amp;gt;&amp;lt;/string&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

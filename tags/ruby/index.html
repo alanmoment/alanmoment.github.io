@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  	<meta property="og:title" content=" Ruby &middot;  Hello World!!" />
+  	<meta property="og:site_name" content="Hello World!!" />
+  	<meta property="og:url" content="http://localhost:1313/tags/ruby/" />
+
+    
+    <meta property="og:type" content="website" />
+    
+
+  <title>
+     Ruby &middot;  Hello World!!
+  </title>
+
+    <meta name="description" content="you can do anything you want to do." />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
+
+
+    
+      
+          <link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="Hello World!!" />
+      
+      
+        <link href="http://localhost:1313/tags/ruby/index.xml" rel="alternate" type="application/rss+xml" title="Ruby &middot; Hello World!!" />
+      
+    
+    <meta name="generator" content="Hugo 0.15" />
+
+    <link rel="canonical" href="http://localhost:1313/tags/ruby/" />
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/">Home</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/page/about/">About me</a>
+            </li>
+        
+    </ul>
+    
+    
+    <a class="subscribe-button icon-feed" href="http://localhost:1313/tags/ruby/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+
+	<header class="main-header tag-head" style="background-image: url(http://localhost:1313//images/Iron_man.jpg)">
+
+    <nav class="main-nav overlay clearfix">
+      
+        <a class="blog-logo" href="http://localhost:1313/"><img src="http://localhost:1313//images/517273.jpg" alt="Home" /></a>
+      
+      
+          <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+      
+    </nav>
+    <div class="vertical">
+        <div class="main-header-content inner">
+            <h1 class="page-title">Ruby</h1>
+            <h2 class="page-description">
+                
+            </h2>
+        </div>
+    </div>
+</header>
+
+<main class="content" role="main">
+    
+
+	<div class="extra-pagination inner">
+    <nav class="pagination" role="navigation">
+	
+	<span class="page-number">Page 1 of 1</span>
+	
+</nav>
+
+	</div>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/ruby_on_rails/ruby_on_rails_deploy_on_heroku/">Ruby on Rails deploy on Heroku</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>好久沒碰 Ruby on Rails 一碰就會有問題，也早就習慣了，昨天晚上把做好很久的網站 Deploy 到 Heroku，就又出現問題了！有些問題是原本就存在的，還是紀錄一下。 OSX 安裝 PostgreSQL 因為 Heroku 不支援 Sqlite，得另外安裝 PostgreSQL，而我原本以為有安裝應用程式，就不用特別再安裝，想不到還是出現錯誤了。 $ brew install Postgresql 安裝後還是出現錯誤 Error loading RubyGems plugin &quot;/Users/alan/.rvm/gems/ruby-2.0.0-p353/gems/executable-hooks-1.3.2/lib/rubygems_plugin.rb&quot;: dlopen(/Users/alan/.rvm/rubies/ruby-2.0.0-p353/lib/ruby/2.0.0/x86_64-darwin13.0.0/openssl.bundle, 9): Symbol not found: _SSLv2_client_method Google 到的解決辦法就是 RVM 重裝 $ \curl -L https://get.rvm.io | bash -s stable —ruby PostgreSQL Migrate Test $ rake db:migrate RAILS_ENV=development 部署前準備 在 application.rb 設定 $ config.serve_static_assets = true 執行 $ rake assets:precompile 專案底下的 public/assets 就會出現打包好的 resource，要引入圖片，程式碼得這樣寫。 image_path(&quot;bg.jpg&quot;) Deploy Heroku 都處理完畢就可以走正常流程部署到 Heroku 了。 $ heroku login $ heroku git:clone -a PROJECT $ git add . <a class="read-more" href="http://localhost:1313/post/ruby_on_rails/ruby_on_rails_deploy_on_heroku/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/ruby/">#ruby</a>,
+            
+                <a href="http://localhost:1313/tags/rails/">#rails</a>,
+            
+        
+        <time class="post-date" datetime="2015-05-16T13:16:36Z">
+            16 May 2015
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/ruby_on_rails/ruby_on_rails_xiao_wen_ti/">Ruby on Rails 小問題</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>安裝許久的 gem 太久沒更新了遇到一些麻煩，又剛好今天發現 Google Drive 以前可以用 Login 已經被取消了&hellip;天吶&hellip; 首先因為改了與 Google Drive 串接的 API 所以出現了 SSLError Faraday::SSLError (SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certificate verify failed): 這個找很久&hellip;後來是把 gem update 就解決了 $ gem update $ gem update --system 而另外一個問題是一直很煩的，RVM 老是會出現一些 Warngin 今天惱了，找了方法來解決 Warning! PATH is not properly set up, '/Users/alan/.rvm/gems/ruby-2.2.1/bin' is not at first place, usually this is caused by shell initialization files - check them for 'PATH=...' entries, it might also help to re-add RVM to your dotfiles: 'rvm get stable --auto-dotfiles', to fix temporarily in this shell session run: 'rvm use ruby-2.2.1’. <a class="read-more" href="http://localhost:1313/post/ruby_on_rails/ruby_on_rails_xiao_wen_ti/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/ruby/">#ruby</a>,
+            
+                <a href="http://localhost:1313/tags/rails/">#rails</a>,
+            
+        
+        <time class="post-date" datetime="2015-01-04T23:45:08Z">
+            4 Jan 2015
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/">Install rmagick on the Windows of Ruby on Rails</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>Windows上不管是要安裝什麼Ruby的套件總是能出錯，這次就連很常見的ImageMagick還是會無法順利安裝，無言阿!!所以才會有人建議為了自己好，千萬不要在Windows上學習開發Ruby on Rails，但是我是個窮鬼&hellip;買不起Mac只好硬是找方法。以下就是Ruby on Rails安裝rmagick的過程囉。 到ImageMagick官網下載 ImageMagick-6.8.6-7-Q16-x86-static.exe ImageMagick-6.8.6-7-Q16-x86-dll.exe 這兩個皆安裝在C:\ImageMagick，用預設選項安裝即可 點選官網上的download&gt;United States&gt;http://www.imagemagick.org/download&gt;ImageMagick-6.8.6-7.tar.gz 下載、解壓縮後放置在C:\ImageMagick資料夾中，命名為SourceCode 到http://www.mingw.org/ 點選Navigation&gt;download 下載Looking for the latest version? Download mingw-get-inst-20120426.exe (662.7 kB) 將MinGW安裝在C:\MinGW，並且勾選MinGW Developer ToolKit，安裝完畢還要在系統的環境變數加上C:\MinGW 最後用gem安裝rmagick $ gem install rmagick --platform=ruby -- --with-opt-lib=C:/ImageMagick --with-opt-include=c:/ImageMagick/SourceCode Gemfile setup gem 'rmagick' gem &quot;carrierwave&quot; 國外的完整教學影片 <a class="read-more" href="http://localhost:1313/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/ruby/">#ruby</a>,
+            
+                <a href="http://localhost:1313/tags/rails/">#rails</a>,
+            
+        
+        <time class="post-date" datetime="2013-08-12T01:19:00Z">
+            12 Aug 2013
+        </time>
+    </footer>
+</article>
+
+	
+
+	<nav class="pagination" role="navigation">
+	
+	<span class="page-number">Page 1 of 1</span>
+	
+</nav>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Hello World!!</a> &copy; Copyright Alan - 2016</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/index.js"></script>
+    
+</body>
+</html>

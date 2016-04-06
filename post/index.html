@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  	<meta property="og:title" content=" Posts &middot;  Hello World!!" />
+  	<meta property="og:site_name" content="Hello World!!" />
+  	<meta property="og:url" content="http://localhost:1313/post/" />
+
+    
+    <meta property="og:type" content="website" />
+    
+
+  <title>
+     Posts &middot;  Hello World!!
+  </title>
+
+    <meta name="description" content="you can do anything you want to do." />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
+
+
+    
+      
+          <link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="Hello World!!" />
+      
+      
+        <link href="http://localhost:1313/post/index.xml" rel="alternate" type="application/rss+xml" title="Posts &middot; Hello World!!" />
+      
+    
+    <meta name="generator" content="Hugo 0.15" />
+
+    <link rel="canonical" href="http://localhost:1313/post/" />
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/">Home</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/page/about/">About me</a>
+            </li>
+        
+    </ul>
+    
+    
+    <a class="subscribe-button icon-feed" href="http://localhost:1313/post/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+
+	<header class="main-header tag-head" style="background-image: url(http://localhost:1313//images/Iron_man.jpg)">
+
+    <nav class="main-nav overlay clearfix">
+      
+        <a class="blog-logo" href="http://localhost:1313/"><img src="http://localhost:1313//images/517273.jpg" alt="Home" /></a>
+      
+      
+          <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+      
+    </nav>
+    <div class="vertical">
+        <div class="main-header-content inner">
+            <h1 class="page-title">Posts</h1>
+            <h2 class="page-description">
+                
+            </h2>
+        </div>
+    </div>
+</header>
+
+<main class="content" role="main">
+    
+
+	<div class="extra-pagination inner">
+    <nav class="pagination" role="navigation">
+	
+	<span class="page-number">Page 1 of 5</span>
+	
+	    <a class="older-posts" href="http://localhost:1313/post/page/2/">Older Posts &rarr;</a>
+	
+</nav>
+
+	</div>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/">phabricator-extensions-Sprint 無法抓到正確的 Story Points</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>在版號為 741e2ef4b1150f9a9e4b121218b3ea536289968d 之後的版本，因為 story points 變更欄位，所以 burndown chart 會沒辦法抓到正確的 point。 可以在官方這邊找到答案，但是並不是環境都一樣，所以必須要調整一下。 複製 copy_points.php 將檔案複製到 phabricator 目錄底下，如果你的資料庫名稱不是 phabricator_maniphest，那就要修改，第 106 行，如我就修改為 default_maniphest #!/usr/bin/env php &lt;?php // See &lt;https://secure.phabricator.com/T10350&gt; for discussion. require_once 'scripts/__init_script__.php'; $args = new PhutilArgumentParser($argv); $args-&gt;parseStandardArguments(); $args-&gt;parse( array( array( 'name' =&gt; 'field', 'param' =&gt; 'key', 'help' =&gt; pht('Field to migrate.'), ) )); $task = new ManiphestTask(); $fields = PhabricatorCustomField::getObjectFields( $task, PhabricatorCustomField::ROLE_EDIT); $field_map = $fields-&gt;getFields(); $field_list = implode(', ', array_keys($field_map)); if (!$field_map) { throw new PhutilArgumentUsageException( pht( 'You do not have any custom fields defined in Maniphest, so there is '. <a class="read-more" href="http://localhost:1313/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/cooperation/">#cooperation</a>,
+            
+                <a href="http://localhost:1313/tags/phabricator/">#phabricator</a>,
+            
+        
+        <time class="post-date" datetime="2016-03-25T14:11:16Z">
+            25 Mar 2016
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/javascript/ditched_angularjs_for_react/">Ditched AngularJS for React</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>去年認識並嘗試使用AngularJS，我每次起步都是直接實作的，超精實!! 因為這讓我可以快速的理解這個東西到底在幹些甚麼，所以我用它來做一張客戶表單。 AngularJS在操作 UI 上讓我覺得很驚艷，大概是jQuery醜陋的程式碼我已經受不了了，而Html相對的也變得很難整理，因為要在裡頭嵌入很多的ng-xxx，若是視覺設計交付版面，會產生額外的負擔，而效能上也令我傻眼，這張客戶資料表要完整的載入並開始操作非常的消耗資源…慢到不行，或許是我沒有深入的原因，總之各種原因我放棄了。 直到最近才有時間嘗試 Facebook 發怖的React一用就讓我愛上了…雖然一開始並不熟手，但我一如往常的試作一張客戶表單…實在讓我太感動了…想不到前端的程式碼可以讓我感覺到很舒服，大概是中了OOP的毒。而且 React + Semantic-UI 實在太棒啦! <a class="read-more" href="http://localhost:1313/post/javascript/ditched_angularjs_for_react/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/javascript/">#javascript</a>,
+            
+                <a href="http://localhost:1313/tags/react.js/">#react.js</a>,
+            
+        
+        <time class="post-date" datetime="2015-09-03T00:06:44Z">
+            3 Sep 2015
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/ruby_on_rails/ruby_on_rails_deploy_on_heroku/">Ruby on Rails deploy on Heroku</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>好久沒碰 Ruby on Rails 一碰就會有問題，也早就習慣了，昨天晚上把做好很久的網站 Deploy 到 Heroku，就又出現問題了！有些問題是原本就存在的，還是紀錄一下。 OSX 安裝 PostgreSQL 因為 Heroku 不支援 Sqlite，得另外安裝 PostgreSQL，而我原本以為有安裝應用程式，就不用特別再安裝，想不到還是出現錯誤了。 $ brew install Postgresql 安裝後還是出現錯誤 Error loading RubyGems plugin &quot;/Users/alan/.rvm/gems/ruby-2.0.0-p353/gems/executable-hooks-1.3.2/lib/rubygems_plugin.rb&quot;: dlopen(/Users/alan/.rvm/rubies/ruby-2.0.0-p353/lib/ruby/2.0.0/x86_64-darwin13.0.0/openssl.bundle, 9): Symbol not found: _SSLv2_client_method Google 到的解決辦法就是 RVM 重裝 $ \curl -L https://get.rvm.io | bash -s stable —ruby PostgreSQL Migrate Test $ rake db:migrate RAILS_ENV=development 部署前準備 在 application.rb 設定 $ config.serve_static_assets = true 執行 $ rake assets:precompile 專案底下的 public/assets 就會出現打包好的 resource，要引入圖片，程式碼得這樣寫。 image_path(&quot;bg.jpg&quot;) Deploy Heroku 都處理完畢就可以走正常流程部署到 Heroku 了。 $ heroku login $ heroku git:clone -a PROJECT $ git add . <a class="read-more" href="http://localhost:1313/post/ruby_on_rails/ruby_on_rails_deploy_on_heroku/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/ruby/">#ruby</a>,
+            
+                <a href="http://localhost:1313/tags/rails/">#rails</a>,
+            
+        
+        <time class="post-date" datetime="2015-05-16T13:16:36Z">
+            16 May 2015
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/iot/tessel/baby_help_on_tessel/">Baby Help on Tessel</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>發想 突然想到小朋友在嬰兒時期，常常一個人在房間睡覺，不曉得什麼時候會哭。所以市面上有產品是偵測到嬰兒的哭聲會嗡嗡的叫，套用在 Tessel，我就想到我也可以實現了。 Tessel Ambient Module Camera Module 聲音偵測 用來偵測嬰兒哭的時候要觸發的事件，還沒有調整範圍。 # index.js 在這邊會先跟 wifi 連線。 # wifi-control.js 照片上傳 Slack 只要偵測到異常，就會觸發照相，然後上傳到 Slack，一整個超愛用 Slack&hellip;。相關檔案上傳可以參考文件，只需要申請一組 Token 就可以傳到指定的 channels，吃了不少苦頭，主要是不熟悉 NodeJS，不過好險最後有找到參考的。 # send_notify/index.js 完成！！好開心啊！ $ tessel run index.js --upload-dir ./ TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586. INFO Bundling directory /Users/alan/SourceTree/baby-help INFO Deploying bundle (530.00 KB)... INFO Running script... System will be start... Light level: 0.01464844 Sound Level: 0.01855469 Light level: 0.01464844 Sound Level: 0.01855469 Light level: 0.01562500 <a class="read-more" href="http://localhost:1313/post/iot/tessel/baby_help_on_tessel/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/iot/">#iot</a>,
+            
+                <a href="http://localhost:1313/tags/tessel/">#tessel</a>,
+            
+        
+        <time class="post-date" datetime="2015-05-11T01:06:12Z">
+            11 May 2015
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/php/data_encrypt_&amp;_decrypt/">Data Encrypt &amp; Decrypt</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>今天把資料的加解密整理了一下也丟到 Github 了，不過只有 Server 的，雖然也可以玩玩看加解密，但也蠻奇怪的，加密端與解密端應該是要不同的平台，還要再找時間把 Android 的加密也整理一下。不曉得又要拖到什麼時候&hellip;哈。 只要在自己的 composer.json 加上設定檔就可以囉！ { &quot;repositories&quot;: [ { &quot;type&quot;: &quot;git&quot;, &quot;url&quot;: &quot;https://github.com/alanmoment/rsa-util.git&quot; } ], &quot;require&quot;: { &quot;alanmoment/rsa-util&quot;: &quot;dev-master&quot; }, &quot;minimum-stability&quot;: &quot;dev&quot;, &quot;autoload&quot;: { &quot;classmap&quot;: [ &quot;vendor/alanmoment&quot; ] } } 範例程式碼 # index.php require __DIR__ . '/vendor/autoload.php'; use Rsa\RsaUtil; $RsaUtil = new RsaUtil(); $RsaUtil-&gt;setKeyStorePath(&quot;./keystores/&quot;); $encrypt = $RsaUtil-&gt;generate()-&gt;encrypt(&quot;I am test data.&quot;); echo $encrypt; $decrypted = $RsaUtil-&gt;decrypt($encrypt); echo $decrypted; <a class="read-more" href="http://localhost:1313/post/php/data_encrypt_&amp;_decrypt/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/php/">#php</a>,
+            
+        
+        <time class="post-date" datetime="2015-05-05T23:59:25Z">
+            5 May 2015
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/">Git Push Notify to Slack on Gitlab</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>已經用了許久的 git push 通知 Slack，在今天補一下筆記。 首先還是得先申請一個 WebHook Url，可以參考這邊 connect-to-slack-on-tessel。 Gitlab 在 7.5.1 版之後，就有支援與 Slack 串接，之前測試超久&hellip;都沒辦法通知，也沒有Error Message。 在 Gitlab 上選擇要設定的 Project，然後選擇 Settings &gt; Services 依照下圖這樣設定就完成囉！！ 每次只要設定的 Project 有 git push 那就會推播相關資訊到 Slack Channel。 <a class="read-more" href="http://localhost:1313/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/ide/">#ide</a>,
+            
+                <a href="http://localhost:1313/tags/netbeans/">#netbeans</a>,
+            
+                <a href="http://localhost:1313/tags/ruby-on-rails/">#ruby on rails</a>,
+            
+        
+        <time class="post-date" datetime="2015-05-04T17:03:49Z">
+            4 May 2015
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/iot/tessel/connect_to_slack_on_tessel/">Connect to Slack on Tessel</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>申請 Slack 因為 Slack 非常方便且好用，所以我第一個想到要串接的對象就是它，接連幾天的測試，已經能透過 Tessel 發送訊息至 Slack Channel。 首先得先擁有一組 Slack 的帳號與 Channel，再設置 Incoming WebHooks。 便可取得 Webhook Url Tessel Wifi 先讓 Tessel 連接家中的 Wifi $ tessel wifi -n 'Alan 的 AirPort Time Capsule' -p 'PASSWORD' TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586. INFO Connecting to &quot;Alan 的 AirPort Time Capsule&quot; with wpa2 security... INFO Acquiring IP address. .. INFO Connected! IP 192.168.1.46 DNS 168.95.192.1 DHCP 192.168.1.1 Gateway 192.168.1.1 依照 Tessel 在官網上 Wifi 的範例，修改一下程式碼： # wifi-control.js var https = require('https'); ... <a class="read-more" href="http://localhost:1313/post/iot/tessel/connect_to_slack_on_tessel/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/iot/">#iot</a>,
+            
+                <a href="http://localhost:1313/tags/tessel/">#tessel</a>,
+            
+        
+        <time class="post-date" datetime="2015-05-03T01:41:16Z">
+            3 May 2015
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/other/wang_ye_jiao_xue_chu_ti_yan/">網頁教學初體驗</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>在工作的需求上，今天指導幾位同事有關於網頁開發的基本觀念，發現有時候自己懂得，曾經經歷的挫折，或許對其他人來說是第一次的遭遇，但因為時間因素，沒有辦法好好的講解，只有短短的2個小時根本講不到什麼&hellip;不過或許是我還抓不到指導的訣竅。 針對這次的備課有編了一本GitBook，希望下次會更好。只是說&hellip;下次不想講 CI，我比較想講喜歡的 Laravel <a class="read-more" href="http://localhost:1313/post/other/wang_ye_jiao_xue_chu_ti_yan/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/other/">#other</a>,
+            
+        
+        <time class="post-date" datetime="2015-04-28T00:10:25Z">
+            28 Apr 2015
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/iot/tessel/hen_chao_de_tessel/">很潮的 Tessel</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>這個夢寐以求的版子，終於狠下心進口了！只是這小玩意兒的身世有點可憐，竟然被郵差送錯地方&hellip;而那個人也很奇怪，東西不是自己的也收下來了！還拆封！！！到底是為什麼敢拆不是自己的東西！！驗收到凌晨4點&hellip;好險東西都正常。 先下載 Tessel lib $ npm install -g tessel 要更新 Tessel lib 否則會無法執行 $ tessel update TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586. INFO Checking for latest firmware... INFO Wifi version is also outdated. INFO Downloading remote file https://builds.tessel.io/wifi/1.28.bin INFO Wifi patch uploaded... waiting for it to apply (10s) INFO ... INFO ... INFO ... INFO ... INFO ... INFO ... INFO INFO Downloading remote file https://builds.tessel.io/firmware/tessel-firmware-current.bin INFO Updating firmware... please wait. Tessel will reset itself after the update INFO Complete 1175988 /1175988 建立一個官方的範例測試 // blinky.js // Import the interface to Tessel hardware var tessel = require('tessel'); // Set the led pins as outputs with initial states // Truthy initial state sets the pin high // Falsy sets it low. <a class="read-more" href="http://localhost:1313/post/iot/tessel/hen_chao_de_tessel/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/iot/">#iot</a>,
+            
+                <a href="http://localhost:1313/tags/tessel/">#tessel</a>,
+            
+        
+        <time class="post-date" datetime="2015-04-18T03:49:59Z">
+            18 Apr 2015
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/python/django_&#43;_python_kai_fa_huan_jing_jian_zhi/">Django &#43; Python 開發環境建置</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>Python 開發Pythone時也可以像rvm，nvm的虛擬環境就是Virtualenv了，對於我這種有潔癖的人是超級需要的啊！ Pip download get-pip.py $ python get-pip.py Virtualenv install $ pip install virtualenv Linux or OS X need sudo setup $ virtualenv ENV $ source ENV/bin/activate 啟動 virtualenv，從此只要在 virtualenv 下面安裝的 package 都只會存在于這個 virtualenv 當中。 Virtualenvwrapper 將所有的虛擬環境整合在一個目錄下。 管理（新增、移除、複製）所有的虛擬環境。 可以使用一個命令切換虛擬環境。 Tab 補全虛擬環境的名字。 每個操作都提供允許使用者自訂的 hooks。 可撰寫容易分享的 extension plugin 系統。 install $ pip install virtualenvwrapper 新增虛擬環境 $ mkvirtualenv [-i package] [-r requirements_file] [virtualenv options] ENVNAME 設定路徑 export PIP_VIRTUALENV_BASE=$WORKON_HOME 列出所有的虛擬環境 $ lsvirtualenv 移除虛擬環境 $ rmvirtualenv ENVNAME 複製虛擬環境 $ cpvirtualenv ENVNAME TARGETENVNAME 啟動虛擬環境 $ workon [environment_name] 離開虛擬環境 $ deactivate Python 3 $ which python3 $ mkvirtualenv --python=/usr/bin/python3 python3 如果想要避免 pip 在沒有進入虛擬環境時被使用，可以在 ~/.bashrc 加上： export PIP_REQUIRE_VIRTUALENV=true Build Django install $ pip install django requirements $ pip install -r requirements.txt $ pip freeze &gt; requirements.txt ** start ** $ django-admin.py startproject PROJECT_NAME run $ python manage.py runserver create app $ python manage.py startapp APP_NAME model settings.py INSTALLED_APPS = ( ... <a class="read-more" href="http://localhost:1313/post/python/django_&#43;_python_kai_fa_huan_jing_jian_zhi/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/python/">#python</a>,
+            
+        
+        <time class="post-date" datetime="2015-02-27T00:16:10Z">
+            27 Feb 2015
+        </time>
+    </footer>
+</article>
+
+	
+
+	<nav class="pagination" role="navigation">
+	
+	<span class="page-number">Page 1 of 5</span>
+	
+	    <a class="older-posts" href="http://localhost:1313/post/page/2/">Older Posts &rarr;</a>
+	
+</nav>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Hello World!!</a> &copy; Copyright Alan - 2016</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/index.js"></script>
+    
+</body>
+</html>

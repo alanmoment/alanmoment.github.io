@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  	<meta property="og:title" content=" Tomcat &middot;  Hello World!!" />
+  	<meta property="og:site_name" content="Hello World!!" />
+  	<meta property="og:url" content="http://localhost:1313/tags/tomcat/" />
+
+    
+    <meta property="og:type" content="website" />
+    
+
+  <title>
+     Tomcat &middot;  Hello World!!
+  </title>
+
+    <meta name="description" content="you can do anything you want to do." />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
+
+
+    
+      
+          <link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="Hello World!!" />
+      
+      
+        <link href="http://localhost:1313/tags/tomcat/index.xml" rel="alternate" type="application/rss+xml" title="Tomcat &middot; Hello World!!" />
+      
+    
+    <meta name="generator" content="Hugo 0.15" />
+
+    <link rel="canonical" href="http://localhost:1313/tags/tomcat/" />
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/">Home</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/page/about/">About me</a>
+            </li>
+        
+    </ul>
+    
+    
+    <a class="subscribe-button icon-feed" href="http://localhost:1313/tags/tomcat/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+
+	<header class="main-header tag-head" style="background-image: url(http://localhost:1313//images/Iron_man.jpg)">
+
+    <nav class="main-nav overlay clearfix">
+      
+        <a class="blog-logo" href="http://localhost:1313/"><img src="http://localhost:1313//images/517273.jpg" alt="Home" /></a>
+      
+      
+          <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+      
+    </nav>
+    <div class="vertical">
+        <div class="main-header-content inner">
+            <h1 class="page-title">Tomcat</h1>
+            <h2 class="page-description">
+                
+            </h2>
+        </div>
+    </div>
+</header>
+
+<main class="content" role="main">
+    
+
+	<div class="extra-pagination inner">
+    <nav class="pagination" role="navigation">
+	
+	<span class="page-number">Page 1 of 1</span>
+	
+</nav>
+
+	</div>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/os/linux/apacheyu_tomcat_de_jie_he/">Apache與Tomcat的結合</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>因為我很愛東搞西搞，去年寫了個網站，但是是用JSP寫的，用了Status, Hibernate, tiles的框架，所以得佈署在Tomcat，可是80 port已經被Apache佔用了，Tomcat只能用8080，但看了我實在很不舒服，所以又開始想東想西了。 一開始，我想為Tomcat裝Plugin看能不能融入Apache，讓Apache呼叫Tomcat來執行程式。所以我找到了mod_js試著安裝之後，我失敗了(其實是偷懶!!)，後來有人跟我提到php-java-bridge，但是還沒裝我就放棄了，因為我覺得根本不用這麼複雜&hellip; Google到爛掉我終於找到一個太符合我這個懶人的方式了..非常簡單到爆掉! mod_proxy是我的救星。官網所寫的，必須開放Apache的以下模組 mod_proxy mod_proxy_http mod_proxy_ftp mod_proxy_ajp mod_proxy_balancer 然後在http.conf加入設定(我的是httpd-vhosts.conf) $ vim /etc/httpd/conf.d/httpd-vhosts.conf &lt;virtualhost&gt; ServerName school.ocomm.com.tw ProxyPass / http://school.ocomm.com.tw:8080/ ProxyPassReverse / http://school.ocomm.com.tw:8080/ &lt;/virtualhost&gt; 然後 $ service httpd restart 完成&hellip;.用到現在沒甚麼問題，等有問題再說吧!! 哈&hellip; 簡單到爆炸阿&hellip;.我的網站http://school.ocomm.com.tw，8080不見了，看了都覺得開心。 <a class="read-more" href="http://localhost:1313/post/os/linux/apacheyu_tomcat_de_jie_he/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/linux/">#linux</a>,
+            
+                <a href="http://localhost:1313/tags/tomcat/">#tomcat</a>,
+            
+        
+        <time class="post-date" datetime="2013-08-02T10:14:00Z">
+            2 Aug 2013
+        </time>
+    </footer>
+</article>
+
+	
+
+	<nav class="pagination" role="navigation">
+	
+	<span class="page-number">Page 1 of 1</span>
+	
+</nav>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Hello World!!</a> &copy; Copyright Alan - 2016</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/index.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Agile on Hello World!!</title>
+    <link>http://localhost:1313/tags/agile/</link>
+    <description>Recent content in Agile on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Thu, 27 Mar 2014 12:18:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/agile/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>淺談我的Agile</title>
+      <link>http://localhost:1313/post/agile/qian_tan_wo_de_agile/</link>
+      <pubDate>Thu, 27 Mar 2014 12:18:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/agile/qian_tan_wo_de_agile/</guid>
+      <description>
+
+&lt;p&gt;在開頭先題外話一下，最近社會動蕩不安，老百姓對政府黑箱通過&lt;code&gt;兩岸服務貿易&lt;/code&gt;感到憤怒，我自己也挺生氣的，所以我決定響應&lt;code&gt;捍衛民主 退回服貿 3/30人民站出來！&lt;/code&gt;帶我兒子去&lt;del&gt;街頭&lt;/del&gt;曬曬太陽&lt;/p&gt;
+
+&lt;p&gt;OK！宣泄完了進入正題。&lt;/p&gt;
+
+&lt;p&gt;首先我先聲明往後我會持續學習&lt;code&gt;Scrum&lt;/code&gt;打算連載個7天7夜。請各位多多指教！！&lt;/p&gt;
+
+&lt;h2 id=&#34;開始:b0a2a6a9dfda4cc4a8af1e07fb40a354&#34;&gt;開始&lt;/h2&gt;
+
+&lt;p&gt;在當前公司導入敏捷開發也一陣子了，雖然執行的過程都很順利，同事也都依照技術長的方式作業。但我對於敏捷開發還是不甚了解，所以這開啟了我學習的動機。&lt;/p&gt;
+
+&lt;p&gt;因為我個人比較&lt;del&gt;背骨&lt;/del&gt;好奇，對於別人講的我不會立刻盡信，但我也不會反駁，因為我覺得無論何事都必須要自己實事求事。於是乎我開始自己學習何謂敏捷開發。&lt;/p&gt;
+
+&lt;p&gt;我們執行的是&lt;code&gt;Scrum&lt;/code&gt;，首先先說一下人員配置，我們分三種角色：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;專案經理 (Project Manager)&lt;/li&gt;
+&lt;li&gt;主持人 (Scrum Master)&lt;/li&gt;
+&lt;li&gt;工程師 (Developer)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;當專案開始啟動，我們會執行以下作業：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;進行需求訪談 (RA)&lt;/li&gt;
+&lt;li&gt;啟動專案 Product Backlog&lt;/li&gt;
+&lt;li&gt;&lt;del&gt;痛苦的&lt;/del&gt;Planning meeting&lt;/li&gt;
+&lt;li&gt;分配 Sprint&lt;/li&gt;
+&lt;li&gt;開始 Coding&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;我今天參加了&lt;a href=&#34;https://www.facebook.com/groups/179345672472/&#34;&gt;Scrum Community in Taiwan&lt;/a&gt;的分享會，學習別人導入的經驗，除了學習，也檢討當前雖然執行也是很順利，但似乎還可以再加強什麼，因為我們並沒有落實我所理解的敏捷開發的精神。以下是我們沒執行的：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Planning poker&lt;/li&gt;
+&lt;li&gt;Standup meeting&lt;/li&gt;
+&lt;li&gt;Sprint demo&lt;/li&gt;
+&lt;li&gt;Sprint retrospective meeting&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;這些我們都沒有做。好吧~ 或許是技術長不想浪費成本，覺得這些根本沒時間做，但我覺得有些對開發者是有幫助的，就讓我逐條表達一些意見。&lt;/p&gt;
+
+&lt;h3 id=&#34;plannging-poker:b0a2a6a9dfda4cc4a8af1e07fb40a354&#34;&gt;Plannging poker&lt;/h3&gt;
+
+&lt;p&gt;其實工程師是很害怕預估工時的，我也不例外，因為預估的工時往往都需要&lt;code&gt;*3&lt;/code&gt;倍才較精準，這是為什麼呢？這是因為開發的過程當中，會有一些不可預知的因素在干擾著開發者，無論是需求變更，或是架構變更。都會影響思緒進而可能延宕時間。再說&amp;hellip;工程師總是擔心受怕不曉得在哪裡會遇到麻煩，所以以墨菲定律來說，&lt;code&gt;你覺得可能會發生錯誤的地方，那就一定會發生&lt;/code&gt;。若是每次在領 Task 的時候都能執行 Plannging poker 我相信對開發者是很有幫助的。&lt;/p&gt;
+
+&lt;h3 id=&#34;standup-meeting:b0a2a6a9dfda4cc4a8af1e07fb40a354&#34;&gt;Standup meeting&lt;/h3&gt;
+
+&lt;p&gt;對於每天早晨工作前15分鐘的站立會議，我對這可能就比較無感。因為我做事情的方式是屬於分散做，那邊完成一點這邊完成一點，最後再整個兜起來。但若是遇到做一做之後架構需要變更，那這個會議就相當有功效了。可以在會議後各別討論，不讓問題延宕過久拖到 Sprint 結束的時間。&lt;/p&gt;
+
+&lt;h3 id=&#34;sprint-demo:b0a2a6a9dfda4cc4a8af1e07fb40a354&#34;&gt;Sprint demo&lt;/h3&gt;
+
+&lt;p&gt;通常我們交出去就交出去了&amp;hellip;所以也不會有所謂的專案經理來向我們展示成果，這樣當然就不會有回饋，以至於下次開發專案經理才提說上次怎樣怎樣，所以這次做要避免什麼什麼，若是能有成果展示，當下向我們建議一些他認為哪裡做的不夠完售，工程師也比較不會錯愕。或是可以鼓勵工程師哪裡做得很棒，甚至在客戶沒想到的情況下我們已經幫他們想到了。&lt;/p&gt;
+
+&lt;h3 id=&#34;sprint-retrospective-meeting:b0a2a6a9dfda4cc4a8af1e07fb40a354&#34;&gt;Sprint retrospective meeting&lt;/h3&gt;
+
+&lt;p&gt;我個人覺得這相當重要！！但我們卻沒做，我常常在做完專案的時候，會有一些建議想要講，若是沒有特別開這個回顧會議，要我直接跟技術長提也是超奇怪的。這應該算是一種管道，畢竟執行面是在工程師，SA 有時候設想的並不周延，甚至 SD 分析錯誤，造成工程師執行困難。&lt;/p&gt;
+
+&lt;p&gt;最後我們也沒有做 TDD + PP 我個人是蠻想嘗試 Pair programming，我想知道這會擦出什麼樣的火花。&lt;/p&gt;
+
+&lt;p&gt;總而言之，敏捷開發並不是說每一項都要執行，應該是挑適合團隊的工作文化與工作方式，這樣才不會造成反彈或是排斥，以上若有錯誤請直接糾正，因為我還沒深入了解！！想透過撰寫督促自己學習。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

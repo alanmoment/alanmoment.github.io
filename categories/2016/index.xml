@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2016 on Hello World!!</title>
+    <link>http://localhost:1313/categories/2016/</link>
+    <description>Recent content in 2016 on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Fri, 25 Mar 2016 14:11:16 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/2016/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>phabricator-extensions-Sprint 無法抓到正確的 Story Points</title>
+      <link>http://localhost:1313/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</link>
+      <pubDate>Fri, 25 Mar 2016 14:11:16 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</guid>
+      <description>
+
+&lt;p&gt;在版號為 &lt;code&gt;741e2ef4b1150f9a9e4b121218b3ea536289968d&lt;/code&gt; 之後的版本，因為 story points 變更欄位，所以 burndown chart 會沒辦法抓到正確的 point。&lt;/p&gt;
+
+&lt;p&gt;可以在&lt;a href=&#34;https://secure.phabricator.com/T10350&#34;&gt;官方&lt;/a&gt;這邊找到答案，但是並不是環境都一樣，所以必須要調整一下。&lt;/p&gt;
+
+&lt;h2 id=&#34;複製-copy-points-php:aa411f32faf1b5d8c7aa2a14f8b5ff0d&#34;&gt;複製 copy_points.php&lt;/h2&gt;
+
+&lt;p&gt;將&lt;a href=&#34;https://secure.phabricator.com/P1940&#34;&gt;檔案&lt;/a&gt;複製到 phabricator 目錄底下，如果你的資料庫名稱不是 &lt;code&gt;phabricator_maniphest&lt;/code&gt;，那就要修改，第 &lt;code&gt;106&lt;/code&gt; 行，如我就修改為 &lt;code&gt;default_maniphest&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env php
+&amp;lt;?php // See &amp;lt;https://secure.phabricator.com/T10350&amp;gt; for discussion.
+
+require_once &#39;scripts/__init_script__.php&#39;;
+
+$args = new PhutilArgumentParser($argv);
+$args-&amp;gt;parseStandardArguments();
+$args-&amp;gt;parse(
+  array(
+    array(
+      &#39;name&#39;  =&amp;gt; &#39;field&#39;,
+      &#39;param&#39; =&amp;gt; &#39;key&#39;,
+      &#39;help&#39;  =&amp;gt; pht(&#39;Field to migrate.&#39;),
+    )
+  ));
+
+$task = new ManiphestTask();
+$fields = PhabricatorCustomField::getObjectFields(
+  $task,
+  PhabricatorCustomField::ROLE_EDIT);
+
+$field_map = $fields-&amp;gt;getFields();
+$field_list = implode(&#39;, &#39;, array_keys($field_map));
+
+if (!$field_map) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;You do not have any custom fields defined in Maniphest, so there is &#39;.
+      &#39;nowhere that points can be copied from.&#39;));
+}
+
+$field_key = $args-&amp;gt;getArg(&#39;field&#39;);
+if (!strlen($field_key)) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;Use --field to specify which field to copy points from. Available &#39;.
+      &#39;fields are: %s.&#39;,
+      $field_list));
+}
+
+$field = idx($field_map, $field_key);
+if (!$field) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;Field &amp;quot;%s&amp;quot; is not a valid field. Available fields are: %s.&#39;,
+      $field_key,
+      $field_list));
+}
+
+$proxy = $field-&amp;gt;getProxy();
+if (!$proxy) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;Field &amp;quot;%s&amp;quot; is not a standard custom field, and can not be migrated.&#39;,
+      $field_key,
+      $field_list));
+}
+
+if (!($proxy instanceof PhabricatorStandardCustomFieldInt)) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;Field &amp;quot;%s&amp;quot; is not an &amp;quot;int&amp;quot; field, and can not be migrated.&#39;,
+      $field_key,
+      $field_list));
+}
+
+$storage = $field-&amp;gt;newStorageObject();
+$conn_r = $storage-&amp;gt;establishConnection(&#39;r&#39;);
+
+$value_rows = queryfx_all(
+  $conn_r,
+  &#39;SELECT objectPHID, fieldValue FROM %T WHERE fieldIndex = %s
+    AND fieldValue IS NOT NULL&#39;,
+  $storage-&amp;gt;getTableName(),
+  $field-&amp;gt;getFieldIndex());
+$value_map = ipull($value_rows, &#39;fieldValue&#39;, &#39;objectPHID&#39;);
+
+$id_rows = queryfx_all(
+  $conn_r,
+  &#39;SELECT phid, id, points FROM %T&#39;,
+  $task-&amp;gt;getTableName());
+$id_map = ipull($id_rows, null, &#39;phid&#39;);
+
+foreach ($value_map as $phid =&amp;gt; $value) {
+  $dict = idx($id_map, $phid, array());
+  $id = idx($dict, &#39;id&#39;);
+  $current_points = idx($dict, &#39;points&#39;);
+
+  if (!$id) {
+    continue;
+  }
+
+  if ($current_points !== null) {
+    continue;
+  }
+
+  if ($value === null) {
+    continue;
+  }
+
+  $sql = qsprintf(
+    $conn_r,
+    &#39;UPDATE %T.%T SET points = %f WHERE id = %d;&#39;,
+    &#39;phabricator_maniphest&#39;,
+    $task-&amp;gt;getTableName(),
+    $value,
+    $id);
+
+  echo $sql.&amp;quot;\n&amp;quot;;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;更改權限:aa411f32faf1b5d8c7aa2a14f8b5ff0d&#34;&gt;更改權限&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ chmod +x copy_points.php
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;執行:aa411f32faf1b5d8c7aa2a14f8b5ff0d&#34;&gt;執行&lt;/h2&gt;
+
+&lt;p&gt;必須要去套件原始檔去看原始的 &lt;a href=&#34;https://github.com/wikimedia/phabricator-extensions-Sprint/blob/master/src/customfield/SprintTaskStoryPointsField.php&#34;&gt;story point&lt;/a&gt; 欄位是什麼，我查到的結果是 &lt;code&gt;isdc:sprint:storypoints&lt;/code&gt;，所以修改如下。&lt;/p&gt;
+
+&lt;p&gt;另外要注意自己之前輸入 story points 時是否有用到非數字的字元，有的話會出錯，得先去修改。可以在 &lt;code&gt;default_maniphest.maniphest_customfieldstorage&lt;/code&gt; 這張資料表去查看。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./copy_points.php --field isdc:sprint:storypoints &amp;gt; points.sql
+$ cat points.sql # Look at the results and sanity check them.
+$ cat points.sql | mysql -u root
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

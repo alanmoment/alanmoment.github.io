@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Iot on Hello World!!</title>
+    <link>http://localhost:1313/tags/iot/</link>
+    <description>Recent content in Iot on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Mon, 11 May 2015 01:06:12 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/iot/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Baby Help on Tessel</title>
+      <link>http://localhost:1313/post/iot/tessel/baby_help_on_tessel/</link>
+      <pubDate>Mon, 11 May 2015 01:06:12 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/iot/tessel/baby_help_on_tessel/</guid>
+      <description>
+
+&lt;h1 id=&#34;發想:c9733353a2e7126955c8e89741802bbb&#34;&gt;發想&lt;/h1&gt;
+
+&lt;p&gt;突然想到小朋友在嬰兒時期，常常一個人在房間睡覺，不曉得什麼時候會哭。所以市面上有產品是偵測到嬰兒的哭聲會嗡嗡的叫，套用在 Tessel，我就想到我也可以實現了。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Tessel&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://tessel.io/modules#module-ambient&#34;&gt;Ambient Module&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://tessel.io/modules#module-camera&#34;&gt;Camera Module&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/baby_help_on_tessel/IMG_3953.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;聲音偵測:c9733353a2e7126955c8e89741802bbb&#34;&gt;聲音偵測&lt;/h1&gt;
+
+&lt;p&gt;用來偵測嬰兒哭的時候要觸發的事件，還沒有調整範圍。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# index.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在這邊會先跟 wifi 連線。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# wifi-control.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;照片上傳-slack:c9733353a2e7126955c8e89741802bbb&#34;&gt;照片上傳 Slack&lt;/h1&gt;
+
+&lt;p&gt;只要偵測到異常，就會觸發照相，然後上傳到 Slack，一整個超愛用 Slack&amp;hellip;。相關檔案上傳可以參考&lt;a href=&#34;https://api.slack.com/methods/files.upload&#34;&gt;文件&lt;/a&gt;，只需要申請一組 &lt;a href=&#34;https://api.slack.com/web&#34;&gt;Token&lt;/a&gt; 就可以傳到指定的 &lt;code&gt;channels&lt;/code&gt;，吃了不少苦頭，主要是不熟悉 NodeJS，不過好險最後有找到&lt;a href=&#34;https://projects.tessel.io/projects/tesselcam&#34;&gt;參考&lt;/a&gt;的。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# send_notify/index.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;完成！！好開心啊！&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tessel run index.js --upload-dir ./
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+INFO Bundling directory /Users/alan/SourceTree/baby-help
+INFO Deploying bundle (530.00 KB)...
+INFO Running script...
+System will be start...
+Light level: 0.01464844   Sound Level: 0.01855469
+Light level: 0.01464844   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.01855469
+connect emitted {
+ dns : 168.95.192.1,
+ ip : 192.168.1.46,
+ event : status,
+ connected : 1,
+ dhcp : 192.168.1.1,
+ ssid : Alan 的 AirPort Time Capsule,
+ gateway : 192.168.1.1
+}
+Light level: 0.01464844   Sound Level: 0.01855469
+Light level: 0.01464844   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.01855469
+Light level: 0.01464844   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.01855469
+Light level: 0.01464844   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.02050781
+Something happened with sound:  0.1005859375
+Light level: 0.01562500   Sound Level: 0.01855469
+Light level: 0.01562500   Sound Level: 0.01855469
+Light level: 0.01464844   Sound Level: 0.01855469
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;只是畫素很差&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/baby_help_on_tessel/baby-help.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;程式碼都放到 &lt;a href=&#34;https://github.com/alanmoment/baby-help&#34;&gt;Github&lt;/a&gt; 了。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Connect to Slack on Tessel</title>
+      <link>http://localhost:1313/post/iot/tessel/connect_to_slack_on_tessel/</link>
+      <pubDate>Sun, 03 May 2015 01:41:16 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/iot/tessel/connect_to_slack_on_tessel/</guid>
+      <description>
+
+&lt;h2 id=&#34;申請-slack:8decd088fac1a252c57ee8ff1a55a893&#34;&gt;申請 Slack&lt;/h2&gt;
+
+&lt;p&gt;因為 &lt;a href=&#34;https://slack.com&#34;&gt;Slack&lt;/a&gt; 非常方便且好用，所以我第一個想到要串接的對象就是它，接連幾天的測試，已經能透過 Tessel 發送訊息至 Slack Channel。&lt;/p&gt;
+
+&lt;p&gt;首先得先擁有一組 Slack 的帳號與 Channel，再設置 Incoming WebHooks。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/connect_to_slack_on_tessel/incoming-webhooks.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;便可取得 Webhook Url&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/connect_to_slack_on_tessel/webhooks-url.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;tessel-wifi:8decd088fac1a252c57ee8ff1a55a893&#34;&gt;Tessel Wifi&lt;/h2&gt;
+
+&lt;p&gt;先讓 Tessel 連接家中的 Wifi&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tessel wifi -n &#39;Alan 的 AirPort Time Capsule&#39; -p &#39;PASSWORD&#39;
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+INFO Connecting to &amp;quot;Alan 的 AirPort Time Capsule&amp;quot; with wpa2 security...
+INFO Acquiring IP address.
+..
+INFO Connected!
+
+IP   192.168.1.46
+DNS  168.95.192.1
+DHCP     192.168.1.1
+Gateway  192.168.1.1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;依照 Tessel 在官網上 &lt;a href=&#34;http://start.tessel.io/wifi&#34;&gt;Wifi&lt;/a&gt; 的範例，修改一下程式碼：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# wifi-control.js
+
+var https = require(&#39;https&#39;);
+
+...
+...
+wifi.on(&#39;connect&#39;, function(data) {
+
+    console.log(&amp;quot;connect emitted&amp;quot;, data);
+
+    var json = JSON.parse(&#39;{&amp;quot;text&amp;quot;:&amp;quot;This is a line of text in a channel.\nAnd this is another line of text.&amp;quot;}&#39;);
+    var postData = &#39;payload=&#39; + JSON.stringify(json);
+
+    var options = {
+        hostname: &#39;hooks.slack.com&#39;,
+        port: 443,
+        path: &#39;/services/T030MA704/B04MARY2F/clicTENx48f4h5v9OePzePkH&#39;,
+        method: &#39;POST&#39;,
+        headers: {
+            &#39;Content-Type&#39;: &#39;application/x-www-form-urlencoded&#39;,
+            &#39;Content-Length&#39;: postData.length
+        }
+    };
+
+    // Setup the request.  The options parameter is
+    // the object we defined above.
+    var req = https.request(options, function(res) {
+        res.setEncoding(&#39;utf-8&#39;);
+        var responseString = &#39;&#39;;
+
+        res.on(&#39;data&#39;, function(data) {
+            responseString += data;
+        });
+
+        res.on(&#39;end&#39;, function() {
+            console.log(responseString);
+        });
+    });
+
+    req.on(&#39;error&#39;, function(e) {
+        console.log(&#39;something error.&#39;);
+    });
+
+    req.write(postData);
+    req.end();
+
+}
+...
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;因為 Slack 是透過 &lt;code&gt;https&lt;/code&gt; 發送，所以這邊得使用 &lt;code&gt;https.request&lt;/code&gt; 來傳遞封包。&lt;/p&gt;
+
+&lt;p&gt;運行 Wifi-control.js 測試是否可以正常傳送至 Slack Channel。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tessel run wifi-control.js
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+INFO Bundling directory /Users/alan/Documents/tessel-code
+INFO Deploying bundle (8.87 MB)...
+INFO Running script...
+connect emitted {
+ dns : 168.95.192.1,
+ ip : 192.168.1.46,
+ event : status,
+ connected : 1,
+ dhcp : 192.168.1.1,
+ ssid : Alan 的 AirPort Time Capsule,
+ gateway : 192.168.1.1
+}
+ok
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;測試可以正常收到囉！！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/connect_to_slack_on_tessel/wifi-test-on-slack.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如此就可以應用在各種需要通知的狀況上，太棒了！&lt;/p&gt;
+
+&lt;h2 id=&#34;wifi-斷線:8decd088fac1a252c57ee8ff1a55a893&#34;&gt;Wifi 斷線&lt;/h2&gt;
+
+&lt;p&gt;要如何讓 Tessel 斷開 wifi 呢，只要下這行指令：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tessel wifi -d
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+Erasing saved wifi profiles
+Erased wifi profiles
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;太方便了&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>很潮的 Tessel</title>
+      <link>http://localhost:1313/post/iot/tessel/hen_chao_de_tessel/</link>
+      <pubDate>Sat, 18 Apr 2015 03:49:59 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/iot/tessel/hen_chao_de_tessel/</guid>
+      <description>&lt;p&gt;這個夢寐以求的版子，終於狠下心進口了！只是這小玩意兒的身世有點可憐，竟然被郵差送錯地方&amp;hellip;而那個人也很奇怪，東西不是自己的也收下來了！還拆封！！！到底是為什麼敢拆不是自己的東西！！驗收到凌晨4點&amp;hellip;好險東西都正常。&lt;/p&gt;
+
+&lt;p&gt;先下載 Tessel lib&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ npm install -g tessel
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;要更新 Tessel lib 否則會無法執行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tessel update
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+INFO Checking for latest firmware...
+INFO Wifi version is also outdated.
+INFO Downloading remote file https://builds.tessel.io/wifi/1.28.bin
+INFO Wifi patch uploaded... waiting for it to apply (10s)
+INFO ...
+INFO ...
+INFO ...
+INFO ...
+INFO ...
+INFO ...
+INFO
+INFO Downloading remote file https://builds.tessel.io/firmware/tessel-firmware-current.bin
+INFO Updating firmware... please wait. Tessel will reset itself after the update
+INFO Complete  1175988 /1175988
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;建立一個官方的範例測試&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// blinky.js
+
+// Import the interface to Tessel hardware
+var tessel = require(&#39;tessel&#39;);
+
+// Set the led pins as outputs with initial states
+// Truthy initial state sets the pin high
+// Falsy sets it low.
+var led1 = tessel.led[0].output(1);
+var led2 = tessel.led[1].output(0);
+
+setInterval(function () {
+    console.log(&amp;quot;I&#39;m blinking! (Press CTRL + C to stop)&amp;quot;);
+    // Toggle the led states
+    led1.toggle();
+    led2.toggle();
+}, 100);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;OK，執行成功就會看到藍綠兩個燈在閃爍！&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tessel run blinky.js
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+INFO Bundling directory /Users/alan/Documents/tessel-code
+INFO Deploying bundle (4.50 KB)...
+INFO Running script...
+I&#39;m blinking! (Press CTRL + C to stop)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/hen_chao_de_tessel/IMG_2308.jpg&#34; alt=&#34;example&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Tessel 真的不錯，除了程式語言可以用比較熟悉的 Javascript，Module 也用&lt;code&gt;npm&lt;/code&gt;管理，很順暢。整個在水準之上，看得出來團隊很用心的在開發，而我也預購了 Tessel 2 的新版子，因為我覺得非常棒。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Phalcon on Hello World!!</title>
+    <link>http://localhost:1313/tags/phalcon/</link>
+    <description>Recent content in Phalcon on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Wed, 28 Aug 2013 11:54:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/phalcon/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Phalcon首發</title>
+      <link>http://localhost:1313/post/php/phalconshou_fa/</link>
+      <pubDate>Wed, 28 Aug 2013 11:54:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/php/phalconshou_fa/</guid>
+      <description>
+
+&lt;p&gt;用了好一陣子的&lt;a href=&#34;http://www.yiiframework.com/&#34;&gt;YII framework&lt;/a&gt;一開始用的時候覺得。哇~好專業阿。好難懂他的整個框架，摸了一陣子之後。才發現，近年不管哪一個程式語言。都是這樣的Design pattern。MVC、ORM，建立一個網站越來越便利也更簡單了。而最近發現一個類似YII的加強版&lt;a href=&#34;http://phalconphp.com/index&#34;&gt;Phalcon&lt;/a&gt;。主要他是用C
+寫的，所以效能會比一般的framework還要好，但實際上我並沒有測試過，這只是我看官網上的介紹，而且我用framework，其實並不是那麼著墨在校能，而是提供的工具是否好用，開發上是否便利。如此而已。&lt;/p&gt;
+
+&lt;h3 id=&#34;下載phalcon:5408234a4387256070a715c86a324106&#34;&gt;下載Phalcon&lt;/h3&gt;
+
+&lt;p&gt;官網有提供&lt;a href=&#34;http://docs.phalconphp.com/en/1.0.0/reference/install.html#linux-solaris-mac&#34;&gt;Phalcon framework&lt;/a&gt;的Github可以下載&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone git://github.com/phalcon/cphalcon.git
+$ cd cphalcon/build
+$ ./install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安裝畫面&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/phalconshou_fa/cphalcon.png&#34; alt=&#34;./install&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;安裝便利的phalcon-developer-tools:5408234a4387256070a715c86a324106&#34;&gt;安裝便利的Phalcon Developer Tools&lt;/h3&gt;
+
+&lt;p&gt;Phalcon一樣有提供&lt;a href=&#34;http://docs.phalconphp.com/en/latest/reference/linuxtools.html&#34;&gt;Phalcon Developer Tools&lt;/a&gt;的Github下載&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone https://github.com/phalcon/phalcon-devtools.git
+$ cd phalcon-devtools
+$ ./phalcon.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;建立softlink&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ln -s /home/phalcon/phalcon-devtools/phalcon.php /usr/bin/phalcon
+$ chmod ugo+x /usr/bin/phalcon
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安裝完畢後重新登入執行測試&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ phalcon commands
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;執行畫面&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/phalconshou_fa/cphalcon-devtools.png&#34; alt=&#34;phalcon commands&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;建立專案:5408234a4387256070a715c86a324106&#34;&gt;建立專案&lt;/h3&gt;
+
+&lt;p&gt;使用指令建立一個專案&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ phalcon create-project phalcon
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/phalconshou_fa/cphalcon-create-project.png&#34; alt=&#34;phalcon create-project phalcon&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;這樣就完成了。在我的&lt;a href=&#34;http://demo.ocomm.com.tw/hadoop&#34;&gt;小專案&lt;/a&gt;中也有用到這個framework。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

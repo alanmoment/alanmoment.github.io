@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mssql on Hello World!!</title>
+    <link>http://localhost:1313/tags/mssql/</link>
+    <description>Recent content in Mssql on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Mon, 29 Dec 2014 17:07:01 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/mssql/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>吃足苦頭的Mssql</title>
+      <link>http://localhost:1313/post/database/chi_zu_ku_tou_de_mssql/</link>
+      <pubDate>Mon, 29 Dec 2014 17:07:01 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/database/chi_zu_ku_tou_de_mssql/</guid>
+      <description>&lt;p&gt;為了讓 CentOS 的 PHP 可以支援 Mssql &amp;amp; UTF-8 真是吃了不少苦頭，最終在安裝 FreeTDS 後加上設定檔終於如願以償&amp;hellip;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /etc/freetds.conf
+[global]
+        # TDS protocol version
+        tds version = 8.0
+        client charset = UTF-8
+        charset = UTF-8
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

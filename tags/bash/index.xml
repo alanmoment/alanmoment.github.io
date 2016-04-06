@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bash on Hello World!!</title>
+    <link>http://localhost:1313/tags/bash/</link>
+    <description>Recent content in Bash on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Tue, 18 Nov 2014 00:17:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/bash/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>The bash auto build</title>
+      <link>http://localhost:1313/post/os/linux/the_bash_auto_build/</link>
+      <pubDate>Tue, 18 Nov 2014 00:17:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/os/linux/the_bash_auto_build/</guid>
+      <description>
+
+&lt;p&gt;發覺自己在開發上常用的小工具都沒有在整理的，每次要用就都要回想，然後再一個一個找回來覺得很煩。尤其是現在工作上要管理十幾二十台後端。常常在那邊用得不順暢，才驚覺這樣真的不行！！&lt;/p&gt;
+
+&lt;p&gt;所以就花了點時間整理，順便用&lt;code&gt;Shell Script&lt;/code&gt;寫成auto build練習一下。&lt;/p&gt;
+
+&lt;h3 id=&#34;git:07a84c905e0ef0099b592927e9b72990&#34;&gt;Git&lt;/h3&gt;
+
+&lt;p&gt;在&lt;code&gt;setup.sh&lt;/code&gt;的&lt;code&gt;setup_gitconfig&lt;/code&gt;這個method主要是建立常用的&lt;code&gt;gitconfig&lt;/code&gt;檔，也區分了家中與工作兩個環境去做建立&lt;/p&gt;
+
+&lt;h3 id=&#34;vim:07a84c905e0ef0099b592927e9b72990&#34;&gt;Vim&lt;/h3&gt;
+
+&lt;p&gt;最近想練習&lt;code&gt;vim&lt;/code&gt;所以在網路上找了感覺不錯的&lt;code&gt;vim&lt;/code&gt;也把他納進來。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.intelesyscorp.com/blog/awesome-vim-configuration&#34;&gt;http://www.intelesyscorp.com/blog/awesome-vim-configuration&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;gvimrc:07a84c905e0ef0099b592927e9b72990&#34;&gt;gvimrc&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;vim&lt;/code&gt;延伸的設定檔&lt;/p&gt;
+
+&lt;h3 id=&#34;bash-profile:07a84c905e0ef0099b592927e9b72990&#34;&gt;bash_profile&lt;/h3&gt;
+
+&lt;p&gt;這份是常用的自定義設定檔，除了在&lt;code&gt;console&lt;/code&gt;前面顯示&lt;code&gt;git branch&lt;/code&gt;及更新時間，因為時常搞錯當前環境，所以把&lt;code&gt;hostname&lt;/code&gt;也加進來了，雖然長了一點，但是辨識度很不錯！！&lt;/p&gt;
+
+&lt;h3 id=&#34;install:07a84c905e0ef0099b592927e9b72990&#34;&gt;Install&lt;/h3&gt;
+
+&lt;p&gt;預設是放在 &lt;code&gt;/$HOME/bash&lt;/code&gt;，設定上非常簡單&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sh setup.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;打完收工！！&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Github&lt;/code&gt;
+&lt;a href=&#34;https://github.com/alanmoment/bash&#34;&gt;https://github.com/alanmoment/bash&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

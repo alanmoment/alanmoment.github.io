@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  	<meta property="og:title" content=" Posts &middot;  Hello World!!" />
+  	<meta property="og:site_name" content="Hello World!!" />
+  	<meta property="og:url" content="http://localhost:1313/post/" />
+
+    
+    <meta property="og:type" content="website" />
+    
+
+  <title>
+     Posts &middot;  Hello World!!
+  </title>
+
+    <meta name="description" content="you can do anything you want to do." />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="http://localhost:1313/images/favicon.ico">
+	  <link rel="apple-touch-icon" href="http://localhost:1313/images/apple-touch-icon.png" />
+
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/screen.css" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400|Inconsolata" />
+
+
+    
+      
+          <link href="http://localhost:1313/index.xml" rel="alternate" type="application/rss+xml" title="Hello World!!" />
+      
+      
+        <link href="http://localhost:1313/post/index.xml" rel="alternate" type="application/rss+xml" title="Posts &middot; Hello World!!" />
+      
+    
+    <meta name="generator" content="Hugo 0.15" />
+
+    <link rel="canonical" href="http://localhost:1313/post/" />
+
+    
+
+    
+</head>
+<body class="nav-closed">
+
+  <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href="#" class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        
+        
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/">Home</a>
+            </li>
+        
+            
+            <li class="nav-opened" role="presentation">
+            	<a href="http://localhost:1313/page/about/">About me</a>
+            </li>
+        
+    </ul>
+    
+    
+    <a class="subscribe-button icon-feed" href="http://localhost:1313/post/index.xml">Subscribe</a>
+    
+</div>
+<span class="nav-cover"></span>
+
+
+ <div class="site-wrapper">
+
+
+
+
+	<header class="main-header tag-head" style="background-image: url(http://localhost:1313//images/Iron_man.jpg)">
+
+    <nav class="main-nav overlay clearfix">
+      
+        <a class="blog-logo" href="http://localhost:1313/"><img src="http://localhost:1313//images/517273.jpg" alt="Home" /></a>
+      
+      
+          <a class="menu-button" href="#"><span class="burger">&#9776;</span><span class="word">Menu</span></a>
+      
+    </nav>
+    <div class="vertical">
+        <div class="main-header-content inner">
+            <h1 class="page-title">Posts</h1>
+            <h2 class="page-description">
+                
+            </h2>
+        </div>
+    </div>
+</header>
+
+<main class="content" role="main">
+    
+
+	<div class="extra-pagination inner">
+    <nav class="pagination" role="navigation">
+	
+	    <a class="newer-posts" href="http://localhost:1313/post/page/3/">&larr; Newer Posts</a>
+	
+	<span class="page-number">Page 4 of 5</span>
+	
+	    <a class="older-posts" href="http://localhost:1313/post/page/5/">Older Posts &rarr;</a>
+	
+</nav>
+
+	</div>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/android/android_zipcode_library_of_maven/">Android zipcode library of maven</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>最近在做Android app時需要用到縣市、區域這些資料，做過網站的，都知道處理這個很煩啊!所以大多都會抽出來另外處理，封裝成Component好方便使用，但是在Android上要是把縣市、區域、郵遞區號放到strings.xml裡面，我想是會瘋掉的，維護、擴充也不容易。我就是建完才後悔的&hellip; 有個不錯的方法就是將資料用json的格式存成一隻檔案，然後自己寫抓取json的util放到Android的libs，這樣要使用就很方便了。 Eclipse安裝Maven 使用Eclipse plugin安裝Maven，在Install new software中點選Add輸入下列資料。 Name：Maven Plugin Location：http://download.eclipse.org/technology/m2e/releases 若是發生不能安裝的錯誤還有另外一個 Name：Indigo Location：http://download.eclipse.org/releases/indigo 在這個套件裡尋找Maven並且安裝 安裝Maven工具 Maven官網下載Maven 3.1.0 (Binary tar.gz)，放哪裡都可以但是建議不要放在含有空白或特殊字元的資料夾，最後要在環境變數加上以下變數。 變數名稱：MAVEN_HOME 變數值：C:\你的目錄\apache-maven-3.1.0 在Path變數尾端加上MAVEN_HOME %MAVEN_HOME%\bin; 建立Maven project 為了方便自己管理library所以我建立了maven project Step 1. Step 2. Step 3. 修改pom.xml 因為要解析json格式，所以在這邊需要引入google-gson的dependency，為什麼不用json-simple呢，因為Android並沒有支援這個library。 在&gt;標籤中加入 &lt;dependency&gt;&lt;groupid&gt;com.google.code.gson&lt;/groupid&gt;&lt;artifactid&gt;gson&lt;/artifactid&gt;&lt;version&gt;2.2.4&lt;/version&gt;&lt;/dependency&gt; 在project中Maven Dependencies就會增加gson library 建立zipcode.json 依照下圖的格式建立zipcode.json 將zipcode.json放置在src/main/resources，並且修改pom.xml，這樣在使用maven install就能夾帶檔案。 在&gt;標籤中加入 &lt;build&gt;&lt;resources&gt;&lt;resource&gt;&lt;directory&gt;src/main/resources&lt;/directory&gt;&lt;includes&gt;&lt;include&gt;zipcode.json&lt;/include&gt;&lt;/includes&gt;&lt;/resource&gt;&lt;/resources&gt;&lt;/build&gt; 建立Zipcode Library 建立InputStreamReader讀取json資料，再用gson解析讀取完畢再關掉。 因為gson會主動幫字串加上雙引號，所以取資料出來必須要用getAsString()，不能用toString()，否則雙引號不會濾掉。 package com.zipcode_util; import java.io.BufferedReader; import java.io.IOException; import java.io.InputStreamReader; import com.google.gson.Gson; import com.google.gson.JsonArray; import com.google.gson.JsonObject; public class ZipcodeComponent { private static final String ZIPCODE_FILE = &quot;zipcode.json&quot;; private static JsonObject jsonObject; /** * Json file io * @return JsonObject jsonObject */ private JsonObject getJsonObject() { if (jsonObject == null) { BufferedReader br = new BufferedReader( new InputStreamReader(ZipcodeComponent.class .getClassLoader().getResourceAsStream( ZipcodeComponent.ZIPCODE_FILE))); jsonObject = new Gson().fromJson(br, JsonObject.class); try { br.close(); } catch (IOException e) { e.printStackTrace(); } } return jsonObject; } /** * Get city name * @return List&lt;string&gt; citys */ public String[] listCities() { JsonArray jsonArray = getJsonObject().getAsJsonArray(&quot;city&quot;); String[] cities = new String[jsonArray.size()]; int i; for (i=0; i&lt;jsonarray.size i cities jsonarray.get return zipcode util package com.zipcode_util import junit.framework.test junit.framework.testcase junit.framework.testsuite unit test for simple app. <a class="read-more" href="http://localhost:1313/post/android/android_zipcode_library_of_maven/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/android/">#android</a>,
+            
+                <a href="http://localhost:1313/tags/maven/">#maven</a>,
+            
+        
+        <time class="post-date" datetime="2013-09-03T18:50:00Z">
+            3 Sep 2013
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/php/phalconshou_fa/">Phalcon首發</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>用了好一陣子的YII framework一開始用的時候覺得。哇~好專業阿。好難懂他的整個框架，摸了一陣子之後。才發現，近年不管哪一個程式語言。都是這樣的Design pattern。MVC、ORM，建立一個網站越來越便利也更簡單了。而最近發現一個類似YII的加強版Phalcon。主要他是用C 寫的，所以效能會比一般的framework還要好，但實際上我並沒有測試過，這只是我看官網上的介紹，而且我用framework，其實並不是那麼著墨在校能，而是提供的工具是否好用，開發上是否便利。如此而已。 下載Phalcon 官網有提供Phalcon framework的Github可以下載 $ git clone git://github.com/phalcon/cphalcon.git $ cd cphalcon/build $ ./install 安裝畫面 安裝便利的Phalcon Developer Tools Phalcon一樣有提供Phalcon Developer Tools的Github下載 $ git clone https://github.com/phalcon/phalcon-devtools.git $ cd phalcon-devtools $ ./phalcon.sh 建立softlink $ ln -s /home/phalcon/phalcon-devtools/phalcon.php /usr/bin/phalcon $ chmod ugo+x /usr/bin/phalcon 安裝完畢後重新登入執行測試 $ phalcon commands 執行畫面 建立專案 使用指令建立一個專案 $ phalcon create-project phalcon 這樣就完成了。在我的小專案中也有用到這個framework。 <a class="read-more" href="http://localhost:1313/post/php/phalconshou_fa/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/php/">#php</a>,
+            
+                <a href="http://localhost:1313/tags/phalcon/">#phalcon</a>,
+            
+        
+        <time class="post-date" datetime="2013-08-28T11:54:00Z">
+            28 Aug 2013
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/ide/netbeans_consolezhong_wen_luan_ma_jie_jue_fang_fa/">Netbeans console中文亂碼解決方法</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>以我為範例我是安裝在 C:\Program Files (x86)\NetBeans 7.3.1 打開 C:\Program Files (x86)\NetBeans 7.3.1\etc\netbeans.conf 編輯其中的這一行： netbeans_default_options=&ldquo;-J-client -J-Xss2m -J-Xms32m -J-XX:PermSize=32m -J-XX:MaxPermSize=200m -J-Xverify:none -J-Dapple.laf.useScreenMenuBar=true -J-Dfile.encoding=utf8 &ndash;fontsize 12&rdquo; 加入粗體的部分，然後重新啟動Netbeans。 <a class="read-more" href="http://localhost:1313/post/ide/netbeans_consolezhong_wen_luan_ma_jie_jue_fang_fa/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/ide/">#ide</a>,
+            
+                <a href="http://localhost:1313/tags/netbeans/">#netbeans</a>,
+            
+        
+        <time class="post-date" datetime="2013-08-26T10:45:00Z">
+            26 Aug 2013
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/">Install rmagick on the Windows of Ruby on Rails</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>Windows上不管是要安裝什麼Ruby的套件總是能出錯，這次就連很常見的ImageMagick還是會無法順利安裝，無言阿!!所以才會有人建議為了自己好，千萬不要在Windows上學習開發Ruby on Rails，但是我是個窮鬼&hellip;買不起Mac只好硬是找方法。以下就是Ruby on Rails安裝rmagick的過程囉。 到ImageMagick官網下載 ImageMagick-6.8.6-7-Q16-x86-static.exe ImageMagick-6.8.6-7-Q16-x86-dll.exe 這兩個皆安裝在C:\ImageMagick，用預設選項安裝即可 點選官網上的download&gt;United States&gt;http://www.imagemagick.org/download&gt;ImageMagick-6.8.6-7.tar.gz 下載、解壓縮後放置在C:\ImageMagick資料夾中，命名為SourceCode 到http://www.mingw.org/ 點選Navigation&gt;download 下載Looking for the latest version? Download mingw-get-inst-20120426.exe (662.7 kB) 將MinGW安裝在C:\MinGW，並且勾選MinGW Developer ToolKit，安裝完畢還要在系統的環境變數加上C:\MinGW 最後用gem安裝rmagick $ gem install rmagick --platform=ruby -- --with-opt-lib=C:/ImageMagick --with-opt-include=c:/ImageMagick/SourceCode Gemfile setup gem 'rmagick' gem &quot;carrierwave&quot; 國外的完整教學影片 <a class="read-more" href="http://localhost:1313/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/ruby/">#ruby</a>,
+            
+                <a href="http://localhost:1313/tags/rails/">#rails</a>,
+            
+        
+        <time class="post-date" datetime="2013-08-12T01:19:00Z">
+            12 Aug 2013
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/os/linux/apacheyu_tomcat_de_jie_he/">Apache與Tomcat的結合</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>因為我很愛東搞西搞，去年寫了個網站，但是是用JSP寫的，用了Status, Hibernate, tiles的框架，所以得佈署在Tomcat，可是80 port已經被Apache佔用了，Tomcat只能用8080，但看了我實在很不舒服，所以又開始想東想西了。 一開始，我想為Tomcat裝Plugin看能不能融入Apache，讓Apache呼叫Tomcat來執行程式。所以我找到了mod_js試著安裝之後，我失敗了(其實是偷懶!!)，後來有人跟我提到php-java-bridge，但是還沒裝我就放棄了，因為我覺得根本不用這麼複雜&hellip; Google到爛掉我終於找到一個太符合我這個懶人的方式了..非常簡單到爆掉! mod_proxy是我的救星。官網所寫的，必須開放Apache的以下模組 mod_proxy mod_proxy_http mod_proxy_ftp mod_proxy_ajp mod_proxy_balancer 然後在http.conf加入設定(我的是httpd-vhosts.conf) $ vim /etc/httpd/conf.d/httpd-vhosts.conf &lt;virtualhost&gt; ServerName school.ocomm.com.tw ProxyPass / http://school.ocomm.com.tw:8080/ ProxyPassReverse / http://school.ocomm.com.tw:8080/ &lt;/virtualhost&gt; 然後 $ service httpd restart 完成&hellip;.用到現在沒甚麼問題，等有問題再說吧!! 哈&hellip; 簡單到爆炸阿&hellip;.我的網站http://school.ocomm.com.tw，8080不見了，看了都覺得開心。 <a class="read-more" href="http://localhost:1313/post/os/linux/apacheyu_tomcat_de_jie_he/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/linux/">#linux</a>,
+            
+                <a href="http://localhost:1313/tags/tomcat/">#tomcat</a>,
+            
+        
+        <time class="post-date" datetime="2013-08-02T10:14:00Z">
+            2 Aug 2013
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/hadoop/shi_yong_sqoop_jiang_mysql_zi_liao_hui_ru_hbase/">使用Sqoop將MySQL資料匯入Hbase</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>想要使用MapReduce運算Hbase的資料，但若是原本資料在別種資料庫該怎麼辦呢，在龐大的Hadoop家族中Sqoop就是完成這一個任務，他有提供各種資料庫匯入至Hbase的功能。 因為我慣用MySQL所以還是拿MySQL當作範例，因為我是蠻久之前試玩的，所以是用舊的版本。他的安裝非常方便!! 安裝Sqoop $ cd /opt $ wget 'https://github.com/downloads/cloudera/sqoop/sqoop-1.2.0.tar.gz' 或是到官網下載 $ tar zxvf sqoop-1.2.0.tar.gz $ mv sqoop-1.2.0 sqoop 下載mysql-connector-java-5.1.15-bin.jar並複製到/opt/sqoop/lib，然後就完成囉!! 接下來就測試看看是否能正常運作。 測試Sqoop 列出資料表 $ /opt/sqoop/bin/sqoop list-tables --connect jdbc:mysql://127.0.0.1/test -P --username test 匯入資料表 $ /opt/sqoop/bin/sqoop import --connect jdbc:mysql://127.0.0.1/test --username test --table table_name --hive-import 匯入資料表時下WHERE $ /opt/sqoop/bin/sqoop import --connect jdbc:mysql://127.0.0.1/test --username test --table table_name --hive-import --query 'SELECT * FROM `table_name` where flow_no &gt; 1 AND flow_no 但是我測試過後...無法轉換換行阿..看官網是說sqoop 1.3才有支援，但是hadoop 0.20 並不支援sqoop 1.3一整個無言。改天再測試。 使用Sqoop有出現錯誤也可以顯示 $ /opt/sqoop/bin/sqoop import --connect jdbc:mysql://127.0.0.1/test --username test --table table_name --hive-import --verbose Demo 因為操作Sqoop是有點煩瑣的，所以我自己用PHP寫了Mysql匯入Hbase的簡單操作界面。 發生錯誤 無法從mysql匯入hbase 11/11/11 12:07:59 ERROR tool.ImportTool: Encountered IOException running import job: org.apache.hadoop.mapred.FileAlreadyExistsException: Output directory table_name already exists 可以試試看刪除Hbase資料表 /opt/hadoop/bin/hadoop fs -rmr table_name 非單機模式下，必須寫成MySQL位址，不能用localhost --connect jdbc:mysql://mysqlserver_IP/databaseName 沒有資料庫的權限會發生下面的錯誤 11/11/11 23:22:13 INFO mapred.JobClient: Task Id : attempt_201111112316_0001_m_000004_0, Status : FAILED java.io.IOException: SQLException in nextKeyValue at com.cloudera.sqoop.mapreduce.db.DBRecordReader.nextKeyValue(DBRecordReader.java:238) at org.apache.hadoop.mapred.MapTask$NewTrackingRecordReader.nextKeyValue(MapTask.java:423) at org.apache.hadoop.mapreduce.MapContext.nextKeyValue(MapContext.java:67) at org.apache.hadoop.mapreduce.Mapper.run(Mapper.java:143) at com.cloudera.sqoop.mapreduce.AutoProgressMapper.run(AutoProgressMapper.java:187) at org.apache.hadoop.mapred.MapTask.runNewMapper(MapTask.java:621) at org.apache.hadoop.mapred.MapTask.run(MapTask.java:305) at org.apache.hadoop.mapred.Child.main(Child.java:170) Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'test.tbl_skw_buyer' doesn't exist at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39) at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27) at java.lang.reflect.Constructor.newInstance(Constructor.java:513) at com.mysql.jdbc.Util.handleNewInstance(Util.java:407) at com.mysql.jdbc.Util.getInstance(Util.java:382) at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1052) at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3603) at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3535) at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:1989) at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2150) at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2626) at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:2119) at com.mysql.jdbc.PreparedStatement.executeQuery(PreparedStatement.java:2281) at com.cloudera.sqoop.mapreduce.db.MySQLDataDrivenDBRecordReader.executeQuery(MySQLDataDrivenDBRecordReader.java:50) at com.cloudera.sqoop.mapreduce.db.DBRecordReader.nextKeyValue(DBRecordReader.java:225) ... <a class="read-more" href="http://localhost:1313/post/hadoop/shi_yong_sqoop_jiang_mysql_zi_liao_hui_ru_hbase/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/hadoop/">#hadoop</a>,
+            
+        
+        <time class="post-date" datetime="2013-07-18T14:54:00Z">
+            18 Jul 2013
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/php/phpan_zhuang_json/">PHP安裝JSON</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>JSON是一種資料格式，很多語言為了能互相溝通，都採用這種格式來傳遞資料，要讓PHP支援JSON，需要另外安裝模組。 下載原始檔案包 $ cd /tmp $ wget 'http://www.aurore.net/projects/php-json/php-json-ext-1.2.0.tar.bz2' 解壓縮 $ tar xvjf php-json-ext-1.2.0.tar.bz2 初始化PHP環境 $ cd php-json-ext-1.2.0 $ phpize 若出現錯誤表示沒有安裝過phpize phpize commend not found 這個可以在yum中安裝 $ yum -y install php-devel 如果還不行，說明你的編譯工具有問題，安裝一下就可以了 $ yum -y install gcc install autoconf automake libtool 再次測試運行phpize並重新安裝 $ ./configure $ make &amp;&amp; makeinstall 檢查JSON是否安裝成功 $ find / -name ‘*json.so’ ./usr/lib/php/modules/json.so 有出現路徑代表安裝成功 修改php.ini 我的是在php.ini中include一個資料夾/etc/php.d 在這個檔中添一個json.ini $ vim json.ini extension=json.so 重啟服務 $ service httpd restart 檢查JSON模組是否有載入 $ php -r &quot;phpinfo();&quot; | grep 'json' $ json $ json support =&gt; enabled $ json version =&gt; 1.2.1 這樣就完成囉!!! <a class="read-more" href="http://localhost:1313/post/php/phpan_zhuang_json/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/php/">#php</a>,
+            
+                <a href="http://localhost:1313/tags/json/">#json</a>,
+            
+        
+        <time class="post-date" datetime="2013-07-17T12:14:00Z">
+            17 Jul 2013
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/javascript/centos_an_zhuang_node__js_0__8__5/">CentOS 安装 Node.js 0.8.5</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>很久很久以前，開發過社交網站，當時以Facebook與Plurk當作目標(瘋了)，但是最後還是以失敗收場。 那時候研究過Facebook與Plurk的留言機制，一直苦無方案可以解決&rdquo;即時&rdquo;的問題&hellip;也猜不透他們到底是怎麼做到的，一定有人說明明就很多方法，但那是四年前吶&hellip; 當時還試圖用Ajax來解決，發現!!可以耶。開心之餘的測試下。第二個人再來請求就死翹翹了&hellip;因為用timer會使的請求網頁一直處於等待回應的狀態。 於是呢&hellip;又重頭來開始找方法，最後皇天不負苦心人(已經快要爆肝)發現了Node.js它有worker的機制，當時他還在0.2.2的版本呢!有夠古老。所以現在來回味一下!! 安装Node.js前置作業 Node.js 0.8.5的安裝，需要python 2.7，大部分安装失敗，都是因為python版本過低。 $ python -V Python 2.4.3 Node.js 0.8.5依賴的library $ yum install -y bzip2* 開始安裝python $ wget http://www.python.org/ftp/python/2.7.3/Python-2.7.3.tgz $ tar zvxf Python-2.7.3.tgz $ cd Python-2.7.3 $ ./configure $ make &amp;&amp; make install 因為系統預設是指向2.4.3，所以要重新建立連接，但是yum是在python 2.4.3才可以正常使用，所以不要隨便移除。 $ mv /usr/bin/python /usr/bin/python.bak $ ln -s /usr/local/bin/python2.7 /usr/bin/python 檢查python指向是否成功 $ python -V Python 2.7.3 安裝Node.js 可以到官網選擇合適的版本下載也可以用github上的版本。 $ wget 'http://nodejs.org/dist/v0.8.5/node-v0.8.5.tar.gz' $ tar zvxf node-v0.8.5.tar.gz $ cd node-v0.8.5./configure $ make &amp;&amp; <a class="read-more" href="http://localhost:1313/post/javascript/centos_an_zhuang_node__js_0__8__5/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/javascript/">#javascript</a>,
+            
+                <a href="http://localhost:1313/tags/node.js/">#node.js</a>,
+            
+        
+        <time class="post-date" datetime="2013-07-10T17:04:00Z">
+            10 Jul 2013
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/php/guan_li_php_library_de_li_qi_composer/">管理PHP Library的利器Composer</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>在之前試玩Ruby On Rails的時候就覺得有Gem一整個就是超好用的吶!!所以前陣子公司導入Gitlab之後順勢要我研究一下PHP的Composer，想不到還有支援Github。所以做個紀錄。 安裝PHP Composer 安裝在各自專案時 $ mkdir /var/www/html/example $ sudo curl -s https://getcomposer.org/installer | sudo php 我安裝時有出現警告訊息是因為我的PHP版本是5.3.3他建議我升級到5.3.4或更高，否則可能導致Composer不穩定 我自己是安裝在/usr/local/bin $ cd /usr/local/bin $ sudo curl -s https://getcomposer.org/installer | sudo php 可建立指向 $ ln -s /usr/local/bin/composer.phar /usr/bin/composer 這樣不管在哪個專案只要建立composer.json都可以使用了。 在PHP專案建立Composer 建立composer.json $ cd /var/www/html/example $ vim composer.json { &quot;require&quot;: { &quot;monolog/monolog&quot;: &quot;1.2.*&quot; } } 建立後執行 $ composer install 專案目錄底下就會產生vendor資料夾，裏頭就是在composer.json有設定要引入的library。 Composer官網也有提供線上的Library可以使用。讚!! 使用Github上的Repository 把library放到github上管理，然後再用composer引入各自的專案，這豈不是太方便了!! $ vim composer.json { &quot;name&quot;: &quot;bom-solution&quot;, &quot;description&quot;: &quot;bom solution&quot;, &quot;homepage&quot;: &quot;https://github.com/alanmoment/bom-solution&quot;, &quot;repositories&quot;: [{ &quot;type&quot;: &quot;package&quot;, &quot;package&quot;: { &quot;name&quot;: &quot;alanmoment/bom-solution&quot;, &quot;version&quot;: &quot;v0.1&quot;, &quot;source&quot;: { &quot;url&quot;: &quot;git@github.com:alanmoment/bom-solution.git&quot;, &quot;type&quot;: &quot;git&quot;, &quot;reference&quot;: &quot;v0.1&quot; } } }], &quot;require&quot;: { &quot;php&quot;: &quot;&gt;=5.3.3&quot;, &quot;alanmoment/bom-solution&quot;: &quot;v0.1&quot; } } 建立github的composer之前必須先在你的repository建立tag alanmoment是我的github的帳號 bom-solution是我的repository v0.1是我tag的版號 存檔後執行 $ composer install 會發生以下錯誤 Loading composer repositories with package information Installing dependencies (including require-dev) from lock file Nothing to install or update Generating autoload files 這是因為執行過composer install之後目錄底下也會產生一隻composer.lock檔案，要再次執行前先把他刪掉，就可以正常執行囉 。 完成囉!! <a class="read-more" href="http://localhost:1313/post/php/guan_li_php_library_de_li_qi_composer/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/php/">#php</a>,
+            
+                <a href="http://localhost:1313/tags/composer/">#composer</a>,
+            
+                <a href="http://localhost:1313/tags/git/">#git</a>,
+            
+        
+        <time class="post-date" datetime="2013-07-04T12:36:00Z">
+            4 Jul 2013
+        </time>
+    </footer>
+</article>
+
+	
+	   
+<article class="post post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="http://localhost:1313/post/cooperation/gitlab/jian_zhi_zhuan_shu_zi_ji_de_github_zhi_gitlab/">建置專屬自己的Github之Gitlab</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>Github用久了就覺得這一切真是太方便了!!但是呢，有些程式碼就是不太方便放在別人那邊，不管自己寫的code是不是有到那種程度，人就是想把屬於自己的東西留給自己欣賞，這個時候Gitlab就是你的救星啦!!! 安裝Rvm Ruby $ curl -L https://get.rvm.io | bash -s stable --ruby $ rvm install 1.9.3 $ rvm use 1.9.3 $ rvm rubygems latest 下載並安裝git-core $ cd /tmp $ wget 'https://git-core.googlecode.com/files/git-1.7.11.tar.gz' $ tar zxvf git-1.7.11.tar.gz $ cd git-1.7.11 $ ./configure $ make $ make install 安裝Gitlab所需套件 $ yum install openssl openssl-devel zlib zlib-devel mysql mysql-devel sqlite sqlite-devel libicu-devel $ wget 'http://peak.telecommunity.com/dist/ez_setup.py' $ python ez_setup.py $ easy_install pip $ pip install pygments 安裝Redis 我自己覺得Redis有點像Memcache，底層的實作我就不太清楚。 $ wget 'http://redis.googlecode.com/files/redis-2.4.15.tar.gz' $ tar xzf redis-2.4.5.tar.gz $ cd redis-2.4.5 $ make $ make install $ cd utils $ ./install_server.sh $ mkdir /etc/redis /var/lib/redis $ cp src/redis-server src/redis-cli /usr/local/bin/ $ cp redis.conf /etc/redis/ 將設定值修改如下： $ vim /etc/redis/redis.conf daemonize yes bind 127.0.0.1 /home/git/.profile' $ sudo -u git -i -H /home/git/gitolite/src/gl-system-install $ cp /home/gitlab/.ssh/id_rsa.pub /home/git/gitlab.pub $ chmod 777 /home/git/gitlab.pub $ sudo -u git -H sed -i 's/0077/0007/g' /home/git/share/gitolite/conf/example.gitolite.rc $ sudo -u git -H sh -c &quot;PATH=/home/git/bin:$PATH; gl-setup -q /home/git/gitlab.pub&quot; 修改資料夾權限及擁有者 $ chmod -R g+rwX /home/git/repositories/ $ chown -R git:git /home/git/repositories/ 測試Gitlab是否可以正常下載Gitolite管理檔案庫 $ su - gitlab $ git clone git@localhost:gitolite-admin.git /tmp/gitolite-admin $ rm -rf /tmp/gitolite-admin $ exit 設定Gitlab $ gem install charlock_holmes $ gem install bundler $ bundle install $ su - gitlab $ git clone http://github.com/gitlabhq/gitlabhq.git gitlab $ cd gitlab 使用MySQL，複製設定檔，修改資料庫登入帳號及密碼 $ cp config/database.yml.mysql config/database.yml 修改gitlab.yml $ cp config/gitlab.yml.example config/gitlab.yml $ vim config/gitlab.yml ## GitLab settings gitlab: ## Web server settings #host: localhost host: git.ocomm.com.tw 這個步驟當時搞好久，結果是要自己先建立資料庫... <a class="read-more" href="http://localhost:1313/post/cooperation/gitlab/jian_zhi_zhuan_shu_zi_ji_de_github_zhi_gitlab/">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        
+        
+            <img class="author-thumb" src="http://localhost:1313//images/517273.jpg" alt="Author image" nopin="nopin" />
+        
+        
+            Alan
+        
+        on
+            
+                <a href="http://localhost:1313/tags/cooperation/">#cooperation</a>,
+            
+                <a href="http://localhost:1313/tags/gitlab/">#gitlab</a>,
+            
+        
+        <time class="post-date" datetime="2013-06-28T13:46:00Z">
+            28 Jun 2013
+        </time>
+    </footer>
+</article>
+
+	
+
+	<nav class="pagination" role="navigation">
+	
+	    <a class="newer-posts" href="http://localhost:1313/post/page/3/">&larr; Newer Posts</a>
+	
+	<span class="page-number">Page 4 of 5</span>
+	
+	    <a class="older-posts" href="http://localhost:1313/post/page/5/">Older Posts &rarr;</a>
+	
+</nav>
+
+</main>
+
+
+
+    <footer class="site-footer clearfix">
+        <section class="copyright"><a href="">Hello World!!</a> &copy; Copyright Alan - 2016</section>
+        
+        <section class="poweredby">Proudly generated by <a class="icon-hugo" href="http://gohugo.io">HUGO</a>, with <a class="icon-theme" href="https://github.com/vjeantet/hugo-theme-casper">Casper</a> theme</section>
+        
+    </footer>
+    </div>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="http://localhost:1313/js/index.js"></script>
+    
+</body>
+</html>

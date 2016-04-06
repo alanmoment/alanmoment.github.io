@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tomcat on Hello World!!</title>
+    <link>http://localhost:1313/tags/tomcat/</link>
+    <description>Recent content in Tomcat on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Fri, 02 Aug 2013 10:14:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/tomcat/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Apache與Tomcat的結合</title>
+      <link>http://localhost:1313/post/os/linux/apacheyu_tomcat_de_jie_he/</link>
+      <pubDate>Fri, 02 Aug 2013 10:14:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/os/linux/apacheyu_tomcat_de_jie_he/</guid>
+      <description>&lt;p&gt;因為我很愛東搞西搞，去年寫了個網站，但是是用JSP寫的，用了Status, Hibernate, tiles的框架，所以得佈署在Tomcat，可是80 port已經被Apache佔用了，Tomcat只能用8080，但看了我實在很不舒服，所以又開始想東想西了。&lt;/p&gt;
+
+&lt;p&gt;一開始，我想為Tomcat裝Plugin看能不能融入Apache，讓Apache呼叫Tomcat來執行程式。所以我找到了&lt;a href=&#34;http://tomcat.apache.org/download-connectors.cgi&#34;&gt;mod_js&lt;/a&gt;試著安裝之後，我失敗了(其實是偷懶!!)，後來有人跟我提到&lt;a href=&#34;http://php-java-bridge.sourceforge.net/&#34;&gt;php-java-bridge&lt;/a&gt;，但是還沒裝我就放棄了，因為我覺得根本不用這麼複雜&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;Google到爛掉我終於找到一個太符合我這個懶人的方式了..非常簡單到爆掉! &lt;a href=&#34;http://httpd.apache.org/docs/2.2/mod/mod_proxy.html&#34;&gt;mod_proxy&lt;/a&gt;是我的救星。官網所寫的，必須開放Apache的以下模組&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;mod_proxy&lt;/li&gt;
+&lt;li&gt;mod_proxy_http&lt;/li&gt;
+&lt;li&gt;mod_proxy_ftp&lt;/li&gt;
+&lt;li&gt;mod_proxy_ajp&lt;/li&gt;
+&lt;li&gt;mod_proxy_balancer&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;然後在http.conf加入設定(我的是httpd-vhosts.conf)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ vim /etc/httpd/conf.d/httpd-vhosts.conf
+&amp;lt;virtualhost&amp;gt;
+    ServerName school.ocomm.com.tw
+    ProxyPass / http://school.ocomm.com.tw:8080/
+    ProxyPassReverse / http://school.ocomm.com.tw:8080/
+&amp;lt;/virtualhost&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然後&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ service httpd restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;完成&amp;hellip;.用到現在沒甚麼問題，等有問題再說吧!! 哈&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;簡單到爆炸阿&amp;hellip;.我的網站&lt;a href=&#34;http://school.ocomm.com.tw&#34;&gt;http://school.ocomm.com.tw&lt;/a&gt;，8080不見了，看了都覺得開心。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on Hello World!!</title>
+    <link>http://localhost:1313/tags/python/</link>
+    <description>Recent content in Python on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Fri, 27 Feb 2015 00:16:10 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Django &#43; Python 開發環境建置</title>
+      <link>http://localhost:1313/post/python/django_&#43;_python_kai_fa_huan_jing_jian_zhi/</link>
+      <pubDate>Fri, 27 Feb 2015 00:16:10 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/python/django_&#43;_python_kai_fa_huan_jing_jian_zhi/</guid>
+      <description>
+
+&lt;h1 id=&#34;python:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Python&lt;/h1&gt;
+
+&lt;p&gt;開發Pythone時也可以像rvm，nvm的虛擬環境就是Virtualenv了，對於我這種有潔癖的人是超級需要的啊！&lt;/p&gt;
+
+&lt;h2 id=&#34;pip:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Pip&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;download &lt;a href=&#34;https://bootstrap.pypa.io/get-pip.py&#34;&gt;get-pip.py&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python get-pip.py
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;virtualenv:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Virtualenv&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;install&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install virtualenv
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Linux or OS X need &lt;code&gt;sudo&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;setup&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ virtualenv ENV
+$ source ENV/bin/activate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;啟動 virtualenv，從此只要在 virtualenv 下面安裝的 package 都只會存在于這個 virtualenv 當中。&lt;/p&gt;
+
+&lt;h2 id=&#34;virtualenvwrapper:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Virtualenvwrapper&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;將所有的虛擬環境整合在一個目錄下。&lt;/li&gt;
+&lt;li&gt;管理（新增、移除、複製）所有的虛擬環境。&lt;/li&gt;
+&lt;li&gt;可以使用一個命令切換虛擬環境。&lt;/li&gt;
+&lt;li&gt;Tab 補全虛擬環境的名字。&lt;/li&gt;
+&lt;li&gt;每個操作都提供允許使用者自訂的 hooks。&lt;/li&gt;
+&lt;li&gt;可撰寫容易分享的 extension plugin 系統。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;install&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install virtualenvwrapper
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;新增虛擬環境&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkvirtualenv [-i package] [-r requirements_file] [virtualenv options] ENVNAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;設定路徑&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export PIP_VIRTUALENV_BASE=$WORKON_HOME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;列出所有的虛擬環境&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ lsvirtualenv
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;移除虛擬環境&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ rmvirtualenv ENVNAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;複製虛擬環境&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cpvirtualenv ENVNAME TARGETENVNAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;啟動虛擬環境&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ workon [environment_name]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;離開虛擬環境&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ deactivate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Python 3&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ which python3
+$ mkvirtualenv --python=/usr/bin/python3 python3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果想要避免 pip 在沒有進入虛擬環境時被使用，可以在 ~/.bashrc 加上：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export PIP_REQUIRE_VIRTUALENV=true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;build-django:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Build Django&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;install&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install django
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;requirements&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pip install -r requirements.txt
+$ pip freeze &amp;gt; requirements.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;** start **&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ django-admin.py startproject PROJECT_NAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;run&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py runserver
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;create app&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py startapp APP_NAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;model&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;settings.py&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;INSTALLED_APPS = (
+    ...
+    &#39;customer&#39;
+    ...
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;models.py&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Customer(models.Model):
+    content = models.TextField()
+
+    def __unicode__(self):
+        return self.content
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;first&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py syncdb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;Your models have changes&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py makemigrations
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;generate&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py migrate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;single change&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py makemigrations MODEL
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;rollback&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py migrate system zero
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;django-testcase:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Django TestCase&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;console usage&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ python manage.py test
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;reference:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Reference&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.haogongju.net/art/2395132&#34;&gt;http://www.haogongju.net/art/2395132&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
