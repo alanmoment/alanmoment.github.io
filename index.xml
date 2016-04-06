@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hello World!!</title>
-    <link>http://localhost:1313/</link>
+    <link>http://alanmoment.github.io/</link>
     <description>Recent content on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Fri, 25 Mar 2016 14:11:16 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://alanmoment.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>phabricator-extensions-Sprint 無法抓到正確的 Story Points</title>
-      <link>http://localhost:1313/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</link>
+      <link>http://alanmoment.github.io/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</link>
       <pubDate>Fri, 25 Mar 2016 14:11:16 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</guid>
       <description>
 
 &lt;p&gt;在版號為 &lt;code&gt;741e2ef4b1150f9a9e4b121218b3ea536289968d&lt;/code&gt; 之後的版本，因為 story points 變更欄位，所以 burndown chart 會沒辦法抓到正確的 point。&lt;/p&gt;
@@ -158,10 +158,10 @@ $ cat points.sql | mysql -u root
     
     <item>
       <title>Ditched AngularJS for React</title>
-      <link>http://localhost:1313/post/javascript/ditched_angularjs_for_react/</link>
+      <link>http://alanmoment.github.io/post/javascript/ditched_angularjs_for_react/</link>
       <pubDate>Thu, 03 Sep 2015 00:06:44 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/javascript/ditched_angularjs_for_react/</guid>
+      <guid>http://alanmoment.github.io/post/javascript/ditched_angularjs_for_react/</guid>
       <description>&lt;p&gt;去年認識並嘗試使用&lt;code&gt;AngularJS&lt;/code&gt;，我每次起步都是直接實作的，超精實!! 因為這讓我可以快速的理解這個東西到底在幹些甚麼，所以我用它來做一張客戶表單。&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;AngularJS&lt;/code&gt;在操作 UI 上讓我覺得很驚艷，大概是&lt;code&gt;jQuery&lt;/code&gt;醜陋的程式碼我已經受不了了，而&lt;code&gt;Html&lt;/code&gt;相對的也變得很難整理，因為要在裡頭嵌入很多的&lt;code&gt;ng-xxx&lt;/code&gt;，若是視覺設計交付版面，會產生額外的負擔，而效能上也令我傻眼，這張客戶資料表要完整的載入並開始操作非常的消耗資源…慢到不行，或許是我沒有深入的原因，總之各種原因我放棄了。&lt;/p&gt;
@@ -172,10 +172,10 @@ $ cat points.sql | mysql -u root
     
     <item>
       <title>Ruby on Rails deploy on Heroku</title>
-      <link>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_deploy_on_heroku/</link>
+      <link>http://alanmoment.github.io/post/ruby_on_rails/ruby_on_rails_deploy_on_heroku/</link>
       <pubDate>Sat, 16 May 2015 13:16:36 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_deploy_on_heroku/</guid>
+      <guid>http://alanmoment.github.io/post/ruby_on_rails/ruby_on_rails_deploy_on_heroku/</guid>
       <description>
 
 &lt;p&gt;好久沒碰 Ruby on Rails 一碰就會有問題，也早就習慣了，昨天晚上把做好很久的網站 Deploy 到 &lt;a href=&#34;https://www.google.com.tw/url?sa=t&amp;amp;rct=j&amp;amp;q=&amp;amp;esrc=s&amp;amp;source=web&amp;amp;cd=1&amp;amp;cad=rja&amp;amp;uact=8&amp;amp;ved=0CBwQFjAA&amp;amp;url=https%3A%2F%2Fwww.heroku.com%2F&amp;amp;ei=2c1WVeaWCoOe8QW3moCoAw&amp;amp;usg=AFQjCNF8-hoB8iHVyZ2dDq3bYi_oSmHVtg&amp;amp;sig2=OTukXXAApyRuS2ZjqBu2eQ&amp;amp;bvm=bv.93564037,d.dGc&#34;&gt;Heroku&lt;/a&gt;，就又出現問題了！有些問題是原本就存在的，還是紀錄一下。&lt;/p&gt;
@@ -249,10 +249,10 @@ $ git push heroku master
     
     <item>
       <title>Baby Help on Tessel</title>
-      <link>http://localhost:1313/post/iot/tessel/baby_help_on_tessel/</link>
+      <link>http://alanmoment.github.io/post/iot/tessel/baby_help_on_tessel/</link>
       <pubDate>Mon, 11 May 2015 01:06:12 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/iot/tessel/baby_help_on_tessel/</guid>
+      <guid>http://alanmoment.github.io/post/iot/tessel/baby_help_on_tessel/</guid>
       <description>
 
 &lt;h1 id=&#34;發想:c9733353a2e7126955c8e89741802bbb&#34;&gt;發想&lt;/h1&gt;
@@ -265,7 +265,7 @@ $ git push heroku master
 &lt;li&gt;&lt;a href=&#34;https://tessel.io/modules#module-camera&#34;&gt;Camera Module&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/baby_help_on_tessel/IMG_3953.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/iot/tessel/baby_help_on_tessel/IMG_3953.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&#34;聲音偵測:c9733353a2e7126955c8e89741802bbb&#34;&gt;聲音偵測&lt;/h1&gt;
 
@@ -323,7 +323,7 @@ Light level: 0.01464844   Sound Level: 0.01855469
 
 &lt;p&gt;只是畫素很差&amp;hellip;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/baby_help_on_tessel/baby-help.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/iot/tessel/baby_help_on_tessel/baby-help.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;程式碼都放到 &lt;a href=&#34;https://github.com/alanmoment/baby-help&#34;&gt;Github&lt;/a&gt; 了。&lt;/p&gt;
 </description>
@@ -331,10 +331,10 @@ Light level: 0.01464844   Sound Level: 0.01855469
     
     <item>
       <title>Data Encrypt &amp; Decrypt</title>
-      <link>http://localhost:1313/post/php/data_encrypt_&amp;_decrypt/</link>
+      <link>http://alanmoment.github.io/post/php/data_encrypt_&amp;_decrypt/</link>
       <pubDate>Tue, 05 May 2015 23:59:25 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/php/data_encrypt_&amp;_decrypt/</guid>
+      <guid>http://alanmoment.github.io/post/php/data_encrypt_&amp;_decrypt/</guid>
       <description>&lt;p&gt;今天把資料的加解密整理了一下也丟到 &lt;a href=&#34;https://github.com/alanmoment/rsa-util&#34;&gt;Github&lt;/a&gt; 了，不過只有 Server 的，雖然也可以玩玩看加解密，但也蠻奇怪的，加密端與解密端應該是要不同的平台，還要再找時間把 Android 的加密也整理一下。不曉得又要拖到什麼時候&amp;hellip;哈。&lt;/p&gt;
 
 &lt;p&gt;只要在自己的 &lt;code&gt;composer.json&lt;/code&gt; 加上設定檔就可以囉！&lt;/p&gt;
@@ -378,32 +378,32 @@ echo $decrypted;
     
     <item>
       <title>Git Push Notify to Slack on Gitlab</title>
-      <link>http://localhost:1313/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/</link>
+      <link>http://alanmoment.github.io/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/</link>
       <pubDate>Mon, 04 May 2015 17:03:49 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/</guid>
       <description>&lt;p&gt;已經用了許久的 &lt;code&gt;git push&lt;/code&gt; 通知 Slack，在今天補一下筆記。&lt;/p&gt;
 
-&lt;p&gt;首先還是得先申請一個 WebHook Url，可以參考這邊 &lt;a href=&#34;http://localhost:1313/post/117952459648/connect-to-slack-on-tessel&#34;&gt;connect-to-slack-on-tessel&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;首先還是得先申請一個 WebHook Url，可以參考這邊 &lt;a href=&#34;http://alanmoment.github.io/post/117952459648/connect-to-slack-on-tessel&#34;&gt;connect-to-slack-on-tessel&lt;/a&gt;。&lt;/p&gt;
 
 &lt;p&gt;Gitlab 在 &lt;code&gt;7.5.1&lt;/code&gt; 版之後，就有支援與 Slack 串接，之前測試超久&amp;hellip;都沒辦法通知，也沒有Error Message。&lt;/p&gt;
 
 &lt;p&gt;在 Gitlab 上選擇要設定的 Project，然後選擇 Settings &amp;gt; Services 依照下圖這樣設定就完成囉！！&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/gitlab-to-slack.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/gitlab-to-slack.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;每次只要設定的 Project 有 &lt;code&gt;git push&lt;/code&gt; 那就會推播相關資訊到 Slack Channel。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/slack-notify.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/slack-notify.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Connect to Slack on Tessel</title>
-      <link>http://localhost:1313/post/iot/tessel/connect_to_slack_on_tessel/</link>
+      <link>http://alanmoment.github.io/post/iot/tessel/connect_to_slack_on_tessel/</link>
       <pubDate>Sun, 03 May 2015 01:41:16 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/iot/tessel/connect_to_slack_on_tessel/</guid>
+      <guid>http://alanmoment.github.io/post/iot/tessel/connect_to_slack_on_tessel/</guid>
       <description>
 
 &lt;h2 id=&#34;申請-slack:8decd088fac1a252c57ee8ff1a55a893&#34;&gt;申請 Slack&lt;/h2&gt;
@@ -412,11 +412,11 @@ echo $decrypted;
 
 &lt;p&gt;首先得先擁有一組 Slack 的帳號與 Channel，再設置 Incoming WebHooks。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/connect_to_slack_on_tessel/incoming-webhooks.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/iot/tessel/connect_to_slack_on_tessel/incoming-webhooks.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;便可取得 Webhook Url&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/connect_to_slack_on_tessel/webhooks-url.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/iot/tessel/connect_to_slack_on_tessel/webhooks-url.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;tessel-wifi:8decd088fac1a252c57ee8ff1a55a893&#34;&gt;Tessel Wifi&lt;/h2&gt;
 
@@ -511,7 +511,7 @@ ok
 
 &lt;p&gt;測試可以正常收到囉！！&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/connect_to_slack_on_tessel/wifi-test-on-slack.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/iot/tessel/connect_to_slack_on_tessel/wifi-test-on-slack.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;如此就可以應用在各種需要通知的狀況上，太棒了！&lt;/p&gt;
 
@@ -531,10 +531,10 @@ Erased wifi profiles
     
     <item>
       <title>網頁教學初體驗</title>
-      <link>http://localhost:1313/post/other/wang_ye_jiao_xue_chu_ti_yan/</link>
+      <link>http://alanmoment.github.io/post/other/wang_ye_jiao_xue_chu_ti_yan/</link>
       <pubDate>Tue, 28 Apr 2015 00:10:25 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/other/wang_ye_jiao_xue_chu_ti_yan/</guid>
+      <guid>http://alanmoment.github.io/post/other/wang_ye_jiao_xue_chu_ti_yan/</guid>
       <description>&lt;p&gt;在工作的需求上，今天指導幾位同事有關於網頁開發的基本觀念，發現有時候自己懂得，曾經經歷的挫折，或許對其他人來說是第一次的遭遇，但因為時間因素，沒有辦法好好的講解，只有短短的2個小時根本講不到什麼&amp;hellip;不過或許是我還抓不到指導的訣竅。&lt;/p&gt;
 
 &lt;p&gt;針對這次的備課有編了一本&lt;a href=&#34;http://alanmoment.gitbooks.io/web-guide/content/&#34;&gt;GitBook&lt;/a&gt;，希望下次會更好。只是說&amp;hellip;下次不想講 &lt;code&gt;CI&lt;/code&gt;，我比較想講喜歡的 &lt;code&gt;Laravel&lt;/code&gt;&lt;/p&gt;
@@ -543,11 +543,13 @@ Erased wifi profiles
     
     <item>
       <title>很潮的 Tessel</title>
-      <link>http://localhost:1313/post/iot/tessel/hen_chao_de_tessel/</link>
+      <link>http://alanmoment.github.io/post/iot/tessel/hen_chao_de_tessel/</link>
       <pubDate>Sat, 18 Apr 2015 03:49:59 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/iot/tessel/hen_chao_de_tessel/</guid>
-      <description>&lt;p&gt;這個夢寐以求的版子，終於狠下心進口了！只是這小玩意兒的身世有點可憐，竟然被郵差送錯地方&amp;hellip;而那個人也很奇怪，東西不是自己的也收下來了！還拆封！！！到底是為什麼敢拆不是自己的東西！！驗收到凌晨4點&amp;hellip;好險東西都正常。&lt;/p&gt;
+      <guid>http://alanmoment.github.io/post/iot/tessel/hen_chao_de_tessel/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/iot/tessel/hen_chao_de_tessel/IMG_2305.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;這個夢寐以求的版子，終於狠下心進口了！只是這小玩意兒的身世有點可憐，竟然被郵差送錯地方&amp;hellip;而那個人也很奇怪，東西不是自己的也收下來了！還拆封！！！到底是為什麼敢拆不是自己的東西！！驗收到凌晨4點&amp;hellip;好險東西都正常。&lt;/p&gt;
 
 &lt;p&gt;先下載 Tessel lib&lt;/p&gt;
 
@@ -605,7 +607,7 @@ INFO Running script...
 I&#39;m blinking! (Press CTRL + C to stop)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/tessel/hen_chao_de_tessel/IMG_2308.jpg&#34; alt=&#34;example&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/iot/tessel/hen_chao_de_tessel/IMG_2308.jpg&#34; alt=&#34;example&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Tessel 真的不錯，除了程式語言可以用比較熟悉的 Javascript，Module 也用&lt;code&gt;npm&lt;/code&gt;管理，很順暢。整個在水準之上，看得出來團隊很用心的在開發，而我也預購了 Tessel 2 的新版子，因為我覺得非常棒。&lt;/p&gt;
 </description>
@@ -613,10 +615,10 @@ I&#39;m blinking! (Press CTRL + C to stop)
     
     <item>
       <title>Django &#43; Python 開發環境建置</title>
-      <link>http://localhost:1313/post/python/django_&#43;_python_kai_fa_huan_jing_jian_zhi/</link>
+      <link>http://alanmoment.github.io/post/python/django_&#43;_python_kai_fa_huan_jing_jian_zhi/</link>
       <pubDate>Fri, 27 Feb 2015 00:16:10 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/python/django_&#43;_python_kai_fa_huan_jing_jian_zhi/</guid>
+      <guid>http://alanmoment.github.io/post/python/django_&#43;_python_kai_fa_huan_jing_jian_zhi/</guid>
       <description>
 
 &lt;h1 id=&#34;python:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Python&lt;/h1&gt;
@@ -805,10 +807,10 @@ $ pip freeze &amp;gt; requirements.txt
     
     <item>
       <title>Ruby on Rails 小問題</title>
-      <link>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_xiao_wen_ti/</link>
+      <link>http://alanmoment.github.io/post/ruby_on_rails/ruby_on_rails_xiao_wen_ti/</link>
       <pubDate>Sun, 04 Jan 2015 23:45:08 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_xiao_wen_ti/</guid>
+      <guid>http://alanmoment.github.io/post/ruby_on_rails/ruby_on_rails_xiao_wen_ti/</guid>
       <description>&lt;p&gt;安裝許久的 gem 太久沒更新了遇到一些麻煩，又剛好今天發現 Google Drive 以前可以用 Login 已經被取消了&amp;hellip;天吶&amp;hellip;&lt;/p&gt;
 
 &lt;p&gt;首先因為改了與 Google Drive 串接的 API 所以出現了 SSLError&lt;/p&gt;
@@ -859,10 +861,10 @@ PATH=&amp;quot;$GEM_HOME/bin:$HOME/.rvm/bin:$PATH&amp;quot; # Add RVM to PATH fo
     
     <item>
       <title>吃足苦頭的Mssql</title>
-      <link>http://localhost:1313/post/database/chi_zu_ku_tou_de_mssql/</link>
+      <link>http://alanmoment.github.io/post/database/chi_zu_ku_tou_de_mssql/</link>
       <pubDate>Mon, 29 Dec 2014 17:07:01 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/database/chi_zu_ku_tou_de_mssql/</guid>
+      <guid>http://alanmoment.github.io/post/database/chi_zu_ku_tou_de_mssql/</guid>
       <description>&lt;p&gt;為了讓 CentOS 的 PHP 可以支援 Mssql &amp;amp; UTF-8 真是吃了不少苦頭，最終在安裝 FreeTDS 後加上設定檔終於如願以償&amp;hellip;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ vim /etc/freetds.conf
@@ -877,10 +879,10 @@ PATH=&amp;quot;$GEM_HOME/bin:$HOME/.rvm/bin:$PATH&amp;quot; # Add RVM to PATH fo
     
     <item>
       <title>The bash auto build</title>
-      <link>http://localhost:1313/post/os/linux/the_bash_auto_build/</link>
+      <link>http://alanmoment.github.io/post/os/linux/the_bash_auto_build/</link>
       <pubDate>Tue, 18 Nov 2014 00:17:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/os/linux/the_bash_auto_build/</guid>
+      <guid>http://alanmoment.github.io/post/os/linux/the_bash_auto_build/</guid>
       <description>
 
 &lt;p&gt;發覺自己在開發上常用的小工具都沒有在整理的，每次要用就都要回想，然後再一個一個找回來覺得很煩。尤其是現在工作上要管理十幾二十台後端。常常在那邊用得不順暢，才驚覺這樣真的不行！！&lt;/p&gt;
@@ -923,10 +925,10 @@ PATH=&amp;quot;$GEM_HOME/bin:$HOME/.rvm/bin:$PATH&amp;quot; # Add RVM to PATH fo
     
     <item>
       <title>Laravel 首發 !!!</title>
-      <link>http://localhost:1313/post/php/laravel_shou_fa/</link>
+      <link>http://alanmoment.github.io/post/php/laravel_shou_fa/</link>
       <pubDate>Tue, 19 Aug 2014 11:11:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/php/laravel_shou_fa/</guid>
+      <guid>http://alanmoment.github.io/post/php/laravel_shou_fa/</guid>
       <description>
 
 &lt;p&gt;雖然&lt;a href=&#34;http://laravel.com/&#34;&gt;Laravel&lt;/a&gt;已經出現頗久，最近總算開始動動手了，有鑑於去年開始使用Ruby on Rails，發現說Laravel也太像了吧。據匿名的朋友說現在的Framework幾乎都是&lt;code&gt;參考&lt;/code&gt;Ruby on Rails。而這次也趁機再多用幾種工具，&lt;/p&gt;
@@ -1060,10 +1062,10 @@ class Userinfo extends Eloquent {
     
     <item>
       <title>大搬家</title>
-      <link>http://localhost:1313/post/other/da_ban_jia/</link>
+      <link>http://alanmoment.github.io/post/other/da_ban_jia/</link>
       <pubDate>Sat, 09 Aug 2014 02:09:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/other/da_ban_jia/</guid>
+      <guid>http://alanmoment.github.io/post/other/da_ban_jia/</guid>
       <description>&lt;p&gt;最近已經逐漸熟悉AWS的一些服務，決定要狠下心把家裡的Linux停掉。把一些東西都轉到雲端上，所以文章現在都存在&lt;code&gt;tumblr.&lt;/code&gt;上了。不然其實電費算起來也是挺貴的&amp;hellip;搬了兩個小時終於把文章都重新整理好了。手工搬實在累&amp;hellip;連DNS都要重新設定。&lt;/p&gt;
 </description>
     </item>

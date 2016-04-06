@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>2016 on Hello World!!</title>
-    <link>http://localhost:1313/categories/2016/</link>
+    <link>http://alanmoment.github.io/categories/2016/</link>
     <description>Recent content in 2016 on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Fri, 25 Mar 2016 14:11:16 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/2016/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://alanmoment.github.io/categories/2016/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>phabricator-extensions-Sprint 無法抓到正確的 Story Points</title>
-      <link>http://localhost:1313/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</link>
+      <link>http://alanmoment.github.io/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</link>
       <pubDate>Fri, 25 Mar 2016 14:11:16 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</guid>
       <description>
 
 &lt;p&gt;在版號為 &lt;code&gt;741e2ef4b1150f9a9e4b121218b3ea536289968d&lt;/code&gt; 之後的版本，因為 story points 變更欄位，所以 burndown chart 會沒辦法抓到正確的 point。&lt;/p&gt;

@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Git on Hello World!!</title>
-    <link>http://localhost:1313/tags/git/</link>
+    <link>http://alanmoment.github.io/tags/git/</link>
     <description>Recent content in Git on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Thu, 04 Jul 2013 12:36:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://alanmoment.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>管理PHP Library的利器Composer</title>
-      <link>http://localhost:1313/post/php/guan_li_php_library_de_li_qi_composer/</link>
+      <link>http://alanmoment.github.io/post/php/guan_li_php_library_de_li_qi_composer/</link>
       <pubDate>Thu, 04 Jul 2013 12:36:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/php/guan_li_php_library_de_li_qi_composer/</guid>
+      <guid>http://alanmoment.github.io/post/php/guan_li_php_library_de_li_qi_composer/</guid>
       <description>
 
 &lt;p&gt;在之前試玩&lt;a href=&#34;http://rubyonrails.org/&#34;&gt;Ruby On Rails&lt;/a&gt;的時候就覺得有&lt;a href=&#34;http://rubygems.org/&#34;&gt;Gem&lt;/a&gt;一整個就是超好用的吶!!所以前陣子公司導入Gitlab之後順勢要我研究一下PHP的&lt;a href=&#34;http://getcomposer.org/&#34;&gt;Composer&lt;/a&gt;，想不到還有支援Github。所以做個紀錄。&lt;/p&gt;
@@ -28,7 +28,7 @@
 $ sudo curl -s https://getcomposer.org/installer | sudo php
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/guan_li_php_library_de_li_qi_composer/composer-1.png&#34; alt=&#34;install composer&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/guan_li_php_library_de_li_qi_composer/composer-1.png&#34; alt=&#34;install composer&#34; /&gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;我安裝時有出現警告訊息是因為我的PHP版本是5.3.3他建議我升級到5.3.4或更高，否則可能導致Composer不穩定&lt;/p&gt;
@@ -123,7 +123,7 @@ Generating autoload files
 &lt;p&gt;這是因為執行過composer install之後目錄底下也會產生一隻composer.lock檔案，要再次執行前先把他刪掉，就可以正常執行囉
 。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/guan_li_php_library_de_li_qi_composer/composer.png&#34; alt=&#34;composer install&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/guan_li_php_library_de_li_qi_composer/composer.png&#34; alt=&#34;composer install&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;完成囉!!&lt;/p&gt;
 </description>
@@ -131,10 +131,10 @@ Generating autoload files
     
     <item>
       <title>慶祝Octopress開張</title>
-      <link>http://localhost:1313/post/other/qing_zhu_octopress_kai_zhang/</link>
+      <link>http://alanmoment.github.io/post/other/qing_zhu_octopress_kai_zhang/</link>
       <pubDate>Wed, 12 Jun 2013 13:59:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/other/qing_zhu_octopress_kai_zhang/</guid>
+      <guid>http://alanmoment.github.io/post/other/qing_zhu_octopress_kai_zhang/</guid>
       <description>
 
 &lt;p&gt;搞了老半天終於搞定，來試試看好不好用!!! 立馬來一篇教學文。Github + Octopress&lt;/p&gt;
@@ -220,7 +220,7 @@ $ vim source/_includes/custom/asides/about.html
 
 &lt;p&gt;&lt;a href=&#34;https://en.gravatar.com&#34;&gt;My Gravatars&lt;/a&gt;申請帳號或登入，然後上傳一張自己可愛的大頭照&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/other/qing_zhu_octopress_kai_zhang/head.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/other/qing_zhu_octopress_kai_zhang/head.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;接著在_config.yml配置email&lt;/p&gt;
 

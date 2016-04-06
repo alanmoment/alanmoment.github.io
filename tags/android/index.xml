@@ -2,25 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Android on Hello World!!</title>
-    <link>http://localhost:1313/tags/android/</link>
+    <link>http://alanmoment.github.io/tags/android/</link>
     <description>Recent content in Android on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Thu, 28 Nov 2013 16:19:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://alanmoment.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Android Universal Image Loader</title>
-      <link>http://localhost:1313/post/android/android_universal_image_loader/</link>
+      <link>http://alanmoment.github.io/post/android/android_universal_image_loader/</link>
       <pubDate>Thu, 28 Nov 2013 16:19:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/android/android_universal_image_loader/</guid>
+      <guid>http://alanmoment.github.io/post/android/android_universal_image_loader/</guid>
       <description>
 
 &lt;p&gt;開發了一陣子的Android，一開始著墨在功能是否能正常運作，現在注重的地方在校能，因為常發生閃退，或未知的錯誤，這邊要講一下下載遠端的圖片加強版。&lt;/p&gt;
 
-&lt;p&gt;繼上次發表&lt;a href=&#34;http://localhost:1313/post/94171840648/asynctask-download-image-by-the-android&#34;&gt;AsyncTask Download Image by the Android&lt;/a&gt;，這一篇發現了其中有些問題。若是大量的圖片，會產生大量的AsyncTask，會造成閃退，以及其他的AsyncTask無法運作，所以有個工具是&lt;a href=&#34;https://github.com/nostra13/Android-Universal-Image-Loader&#34;&gt;Android-Universal-Image-Loader&lt;/a&gt;，它已經幫使用者處理這部份的問題了，使用起來也很簡單。也不會有AsyncTask阻塞的問題。&lt;/p&gt;
+&lt;p&gt;繼上次發表&lt;a href=&#34;http://alanmoment.github.io/post/94171840648/asynctask-download-image-by-the-android&#34;&gt;AsyncTask Download Image by the Android&lt;/a&gt;，這一篇發現了其中有些問題。若是大量的圖片，會產生大量的AsyncTask，會造成閃退，以及其他的AsyncTask無法運作，所以有個工具是&lt;a href=&#34;https://github.com/nostra13/Android-Universal-Image-Loader&#34;&gt;Android-Universal-Image-Loader&lt;/a&gt;，它已經幫使用者處理這部份的問題了，使用起來也很簡單。也不會有AsyncTask阻塞的問題。&lt;/p&gt;
 
 &lt;h2 id=&#34;gradle:4be01060b10895987e3f66b2041260d1&#34;&gt;Gradle&lt;/h2&gt;
 
@@ -127,10 +127,10 @@ baseImageLoader.getImageLoader().displayImage(item.getCover(), image, baseImageL
     
     <item>
       <title>Use Thread control Android UI</title>
-      <link>http://localhost:1313/post/android/use_thread_control_android_ui/</link>
+      <link>http://alanmoment.github.io/post/android/use_thread_control_android_ui/</link>
       <pubDate>Mon, 11 Nov 2013 11:04:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/android/use_thread_control_android_ui/</guid>
+      <guid>http://alanmoment.github.io/post/android/use_thread_control_android_ui/</guid>
       <description>&lt;p&gt;在開發Android app若要用Thread改變UI的話會遇到這個Exception&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;android.view.ViewRootImpl$CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views.
@@ -192,10 +192,10 @@ final Thread myThread = new Thread() {
     
     <item>
       <title>AsyncTask download image by the Android</title>
-      <link>http://localhost:1313/post/android/asynctask_download_image_by_the_android/</link>
+      <link>http://alanmoment.github.io/post/android/asynctask_download_image_by_the_android/</link>
       <pubDate>Fri, 18 Oct 2013 00:22:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/android/asynctask_download_image_by_the_android/</guid>
+      <guid>http://alanmoment.github.io/post/android/asynctask_download_image_by_the_android/</guid>
       <description>
 
 &lt;p&gt;開發Android時常需要呈現圖片，但不可能圖片都是從Drawable中撈出來，一定有時需要從ImageServer或是透過網址取得圖片。&lt;/p&gt;
@@ -313,10 +313,10 @@ imageDownloadTask.execute(imageUrl);
     
     <item>
       <title>ProgressBar while loading ListView of Android</title>
-      <link>http://localhost:1313/post/android/progressbar_while_loading_listview_of_android/</link>
+      <link>http://alanmoment.github.io/post/android/progressbar_while_loading_listview_of_android/</link>
       <pubDate>Fri, 11 Oct 2013 10:24:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/android/progressbar_while_loading_listview_of_android/</guid>
+      <guid>http://alanmoment.github.io/post/android/progressbar_while_loading_listview_of_android/</guid>
       <description>
 
 &lt;p&gt;ListView通常是用來顯示列表的Widget，但是一般不可能直接從不管是遠端的Database或是Sqlite撈出全部的資料然後直接顯示，一定是分批撈取分批顯示。&lt;/p&gt;
@@ -507,18 +507,18 @@ public class MainActivity extends Activity {
 
 &lt;p&gt;執行後就會是這樣&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/progressbar_while_loading_listview_of_android/loading.png&#34; alt=&#34;Loading&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/android/progressbar_while_loading_listview_of_android/loading.png&#34; alt=&#34;Loading&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/progressbar_while_loading_listview_of_android/load_end.png&#34; alt=&#34;Loading end&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/android/progressbar_while_loading_listview_of_android/load_end.png&#34; alt=&#34;Loading end&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Android use foreign object of OrmLite</title>
-      <link>http://localhost:1313/post/android/android_use_foreign_object_of_ormlite/</link>
+      <link>http://alanmoment.github.io/post/android/android_use_foreign_object_of_ormlite/</link>
       <pubDate>Tue, 01 Oct 2013 00:58:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/android/android_use_foreign_object_of_ormlite/</guid>
+      <guid>http://alanmoment.github.io/post/android/android_use_foreign_object_of_ormlite/</guid>
       <description>
 
 &lt;p&gt;Android也有很好用的ActiveRecord可以應用，&lt;a href=&#34;http://ormlite.com/&#34;&gt;OrmLite&lt;/a&gt;提供了非常多的函式方便應用，架構也非常清楚，在跟SqlLite溝通時不再需要自己造輪子。&lt;/p&gt;
@@ -679,17 +679,17 @@ minor.getOther().getName();
     
     <item>
       <title>Android zipcode library of maven</title>
-      <link>http://localhost:1313/post/android/android_zipcode_library_of_maven/</link>
+      <link>http://alanmoment.github.io/post/android/android_zipcode_library_of_maven/</link>
       <pubDate>Tue, 03 Sep 2013 18:50:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/android/android_zipcode_library_of_maven/</guid>
+      <guid>http://alanmoment.github.io/post/android/android_zipcode_library_of_maven/</guid>
       <description>
 
 &lt;p&gt;最近在做Android app時需要用到縣市、區域這些資料，做過網站的，都知道處理這個很煩啊!所以大多都會抽出來另外處理，封裝成Component好方便使用，但是在Android上要是把縣市、區域、郵遞區號放到strings.xml裡面，我想是會瘋掉的，維護、擴充也不容易。我就是建完才後悔的&amp;hellip;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/android_studio_city_list.png&#34; alt=&#34;android studio city list&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/android/android_zipcode_library_of_maven/android_studio_city_list.png&#34; alt=&#34;android studio city list&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/android_studio_area_list.png&#34; alt=&#34;android studio area list&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/android/android_zipcode_library_of_maven/android_studio_area_list.png&#34; alt=&#34;android studio area list&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;有個不錯的方法就是將資料用json的格式存成一隻檔案，然後自己寫抓取json的util放到Android的libs，這樣要使用就很方便了。&lt;/p&gt;
 
@@ -727,15 +727,15 @@ minor.getOther().getName();
 
 &lt;p&gt;Step 1.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/create_maven_project.png&#34; alt=&#34;create maven project step 1&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/android/android_zipcode_library_of_maven/create_maven_project.png&#34; alt=&#34;create maven project step 1&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Step 2.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/create_maven_project_2.png&#34; alt=&#34;create maven project step 2&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/android/android_zipcode_library_of_maven/create_maven_project_2.png&#34; alt=&#34;create maven project step 2&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Step 3.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/create_maven_project_step_3.png&#34; alt=&#34;create maven project step 3&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/android/android_zipcode_library_of_maven/create_maven_project_step_3.png&#34; alt=&#34;create maven project step 3&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;修改pom-xml:9bf3f2b1461ea7d05882004b3695b9ca&#34;&gt;修改pom.xml&lt;/h3&gt;
 
@@ -748,13 +748,13 @@ minor.getOther().getName();
 
 &lt;p&gt;在project中Maven Dependencies就會增加gson library&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/gson_dependencies.png&#34; alt=&#34;gson dependencies&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/android/android_zipcode_library_of_maven/gson_dependencies.png&#34; alt=&#34;gson dependencies&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;建立zipcode-json:9bf3f2b1461ea7d05882004b3695b9ca&#34;&gt;建立zipcode.json&lt;/h3&gt;
 
 &lt;p&gt;依照下圖的格式建立zipcode.json&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/zipcode_json.png&#34; alt=&#34;zipcode.json&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/android/android_zipcode_library_of_maven/zipcode_json.png&#34; alt=&#34;zipcode.json&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;將zipcode.json放置在src/main/resources，並且修改pom.xml，這樣在使用maven install就能夾帶檔案。&lt;/p&gt;
 
