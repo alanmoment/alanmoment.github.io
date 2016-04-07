@@ -3,242 +3,247 @@
   
   <url>
     <loc>http://alanmoment.github.io/</loc>
-    <lastmod>2016-03-25T14:11:16+00:00</lastmod>
+    <lastmod>2016-04-07T11:36:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</loc>
+    <loc>http://alanmoment.github.io/2016/04/07/the_phabricator_of_docker_build/</loc>
+    <lastmod>2016-04-07T11:36:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://alanmoment.github.io/2016/03/25/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</loc>
     <lastmod>2016-03-25T14:11:16+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/javascript/ditched_angularjs_for_react/</loc>
+    <loc>http://alanmoment.github.io/2015/09/03/ditched_angularjs_for_react/</loc>
     <lastmod>2015-09-03T00:06:44+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/ruby_on_rails/ruby_on_rails_deploy_on_heroku/</loc>
+    <loc>http://alanmoment.github.io/2015/05/16/ruby_on_rails_deploy_on_heroku/</loc>
     <lastmod>2015-05-16T13:16:36+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/iot/tessel/baby_help_on_tessel/</loc>
+    <loc>http://alanmoment.github.io/2015/05/11/baby_help_on_tessel/</loc>
     <lastmod>2015-05-11T01:06:12+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/php/data_encrypt_&amp;_decrypt/</loc>
+    <loc>http://alanmoment.github.io/2015/05/05/data_encrypt__decrypt/</loc>
     <lastmod>2015-05-05T23:59:25+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/</loc>
+    <loc>http://alanmoment.github.io/2015/05/04/git_push_notify_to_slack_on_gitlab/</loc>
     <lastmod>2015-05-04T17:03:49+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/iot/tessel/connect_to_slack_on_tessel/</loc>
+    <loc>http://alanmoment.github.io/2015/05/03/connect_to_slack_on_tessel/</loc>
     <lastmod>2015-05-03T01:41:16+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/other/wang_ye_jiao_xue_chu_ti_yan/</loc>
+    <loc>http://alanmoment.github.io/2015/04/28/wang_ye_jiao_xue_chu_ti_yan/</loc>
     <lastmod>2015-04-28T00:10:25+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/iot/tessel/hen_chao_de_tessel/</loc>
+    <loc>http://alanmoment.github.io/2015/04/18/hen_chao_de_tessel/</loc>
     <lastmod>2015-04-18T03:49:59+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/python/django_&#43;_python_kai_fa_huan_jing_jian_zhi/</loc>
+    <loc>http://alanmoment.github.io/2015/02/27/django__python_kai_fa_huan_jing_jian_zhi/</loc>
     <lastmod>2015-02-27T00:16:10+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/ruby_on_rails/ruby_on_rails_xiao_wen_ti/</loc>
+    <loc>http://alanmoment.github.io/2015/01/04/ruby_on_rails_xiao_wen_ti/</loc>
     <lastmod>2015-01-04T23:45:08+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/database/chi_zu_ku_tou_de_mssql/</loc>
+    <loc>http://alanmoment.github.io/2014/12/29/chi_zu_ku_tou_de_mssql/</loc>
     <lastmod>2014-12-29T17:07:01+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/os/linux/the_bash_auto_build/</loc>
+    <loc>http://alanmoment.github.io/2014/11/18/the_bash_auto_build/</loc>
     <lastmod>2014-11-18T00:17:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/php/laravel_shou_fa/</loc>
+    <loc>http://alanmoment.github.io/2014/08/19/laravel_shou_fa/</loc>
     <lastmod>2014-08-19T11:11:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/other/da_ban_jia/</loc>
+    <loc>http://alanmoment.github.io/2014/08/09/da_ban_jia/</loc>
     <lastmod>2014-08-09T02:09:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/cooperation/phabricator/phabricator_ji_ben_ying_yong/</loc>
+    <loc>http://alanmoment.github.io/2014/06/06/phabricator_ji_ben_ying_yong/</loc>
     <lastmod>2014-06-06T23:36:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/agile/qian_tan_wo_de_agile/</loc>
+    <loc>http://alanmoment.github.io/2014/03/27/qian_tan_wo_de_agile/</loc>
     <lastmod>2014-03-27T12:18:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/ooad/injection_principle_design_pattern/</loc>
+    <loc>http://alanmoment.github.io/2014/02/26/injection_principle_design_pattern/</loc>
     <lastmod>2014-02-26T21:33:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/</loc>
+    <loc>http://alanmoment.github.io/2014/02/18/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/</loc>
     <lastmod>2014-02-18T05:38:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/cooperation/phabricator/phabricator_review_codeying_yong/</loc>
+    <loc>http://alanmoment.github.io/2014/01/23/phabricator_review_codeying_yong/</loc>
     <lastmod>2014-01-23T14:01:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/php/gearman_job_worker_for_php/</loc>
+    <loc>http://alanmoment.github.io/2013/12/22/gearman_job_worker_for_php/</loc>
     <lastmod>2013-12-22T16:40:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/android/android_universal_image_loader/</loc>
+    <loc>http://alanmoment.github.io/2013/11/28/android_universal_image_loader/</loc>
     <lastmod>2013-11-28T16:19:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/android/use_thread_control_android_ui/</loc>
+    <loc>http://alanmoment.github.io/2013/11/11/use_thread_control_android_ui/</loc>
     <lastmod>2013-11-11T11:04:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/</loc>
+    <loc>http://alanmoment.github.io/2013/10/24/zou_zai_shi_shang_de_jian_7aef21_ghost/</loc>
     <lastmod>2013-10-24T10:34:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/android/asynctask_download_image_by_the_android/</loc>
+    <loc>http://alanmoment.github.io/2013/10/18/asynctask_download_image_by_the_android/</loc>
     <lastmod>2013-10-18T00:22:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/android/progressbar_while_loading_listview_of_android/</loc>
+    <loc>http://alanmoment.github.io/2013/10/11/progressbar_while_loading_listview_of_android/</loc>
     <lastmod>2013-10-11T10:24:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/ide/yong_netbeans_kai_fa_ruby_on_rails/</loc>
+    <loc>http://alanmoment.github.io/2013/10/04/yong_netbeans_kai_fa_ruby_on_rails/</loc>
     <lastmod>2013-10-04T23:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/android/android_use_foreign_object_of_ormlite/</loc>
+    <loc>http://alanmoment.github.io/2013/10/01/android_use_foreign_object_of_ormlite/</loc>
     <lastmod>2013-10-01T00:58:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/</loc>
+    <loc>http://alanmoment.github.io/2013/09/14/install_phabricator_and_run_on_the_gitlab/</loc>
     <lastmod>2013-09-14T11:09:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/cooperation/gitlab/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/</loc>
+    <loc>http://alanmoment.github.io/2013/09/06/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/</loc>
     <lastmod>2013-09-06T10:53:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/android/android_zipcode_library_of_maven/</loc>
+    <loc>http://alanmoment.github.io/2013/09/03/android_zipcode_library_of_maven/</loc>
     <lastmod>2013-09-03T18:50:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/php/phalconshou_fa/</loc>
+    <loc>http://alanmoment.github.io/2013/08/28/phalconshou_fa/</loc>
     <lastmod>2013-08-28T11:54:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/ide/netbeans_consolezhong_wen_luan_ma_jie_jue_fang_fa/</loc>
+    <loc>http://alanmoment.github.io/2013/08/26/netbeans_consolezhong_wen_luan_ma_jie_jue_fang_fa/</loc>
     <lastmod>2013-08-26T10:45:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/</loc>
+    <loc>http://alanmoment.github.io/2013/08/12/install_rmagick_on_the_windows_of_ruby_on_rails/</loc>
     <lastmod>2013-08-12T01:19:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/os/linux/apacheyu_tomcat_de_jie_he/</loc>
+    <loc>http://alanmoment.github.io/2013/08/02/apacheyu_tomcat_de_jie_he/</loc>
     <lastmod>2013-08-02T10:14:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/hadoop/shi_yong_sqoop_jiang_mysql_zi_liao_hui_ru_hbase/</loc>
+    <loc>http://alanmoment.github.io/2013/07/18/shi_yong_sqoop_jiang_mysql_zi_liao_hui_ru_hbase/</loc>
     <lastmod>2013-07-18T14:54:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/php/phpan_zhuang_json/</loc>
+    <loc>http://alanmoment.github.io/2013/07/17/phpan_zhuang_json/</loc>
     <lastmod>2013-07-17T12:14:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/javascript/centos_an_zhuang_node__js_0__8__5/</loc>
+    <loc>http://alanmoment.github.io/2013/07/10/centos_an_zhuang_node__js_0__8__5/</loc>
     <lastmod>2013-07-10T17:04:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/php/guan_li_php_library_de_li_qi_composer/</loc>
+    <loc>http://alanmoment.github.io/2013/07/04/guan_li_php_library_de_li_qi_composer/</loc>
     <lastmod>2013-07-04T12:36:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/cooperation/gitlab/jian_zhi_zhuan_shu_zi_ji_de_github_zhi_gitlab/</loc>
+    <loc>http://alanmoment.github.io/2013/06/28/jian_zhi_zhuan_shu_zi_ji_de_github_zhi_gitlab/</loc>
     <lastmod>2013-06-28T13:46:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/hadoop/shi_yong_mapreduce_zhi_ti_dai_fang_an_hive/</loc>
+    <loc>http://alanmoment.github.io/2013/06/23/shi_yong_mapreduce_zhi_ti_dai_fang_an_hive/</loc>
     <lastmod>2013-06-23T22:03:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/hadoop/hadoop_gou_tong_qiao_liang_zhi_thrift_0__7/</loc>
+    <loc>http://alanmoment.github.io/2013/06/18/hadoop_gou_tong_qiao_liang_zhi_thrift_0__7/</loc>
     <lastmod>2013-06-18T11:57:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/hadoop/hadoop_&#43;_hbase_cong_ji_huan_jing/</loc>
+    <loc>http://alanmoment.github.io/2013/06/17/hadoop__hbase_cong_ji_huan_jing/</loc>
     <lastmod>2013-06-17T14:32:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/os/linux/sshmian_mi_ma_deng_ru_yuan_duan_dian_nao/</loc>
+    <loc>http://alanmoment.github.io/2013/06/16/sshmian_mi_ma_deng_ru_yuan_duan_dian_nao/</loc>
     <lastmod>2013-06-16T22:37:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/hadoop/centos_55_&#43;_hbase_0948/</loc>
+    <loc>http://alanmoment.github.io/2013/06/15/centos_55__hbase_0948/</loc>
     <lastmod>2013-06-15T00:57:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/hadoop/centos_55_&#43;_hadoop_020/</loc>
+    <loc>http://alanmoment.github.io/2013/06/13/centos_55__hadoop_020/</loc>
     <lastmod>2013-06-13T23:12:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://alanmoment.github.io/post/other/qing_zhu_octopress_kai_zhang/</loc>
+    <loc>http://alanmoment.github.io/2013/06/12/qing_zhu_octopress_kai_zhang/</loc>
     <lastmod>2013-06-12T13:59:00+00:00</lastmod>
   </url>
   

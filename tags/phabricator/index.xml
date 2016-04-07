@@ -7,15 +7,260 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Copyright Alan - 2016</copyright>
-    <lastBuildDate>Fri, 25 Mar 2016 14:11:16 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 07 Apr 2016 11:36:00 +0000</lastBuildDate>
     <atom:link href="http://alanmoment.github.io/tags/phabricator/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>The Phabricator of docker build</title>
+      <link>http://alanmoment.github.io/2016/04/07/the_phabricator_of_docker_build/</link>
+      <pubDate>Thu, 07 Apr 2016 11:36:00 +0000</pubDate>
+      
+      <guid>http://alanmoment.github.io/2016/04/07/the_phabricator_of_docker_build/</guid>
+      <description>
+
+&lt;p&gt;Phabricator 是一套專案管理工具。下次補上 Arcanist 的 Code Review&lt;/p&gt;
+
+&lt;h1 id=&#34;installation-requirements:0264dd348260e4feb990404513754d99&#34;&gt;Installation Requirements&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;docker environment&lt;/li&gt;
+&lt;li&gt;docker-compose&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;installing:0264dd348260e4feb990404513754d99&#34;&gt;Installing&lt;/h1&gt;
+
+&lt;p&gt;已將 &lt;a href=&#34;https://github.com/alanmoment/phabricator&#34;&gt;Phabricator Docker&lt;/a&gt; 整理完畢，並且依環境修改 &lt;code&gt;docker-compose.yml&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ docker-compose up -d
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;登入-phabricator-container:0264dd348260e4feb990404513754d99&#34;&gt;登入 Phabricator Container&lt;/h1&gt;
+
+&lt;p&gt;Core&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./phabricator/bin/config set phabricator.timezone &amp;quot;Asia/Taipei&amp;quot;
+$ ./phabricator/bin/config set phabricator.base-uri &amp;quot;http://geniusnet.io:8081/&amp;quot;
+$ ./phabricator/bin/config set auth.login-message &amp;quot;&amp;lt;html&amp;gt;&amp;lt;body style=&#39;margin: 0px&#39;&amp;gt;&amp;lt;br /&amp;gt;&amp;lt;h1 style=&#39;text-align: center&#39;&amp;gt;Hardworking!&amp;lt;/h1&amp;gt;&amp;lt;img style=&#39;-webkit-user-select:none; display:block; margin:auto;&#39; src=&#39;http://pic.pimg.tw/markleeblog/1383024945-1385249613.jpg?v=1383024946&#39;&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Storage&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./phabricator/bin/config set storage.local-disk.path &amp;quot;/opt/backup/storage/&amp;quot;
+$ ./phabricator/bin/config set security.alternate-file-domain &amp;quot;http://YOUR_PHABRICATOR_DOMAIN:8081/&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Repository 在這邊的設定會影響到，設定 Diffusion 鏡像 Repository 的位置，也會影響到備份。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./phabricator/bin/config set repository.default-local-path &amp;quot;/var/repo/&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Mail config&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./phabricator/bin/config set phpmailer.smtp-host &amp;quot;smtp.gmail.com&amp;quot;
+# 如果您已嘗試將 SMTP 伺服器的連接埠設為 465 (適用 SSL) 和 587 (適用 TLS)，但仍無法傳送郵件。
+$ ./phabricator/bin/config set phpmailer.smtp-port 465
+$ ./phabricator/bin/config set phpmailer.smtp-user &amp;quot;EMAIL_ACCOUNT&amp;quot;
+$ ./phabricator/bin/config set phpmailer.smtp-password &amp;quot;PASSWORD&amp;quot;
+$ ./phabricator/bin/config set phpmailer.smtp-protocol &amp;quot;ssl&amp;quot;
+$ ./phabricator/bin/config set metamta.default-address &amp;quot;EMAIL_ACCOUNT&amp;quot;
+$ ./phabricator/bin/config set metamta.domain &amp;quot;YOUR_PHABRICATOR_DOMAIN&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Show Prototypes&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./phabricator/bin/config set phabricator.show-prototypes true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;按照順序啟動&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ docker start phabricator_database phabricator_phabricator
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Daemons restart&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./phabricator/bin/phd restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;無法刪除 Daemons 時試試看。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./phabricator/bin/storage upgrade
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;mail:0264dd348260e4feb990404513754d99&#34;&gt;Mail&lt;/h1&gt;
+
+&lt;p&gt;改變寄送郵件方式&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Config &amp;gt; Mail &amp;gt; metamta.mail-adapter : PhabricatorMailImplementationPHPMailerAdapter&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;若是在Google Account有不同的登入方式，例如兩段式驗證，會使得SMTP無法正常運作&lt;/p&gt;
+
+&lt;h1 id=&#34;backup:0264dd348260e4feb990404513754d99&#34;&gt;Backup&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;$ docker exec -it CONTAINER_ID /bin/sh /opt/phabricator/backup.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;profile-settings:0264dd348260e4feb990404513754d99&#34;&gt;Profile Settings&lt;/h1&gt;
+
+&lt;p&gt;各種與自身相關的設置，包含圖片、SSH Key等等&lt;/p&gt;
+
+&lt;h1 id=&#34;ssh-public-keys:0264dd348260e4feb990404513754d99&#34;&gt;SSH Public Keys&lt;/h1&gt;
+
+&lt;p&gt;SSH Public Keys 要提交 arc 必須要先將自己的 key 上傳，或是產出再下載。&lt;/p&gt;
+
+&lt;h1 id=&#34;email-notice:0264dd348260e4feb990404513754d99&#34;&gt;Email Notice&lt;/h1&gt;
+
+&lt;p&gt;Email 各種通知的接收管道，可以在此設置&lt;/p&gt;
+
+&lt;h1 id=&#34;conduit-api-tokens:0264dd348260e4feb990404513754d99&#34;&gt;Conduit API Tokens&lt;/h1&gt;
+
+&lt;p&gt;Conduit API Tokens 與 arc 或是其他 API 串接時，會在這邊顯示。&lt;/p&gt;
+
+&lt;h1 id=&#34;conpherence:0264dd348260e4feb990404513754d99&#34;&gt;Conpherence&lt;/h1&gt;
+
+&lt;p&gt;Conpherence 即時訊息的溝通平台。&lt;/p&gt;
+
+&lt;h1 id=&#34;panel:0264dd348260e4feb990404513754d99&#34;&gt;Panel&lt;/h1&gt;
+
+&lt;p&gt;Panel 編輯方便自己使用的目錄。&lt;/p&gt;
+
+&lt;h1 id=&#34;dashboard:0264dd348260e4feb990404513754d99&#34;&gt;Dashboard&lt;/h1&gt;
+
+&lt;p&gt;Dashboard 編輯自己快速瀏覽的煮版面。&lt;/p&gt;
+
+&lt;h1 id=&#34;phriction:0264dd348260e4feb990404513754d99&#34;&gt;Phriction&lt;/h1&gt;
+
+&lt;p&gt;Phriction 是用來做需求、開發或是規格的記錄文件，採用 Remark 的方式撰寫，試過 Markdown 可以無痛轉移。&lt;/p&gt;
+
+&lt;h1 id=&#34;pastes:0264dd348260e4feb990404513754d99&#34;&gt;Pastes&lt;/h1&gt;
+
+&lt;p&gt;Pastes 用來張貼各種語法，透過這個功能可以順利地表達程式碼。&lt;/p&gt;
+
+&lt;h1 id=&#34;pholio-mock:0264dd348260e4feb990404513754d99&#34;&gt;Pholio Mock&lt;/h1&gt;
+
+&lt;p&gt;Pholio Mock 運用圖片表達文字無法傳達的意思，可以在圖片上註記要注意或是溝通的事項。&lt;/p&gt;
+
+&lt;h1 id=&#34;diffusion:0264dd348260e4feb990404513754d99&#34;&gt;Diffusion&lt;/h1&gt;
+
+&lt;p&gt;新增 Repository 流程&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Import an Existing External Repository
+
+&lt;ol&gt;
+&lt;li&gt;Git&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Choose a human-readable name: PROJECT_NAME&lt;/li&gt;
+&lt;li&gt;Callsigns must be UPPERCASE: WEB&lt;/li&gt;
+&lt;li&gt;Enter the URI to clone this Git repository: RESPOSITORY_URL&lt;/li&gt;
+&lt;li&gt;Add Credential&lt;/li&gt;
+&lt;li&gt;Create Credential&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;phabulous-notice-for-slack:0264dd348260e4feb990404513754d99&#34;&gt;Phabulous (notice for slack)&lt;/h1&gt;
+
+&lt;p&gt;已將 Phabulous 的 Docker 整理完畢&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ubuntu 14.04 LTS&lt;/li&gt;
+&lt;li&gt;gvm&lt;/li&gt;
+&lt;li&gt;go 1.4&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;gvm-go-install:0264dd348260e4feb990404513754d99&#34;&gt;GVM &amp;amp; Go Install&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ bash &amp;lt; &amp;lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+$ gvm install go1.4
+$ gvm use go1.4 [--default]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;library-install:0264dd348260e4feb990404513754d99&#34;&gt;Library Install&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ go get github.com/mitchellh/gox
+$ go get github.com/Sirupsen/logrus
+$ go get github.com/facebookgo/inject
+$ go get github.com/jacobstr/confer
+$ go get github.com/codegangsta/cli
+$ go get github.com/gin-gonic/gin
+$ go get github.com/nlopes/slack
+$ go get github.com/etcinit/phabulous
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;phabulous-make-start:0264dd348260e4feb990404513754d99&#34;&gt;Phabulous make &amp;amp; start&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;git clone&lt;/code&gt; from &lt;a href=&#34;https://github.com/etcinit/phabulous&#34;&gt;https://github.com/etcinit/phabulous&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ make &amp;amp;&amp;amp; ./build/phabulous_linux_amd64 serve
+alan@alan-H97M-D3H:~/go/phabulous$ kill -9 8946 &amp;amp;&amp;amp; ./build/phabulous_linux_amd64 serve
+DEBU[0000] Logger is debug level.
+DEBU[0000] Booted upper layer.
+INFO[0000] Starting up the server... (a.k.a. coffee time)
+[GIN-debug] [WARNING] Running in &amp;quot;debug&amp;quot; mode. Switch to &amp;quot;release&amp;quot; mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET   /                         --&amp;gt; github.com/etcinit/phabulous/app/controllers.*FrontController.(github.com/etcinit/phabulous/app/controllers.getIndex)·fm (3 handlers)
+[GIN-debug] GET   /healthcheck              --&amp;gt; github.com/etcinit/phabulous/app/controllers.*FrontController.(github.com/etcinit/phabulous/app/controllers.getHealthCheck)·fm (3 handlers)
+[GIN-debug] POST  /v1/feed/receive          --&amp;gt; github.com/etcinit/phabulous/app/controllers.*FeedController.(github.com/etcinit/phabulous/app/controllers.postReceive)·fm (3 handlers)
+[GIN-debug] Listening and serving HTTP on :8086
+INFO[0000] Starting RTM handler...
+DEBU[0000] RTM Event received.
+DEBU[0003] RTM Event received.
+...省略
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;另外要在 Phabricator 設置 feed hooks&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./phabricator/bin/config set feed.http-hooks &#39;[&amp;quot;http://YOUR_PHABRICATOR_DOMAIN:8086/v1/feed/receive&amp;quot;]&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;若是有成功送出通知，會有 log 顯示。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;DEBU[6417] epoch=1453355944&amp;amp;storyAuthorPHID=PHID-USER-hshw6rbaixcnjaedzhf2&amp;amp;storyData%5BobjectPHID%5D=PHID-DREV-ck47rwvcxhujb7sglbwf&amp;amp;storyData%5BtransactionPHIDs%5D%5BPHID-XACT-DREV-5mu2ffzccqgtwcq%5D=PHID-XACT-DREV-5mu2ffzccqgtwcq&amp;amp;storyData%5BtransactionPHIDs%5D%5BPHID-XACT-DREV-5rnlgp26j6n7jmc%5D=PHID-XACT-DREV-5rnlgp26j6n7jmc&amp;amp;storyData%5BtransactionPHIDs%5D%5BPHID-XACT-DREV-b4mol6ocdcu524s%5D=PHID-XACT-DREV-b4mol6ocdcu524s&amp;amp;storyData%5BtransactionPHIDs%5D%5BPHID-XACT-DREV-uqkmceoz4ja5no6%5D=PHID-XACT-DREV-uqkmceoz4ja5no6&amp;amp;storyID=9&amp;amp;storyText=root+requested+changes+to+D1%3A+add+arcconfig.&amp;amp;storyType=PhabricatorApplicationTransactionFeedStory
+[GIN] 2016/01/21 - 13:59:07 | 200 |  1.455306608s | 172.17.0.6:55900 |   POST    /v1/feed/receive
+DEBU[6423] RTM Event received.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;scrum-flow:0264dd348260e4feb990404513754d99&#34;&gt;Scrum Flow&lt;/h1&gt;
+
+&lt;p&gt;可以輸入 store point 最後還有 Burndown chart 可以看&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./phabricator/bin/config set load-libraries &#39;{&amp;quot;sprint&amp;quot;:&amp;quot;/opt/libext/sprint/src&amp;quot;}&#39;
+$ ln -s /opt/libext/sprint/rsrc/webroot-static /opt/phabricator/webroot/rsrc/sprint
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;phabricator-sprint:0264dd348260e4feb990404513754d99&#34;&gt;Phabricator-Sprint&lt;/h1&gt;
+
+&lt;h1 id=&#34;maniphest:0264dd348260e4feb990404513754d99&#34;&gt;Maniphest&lt;/h1&gt;
+
+&lt;h1 id=&#34;task-export-to-excel:0264dd348260e4feb990404513754d99&#34;&gt;Task export to Excel&lt;/h1&gt;
+
+&lt;p&gt;PHP 必須先支援輸出 Excel&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# 可以用語法找出include的路徑
+print_r(get_include_path());
+/opt:.:/usr/share/php:/usr/share/pear
+
+$ git clone https://github.com/PHPOffice/PHPExcel.git /usr/share/php
+$ vim /etc/php5/cli/php.ini
+# search ;include_path and append
+include_path = &amp;quot;.:/usr/share/php:/usr/share/php/PHPExcel/Classes&amp;quot;
+
+$ vim /etc/php5/apache2/php.ini
+# search ;include_path and append
+include_path = &amp;quot;.:/usr/share/php:/usr/share/php/PHPExcel/Classes&amp;quot;
+apachectl restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;只要支援就可以在 Maniphest 的頁面選擇 Export to Excel&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>phabricator-extensions-Sprint 無法抓到正確的 Story Points</title>
-      <link>http://alanmoment.github.io/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</link>
+      <link>http://alanmoment.github.io/2016/03/25/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</link>
       <pubDate>Fri, 25 Mar 2016 14:11:16 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</guid>
+      <guid>http://alanmoment.github.io/2016/03/25/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</guid>
       <description>
 
 &lt;p&gt;在版號為 &lt;code&gt;741e2ef4b1150f9a9e4b121218b3ea536289968d&lt;/code&gt; 之後的版本，因為 story points 變更欄位，所以 burndown chart 會沒辦法抓到正確的 point。&lt;/p&gt;
@@ -158,10 +403,10 @@ $ cat points.sql | mysql -u root
     
     <item>
       <title>Phabricator 基本應用</title>
-      <link>http://alanmoment.github.io/post/cooperation/phabricator/phabricator_ji_ben_ying_yong/</link>
+      <link>http://alanmoment.github.io/2014/06/06/phabricator_ji_ben_ying_yong/</link>
       <pubDate>Fri, 06 Jun 2014 23:36:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/cooperation/phabricator/phabricator_ji_ben_ying_yong/</guid>
+      <guid>http://alanmoment.github.io/2014/06/06/phabricator_ji_ben_ying_yong/</guid>
       <description>
 
 &lt;h2 id=&#34;create-maniphest:e921b76cadbcd20db381f231dd58b830&#34;&gt;Create Maniphest&lt;/h2&gt;
@@ -299,10 +544,10 @@ Password for SMTP.
     
     <item>
       <title>Phabricator review code應用</title>
-      <link>http://alanmoment.github.io/post/cooperation/phabricator/phabricator_review_codeying_yong/</link>
+      <link>http://alanmoment.github.io/2014/01/23/phabricator_review_codeying_yong/</link>
       <pubDate>Thu, 23 Jan 2014 14:01:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/cooperation/phabricator/phabricator_review_codeying_yong/</guid>
+      <guid>http://alanmoment.github.io/2014/01/23/phabricator_review_codeying_yong/</guid>
       <description>
 
 &lt;h2 id=&#34;review-code-前置設定:23ce2a5d00bbdd1941d3d8135a4e9cc0&#34;&gt;Review code 前置設定&lt;/h2&gt;
@@ -609,10 +854,10 @@ Done.
     
     <item>
       <title>Install Phabricator and run on the Gitlab</title>
-      <link>http://alanmoment.github.io/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/</link>
+      <link>http://alanmoment.github.io/2013/09/14/install_phabricator_and_run_on_the_gitlab/</link>
       <pubDate>Sat, 14 Sep 2013 11:09:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/</guid>
+      <guid>http://alanmoment.github.io/2013/09/14/install_phabricator_and_run_on_the_gitlab/</guid>
       <description>
 
 &lt;p&gt;最近跑的專案都是四個人以上同時開發，有時候程式碼被改了，Pull下來改完衝突，發現程式碼都會錯亂。排除每個人對Git熟練度，我覺得Gitlab對於Review code做的似乎不是很友善。&lt;a href=&#34;http://zh.wikipedia.org/wiki/Scrum&#34;&gt;Scrum&lt;/a&gt;在跑的時候碰到這類型的問題，每次要解決都要花不少時間。&lt;/p&gt;

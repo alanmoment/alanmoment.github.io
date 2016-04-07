@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>The Phabricator of docker build &middot; Alan</title>
+        <meta name="description" content="Phabricator 是一套專案管理工具。...">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.15" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/normalize.css">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/highlight.css">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a title="Hello World!!" href="http://alanmoment.github.io/">Hello World!!</a>
+                            </h1>
+                        
+                        <a class="button-square" href="http://alanmoment.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                            <a class="button-square button-social hint--top" data-hint="Twitter" title="Twitter" href="https://twitter.com/alanmoment">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/alanmoment">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="LinkedIn" title="LinkedIn" href="https://linkedin.com/in/alanmoment/">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a title="Blog" href="/">Blog</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Projects" href="/project/">Projects</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Contact" href="/page/contact/">Contact</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="About" href="/page/about/">About</a>
+    </li>
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">The Phabricator of docker build</h1>
+    
+        <p class="post-description" itemprop="description">Phabricator 是一套專案管理工具。...</p>
+    
+    <p class="post-date">
+        <span>Published <time datetime="2016-04-07" itemprop="datePublished">Thu, Apr 7, 2016</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="http://schema.org/Person">
+            <span itemprop="name">
+                <a href="" itemprop="url" rel="author">Alan</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<p>Phabricator 是一套專案管理工具。下次補上 Arcanist 的 Code Review</p>
+
+<h1 id="installation-requirements:0264dd348260e4feb990404513754d99">Installation Requirements</h1>
+
+<ul>
+<li>docker environment</li>
+<li>docker-compose</li>
+</ul>
+
+<h1 id="installing:0264dd348260e4feb990404513754d99">Installing</h1>
+
+<p>已將 <a href="https://github.com/alanmoment/phabricator">Phabricator Docker</a> 整理完畢，並且依環境修改 <code>docker-compose.yml</code></p>
+
+<pre><code>$ docker-compose up -d
+</code></pre>
+
+<h1 id="登入-phabricator-container:0264dd348260e4feb990404513754d99">登入 Phabricator Container</h1>
+
+<p>Core</p>
+
+<pre><code>$ ./phabricator/bin/config set phabricator.timezone &quot;Asia/Taipei&quot;
+$ ./phabricator/bin/config set phabricator.base-uri &quot;http://geniusnet.io:8081/&quot;
+$ ./phabricator/bin/config set auth.login-message &quot;&lt;html&gt;&lt;body style='margin: 0px'&gt;&lt;br /&gt;&lt;h1 style='text-align: center'&gt;Hardworking!&lt;/h1&gt;&lt;img style='-webkit-user-select:none; display:block; margin:auto;' src='http://pic.pimg.tw/markleeblog/1383024945-1385249613.jpg?v=1383024946'&gt;&lt;/body&gt;&lt;/html&gt;&quot;
+</code></pre>
+
+<p>Storage</p>
+
+<pre><code>$ ./phabricator/bin/config set storage.local-disk.path &quot;/opt/backup/storage/&quot;
+$ ./phabricator/bin/config set security.alternate-file-domain &quot;http://YOUR_PHABRICATOR_DOMAIN:8081/&quot;
+</code></pre>
+
+<p>Repository 在這邊的設定會影響到，設定 Diffusion 鏡像 Repository 的位置，也會影響到備份。</p>
+
+<pre><code>$ ./phabricator/bin/config set repository.default-local-path &quot;/var/repo/&quot;
+</code></pre>
+
+<p>Mail config</p>
+
+<pre><code>$ ./phabricator/bin/config set phpmailer.smtp-host &quot;smtp.gmail.com&quot;
+# 如果您已嘗試將 SMTP 伺服器的連接埠設為 465 (適用 SSL) 和 587 (適用 TLS)，但仍無法傳送郵件。
+$ ./phabricator/bin/config set phpmailer.smtp-port 465
+$ ./phabricator/bin/config set phpmailer.smtp-user &quot;EMAIL_ACCOUNT&quot;
+$ ./phabricator/bin/config set phpmailer.smtp-password &quot;PASSWORD&quot;
+$ ./phabricator/bin/config set phpmailer.smtp-protocol &quot;ssl&quot;
+$ ./phabricator/bin/config set metamta.default-address &quot;EMAIL_ACCOUNT&quot;
+$ ./phabricator/bin/config set metamta.domain &quot;YOUR_PHABRICATOR_DOMAIN&quot;
+</code></pre>
+
+<p>Show Prototypes</p>
+
+<pre><code>$ ./phabricator/bin/config set phabricator.show-prototypes true
+</code></pre>
+
+<p>按照順序啟動</p>
+
+<pre><code>$ docker start phabricator_database phabricator_phabricator
+</code></pre>
+
+<p>Daemons restart</p>
+
+<pre><code>$ ./phabricator/bin/phd restart
+</code></pre>
+
+<p>無法刪除 Daemons 時試試看。</p>
+
+<pre><code>$ ./phabricator/bin/storage upgrade
+</code></pre>
+
+<h1 id="mail:0264dd348260e4feb990404513754d99">Mail</h1>
+
+<p>改變寄送郵件方式</p>
+
+<p><code>Config &gt; Mail &gt; metamta.mail-adapter : PhabricatorMailImplementationPHPMailerAdapter</code></p>
+
+<p>若是在Google Account有不同的登入方式，例如兩段式驗證，會使得SMTP無法正常運作</p>
+
+<h1 id="backup:0264dd348260e4feb990404513754d99">Backup</h1>
+
+<pre><code>$ docker exec -it CONTAINER_ID /bin/sh /opt/phabricator/backup.sh
+</code></pre>
+
+<h1 id="profile-settings:0264dd348260e4feb990404513754d99">Profile Settings</h1>
+
+<p>各種與自身相關的設置，包含圖片、SSH Key等等</p>
+
+<h1 id="ssh-public-keys:0264dd348260e4feb990404513754d99">SSH Public Keys</h1>
+
+<p>SSH Public Keys 要提交 arc 必須要先將自己的 key 上傳，或是產出再下載。</p>
+
+<h1 id="email-notice:0264dd348260e4feb990404513754d99">Email Notice</h1>
+
+<p>Email 各種通知的接收管道，可以在此設置</p>
+
+<h1 id="conduit-api-tokens:0264dd348260e4feb990404513754d99">Conduit API Tokens</h1>
+
+<p>Conduit API Tokens 與 arc 或是其他 API 串接時，會在這邊顯示。</p>
+
+<h1 id="conpherence:0264dd348260e4feb990404513754d99">Conpherence</h1>
+
+<p>Conpherence 即時訊息的溝通平台。</p>
+
+<h1 id="panel:0264dd348260e4feb990404513754d99">Panel</h1>
+
+<p>Panel 編輯方便自己使用的目錄。</p>
+
+<h1 id="dashboard:0264dd348260e4feb990404513754d99">Dashboard</h1>
+
+<p>Dashboard 編輯自己快速瀏覽的煮版面。</p>
+
+<h1 id="phriction:0264dd348260e4feb990404513754d99">Phriction</h1>
+
+<p>Phriction 是用來做需求、開發或是規格的記錄文件，採用 Remark 的方式撰寫，試過 Markdown 可以無痛轉移。</p>
+
+<h1 id="pastes:0264dd348260e4feb990404513754d99">Pastes</h1>
+
+<p>Pastes 用來張貼各種語法，透過這個功能可以順利地表達程式碼。</p>
+
+<h1 id="pholio-mock:0264dd348260e4feb990404513754d99">Pholio Mock</h1>
+
+<p>Pholio Mock 運用圖片表達文字無法傳達的意思，可以在圖片上註記要注意或是溝通的事項。</p>
+
+<h1 id="diffusion:0264dd348260e4feb990404513754d99">Diffusion</h1>
+
+<p>新增 Repository 流程</p>
+
+<ol>
+<li>Import an Existing External Repository
+
+<ol>
+<li>Git</li>
+</ol></li>
+<li>Choose a human-readable name: PROJECT_NAME</li>
+<li>Callsigns must be UPPERCASE: WEB</li>
+<li>Enter the URI to clone this Git repository: RESPOSITORY_URL</li>
+<li>Add Credential</li>
+<li>Create Credential</li>
+</ol>
+
+<h1 id="phabulous-notice-for-slack:0264dd348260e4feb990404513754d99">Phabulous (notice for slack)</h1>
+
+<p>已將 Phabulous 的 Docker 整理完畢</p>
+
+<ul>
+<li>Ubuntu 14.04 LTS</li>
+<li>gvm</li>
+<li>go 1.4</li>
+</ul>
+
+<h3 id="gvm-go-install:0264dd348260e4feb990404513754d99">GVM &amp; Go Install</h3>
+
+<pre><code>$ bash &lt; &lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+$ gvm install go1.4
+$ gvm use go1.4 [--default]
+</code></pre>
+
+<h3 id="library-install:0264dd348260e4feb990404513754d99">Library Install</h3>
+
+<pre><code>$ go get github.com/mitchellh/gox
+$ go get github.com/Sirupsen/logrus
+$ go get github.com/facebookgo/inject
+$ go get github.com/jacobstr/confer
+$ go get github.com/codegangsta/cli
+$ go get github.com/gin-gonic/gin
+$ go get github.com/nlopes/slack
+$ go get github.com/etcinit/phabulous
+</code></pre>
+
+<h3 id="phabulous-make-start:0264dd348260e4feb990404513754d99">Phabulous make &amp; start</h3>
+
+<p><code>git clone</code> from <a href="https://github.com/etcinit/phabulous">https://github.com/etcinit/phabulous</a></p>
+
+<pre><code>$ make &amp;&amp; ./build/phabulous_linux_amd64 serve
+alan@alan-H97M-D3H:~/go/phabulous$ kill -9 8946 &amp;&amp; ./build/phabulous_linux_amd64 serve
+DEBU[0000] Logger is debug level.
+DEBU[0000] Booted upper layer.
+INFO[0000] Starting up the server... (a.k.a. coffee time)
+[GIN-debug] [WARNING] Running in &quot;debug&quot; mode. Switch to &quot;release&quot; mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET   /                         --&gt; github.com/etcinit/phabulous/app/controllers.*FrontController.(github.com/etcinit/phabulous/app/controllers.getIndex)·fm (3 handlers)
+[GIN-debug] GET   /healthcheck              --&gt; github.com/etcinit/phabulous/app/controllers.*FrontController.(github.com/etcinit/phabulous/app/controllers.getHealthCheck)·fm (3 handlers)
+[GIN-debug] POST  /v1/feed/receive          --&gt; github.com/etcinit/phabulous/app/controllers.*FeedController.(github.com/etcinit/phabulous/app/controllers.postReceive)·fm (3 handlers)
+[GIN-debug] Listening and serving HTTP on :8086
+INFO[0000] Starting RTM handler...
+DEBU[0000] RTM Event received.
+DEBU[0003] RTM Event received.
+...省略
+</code></pre>
+
+<p>另外要在 Phabricator 設置 feed hooks</p>
+
+<pre><code>$ ./phabricator/bin/config set feed.http-hooks '[&quot;http://YOUR_PHABRICATOR_DOMAIN:8086/v1/feed/receive&quot;]'
+</code></pre>
+
+<p>若是有成功送出通知，會有 log 顯示。</p>
+
+<pre><code>DEBU[6417] epoch=1453355944&amp;storyAuthorPHID=PHID-USER-hshw6rbaixcnjaedzhf2&amp;storyData%5BobjectPHID%5D=PHID-DREV-ck47rwvcxhujb7sglbwf&amp;storyData%5BtransactionPHIDs%5D%5BPHID-XACT-DREV-5mu2ffzccqgtwcq%5D=PHID-XACT-DREV-5mu2ffzccqgtwcq&amp;storyData%5BtransactionPHIDs%5D%5BPHID-XACT-DREV-5rnlgp26j6n7jmc%5D=PHID-XACT-DREV-5rnlgp26j6n7jmc&amp;storyData%5BtransactionPHIDs%5D%5BPHID-XACT-DREV-b4mol6ocdcu524s%5D=PHID-XACT-DREV-b4mol6ocdcu524s&amp;storyData%5BtransactionPHIDs%5D%5BPHID-XACT-DREV-uqkmceoz4ja5no6%5D=PHID-XACT-DREV-uqkmceoz4ja5no6&amp;storyID=9&amp;storyText=root+requested+changes+to+D1%3A+add+arcconfig.&amp;storyType=PhabricatorApplicationTransactionFeedStory
+[GIN] 2016/01/21 - 13:59:07 | 200 |  1.455306608s | 172.17.0.6:55900 |   POST    /v1/feed/receive
+DEBU[6423] RTM Event received.
+</code></pre>
+
+<h1 id="scrum-flow:0264dd348260e4feb990404513754d99">Scrum Flow</h1>
+
+<p>可以輸入 store point 最後還有 Burndown chart 可以看</p>
+
+<pre><code>$ ./phabricator/bin/config set load-libraries '{&quot;sprint&quot;:&quot;/opt/libext/sprint/src&quot;}'
+$ ln -s /opt/libext/sprint/rsrc/webroot-static /opt/phabricator/webroot/rsrc/sprint
+</code></pre>
+
+<h1 id="phabricator-sprint:0264dd348260e4feb990404513754d99">Phabricator-Sprint</h1>
+
+<h1 id="maniphest:0264dd348260e4feb990404513754d99">Maniphest</h1>
+
+<h1 id="task-export-to-excel:0264dd348260e4feb990404513754d99">Task export to Excel</h1>
+
+<p>PHP 必須先支援輸出 Excel</p>
+
+<pre><code># 可以用語法找出include的路徑
+print_r(get_include_path());
+/opt:.:/usr/share/php:/usr/share/pear
+
+$ git clone https://github.com/PHPOffice/PHPExcel.git /usr/share/php
+$ vim /etc/php5/cli/php.ini
+# search ;include_path and append
+include_path = &quot;.:/usr/share/php:/usr/share/php/PHPExcel/Classes&quot;
+
+$ vim /etc/php5/apache2/php.ini
+# search ;include_path and append
+include_path = &quot;.:/usr/share/php:/usr/share/php/PHPExcel/Classes&quot;
+apachectl restart
+</code></pre>
+
+<p>只要支援就可以在 Maniphest 的頁面選擇 Export to Excel</p>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+                 <a href="/tags/cooperation/">cooperation</a>
+            
+                 <a href="/tags/phabricator/">phabricator</a>
+            
+        </p>
+    
+
+    <div class="share">
+        <a class="icon-twitter" href="http://twitter.com/share?text=The%20Phabricator%20of%20docker%20build&url=http%3a%2f%2falanmoment.github.io%2f2016%2f04%2f07%2fthe_phabricator_of_docker_build%2f"
+            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fa fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+
+        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2falanmoment.github.io%2f2016%2f04%2f07%2fthe_phabricator_of_docker_build%2f"
+            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <i class="fa fa-facebook"></i>
+            <span class="hidden">Facebook</span>
+        </a>
+
+        <a class="icon-google-plus" href="https://plus.google.com/share?url=http%3a%2f%2falanmoment.github.io%2f2016%2f04%2f07%2fthe_phabricator_of_docker_build%2f"
+           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+           <i class="fa fa-google-plus"></i>
+            <span class="hidden">Google+</span>
+        </a>
+    </div>
+</footer>
+
+        
+    <div class="comments">
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'alanmoment';
+    var disqus_identifier = 'http:\/\/alanmoment.github.io\/2016\/04\/07\/the_phabricator_of_docker_build\/';
+    var disqus_title = 'The Phabricator of docker build';
+    var disqus_url = 'http:\/\/alanmoment.github.io\/2016\/04\/07\/the_phabricator_of_docker_build\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="Hello World!!" href="http://alanmoment.github.io/">Hello World!!</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2016 / Powered by <a href="http://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="http://alanmoment.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+        <script src="http://alanmoment.github.io/js/jquery.fitvids.js"></script>
+        <script src="http://alanmoment.github.io/js/scripts.js"></script>
+    </body>
+</html>
+

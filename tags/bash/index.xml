@@ -12,10 +12,10 @@
     
     <item>
       <title>The bash auto build</title>
-      <link>http://alanmoment.github.io/post/os/linux/the_bash_auto_build/</link>
+      <link>http://alanmoment.github.io/2014/11/18/the_bash_auto_build/</link>
       <pubDate>Tue, 18 Nov 2014 00:17:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/os/linux/the_bash_auto_build/</guid>
+      <guid>http://alanmoment.github.io/2014/11/18/the_bash_auto_build/</guid>
       <description>
 
 &lt;p&gt;發覺自己在開發上常用的小工具都沒有在整理的，每次要用就都要回想，然後再一個一個找回來覺得很煩。尤其是現在工作上要管理十幾二十台後端。常常在那邊用得不順暢，才驚覺這樣真的不行！！&lt;/p&gt;

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Redmine之基本建置與Scrum應用 &middot; Alan</title>
+        <meta name="description" content="工作上一直都有在應用Redmine今天嘗試自己建立，所以又開始在亂搞了! 其實是最近自己做一個專案，也想試著管理一次 Scrum...">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.15" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/normalize.css">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/highlight.css">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a title="Hello World!!" href="http://alanmoment.github.io/">Hello World!!</a>
+                            </h1>
+                        
+                        <a class="button-square" href="http://alanmoment.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                            <a class="button-square button-social hint--top" data-hint="Twitter" title="Twitter" href="https://twitter.com/alanmoment">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/alanmoment">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="LinkedIn" title="LinkedIn" href="https://linkedin.com/in/alanmoment/">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a title="Blog" href="/">Blog</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Projects" href="/project/">Projects</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Contact" href="/page/contact/">Contact</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="About" href="/page/about/">About</a>
+    </li>
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Redmine之基本建置與Scrum應用</h1>
+    
+        <p class="post-description" itemprop="description">工作上一直都有在應用Redmine今天嘗試自己建立，所以又開始在亂搞了! 其實是最近自己做一個專案，也想試著管理一次 Scrum...</p>
+    
+    <p class="post-date">
+        <span>Published <time datetime="2014-02-18" itemprop="datePublished">Tue, Feb 18, 2014</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="http://schema.org/Person">
+            <span itemprop="name">
+                <a href="" itemprop="url" rel="author">Alan</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<p>工作上一直都有在應用 <a href="http://www.redmine.org/">Redmine</a> 今天嘗試自己建立，所以又開始在亂搞了! 其實是最近自己做一個專案，也想試著管理一次 Scrum。</p>
+
+<p>在 <a href="http://www.redmine.org/projects/redmine/wiki/RedmineInstall">RedmineInstall</a> 有很詳細的安裝流程，安裝過程我也沒遇到甚麼困難的地方。所以在這邊就先略過了。</p>
+
+<p>因為我自己建立的服務太多了，我習慣了 Apache 所以這次一樣是用 <a href="/post/94171211238/apache-tomcat">mod_proxy</a> 的方式建立服務。</p>
+
+<p>另外就是紀錄一套 Redmine 的 plugin。 <a href="http://www.redminebacklogs.net/en/installation.html">Backlogs</a> 對 Scrum 有不錯的支援。有興趣可以安裝看看。</p>
+
+<h2 id="整合-git-repository:b4d07b34783eca6c610f848528399fd3">整合 Git Repository</h2>
+
+<p>Redmin 只能存取 local 端的 repository 所以沒辦法用 <code>git@git.ocomm.com.tw</code> 這種方式存取遠端。</p>
+
+<pre><code>$ mkdir /home/git/mirrors
+$ cd /home/git/mirrors
+$ git clone --mirror /home/git/mirrors/repo.git
+</code></pre>
+
+<p>設定權限給 <code>git</code></p>
+
+<pre><code>$ chown -R git:git repo.git
+$ cd repo.git
+</code></pre>
+
+<p>建立 <code>post-receive</code></p>
+
+<pre><code>$ vim post-receive
+#!/bin/sh
+/usr/bin/git push --mirror /home/git/mirrors/repo.git
+</code></pre>
+
+<p>改變 <code>post-receive</code> 權限</p>
+
+<pre><code>$ chown git:git post-receive
+$ chmod 700 post-receive
+$ chmod a+rX -R ./
+$ git config --add core.sharedRepository 644
+</code></pre>
+
+<p>最後在 Project &gt; Settings &gt; Repository 設定路徑。 Redmine 儲存機制需要一點時間處理資訊。</p>
+
+<p>專案管理真的是一門學問，我才正要起步呢。</p>
+
+<h2 id="backlogs:b4d07b34783eca6c610f848528399fd3">Backlogs</h2>
+
+<pre><code>$ cd /path/to/redmine/plugins
+$ git clone git://github.com/backlogs/redmine_backlogs.git
+$ cd redmine_backlogs
+$ bundle exec rake db:migrate
+$ cd /path/to/redmine
+$ bundle exec rake redmine:backlogs:install
+</code></pre>
+
+<p>基本上這樣就完成了，官網有詳細的步驟。之後進入 Redmine 就會看到 Scrum 統計。</p>
+
+<p><img src="/images/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/backlog.png" alt="backlog" /></p>
+
+<p>可以進入附加元件設置相關設定，另外我在網站管理的設定是以 Scrum 為主。</p>
+
+<ul>
+<li><p>追蹤標籤清單</p>
+
+<ol>
+<li>bugs</li>
+<li>features</li>
+<li>supports</li>
+</ol></li>
+
+<li><p>列舉值清單</p>
+
+<ol>
+<li>Design</li>
+<li>TDD</li>
+<li>Develop</li>
+<li>User test</li>
+<li>Release</li>
+</ol></li>
+</ul>
+
+<p>我就是這樣開始使用，之後的設定再慢慢加。</p>
+
+<p>這是以 Redmine 本身的問題清單來看</p>
+
+<p><img src="/images/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/scrum.png" alt="scrum" /></p>
+
+<p>這個是以 Backlog 來看
+<img src="/images/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/scrum-1.png" alt="backlog-scrum" /></p>
+
+<h2 id="issue:b4d07b34783eca6c610f848528399fd3">Issue</h2>
+
+<p>1/8/2014 6:11:59 PM</p>
+
+<p>寄發郵件不知道為什麼 <code>address</code> 設定自己的網域會寄不出去，會出現 <code>554 5.7.1 : relay access denied</code> 這個 error，我是在<a href="http://www.redmine.org/boards/1/topics/39783">官網</a>找到答案的，把 <code>address</code> 改成 <code>localhost</code> 就可以了。</p>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+                 <a href="/tags/cooperation/">cooperation</a>
+            
+                 <a href="/tags/redmine/">redmine</a>
+            
+        </p>
+    
+
+    <div class="share">
+        <a class="icon-twitter" href="http://twitter.com/share?text=Redmine%e4%b9%8b%e5%9f%ba%e6%9c%ac%e5%bb%ba%e7%bd%ae%e8%88%87Scrum%e6%87%89%e7%94%a8&url=http%3a%2f%2falanmoment.github.io%2f2014%2f02%2f18%2fredminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong%2f"
+            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fa fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+
+        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2falanmoment.github.io%2f2014%2f02%2f18%2fredminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong%2f"
+            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <i class="fa fa-facebook"></i>
+            <span class="hidden">Facebook</span>
+        </a>
+
+        <a class="icon-google-plus" href="https://plus.google.com/share?url=http%3a%2f%2falanmoment.github.io%2f2014%2f02%2f18%2fredminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong%2f"
+           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+           <i class="fa fa-google-plus"></i>
+            <span class="hidden">Google+</span>
+        </a>
+    </div>
+</footer>
+
+        
+    <div class="comments">
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'alanmoment';
+    var disqus_identifier = 'http:\/\/alanmoment.github.io\/2014\/02\/18\/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong\/';
+    var disqus_title = 'Redmine之基本建置與Scrum應用';
+    var disqus_url = 'http:\/\/alanmoment.github.io\/2014\/02\/18\/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="Hello World!!" href="http://alanmoment.github.io/">Hello World!!</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2016 / Powered by <a href="http://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="http://alanmoment.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+        <script src="http://alanmoment.github.io/js/jquery.fitvids.js"></script>
+        <script src="http://alanmoment.github.io/js/scripts.js"></script>
+    </body>
+</html>
+

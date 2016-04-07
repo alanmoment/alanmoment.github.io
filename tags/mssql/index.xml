@@ -12,10 +12,10 @@
     
     <item>
       <title>吃足苦頭的Mssql</title>
-      <link>http://alanmoment.github.io/post/database/chi_zu_ku_tou_de_mssql/</link>
+      <link>http://alanmoment.github.io/2014/12/29/chi_zu_ku_tou_de_mssql/</link>
       <pubDate>Mon, 29 Dec 2014 17:07:01 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/database/chi_zu_ku_tou_de_mssql/</guid>
+      <guid>http://alanmoment.github.io/2014/12/29/chi_zu_ku_tou_de_mssql/</guid>
       <description>&lt;p&gt;為了讓 CentOS 的 PHP 可以支援 Mssql &amp;amp; UTF-8 真是吃了不少苦頭，最終在安裝 FreeTDS 後加上設定檔終於如願以償&amp;hellip;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ vim /etc/freetds.conf

@@ -12,10 +12,10 @@
     
     <item>
       <title>Gitlab 4.1 upgrade to Gitlab 6.0超偷懶方法</title>
-      <link>http://alanmoment.github.io/post/cooperation/gitlab/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/</link>
+      <link>http://alanmoment.github.io/2013/09/06/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/</link>
       <pubDate>Fri, 06 Sep 2013 10:53:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/cooperation/gitlab/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/</guid>
+      <guid>http://alanmoment.github.io/2013/09/06/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://blog.gitlab.org/&#34;&gt;Gitlab&lt;/a&gt;官方網站已經釋出&lt;a href=&#34;http://blog.gitlab.org/gitlab-6-dot-0-released/&#34;&gt;Gitlab 6.0&lt;/a&gt;了，我的版本卻還在4.1。所以忍不住手癢，試試看4.1升級到6.0，但是這中間的版本實在太多啦。要一個一個升級，不知道又會遇到什麼問題。所幸愛亂搞的我，想到了妙招，如果我重新安裝6.0但是使用的是原本的4.1資料表，是不是也可以正常運作呢? 因為Gitlab的migrate應該是不會影響到以前的資料。&lt;/p&gt;
 
 &lt;p&gt;備份以下東西，以防止不能運作後，還能回復成4.1的版本&lt;/p&gt;
@@ -107,10 +107,10 @@ command=&amp;quot;/home/git/gitlab/apps/gitlab/gitlab-shell/bin/gitlab-shell key
     
     <item>
       <title>建置專屬自己的Github之Gitlab</title>
-      <link>http://alanmoment.github.io/post/cooperation/gitlab/jian_zhi_zhuan_shu_zi_ji_de_github_zhi_gitlab/</link>
+      <link>http://alanmoment.github.io/2013/06/28/jian_zhi_zhuan_shu_zi_ji_de_github_zhi_gitlab/</link>
       <pubDate>Fri, 28 Jun 2013 13:46:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/cooperation/gitlab/jian_zhi_zhuan_shu_zi_ji_de_github_zhi_gitlab/</guid>
+      <guid>http://alanmoment.github.io/2013/06/28/jian_zhi_zhuan_shu_zi_ji_de_github_zhi_gitlab/</guid>
       <description>
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/&#34;&gt;Github&lt;/a&gt;用久了就覺得這一切真是太方便了!!但是呢，有些程式碼就是不太方便放在別人那邊，不管自己寫的code是不是有到那種程度，人就是想把屬於自己的東西留給自己欣賞，這個時候&lt;a href=&#34;http://gitlab.org/&#34;&gt;Gitlab&lt;/a&gt;就是你的救星啦!!!&lt;/p&gt;

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Connect to Slack on Tessel &middot; Alan</title>
+        <meta name="description" content="因為Slack非常方便且好用，所以我第一個想到要串接的對象就是它，接連幾天的測試，已經能透過Tessel發送訊息至 Slack Channel。...">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.15" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/normalize.css">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/highlight.css">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a title="Hello World!!" href="http://alanmoment.github.io/">Hello World!!</a>
+                            </h1>
+                        
+                        <a class="button-square" href="http://alanmoment.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                            <a class="button-square button-social hint--top" data-hint="Twitter" title="Twitter" href="https://twitter.com/alanmoment">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/alanmoment">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="LinkedIn" title="LinkedIn" href="https://linkedin.com/in/alanmoment/">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a title="Blog" href="/">Blog</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Projects" href="/project/">Projects</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Contact" href="/page/contact/">Contact</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="About" href="/page/about/">About</a>
+    </li>
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Connect to Slack on Tessel</h1>
+    
+        <p class="post-description" itemprop="description">因為Slack非常方便且好用，所以我第一個想到要串接的對象就是它，接連幾天的測試，已經能透過Tessel發送訊息至 Slack Channel。...</p>
+    
+    <p class="post-date">
+        <span>Published <time datetime="2015-05-03" itemprop="datePublished">Sun, May 3, 2015</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="http://schema.org/Person">
+            <span itemprop="name">
+                <a href="" itemprop="url" rel="author">Alan</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<h2 id="申請-slack:8decd088fac1a252c57ee8ff1a55a893">申請 Slack</h2>
+
+<p>因為 <a href="https://slack.com">Slack</a> 非常方便且好用，所以我第一個想到要串接的對象就是它，接連幾天的測試，已經能透過 Tessel 發送訊息至 Slack Channel。</p>
+
+<p>首先得先擁有一組 Slack 的帳號與 Channel，再設置 Incoming WebHooks。</p>
+
+<p><img src="/images/post/iot/tessel/connect_to_slack_on_tessel/incoming-webhooks.png" alt="" /></p>
+
+<p>便可取得 Webhook Url</p>
+
+<p><img src="/images/post/iot/tessel/connect_to_slack_on_tessel/webhooks-url.png" alt="" /></p>
+
+<h2 id="tessel-wifi:8decd088fac1a252c57ee8ff1a55a893">Tessel Wifi</h2>
+
+<p>先讓 Tessel 連接家中的 Wifi</p>
+
+<pre><code>$ tessel wifi -n 'Alan 的 AirPort Time Capsule' -p 'PASSWORD'
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+INFO Connecting to &quot;Alan 的 AirPort Time Capsule&quot; with wpa2 security...
+INFO Acquiring IP address.
+..
+INFO Connected!
+
+IP   192.168.1.46
+DNS  168.95.192.1
+DHCP     192.168.1.1
+Gateway  192.168.1.1
+</code></pre>
+
+<p>依照 Tessel 在官網上 <a href="http://start.tessel.io/wifi">Wifi</a> 的範例，修改一下程式碼：</p>
+
+<pre><code># wifi-control.js
+
+var https = require('https');
+
+...
+...
+wifi.on('connect', function(data) {
+
+    console.log(&quot;connect emitted&quot;, data);
+
+    var json = JSON.parse('{&quot;text&quot;:&quot;This is a line of text in a channel.\nAnd this is another line of text.&quot;}');
+    var postData = 'payload=' + JSON.stringify(json);
+
+    var options = {
+        hostname: 'hooks.slack.com',
+        port: 443,
+        path: '/services/T030MA704/B04MARY2F/clicTENx48f4h5v9OePzePkH',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Length': postData.length
+        }
+    };
+
+    // Setup the request.  The options parameter is
+    // the object we defined above.
+    var req = https.request(options, function(res) {
+        res.setEncoding('utf-8');
+        var responseString = '';
+
+        res.on('data', function(data) {
+            responseString += data;
+        });
+
+        res.on('end', function() {
+            console.log(responseString);
+        });
+    });
+
+    req.on('error', function(e) {
+        console.log('something error.');
+    });
+
+    req.write(postData);
+    req.end();
+
+}
+...
+...
+</code></pre>
+
+<p>因為 Slack 是透過 <code>https</code> 發送，所以這邊得使用 <code>https.request</code> 來傳遞封包。</p>
+
+<p>運行 Wifi-control.js 測試是否可以正常傳送至 Slack Channel。</p>
+
+<pre><code>$ tessel run wifi-control.js
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+INFO Bundling directory /Users/alan/Documents/tessel-code
+INFO Deploying bundle (8.87 MB)...
+INFO Running script...
+connect emitted {
+ dns : 168.95.192.1,
+ ip : 192.168.1.46,
+ event : status,
+ connected : 1,
+ dhcp : 192.168.1.1,
+ ssid : Alan 的 AirPort Time Capsule,
+ gateway : 192.168.1.1
+}
+ok
+</code></pre>
+
+<p>測試可以正常收到囉！！</p>
+
+<p><img src="/images/post/iot/tessel/connect_to_slack_on_tessel/wifi-test-on-slack.png" alt="" /></p>
+
+<p>如此就可以應用在各種需要通知的狀況上，太棒了！</p>
+
+<h2 id="wifi-斷線:8decd088fac1a252c57ee8ff1a55a893">Wifi 斷線</h2>
+
+<p>要如何讓 Tessel 斷開 wifi 呢，只要下這行指令：</p>
+
+<pre><code>$ tessel wifi -d
+TESSEL! Connected to TM-00-04-f000da30-00544741-1ca82586.
+Erasing saved wifi profiles
+Erased wifi profiles
+</code></pre>
+
+<p>太方便了&hellip;</p>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+                 <a href="/tags/iot/">iot</a>
+            
+                 <a href="/tags/tessel/">tessel</a>
+            
+        </p>
+    
+
+    <div class="share">
+        <a class="icon-twitter" href="http://twitter.com/share?text=Connect%20to%20Slack%20on%20Tessel&url=http%3a%2f%2falanmoment.github.io%2f2015%2f05%2f03%2fconnect_to_slack_on_tessel%2f"
+            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fa fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+
+        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2falanmoment.github.io%2f2015%2f05%2f03%2fconnect_to_slack_on_tessel%2f"
+            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <i class="fa fa-facebook"></i>
+            <span class="hidden">Facebook</span>
+        </a>
+
+        <a class="icon-google-plus" href="https://plus.google.com/share?url=http%3a%2f%2falanmoment.github.io%2f2015%2f05%2f03%2fconnect_to_slack_on_tessel%2f"
+           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+           <i class="fa fa-google-plus"></i>
+            <span class="hidden">Google+</span>
+        </a>
+    </div>
+</footer>
+
+        
+    <div class="comments">
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'alanmoment';
+    var disqus_identifier = 'http:\/\/alanmoment.github.io\/2015\/05\/03\/connect_to_slack_on_tessel\/';
+    var disqus_title = 'Connect to Slack on Tessel';
+    var disqus_url = 'http:\/\/alanmoment.github.io\/2015\/05\/03\/connect_to_slack_on_tessel\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="Hello World!!" href="http://alanmoment.github.io/">Hello World!!</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2016 / Powered by <a href="http://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="http://alanmoment.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+        <script src="http://alanmoment.github.io/js/jquery.fitvids.js"></script>
+        <script src="http://alanmoment.github.io/js/scripts.js"></script>
+    </body>
+</html>
+

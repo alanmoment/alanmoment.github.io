@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Install rmagick on the Windows of Ruby on Rails &middot; Alan</title>
+        <meta name="description" content="Windows上不管是要安裝什麼Ruby的套件總是能出錯，這次就連很常見的ImageMagick還是會無法順利安裝，無言阿!!所以才會有人建議為了自己好，千萬不要在Windows上學...">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.15" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/normalize.css">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/highlight.css">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a title="Hello World!!" href="http://alanmoment.github.io/">Hello World!!</a>
+                            </h1>
+                        
+                        <a class="button-square" href="http://alanmoment.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                            <a class="button-square button-social hint--top" data-hint="Twitter" title="Twitter" href="https://twitter.com/alanmoment">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/alanmoment">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="LinkedIn" title="LinkedIn" href="https://linkedin.com/in/alanmoment/">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a title="Blog" href="/">Blog</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Projects" href="/project/">Projects</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Contact" href="/page/contact/">Contact</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="About" href="/page/about/">About</a>
+    </li>
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Install rmagick on the Windows of Ruby on Rails</h1>
+    
+        <p class="post-description" itemprop="description">Windows上不管是要安裝什麼Ruby的套件總是能出錯，這次就連很常見的ImageMagick還是會無法順利安裝，無言阿!!所以才會有人建議為了自己好，千萬不要在Windows上學...</p>
+    
+    <p class="post-date">
+        <span>Published <time datetime="2013-08-12" itemprop="datePublished">Mon, Aug 12, 2013</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="http://schema.org/Person">
+            <span itemprop="name">
+                <a href="" itemprop="url" rel="author">Alan</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    <p>Windows上不管是要安裝什麼Ruby的套件總是能出錯，這次就連很常見的ImageMagick還是會無法順利安裝，無言阿!!所以才會有人建議為了自己好，千萬不要在Windows上學習開發Ruby on Rails，但是我是個窮鬼&hellip;買不起Mac只好硬是找方法。以下就是Ruby on Rails安裝rmagick的過程囉。</p>
+
+<p>到ImageMagick<a href="http://www.imagemagick.org/script/binary-releases.php#windows">官網</a>下載</p>
+
+<ol>
+<li><a href="http://www.imagemagick.org/download/binaries/ImageMagick-6.8.6-7-Q16-x86-static.exe">ImageMagick-6.8.6-7-Q16-x86-static.exe</a></li>
+<li><a href="http://www.imagemagick.org/download/binaries/ImageMagick-6.8.6-7-Q16-x86-dll.exe">ImageMagick-6.8.6-7-Q16-x86-dll.exe</a></li>
+</ol>
+
+<p>這兩個皆安裝在C:\ImageMagick，用預設選項安裝即可</p>
+
+<p>點選官網上的<a href="http://www.imagemagick.org/script/download.php">download</a>&gt;United States&gt;<a href="http://www.imagemagick.org/download">http://www.imagemagick.org/download</a>&gt;<a href="http://www.imagemagick.org/download/ImageMagick-6.8.6-7.tar.gz">ImageMagick-6.8.6-7.tar.gz</a></p>
+
+<p>下載、解壓縮後放置在C:\ImageMagick資料夾中，命名為SourceCode</p>
+
+<p>到<a href="http://www.mingw.org/">http://www.mingw.org/</a></p>
+
+<p>點選Navigation&gt;<a href="https://sourceforge.net/downloads/mingw">download</a></p>
+
+<p>下載Looking for the latest version? <a href="http://sourceforge.net/projects/mingw/files/latest/download?source=files">Download mingw-get-inst-20120426.exe (662.7 kB)</a></p>
+
+<p>將MinGW安裝在C:\MinGW，並且勾選MinGW Developer ToolKit，安裝完畢還要在系統的環境變數加上C:\MinGW</p>
+
+<p><img src="/images/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/mingw.png" alt="mingw" /></p>
+
+<p>最後用gem安裝rmagick</p>
+
+<pre><code>$ gem install rmagick --platform=ruby -- --with-opt-lib=C:/ImageMagick --with-opt-include=c:/ImageMagick/SourceCode
+</code></pre>
+
+<p><img src="/images/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/rmagick_down.png" alt="rmagick_down" /></p>
+
+<p>Gemfile setup</p>
+
+<pre><code>gem 'rmagick'
+gem &quot;carrierwave&quot;
+</code></pre>
+
+<p>國外的完整<a href="http://www.youtube.com/watch?v=gEWAVlNCKhg&amp;feature=youtu.be">教學影片</a></p>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+                 <a href="/tags/ruby/">ruby</a>
+            
+                 <a href="/tags/rails/">rails</a>
+            
+        </p>
+    
+
+    <div class="share">
+        <a class="icon-twitter" href="http://twitter.com/share?text=Install%20rmagick%20on%20the%20Windows%20of%20Ruby%20on%20Rails&url=http%3a%2f%2falanmoment.github.io%2f2013%2f08%2f12%2finstall_rmagick_on_the_windows_of_ruby_on_rails%2f"
+            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fa fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+
+        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2falanmoment.github.io%2f2013%2f08%2f12%2finstall_rmagick_on_the_windows_of_ruby_on_rails%2f"
+            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <i class="fa fa-facebook"></i>
+            <span class="hidden">Facebook</span>
+        </a>
+
+        <a class="icon-google-plus" href="https://plus.google.com/share?url=http%3a%2f%2falanmoment.github.io%2f2013%2f08%2f12%2finstall_rmagick_on_the_windows_of_ruby_on_rails%2f"
+           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+           <i class="fa fa-google-plus"></i>
+            <span class="hidden">Google+</span>
+        </a>
+    </div>
+</footer>
+
+        
+    <div class="comments">
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'alanmoment';
+    var disqus_identifier = 'http:\/\/alanmoment.github.io\/2013\/08\/12\/install_rmagick_on_the_windows_of_ruby_on_rails\/';
+    var disqus_title = 'Install rmagick on the Windows of Ruby on Rails';
+    var disqus_url = 'http:\/\/alanmoment.github.io\/2013\/08\/12\/install_rmagick_on_the_windows_of_ruby_on_rails\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="Hello World!!" href="http://alanmoment.github.io/">Hello World!!</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2016 / Powered by <a href="http://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="http://alanmoment.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+        <script src="http://alanmoment.github.io/js/jquery.fitvids.js"></script>
+        <script src="http://alanmoment.github.io/js/scripts.js"></script>
+    </body>
+</html>
+
