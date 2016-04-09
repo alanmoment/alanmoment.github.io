@@ -12,10 +12,10 @@
     
     <item>
       <title>Phalcon首發</title>
-      <link>http://alanmoment.github.io/2013/08/28/phalconshou_fa/</link>
+      <link>http://alanmoment.github.io/post/php/phalconshou_fa/</link>
       <pubDate>Wed, 28 Aug 2013 11:54:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2013/08/28/phalconshou_fa/</guid>
+      <guid>http://alanmoment.github.io/post/php/phalconshou_fa/</guid>
       <description>
 
 &lt;p&gt;用了好一陣子的&lt;a href=&#34;http://www.yiiframework.com/&#34;&gt;YII framework&lt;/a&gt;一開始用的時候覺得。哇~好專業阿。好難懂他的整個框架，摸了一陣子之後。才發現，近年不管哪一個程式語言。都是這樣的Design pattern。MVC、ORM，建立一個網站越來越便利也更簡單了。而最近發現一個類似YII的加強版&lt;a href=&#34;http://phalconphp.com/index&#34;&gt;Phalcon&lt;/a&gt;。主要他是用C

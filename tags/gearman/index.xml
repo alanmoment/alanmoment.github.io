@@ -12,10 +12,10 @@
     
     <item>
       <title>Gearman Job Worker for PHP</title>
-      <link>http://alanmoment.github.io/2013/12/22/gearman_job_worker_for_php/</link>
+      <link>http://alanmoment.github.io/post/php/gearman_job_worker_for_php/</link>
       <pubDate>Sun, 22 Dec 2013 16:40:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2013/12/22/gearman_job_worker_for_php/</guid>
+      <guid>http://alanmoment.github.io/post/php/gearman_job_worker_for_php/</guid>
       <description>
 
 &lt;p&gt;最近同事接觸到需要 worker 來處理一些非同步的事情。諸如訂單、寄發email都常用非同步來執行，以往這些事情大多都用排程解決，其實還有更好的 solution。他們使用 &lt;a href=&#34;http://gearman.org/&#34;&gt;Gearman&lt;/a&gt; 來解決這個問題。好奇心的驅使，就算不是我實作的我也想去玩玩看新的東西，Gearman 可以在系統裡起一個 &lt;code&gt;Job Worker&lt;/code&gt; 也可以算是 service，這個 job worker 可以在不起一個排程的情況底下，幫你寄信、處理訂單。也就是當你有需要使用 email 在呼叫他就好了。&lt;/p&gt;

@@ -12,10 +12,10 @@
     
     <item>
       <title>Git Push Notify to Slack on Gitlab</title>
-      <link>http://alanmoment.github.io/2015/05/04/git_push_notify_to_slack_on_gitlab/</link>
+      <link>http://alanmoment.github.io/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/</link>
       <pubDate>Mon, 04 May 2015 17:03:49 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2015/05/04/git_push_notify_to_slack_on_gitlab/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/gitlab/git_push_notify_to_slack_on_gitlab/</guid>
       <description>&lt;p&gt;已經用了許久的 &lt;code&gt;git push&lt;/code&gt; 通知 Slack，在今天補一下筆記。&lt;/p&gt;
 
 &lt;p&gt;首先還是得先申請一個 WebHook Url，可以參考這邊 &lt;a href=&#34;http://alanmoment.github.io/post/117952459648/connect-to-slack-on-tessel&#34;&gt;connect-to-slack-on-tessel&lt;/a&gt;。&lt;/p&gt;
@@ -34,10 +34,10 @@
     
     <item>
       <title>用NetBeans開發Ruby On Rails</title>
-      <link>http://alanmoment.github.io/2013/10/04/yong_netbeans_kai_fa_ruby_on_rails/</link>
+      <link>http://alanmoment.github.io/post/ide/yong_netbeans_kai_fa_ruby_on_rails/</link>
       <pubDate>Fri, 04 Oct 2013 23:00:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2013/10/04/yong_netbeans_kai_fa_ruby_on_rails/</guid>
+      <guid>http://alanmoment.github.io/post/ide/yong_netbeans_kai_fa_ruby_on_rails/</guid>
       <description>
 
 &lt;p&gt;NetBeans除了能開發PHP、Java、..等等的這些程式語言，其實也早就有Plugin能支援開發Ruby哦。&lt;/p&gt;

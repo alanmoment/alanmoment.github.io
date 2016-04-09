@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Injection Principle Design Pattern &middot; Alan</title>
+        <meta name="description" content="這兩天有個案例，內容簡約來說可以這樣闡述：...">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.15" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/normalize.css">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/highlight.css">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a title="Hello World!!" href="http://alanmoment.github.io/">Hello World!!</a>
+                            </h1>
+                        
+                        <a class="button-square" href="http://alanmoment.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                            <a class="button-square button-social hint--top" data-hint="Twitter" title="Twitter" href="https://twitter.com/alanmoment">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/alanmoment">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="LinkedIn" title="LinkedIn" href="https://linkedin.com/in/alanmoment/">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a title="Blog" href="/">Blog</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Projects" href="/page/project/">Projects</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="About" href="/page/about/">About</a>
+    </li>
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Injection Principle Design Pattern</h1>
+    
+        <p class="post-description" itemprop="description">這兩天有個案例，內容簡約來說可以這樣闡述：...</p>
+    
+    <p class="post-date">
+        <span>Published <time datetime="2014-02-26" itemprop="datePublished">Wed, Feb 26, 2014</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="http://schema.org/Person">
+            <span itemprop="name">
+                <a href="" itemprop="url" rel="author">Alan</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<p>這兩天有個案例，內容簡約來說可以這樣闡述：</p>
+
+<h3 id="a客戶要簽約買限額的n種廣告-要提供api介接:adec025e9f0507beb57a8d7d7ddd0091">A客戶要簽約買限額的N種廣告，要提供API介接</h3>
+
+<p>所以我開始分解上面這段話做設計。</p>
+
+<ol>
+<li>這次A客戶簽約，下次也有機會與B客戶簽約。</li>
+<li>廣告有 Header, Body, Footer, Left 及 Right 共5個區域可以放產品，A客戶要買 Header, Body 以及 Right 三種，當然下次別人也有機會買 Footer 或是 Left。</li>
+<li>A客戶各買 100個, 100個 和 250個產品限額的廣告方案，當然別的客戶也有可能更多亦或更少。</li>
+<li>A客戶使用的介接格式是 <a href="http://zh.wikipedia.org/zh-tw/XML">XML</a>，當然也有機會用到 <a href="http://www.json.org/">Json</a> 或其他種類的資料格式，輸出也是相同。</li>
+</ol>
+
+<p>若是不考慮 Design Pattern 其實這樣子的介接不難做，但要思考的是，假使不做適當的邏輯分離與切割，造成高耦合度，那擴充與修改是否會造成災難。所以我一直覺得寫程式人人都會，但是寫的一手好程式可就不簡單了。而我一直朝著這個目標邁進。</p>
+
+<p>當分析需求完畢，我就開始發想，有哪種設計模式或原則適合這種狀況，應該要避免太複雜的設計模式造成開發困難或結構複雜化。小弟不才，懂得不多。我想到用 Injection Principle 這個原則來做。</p>
+
+<h2 id="介接資料:adec025e9f0507beb57a8d7d7ddd0091">介接資料</h2>
+
+<p>與A客戶協議好用XML資料格式介接，如之前提到的，介接的資料格式是有機會異動的，所以我覺得解析與回傳資料是應該要被分離的。</p>
+
+<p>只要是介接都必須要有解析與回傳，所以我定義介接資料用的介面，裡面必須要實作解析與輸出這兩件事。</p>
+
+<pre><code>/**
+ * 解析、回傳介接資料介面
+ */
+interface ApiAdParseInterface {
+
+  /**
+   * 任何解析廣告的資料都必須實作
+   * @param type $content
+   */
+  public function parse($content);
+
+  /**
+   * 任何回傳廣告的介接結果都必須實作
+   * @param type $content
+   */
+  public function generate($content);
+
+}
+</code></pre>
+
+<p>我想到日後或許A客戶也有機會異動介接資料的格式，所以我選擇用<a href="https://en.wikipedia.org/wiki/Dependency_injection">DI</a>處理，制訂出配置器加強彈性。</p>
+
+<p>這個配置器主要提供注入的方法，今天若是要實作XML的資料格式，那就在建立這個實體的時候提供 instance。</p>
+
+<pre><code>/**
+ * 解析、回傳介接結果配置器
+ */
+class ApiParseAdAdapter {
+
+  private $adapter;
+
+  public function ApiParseAdAdapter($adapter) {
+    $this-&gt;adapter = $adapter;
+  }
+
+  /**
+   * 解析輸入的資料
+   * @param type $content
+   */
+  public function parse($content) {
+    return $this-&gt;adapter-&gt;parse($content);
+  }
+
+  /**
+   * 輸出要產生的資料格式
+   * @param type $content
+   */
+  public function generate($content) {
+    return $this-&gt;adapter-&gt;generate($content);
+  }
+
+}
+</code></pre>
+
+<p>實作以 XML 格式介接新增廣告</p>
+
+<pre><code>/**
+ * 實作解析、生成新增廣告xml資料
+ */
+class ParseAddAdXml implements ApiAdParseInterface {
+
+  public function parse($xml) {
+    ...
+    return $items;
+  }
+
+  public function generate($content) {
+    ...
+    return $xml;
+  }
+
+}
+</code></pre>
+
+<p>以後若是要改用 Json 那就建立 <code>ParseAddAdJson</code> 就可以了不用動到其他的程式，相對的安全很多。</p>
+
+<h2 id="處理合約:adec025e9f0507beb57a8d7d7ddd0091">處理合約</h2>
+
+<p>今天是與A客戶簽約，而下次是與B客戶簽約。每份合約各自表述，除了限額與廣告種類，客戶都必須要新增廣告，也都要解析客戶丟過來的資料，以及回傳處理結果。所以我定義了合約的抽象類別，只要是合約都必須要實作解析資料，新增廣告，輸出結果。而為了統一外部的呼叫，則有共用的執行合約方法。</p>
+
+<pre><code>/**
+ * 統一的合約執行流程
+ */
+abstract class PlanBaseAbstract {
+
+    public function execPlan($xml) {
+        $items = $this-&gt;parse($xml);
+        $content = $this-&gt;addAd($items);
+        return $this-&gt;generate($content);
+    }
+
+    abstract protected function addAd($items) ;
+
+    abstract protected function parse($content) ;
+
+    abstract protected function generate($content) ;
+
+}
+</code></pre>
+
+<p>再來是處理A客戶的合約內容。</p>
+
+<pre><code>/**
+ * A客戶的新增廣告內容
+ */
+class ACustomerPlan extends PlanBaseAbstract {
+
+    public function addAd($items)
+        ...
+        在這邊新增各種廣告
+        ...
+    }
+
+    /**
+     * 使用 DI 解析介接資料
+     */
+    public function parse($content) {
+        $mgr = new ApiParseAdapterMgr(new ParseAddAdXmlMgr());
+        $items = $mgr-&gt;parse($content);
+        ...
+        return $items;
+    }
+
+    /**
+     * 使用 DI 輸出介接結果
+     */
+    public function generate($content) {
+        ...
+        $mgr = new ApiParseAdapterMgr(new ParseAddAdXmlMgr());
+        return $mgr-&gt;generate($result);
+    }
+
+}
+</code></pre>
+
+<h2 id="廣告物件:adec025e9f0507beb57a8d7d7ddd0091">廣告物件</h2>
+
+<p>每個廣告都有新增及取得當前數量兩件事，這裡也定義一個介面供各種廣告實作。</p>
+
+<pre><code>/**
+ * 廣告處理介面
+ */
+interface AdInterface {
+
+    /**
+     * 新增廣告
+     */
+    public function add() ;
+
+    /**
+     * 當前廣告數量
+     */
+    public function getCount() ;
+
+}
+</code></pre>
+
+<p>實作廣告的過程中或許有其他的事情要做所以可以寫在各自的廣告物件。這裡就新增一個 Header 當作記錄。</p>
+
+<pre><code>/**
+ * 實作 Header 廣告
+ */
+class Header implements AdInterface {
+
+    /**
+     * 新增廣告實作
+     */
+    public function add() {
+        ...
+    }
+
+    /**
+     * 取得當前廣告數量實作
+     */
+    public function getCount() {
+        ...
+        return (int) $count;
+    }
+
+}
+</code></pre>
+
+<p>未來只要各自實作 Body, Footer 就可以了。這樣也有做到 OCP (開放封閉原則)。</p>
+
+<p>最後用 Class Diagram 解釋這整個關係。</p>
+
+<p><img src="/images/post/ooad/injection_principle_design_pattern/Class_Diagram.png" alt="Class Diagram" /></p>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+                 <a href="/tags/ooad/">ooad</a>
+            
+        </p>
+    
+
+    <div class="share">
+        <a class="icon-twitter" href="http://twitter.com/share?text=Injection%20Principle%20Design%20Pattern&url=http%3a%2f%2falanmoment.github.io%2fpost%2fooad%2finjection_principle_design_pattern%2f"
+            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fa fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+
+        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2falanmoment.github.io%2fpost%2fooad%2finjection_principle_design_pattern%2f"
+            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <i class="fa fa-facebook"></i>
+            <span class="hidden">Facebook</span>
+        </a>
+
+        <a class="icon-google-plus" href="https://plus.google.com/share?url=http%3a%2f%2falanmoment.github.io%2fpost%2fooad%2finjection_principle_design_pattern%2f"
+           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+           <i class="fa fa-google-plus"></i>
+            <span class="hidden">Google+</span>
+        </a>
+    </div>
+</footer>
+
+        
+    <div class="comments">
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'alanmoment';
+    var disqus_identifier = 'http:\/\/alanmoment.github.io\/post\/ooad\/injection_principle_design_pattern\/';
+    var disqus_title = 'Injection Principle Design Pattern';
+    var disqus_url = 'http:\/\/alanmoment.github.io\/post\/ooad\/injection_principle_design_pattern\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="Hello World!!" href="http://alanmoment.github.io/">Hello World!!</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2016 / Powered by <a href="http://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="http://alanmoment.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+        <script src="http://alanmoment.github.io/js/jquery.fitvids.js"></script>
+        <script src="http://alanmoment.github.io/js/scripts.js"></script>
+    </body>
+</html>
+

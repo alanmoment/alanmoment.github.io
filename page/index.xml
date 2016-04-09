@@ -20,11 +20,65 @@
 
 &lt;h1 id=&#34;who-am-i:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Who am I?&lt;/h1&gt;
 
-&lt;p&gt;無俚頭、天馬行空、胡思亂想都可以套用在我的身上，偶爾會扶老太太過馬路&lt;/p&gt;
+&lt;p&gt;專注技術面，致力於優化軟體開發流程。&lt;/p&gt;
 
-&lt;blockquote&gt;
-&lt;p&gt;我沒有資優生的天賦，出來混全憑三樣，&lt;strong&gt;夠狠&lt;/strong&gt;、&lt;strong&gt;義氣&lt;/strong&gt;、&lt;strong&gt;兄弟多&lt;/strong&gt;!!&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/avatar.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://alanmoment.github.io/page/project/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://alanmoment.github.io/page/project/</guid>
+      <description>
+
+&lt;h1 id=&#34;project:10be9c81b9315bdc8704629d17642664&#34;&gt;Project&lt;/h1&gt;
+
+&lt;p&gt;記錄曾經經手的專案&lt;/p&gt;
+
+&lt;h2 id=&#34;geniusnet:10be9c81b9315bdc8704629d17642664&#34;&gt;Geniusnet&lt;/h2&gt;
+
+&lt;p&gt;協助導入Phabricator、Gitlab、Jenkins，並且運用Git Flow簡化團隊工作。導入Gitlab 讓團隊輕鬆瀏覽版本庫狀態，而管理者能易於管理成員，也讓公司使用私有的Git Server。而導入Phabricator進行Code Review帶來清晰透明的開發過程，同時能產生Scrum 相關圖表，讓專案維持在健康的狀態。最後再搭配Jenkins在提交程式碼時，進行testing，通過則由Ansible去做程式碼的部署。&lt;/p&gt;
+
+&lt;p&gt;上述協作平台我利用Docker Compose建置，能更容易的掌管各服務，此外還運用Slack channel整合各個通知管道。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Geniusnet&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://global.geniusnet.com/&#34;&gt;官網&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Infrastructure&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/project/geniusnet.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;unicloud:10be9c81b9315bdc8704629d17642664&#34;&gt;UniCloud&lt;/h2&gt;
+
+&lt;p&gt;主導專案開發需求分析與系統設計，分配開發項目與時數，排解成員遭遇的開發問題。獨立開發後端平台（PHP Laravel framework），建立SDK與平台的溝通模式，採用RSA加解密以加強客戶端資料安全性，定義API介接方式與Json資料格式，以Object交叉整合使用於各個Task，同時撰寫API說明書提供內部、外部介接使用。配合公司政策，在每個Sprint推出可運行的最小版本，並且向下相容。&lt;/p&gt;
+
+&lt;p&gt;整合使用AWS Queue Service舒緩大量的客戶端請求導致的延宕時間，運用AWS auto scaling在平 台流量暴增時自動延展AP防止系統崩潰，導入Slack同步監控平台服務狀況。&lt;/p&gt;
+
+&lt;p&gt;後續的AWS案例分析（&lt;a href=&#34;https://aws.amazon.com/tw/solutions/case-studies/unalis/）&#34;&gt;https://aws.amazon.com/tw/solutions/case-studies/unalis/）&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;UniCloud&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.unicloud.com/index&#34;&gt;官網&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/project/unicloud.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;獨立開發後台管理系統，使用Semantic-UI提供簡潔的管理介面，監控、維護Client RSA金鑰狀態，測試各版本服務的Task運作是否正常，也可封存分析完畢的Raw Data。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/project/unicloud_support.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;龍族金幣:10be9c81b9315bdc8704629d17642664&#34;&gt;龍族金幣&lt;/h2&gt;
+
+&lt;p&gt;負責遊戲（Java Servlet）、後台管理（Ruby on Rails）等相關伺服器正常運作，在既有遊戲架構中開發合作廠商的金流介接。改善使用FTP遊戲更新版本方式，撰寫Shell Script自動化部署開發、測試環境，降低更新版本時的人力與時間。在專案後期因應遊戲人數減少，評估並規劃伺服器縮減計畫，將服役中的42台伺服器減少至30台（含VM）。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/project/dragon_coins.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     

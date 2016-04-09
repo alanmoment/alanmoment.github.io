@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Hadoop &#43; Hbase 叢集環境 &middot; Alan</title>
+        <meta name="description" content="這是配合著CentOS 5.5 &#43; Hadoop 0.20以及CentOS 5.5 &#43; Hbase 0.94.8建立的叢集系統，為了方便記錄，所以我分開介紹囉。...">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.15" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/normalize.css">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/highlight.css">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a title="Hello World!!" href="http://alanmoment.github.io/">Hello World!!</a>
+                            </h1>
+                        
+                        <a class="button-square" href="http://alanmoment.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                            <a class="button-square button-social hint--top" data-hint="Twitter" title="Twitter" href="https://twitter.com/alanmoment">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/alanmoment">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="LinkedIn" title="LinkedIn" href="https://linkedin.com/in/alanmoment/">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a title="Blog" href="/">Blog</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Projects" href="/page/project/">Projects</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="About" href="/page/about/">About</a>
+    </li>
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Hadoop &#43; Hbase 叢集環境</h1>
+    
+        <p class="post-description" itemprop="description">這是配合著CentOS 5.5 &#43; Hadoop 0.20以及CentOS 5.5 &#43; Hbase 0.94.8建立的叢集系統，為了方便記錄，所以我分開介紹囉。...</p>
+    
+    <p class="post-date">
+        <span>Published <time datetime="2013-06-17" itemprop="datePublished">Mon, Jun 17, 2013</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="http://schema.org/Person">
+            <span itemprop="name">
+                <a href="" itemprop="url" rel="author">Alan</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<p>這是配合著<a href="/post/94169976403/centos-5-5-hadoop-0-20">CentOS 5.5 + Hadoop 0.20</a>以及<a href="/post/94170198668/centos-5-5-hbase-0-94-8">CentOS 5.5 + Hbase 0.94.8</a>建立的叢集系統，為了方便記錄，所以我分開介紹囉。但記錄畢竟有點久了，有些步驟還需要再架一次才會更正確。</p>
+
+<p>因為Hadoop本身的優勢將文件的儲存和任務處理分散化，Hadoop分散式架構中有兩種負責不同功能的服務器Master服務器和Slave服務器，安裝時假設要為2台服務器安裝Hadoop架構。</p>
+
+<p>本篇環境介紹</p>
+
+<ol>
+<li>安裝了Java 1.6.x,或以後的版本</li>
+<li>兩台服務器名稱為master和slave</li>
+<li>兩台服務器操作系統均為centos5.*且版本大於等於5.4</li>
+<li>master將作為master主服務器使用，slave將作為slave服務器使用:</li>
+<li>master和slave的wget命令均可正常使用</li>
+<li>master和slave均正常運行且可正確聯繫</li>
+<li>master和slave空間足夠</li>
+<li>master和slave均已獲取root權限</li>
+<li>master的ip位址為192.168.1.28，slave的ip位址為192.168.1.29</li>
+</ol>
+
+<h3 id="設置環境變數:69b3968cbee1443572d3ffc2f317d826">設置環境變數</h3>
+
+<p>設置hosts在Master和slave的/etc/hosts下共同增加</p>
+
+<pre><code>$ vim /etc/hosts
+192.168.1.28 master
+192.168.1.29 slave
+</code></pre>
+
+<p>修改master的hostname文件</p>
+
+<pre><code>$ vim /etc/hostname
+master
+</code></pre>
+
+<p>修改slave的hostname文件</p>
+
+<pre><code>$ vim /etc/hostname
+slave
+</code></pre>
+
+<h3 id="免密碼登入遠端電腦:69b3968cbee1443572d3ffc2f317d826">免密碼登入遠端電腦</h3>
+
+<p>請參考<a href="/post/94170433873/ssh免密碼登入遠端電腦">SSH免密碼登入遠端電腦</a></p>
+
+<h3 id="重新配置hadoop:69b3968cbee1443572d3ffc2f317d826">重新配置Hadoop</h3>
+
+<p>配置core-site.xml，在<configuration>節點下添加</p>
+
+<pre><code>$ vim /opt/hadoop/conf/core-site.xml
+&lt;property&gt;&lt;name&gt;hadoop.tmp.dir&lt;/name&gt;&lt;value&gt;/home/hadoop-${user.name}&lt;/value&gt;&lt;/property&gt;&lt;property&gt;&lt;name&gt;fs.default.name&lt;/name&gt;&lt;value&gt;hdfs://master:9000&lt;/value&gt;&lt;/property&gt;
+</code></pre>
+
+<p>配置mapred-site.xml，在<configuration>節點下添加</p>
+
+<pre><code>$ vim /opt/hadoop/conf/mapred-site.xml
+&lt;property&gt;&lt;name&gt;mapred.job.tracker&lt;/name&gt;&lt;value&gt;master:9001&lt;/value&gt;&lt;/property&gt;
+</code></pre>
+
+<p>修改master文件</p>
+
+<pre><code>$ vim /opt/hadoop/conf/master
+master
+</code></pre>
+
+<p>修改slaves</p>
+
+<pre><code>$ vim /opt/hadoop/conf/slaves
+slave
+</code></pre>
+
+<p>修改内容，注意不是添加是更改</p>
+
+<h3 id="重新配置hbase:69b3968cbee1443572d3ffc2f317d826">重新配置Hbase</h3>
+
+<p>配置hbase-env.sh</p>
+
+<pre><code>$ vim /opt/hbase/conf/hbase-env.sh
+export JAVA_HOME=/usr/lib/jvm/java-6-sun
+export HADOOP_CONF_DIR=/opt/hadoop/conf
+export HBASE_HOME=/opt/hbase
+export HBASE_LOG_DIR=/var/hadoop/hbase-logs
+export HBASE_PID_DIR=/var/hadoop/hbase-pids
+export HBASE_MANAGES_ZK=true
+export HBASE_CLASSPATH=$HBASE_CLASSPATH:/opt/hadoop/conf
+</code></pre>
+
+<p>配置hbase-site.xml，在<configuration>節點下添加</p>
+
+<pre><code>$ vim /opt/hbase/conf/hbase-site.xml
+&lt;configuration&gt;&lt;property&gt;&lt;name&gt;hbase.rootdir&lt;/name&gt;&lt;value&gt;hdfs://master:9000/hbase&lt;/value&gt;&lt;description&gt;The directory shared by region servers.
+        &lt;/description&gt;&lt;/property&gt;&lt;property&gt;&lt;name&gt;hbase.tmp.dir&lt;/name&gt;&lt;value&gt;/var/hadoop/hbase-${user.name}&lt;/value&gt;&lt;description&gt;Temporary directory on the local filesystem.&lt;/description&gt;&lt;/property&gt;&lt;property&gt;&lt;name&gt;hbase.cluster.distributed&lt;/name&gt;&lt;value&gt;true&lt;/value&gt;&lt;description&gt;The mode the cluster will be in. Possible values are
+          false: standalone and pseudo-distributed setups with managed Zookeeper
+          true: fully-distributed with unmanaged Zookeeper Quorum (see hbase-env.sh)
+            &lt;/description&gt;&lt;/property&gt;&lt;property&gt;&lt;name&gt;hbase.zookeeper.property.clientPort&lt;/name&gt;&lt;value&gt;2222&lt;/value&gt;&lt;description&gt;Property from ZooKeeper's config zoo.cfg.
+        &lt;/description&gt;&lt;/property&gt;&lt;property&gt;&lt;name&gt;hbase.zookeeper.quorum&lt;/name&gt;&lt;value&gt;master,slave&lt;/value&gt;&lt;description&gt;Comma separated list of servers in the ZooKeeper Quorum.
+        &lt;/description&gt;&lt;/property&gt;&lt;property&gt;&lt;name&gt;hbase.zookeeper.property.dataDir&lt;/name&gt;&lt;value&gt;/var/hadoop/hbase-data&lt;/value&gt;&lt;/property&gt;&lt;property&gt;&lt;name&gt;hbase.master&lt;/name&gt;&lt;value&gt;hdfs://master:60000&lt;/value&gt;&lt;/property&gt;&lt;/configuration&gt;
+</code></pre>
+
+<p>將hadoop的設定放到hbase內</p>
+
+<pre><code>$ cd /opt/hbase/conf
+$ cp /opt/hadoop/conf/core-site.xml ./
+$ cp /opt/hadoop/conf/hdfs-site.xml ./
+$ cp /opt/hadoop/conf/mapred-site.xml ./
+</code></pre>
+
+<p>替换其中内容，如果有加在slave則會變成Datanode</p>
+
+<pre><code>$ vim /opt/hbase/conf/regionservers
+slave
+</code></pre>
+
+<p>這樣就算一台Hbase的叢集環境了</p>
+
+<h3 id="安裝第二台電腦-slave:69b3968cbee1443572d3ffc2f317d826">安裝第二台電腦：slave</h3>
+
+<p>複製第一台電腦的所有設定到此台機器內，因此於第二台電腦下指令</p>
+
+<pre><code>$ cd /opt/
+$ scp -R 192.168.1.28:/opt/hbase ./
+$ chown $USER:$USER ./hbase
+</code></pre>
+
+<p>在第一台電腦master電腦啟動Hbase叢集</p>
+
+<pre><code>$ /opt/hbase/bin/start-hbase.sh
+</code></pre>
+
+<p>若沒有出現錯誤訊息，代表成功，完整的程序可用jps來看。在第一台電腦上執行jps可以看到</p>
+
+<pre><code>$ jps
+HQuorumPeer
+HRegionServer
+NameNode
+HMaster
+JobTracker
+DataNode
+TaskTracker
+Jps
+</code></pre>
+
+<p>參考教學：</p>
+
+<p><a href="https://sites.google.com/site/waue0920/Home/hbase/hbase-cong-ji-an-zhuang">https://sites.google.com/site/waue0920/Home/hbase/hbase-cong-ji-an-zhuang</a></p>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+                 <a href="/tags/hadoop/">hadoop</a>
+            
+        </p>
+    
+
+    <div class="share">
+        <a class="icon-twitter" href="http://twitter.com/share?text=Hadoop%20%2b%20Hbase%20%e5%8f%a2%e9%9b%86%e7%92%b0%e5%a2%83&url=http%3a%2f%2falanmoment.github.io%2fpost%2fhadoop%2fhadoop_%2b_hbase_cong_ji_huan_jing%2f"
+            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fa fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+
+        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2falanmoment.github.io%2fpost%2fhadoop%2fhadoop_%2b_hbase_cong_ji_huan_jing%2f"
+            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <i class="fa fa-facebook"></i>
+            <span class="hidden">Facebook</span>
+        </a>
+
+        <a class="icon-google-plus" href="https://plus.google.com/share?url=http%3a%2f%2falanmoment.github.io%2fpost%2fhadoop%2fhadoop_%2b_hbase_cong_ji_huan_jing%2f"
+           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+           <i class="fa fa-google-plus"></i>
+            <span class="hidden">Google+</span>
+        </a>
+    </div>
+</footer>
+
+        
+    <div class="comments">
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'alanmoment';
+    var disqus_identifier = 'http:\/\/alanmoment.github.io\/post\/hadoop\/hadoop_\x2b_hbase_cong_ji_huan_jing\/';
+    var disqus_title = 'Hadoop \x2b Hbase 叢集環境';
+    var disqus_url = 'http:\/\/alanmoment.github.io\/post\/hadoop\/hadoop_\x2b_hbase_cong_ji_huan_jing\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="Hello World!!" href="http://alanmoment.github.io/">Hello World!!</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2016 / Powered by <a href="http://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="http://alanmoment.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+        <script src="http://alanmoment.github.io/js/jquery.fitvids.js"></script>
+        <script src="http://alanmoment.github.io/js/scripts.js"></script>
+    </body>
+</html>
+

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Hadoop 溝通橋梁之 Thrift 0.7 &middot; Alan</title>
+        <meta name="description" content="會建置Thrift是因為我希望用PHP向Hadoop &#43; Hbase 叢集環境溝通。Thrift是全世界第一大國Facebook釋出的開源項目之一，...">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.15" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/normalize.css">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/highlight.css">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a title="Hello World!!" href="http://alanmoment.github.io/">Hello World!!</a>
+                            </h1>
+                        
+                        <a class="button-square" href="http://alanmoment.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                            <a class="button-square button-social hint--top" data-hint="Twitter" title="Twitter" href="https://twitter.com/alanmoment">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/alanmoment">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="LinkedIn" title="LinkedIn" href="https://linkedin.com/in/alanmoment/">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a title="Blog" href="/">Blog</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Projects" href="/page/project/">Projects</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="About" href="/page/about/">About</a>
+    </li>
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Hadoop 溝通橋梁之 Thrift 0.7</h1>
+    
+        <p class="post-description" itemprop="description">會建置Thrift是因為我希望用PHP向Hadoop &#43; Hbase 叢集環境溝通。Thrift是全世界第一大國Facebook釋出的開源項目之一，...</p>
+    
+    <p class="post-date">
+        <span>Published <time datetime="2013-06-18" itemprop="datePublished">Tue, Jun 18, 2013</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="http://schema.org/Person">
+            <span itemprop="name">
+                <a href="" itemprop="url" rel="author">Alan</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<p>會建置<a href="http://thrift.apache.org/">Thrift</a>是因為我希望用PHP向<a href="/post/94170575263/hadoop-hbase">Hadoop + Hbase 叢集環境</a>溝通。Thrift是全世界第一大國Facebook釋出的開源項目之一，主要用來串接不同語言，讓他們之間能互相溝通。</p>
+
+<p>這裡我就是用來讓PHP也能使用MapReduce和Hbase溝通的。在安裝的時候吃了不少苦頭阿&hellip;腦細胞死了不少。就算現在再架設一遍，我相信會再痛苦一次的。</p>
+
+<h3 id="檢查並安裝依賴的函式庫:14ad9850c721b258d32c3b325d864d9b">檢查並安裝依賴的函式庫</h3>
+
+<pre><code>$ yum search libboost
+</code></pre>
+
+<blockquote>
+<p>libboost c++的函式庫</p>
+</blockquote>
+
+<pre><code>$ yum search yacc
+$ yum search flex
+</code></pre>
+
+<blockquote>
+<p>make時會用到</p>
+</blockquote>
+
+<pre><code>$ yum search autoconf
+$ yum search automake
+</code></pre>
+
+<blockquote>
+<p>automake 1.9以上actomake必須安裝2.6以上版本否則Compiler出錯。如果没有可自行編譯安装</p>
+</blockquote>
+
+<pre><code>$ yum search libtool
+$ yum search flex
+$ yum search bison
+$ yum search g++
+$ yum search gcc-c++
+$ yum search python-devel
+$ yum search libevent-devel
+$ yum search zlib-devel
+$ yum search ruby-devel
+
+$ yum install automake libtool flex bison pkgconfig g++ gcc-c++ boost-devel libevent-devel zlib-devel python-devel ruby-devel
+</code></pre>
+
+<p>安裝全部套件後還是不能用再試試看，這個Compiler會超久</p>
+
+<pre><code>$ wget 'http://downloads.sourceforge.net/project/boost/boost/1.45.0/boost_1_45_0.tar.bz2'
+$ tar jxf boost_1_45_0.tar.bz2
+$ cd boost_1_45_0
+Build Boost:
+$ ./bootstrap.sh
+$ ./bjam
+</code></pre>
+
+<h3 id="建立thrift:14ad9850c721b258d32c3b325d864d9b">建立Thrift</h3>
+
+<p>官網<a href="http://thrift.apache.org/download/">下載</a>或是</p>
+
+<pre><code>$ cd /opt
+$ wget 'http://apache.stu.edu.tw//thrift/0.7.0/thrift-0.7.0.tar.gz'
+$ mv thrift-0.7.0 /opt/thrift
+</code></pre>
+
+<p>沒錯，我通通都放到opt底下囉。</p>
+
+<blockquote>
+<p>5.0以後的版本應該不用底下的檢查了(可見得我已經記錄多久了)</p>
+
+<p>檢查/opt/thrift/底下有沒有bootstrap.sh，沒有再複製</p>
+
+<p>$ cp /opt/thrift/contrib/fb303/bootstrap.sh /opt/thrift/
+執行bootstrap.sh</p>
+
+<p>$ ./bootstrap.sh
+    $ cd /opt/thrift
+    $ cp -r /opt/hbase/src/main/java/org/apache/hadoop/hbase/thrift ./hbase_thrift_src
+    $ cd hbase_thrift_src</p>
+</blockquote>
+
+<h3 id="generate-code:14ad9850c721b258d32c3b325d864d9b">Generate code</h3>
+
+<pre><code>$ thrift --gen php /opt/hbase/src/main/resources/org/apache/hadoop/hbase/thrift/Hbase.thrift
+</code></pre>
+
+<h3 id="檢查環境:14ad9850c721b258d32c3b325d864d9b">檢查環境</h3>
+
+<p>檢查hbase-env.sh</p>
+
+<pre><code>$ vim /opt/hbase/conf/hbase-env.sh
+export JAVA_HOME=/usr/java/jdk1.6.0_26
+</code></pre>
+
+<p>檢查.bashrc</p>
+
+<pre><code>$ vim ~/.bashrc
+JAVA=$JAVA_HOME/bin/java
+export JAVA_HOME=/usr/java/jdk1.6.0_26
+</code></pre>
+
+<p>忘了的同學請回顧<a href="http://alanmoment.ocomm.com.tw/post/94169976403/centos-5-5-hadoop-0-20">CentOS 5.5 + Hadoop</a></p>
+
+<h3 id="複製產生的php程式碼到專案:14ad9850c721b258d32c3b325d864d9b">複製產生的PHP程式碼到專案</h3>
+
+<p>複製到/var/www/hbase內</p>
+
+<pre><code>$ mkdir /var/www/hbase
+$ chown $USER:$USER /var/www/hbase
+$ cp -r /opt/thrift/lib/php/src /var/www/hbase/thrift
+$ mkdir /var/www/hbase/thrift/packages
+$ cp -r /opt/thrift/hbase_thrift_src/gen-php/* /var/www/hbase/thrift/packages/
+</code></pre>
+
+<h3 id="啟動thrift:14ad9850c721b258d32c3b325d864d9b">啟動Thrift</h3>
+
+<pre><code>$ /opt/hbase/bin/hbase thrift start
+</code></pre>
+
+<p>要在背景執行請在start加上&amp;</p>
+
+<h3 id="測試:14ad9850c721b258d32c3b325d864d9b">測試</h3>
+
+<p>複製DemoClient.php 到測試目錄/var/www/hbase/</p>
+
+<pre><code>$ cp /opt/hbase/src/examples/thrift/DemoClient.php /var/www/hbase/DemoClient.php
+</code></pre>
+
+<h2 id="發生錯誤:14ad9850c721b258d32c3b325d864d9b">發生錯誤</h2>
+
+<p>發生過無法啟動的時候，我是重新複製lib</p>
+
+<pre><code>$ rm /opt/hbase/lib/hadoop-core-0.20-*
+$ cp /opt/hadoop/hadoop-0.20.2-core.jar  ./
+</code></pre>
+
+<p>參考教學：</p>
+
+<p><a href="http://sites.google.com/site/waue0920/Home/hbase/hadoop-hbase-thrift-php-an-zhuang-she-ding-cheng-shi-she-ji">http://sites.google.com/site/waue0920/Home/hbase/hadoop-hbase-thrift-php-an-zhuang-she-ding-cheng-shi-she-ji</a></p>
+
+<p><a href="http://blog.sina.com.cn/s/blog_5dce657a0100f0ou.html">http://blog.sina.com.cn/s/blog_5dce657a0100f0ou.html</a></p>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+                 <a href="/tags/hadoop/">hadoop</a>
+            
+        </p>
+    
+
+    <div class="share">
+        <a class="icon-twitter" href="http://twitter.com/share?text=Hadoop%20%e6%ba%9d%e9%80%9a%e6%a9%8b%e6%a2%81%e4%b9%8b%20Thrift%200.7&url=http%3a%2f%2falanmoment.github.io%2fpost%2fhadoop%2fhadoop_gou_tong_qiao_liang_zhi_thrift_0__7%2f"
+            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fa fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+
+        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2falanmoment.github.io%2fpost%2fhadoop%2fhadoop_gou_tong_qiao_liang_zhi_thrift_0__7%2f"
+            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <i class="fa fa-facebook"></i>
+            <span class="hidden">Facebook</span>
+        </a>
+
+        <a class="icon-google-plus" href="https://plus.google.com/share?url=http%3a%2f%2falanmoment.github.io%2fpost%2fhadoop%2fhadoop_gou_tong_qiao_liang_zhi_thrift_0__7%2f"
+           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+           <i class="fa fa-google-plus"></i>
+            <span class="hidden">Google+</span>
+        </a>
+    </div>
+</footer>
+
+        
+    <div class="comments">
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'alanmoment';
+    var disqus_identifier = 'http:\/\/alanmoment.github.io\/post\/hadoop\/hadoop_gou_tong_qiao_liang_zhi_thrift_0__7\/';
+    var disqus_title = 'Hadoop 溝通橋梁之 Thrift 0.7';
+    var disqus_url = 'http:\/\/alanmoment.github.io\/post\/hadoop\/hadoop_gou_tong_qiao_liang_zhi_thrift_0__7\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="Hello World!!" href="http://alanmoment.github.io/">Hello World!!</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2016 / Powered by <a href="http://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="http://alanmoment.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+        <script src="http://alanmoment.github.io/js/jquery.fitvids.js"></script>
+        <script src="http://alanmoment.github.io/js/scripts.js"></script>
+    </body>
+</html>
+

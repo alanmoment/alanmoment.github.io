@@ -12,10 +12,10 @@
     
     <item>
       <title>The Phabricator of docker build</title>
-      <link>http://alanmoment.github.io/2016/04/07/the_phabricator_of_docker_build/</link>
+      <link>http://alanmoment.github.io/post/cooperation/phabricator/the_phabricator_of_docker_build/</link>
       <pubDate>Thu, 07 Apr 2016 11:36:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2016/04/07/the_phabricator_of_docker_build/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/phabricator/the_phabricator_of_docker_build/</guid>
       <description>
 
 &lt;p&gt;Phabricator 是一套專案管理工具。下次補上 Arcanist 的 Code Review&lt;/p&gt;
@@ -257,10 +257,10 @@ apachectl restart
     
     <item>
       <title>phabricator-extensions-Sprint 無法抓到正確的 Story Points</title>
-      <link>http://alanmoment.github.io/2016/03/25/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</link>
+      <link>http://alanmoment.github.io/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</link>
       <pubDate>Fri, 25 Mar 2016 14:11:16 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2016/03/25/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</guid>
       <description>
 
 &lt;p&gt;在版號為 &lt;code&gt;741e2ef4b1150f9a9e4b121218b3ea536289968d&lt;/code&gt; 之後的版本，因為 story points 變更欄位，所以 burndown chart 會沒辦法抓到正確的 point。&lt;/p&gt;
@@ -403,10 +403,10 @@ $ cat points.sql | mysql -u root
     
     <item>
       <title>Phabricator 基本應用</title>
-      <link>http://alanmoment.github.io/2014/06/06/phabricator_ji_ben_ying_yong/</link>
+      <link>http://alanmoment.github.io/post/cooperation/phabricator/phabricator_ji_ben_ying_yong/</link>
       <pubDate>Fri, 06 Jun 2014 23:36:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2014/06/06/phabricator_ji_ben_ying_yong/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/phabricator/phabricator_ji_ben_ying_yong/</guid>
       <description>
 
 &lt;h2 id=&#34;create-maniphest:e921b76cadbcd20db381f231dd58b830&#34;&gt;Create Maniphest&lt;/h2&gt;
@@ -544,10 +544,10 @@ Password for SMTP.
     
     <item>
       <title>Redmine之基本建置與Scrum應用</title>
-      <link>http://alanmoment.github.io/2014/02/18/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/</link>
+      <link>http://alanmoment.github.io/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/</link>
       <pubDate>Tue, 18 Feb 2014 05:38:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2014/02/18/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/</guid>
       <description>
 
 &lt;p&gt;工作上一直都有在應用 &lt;a href=&#34;http://www.redmine.org/&#34;&gt;Redmine&lt;/a&gt; 今天嘗試自己建立，所以又開始在亂搞了! 其實是最近自己做一個專案，也想試著管理一次 Scrum。&lt;/p&gt;
@@ -647,10 +647,10 @@ $ bundle exec rake redmine:backlogs:install
     
     <item>
       <title>Phabricator review code應用</title>
-      <link>http://alanmoment.github.io/2014/01/23/phabricator_review_codeying_yong/</link>
+      <link>http://alanmoment.github.io/post/cooperation/phabricator/phabricator_review_codeying_yong/</link>
       <pubDate>Thu, 23 Jan 2014 14:01:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2014/01/23/phabricator_review_codeying_yong/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/phabricator/phabricator_review_codeying_yong/</guid>
       <description>
 
 &lt;h2 id=&#34;review-code-前置設定:23ce2a5d00bbdd1941d3d8135a4e9cc0&#34;&gt;Review code 前置設定&lt;/h2&gt;
@@ -957,10 +957,10 @@ Done.
     
     <item>
       <title>Install Phabricator and run on the Gitlab</title>
-      <link>http://alanmoment.github.io/2013/09/14/install_phabricator_and_run_on_the_gitlab/</link>
+      <link>http://alanmoment.github.io/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/</link>
       <pubDate>Sat, 14 Sep 2013 11:09:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2013/09/14/install_phabricator_and_run_on_the_gitlab/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/</guid>
       <description>
 
 &lt;p&gt;最近跑的專案都是四個人以上同時開發，有時候程式碼被改了，Pull下來改完衝突，發現程式碼都會錯亂。排除每個人對Git熟練度，我覺得Gitlab對於Review code做的似乎不是很友善。&lt;a href=&#34;http://zh.wikipedia.org/wiki/Scrum&#34;&gt;Scrum&lt;/a&gt;在跑的時候碰到這類型的問題，每次要解決都要花不少時間。&lt;/p&gt;
@@ -1179,10 +1179,10 @@ Done.
     
     <item>
       <title>Gitlab 4.1 upgrade to Gitlab 6.0超偷懶方法</title>
-      <link>http://alanmoment.github.io/2013/09/06/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/</link>
+      <link>http://alanmoment.github.io/post/cooperation/gitlab/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/</link>
       <pubDate>Fri, 06 Sep 2013 10:53:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2013/09/06/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/gitlab/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://blog.gitlab.org/&#34;&gt;Gitlab&lt;/a&gt;官方網站已經釋出&lt;a href=&#34;http://blog.gitlab.org/gitlab-6-dot-0-released/&#34;&gt;Gitlab 6.0&lt;/a&gt;了，我的版本卻還在4.1。所以忍不住手癢，試試看4.1升級到6.0，但是這中間的版本實在太多啦。要一個一個升級，不知道又會遇到什麼問題。所幸愛亂搞的我，想到了妙招，如果我重新安裝6.0但是使用的是原本的4.1資料表，是不是也可以正常運作呢? 因為Gitlab的migrate應該是不會影響到以前的資料。&lt;/p&gt;
 
 &lt;p&gt;備份以下東西，以防止不能運作後，還能回復成4.1的版本&lt;/p&gt;
@@ -1274,10 +1274,10 @@ command=&amp;quot;/home/git/gitlab/apps/gitlab/gitlab-shell/bin/gitlab-shell key
     
     <item>
       <title>建置專屬自己的Github之Gitlab</title>
-      <link>http://alanmoment.github.io/2013/06/28/jian_zhi_zhuan_shu_zi_ji_de_github_zhi_gitlab/</link>
+      <link>http://alanmoment.github.io/post/cooperation/gitlab/jian_zhi_zhuan_shu_zi_ji_de_github_zhi_gitlab/</link>
       <pubDate>Fri, 28 Jun 2013 13:46:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2013/06/28/jian_zhi_zhuan_shu_zi_ji_de_github_zhi_gitlab/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/gitlab/jian_zhi_zhuan_shu_zi_ji_de_github_zhi_gitlab/</guid>
       <description>
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/&#34;&gt;Github&lt;/a&gt;用久了就覺得這一切真是太方便了!!但是呢，有些程式碼就是不太方便放在別人那邊，不管自己寫的code是不是有到那種程度，人就是想把屬於自己的東西留給自己欣賞，這個時候&lt;a href=&#34;http://gitlab.org/&#34;&gt;Gitlab&lt;/a&gt;就是你的救星啦!!!&lt;/p&gt;

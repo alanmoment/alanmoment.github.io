@@ -12,10 +12,10 @@
     
     <item>
       <title>管理PHP Library的利器Composer</title>
-      <link>http://alanmoment.github.io/2013/07/04/guan_li_php_library_de_li_qi_composer/</link>
+      <link>http://alanmoment.github.io/post/php/guan_li_php_library_de_li_qi_composer/</link>
       <pubDate>Thu, 04 Jul 2013 12:36:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2013/07/04/guan_li_php_library_de_li_qi_composer/</guid>
+      <guid>http://alanmoment.github.io/post/php/guan_li_php_library_de_li_qi_composer/</guid>
       <description>
 
 &lt;p&gt;在之前試玩&lt;a href=&#34;http://rubyonrails.org/&#34;&gt;Ruby On Rails&lt;/a&gt;的時候就覺得有&lt;a href=&#34;http://rubygems.org/&#34;&gt;Gem&lt;/a&gt;一整個就是超好用的吶!!所以前陣子公司導入Gitlab之後順勢要我研究一下PHP的&lt;a href=&#34;http://getcomposer.org/&#34;&gt;Composer&lt;/a&gt;，想不到還有支援Github。所以做個紀錄。&lt;/p&gt;

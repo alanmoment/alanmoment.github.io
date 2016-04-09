@@ -12,10 +12,10 @@
     
     <item>
       <title>Android zipcode library of maven</title>
-      <link>http://alanmoment.github.io/2013/09/03/android_zipcode_library_of_maven/</link>
+      <link>http://alanmoment.github.io/post/android/android_zipcode_library_of_maven/</link>
       <pubDate>Tue, 03 Sep 2013 18:50:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2013/09/03/android_zipcode_library_of_maven/</guid>
+      <guid>http://alanmoment.github.io/post/android/android_zipcode_library_of_maven/</guid>
       <description>
 
 &lt;p&gt;最近在做Android app時需要用到縣市、區域這些資料，做過網站的，都知道處理這個很煩啊!所以大多都會抽出來另外處理，封裝成Component好方便使用，但是在Android上要是把縣市、區域、郵遞區號放到strings.xml裡面，我想是會瘋掉的，維護、擴充也不容易。我就是建完才後悔的&amp;hellip;&lt;/p&gt;

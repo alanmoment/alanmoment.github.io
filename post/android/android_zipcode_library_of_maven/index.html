@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Android zipcode library of maven &middot; Alan</title>
+        <meta name="description" content="最近在做Android app時需要用到縣市、區域這些資料，做過網站的，都知道處理這個很煩啊!所以大多都會抽出來另外處理，封裝成Component好方便使用，但是...">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.15" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/normalize.css">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/highlight.css">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a title="Hello World!!" href="http://alanmoment.github.io/">Hello World!!</a>
+                            </h1>
+                        
+                        <a class="button-square" href="http://alanmoment.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                            <a class="button-square button-social hint--top" data-hint="Twitter" title="Twitter" href="https://twitter.com/alanmoment">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/alanmoment">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="LinkedIn" title="LinkedIn" href="https://linkedin.com/in/alanmoment/">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a title="Blog" href="/">Blog</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Projects" href="/page/project/">Projects</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="About" href="/page/about/">About</a>
+    </li>
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Android zipcode library of maven</h1>
+    
+        <p class="post-description" itemprop="description">最近在做Android app時需要用到縣市、區域這些資料，做過網站的，都知道處理這個很煩啊!所以大多都會抽出來另外處理，封裝成Component好方便使用，但是...</p>
+    
+    <p class="post-date">
+        <span>Published <time datetime="2013-09-03" itemprop="datePublished">Tue, Sep 3, 2013</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="http://schema.org/Person">
+            <span itemprop="name">
+                <a href="" itemprop="url" rel="author">Alan</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    
+
+<p>最近在做Android app時需要用到縣市、區域這些資料，做過網站的，都知道處理這個很煩啊!所以大多都會抽出來另外處理，封裝成Component好方便使用，但是在Android上要是把縣市、區域、郵遞區號放到strings.xml裡面，我想是會瘋掉的，維護、擴充也不容易。我就是建完才後悔的&hellip;</p>
+
+<p><img src="/images/post/android/android_zipcode_library_of_maven/android_studio_city_list.png" alt="android studio city list" /></p>
+
+<p><img src="/images/post/android/android_zipcode_library_of_maven/android_studio_area_list.png" alt="android studio area list" /></p>
+
+<p>有個不錯的方法就是將資料用json的格式存成一隻檔案，然後自己寫抓取json的util放到Android的libs，這樣要使用就很方便了。</p>
+
+<h3 id="eclipse安裝maven:9bf3f2b1461ea7d05882004b3695b9ca">Eclipse安裝Maven</h3>
+
+<p>使用Eclipse plugin安裝Maven，在Install new software中點選Add輸入下列資料。</p>
+
+<p><strong>Name：Maven Plugin</strong></p>
+
+<p><strong><p>Location：<a href="http://download.eclipse.org/technology/m2e/releases">http://download.eclipse.org/technology/m2e/releases</a></p></strong></p>
+
+<p>若是發生不能安裝的錯誤還有另外一個</p>
+
+<p><strong>Name：Indigo</strong></p>
+
+<p><strong><p>Location：<a href="http://download.eclipse.org/releases/indigo">http://download.eclipse.org/releases/indigo</a></p></strong></p>
+
+<p>在這個套件裡尋找Maven並且安裝</p>
+
+<h3 id="安裝maven工具:9bf3f2b1461ea7d05882004b3695b9ca">安裝Maven工具</h3>
+
+<p><a href="http://maven.apache.org/download.cgi">Maven官網</a>下載Maven 3.1.0 (Binary tar.gz)，放哪裡都可以但是建議不要放在含有空白或特殊字元的資料夾，最後要在環境變數加上以下變數。</p>
+
+<p><strong>變數名稱：MAVEN_HOME</strong></p>
+
+<p><strong>變數值：C:\你的目錄\apache-maven-3.1.0</strong></p>
+
+<p>在Path變數尾端加上MAVEN_HOME</p>
+
+<p><strong>%MAVEN_HOME%\bin;</strong></p>
+
+<h3 id="建立maven-project:9bf3f2b1461ea7d05882004b3695b9ca">建立Maven project</h3>
+
+<p>為了方便自己管理library所以我建立了maven project</p>
+
+<p>Step 1.</p>
+
+<p><img src="/images/post/android/android_zipcode_library_of_maven/create_maven_project.png" alt="create maven project step 1" /></p>
+
+<p>Step 2.</p>
+
+<p><img src="/images/post/android/android_zipcode_library_of_maven/create_maven_project_2.png" alt="create maven project step 2" /></p>
+
+<p>Step 3.</p>
+
+<p><img src="/images/post/android/android_zipcode_library_of_maven/create_maven_project_step_3.png" alt="create maven project step 3" /></p>
+
+<h3 id="修改pom-xml:9bf3f2b1461ea7d05882004b3695b9ca">修改pom.xml</h3>
+
+<p>因為要解析json格式，所以在這邊需要引入<a href="https://code.google.com/p/google-gson/">google-gson</a>的dependency，為什麼不用<a href="https://code.google.com/p/json-simple/">json-simple</a>呢，因為Android並沒有支援這個library。</p>
+
+<p>在<dependencies></dependencies>&gt;標籤中加入</p>
+
+<pre><code>&lt;dependency&gt;&lt;groupid&gt;com.google.code.gson&lt;/groupid&gt;&lt;artifactid&gt;gson&lt;/artifactid&gt;&lt;version&gt;2.2.4&lt;/version&gt;&lt;/dependency&gt;
+</code></pre>
+
+<p>在project中Maven Dependencies就會增加gson library</p>
+
+<p><img src="/images/post/android/android_zipcode_library_of_maven/gson_dependencies.png" alt="gson dependencies" /></p>
+
+<h3 id="建立zipcode-json:9bf3f2b1461ea7d05882004b3695b9ca">建立zipcode.json</h3>
+
+<p>依照下圖的格式建立zipcode.json</p>
+
+<p><img src="/images/post/android/android_zipcode_library_of_maven/zipcode_json.png" alt="zipcode.json" /></p>
+
+<p>將zipcode.json放置在src/main/resources，並且修改pom.xml，這樣在使用maven install就能夾帶檔案。</p>
+
+<p>在<project></project>&gt;標籤中加入</p>
+
+<pre><code>&lt;build&gt;&lt;resources&gt;&lt;resource&gt;&lt;directory&gt;src/main/resources&lt;/directory&gt;&lt;includes&gt;&lt;include&gt;zipcode.json&lt;/include&gt;&lt;/includes&gt;&lt;/resource&gt;&lt;/resources&gt;&lt;/build&gt;
+</code></pre>
+
+<h3 id="建立zipcode-library:9bf3f2b1461ea7d05882004b3695b9ca">建立Zipcode Library</h3>
+
+<p>建立InputStreamReader讀取json資料，再用gson解析讀取完畢再關掉。
+因為gson會主動幫字串加上雙引號，所以取資料出來必須要用getAsString()，不能用toString()，否則雙引號不會濾掉。</p>
+
+<pre><code>package com.zipcode_util;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+public class ZipcodeComponent {
+
+    private static final String ZIPCODE_FILE = &quot;zipcode.json&quot;;
+    private static JsonObject jsonObject;
+
+    /**
+     * Json file io
+     * @return JsonObject jsonObject
+     */
+    private JsonObject getJsonObject()
+    {
+        if (jsonObject == null) {
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(ZipcodeComponent.class
+                            .getClassLoader().getResourceAsStream(
+                                    ZipcodeComponent.ZIPCODE_FILE)));
+            jsonObject = new Gson().fromJson(br, JsonObject.class);
+
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return jsonObject;
+    }
+
+    /**
+     * Get city name
+     * @return List&lt;string&gt; citys
+     */
+    public String[] listCities()
+    {
+        JsonArray jsonArray = getJsonObject().getAsJsonArray(&quot;city&quot;);
+
+        String[] cities = new String[jsonArray.size()];
+        int i;
+        for (i=0; i&lt;jsonarray.size i cities jsonarray.get return zipcode util package com.zipcode_util import junit.framework.test junit.framework.testcase junit.framework.testsuite unit test for simple app. public class apptest extends testcase create the case testname name of string super zipcodecomponent system.out.println suite tests being tested static new testsuite apptest.class rigourous :- void testapp asserttrue true tree plugin tool mvn clean install project&gt;&lt;/jsonarray.size&gt;&lt;/string&gt;
+</code></pre>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+                 <a href="/tags/android/">android</a>
+            
+                 <a href="/tags/maven/">maven</a>
+            
+        </p>
+    
+
+    <div class="share">
+        <a class="icon-twitter" href="http://twitter.com/share?text=Android%20zipcode%20library%20of%20maven&url=http%3a%2f%2falanmoment.github.io%2fpost%2fandroid%2fandroid_zipcode_library_of_maven%2f"
+            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fa fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+
+        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2falanmoment.github.io%2fpost%2fandroid%2fandroid_zipcode_library_of_maven%2f"
+            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <i class="fa fa-facebook"></i>
+            <span class="hidden">Facebook</span>
+        </a>
+
+        <a class="icon-google-plus" href="https://plus.google.com/share?url=http%3a%2f%2falanmoment.github.io%2fpost%2fandroid%2fandroid_zipcode_library_of_maven%2f"
+           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+           <i class="fa fa-google-plus"></i>
+            <span class="hidden">Google+</span>
+        </a>
+    </div>
+</footer>
+
+        
+    <div class="comments">
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'alanmoment';
+    var disqus_identifier = 'http:\/\/alanmoment.github.io\/post\/android\/android_zipcode_library_of_maven\/';
+    var disqus_title = 'Android zipcode library of maven';
+    var disqus_url = 'http:\/\/alanmoment.github.io\/post\/android\/android_zipcode_library_of_maven\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="Hello World!!" href="http://alanmoment.github.io/">Hello World!!</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2016 / Powered by <a href="http://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="http://alanmoment.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+        <script src="http://alanmoment.github.io/js/jquery.fitvids.js"></script>
+        <script src="http://alanmoment.github.io/js/scripts.js"></script>
+    </body>
+</html>
+

@@ -12,10 +12,10 @@
     
     <item>
       <title>網頁教學初體驗</title>
-      <link>http://alanmoment.github.io/2015/04/28/wang_ye_jiao_xue_chu_ti_yan/</link>
+      <link>http://alanmoment.github.io/post/other/wang_ye_jiao_xue_chu_ti_yan/</link>
       <pubDate>Tue, 28 Apr 2015 00:10:25 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2015/04/28/wang_ye_jiao_xue_chu_ti_yan/</guid>
+      <guid>http://alanmoment.github.io/post/other/wang_ye_jiao_xue_chu_ti_yan/</guid>
       <description>&lt;p&gt;在工作的需求上，今天指導幾位同事有關於網頁開發的基本觀念，發現有時候自己懂得，曾經經歷的挫折，或許對其他人來說是第一次的遭遇，但因為時間因素，沒有辦法好好的講解，只有短短的2個小時根本講不到什麼&amp;hellip;不過或許是我還抓不到指導的訣竅。&lt;/p&gt;
 
 &lt;p&gt;針對這次的備課有編了一本&lt;a href=&#34;http://alanmoment.gitbooks.io/web-guide/content/&#34;&gt;GitBook&lt;/a&gt;，希望下次會更好。只是說&amp;hellip;下次不想講 &lt;code&gt;CI&lt;/code&gt;，我比較想講喜歡的 &lt;code&gt;Laravel&lt;/code&gt;&lt;/p&gt;
@@ -24,20 +24,20 @@
     
     <item>
       <title>大搬家</title>
-      <link>http://alanmoment.github.io/2014/08/09/da_ban_jia/</link>
+      <link>http://alanmoment.github.io/post/other/da_ban_jia/</link>
       <pubDate>Sat, 09 Aug 2014 02:09:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2014/08/09/da_ban_jia/</guid>
+      <guid>http://alanmoment.github.io/post/other/da_ban_jia/</guid>
       <description>&lt;p&gt;最近已經逐漸熟悉AWS的一些服務，決定要狠下心把家裡的Linux停掉。把一些東西都轉到雲端上，所以文章現在都存在&lt;code&gt;tumblr.&lt;/code&gt;上了。不然其實電費算起來也是挺貴的&amp;hellip;搬了兩個小時終於把文章都重新整理好了。手工搬實在累&amp;hellip;連DNS都要重新設定。&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>走在時尚的尖端! Ghost</title>
-      <link>http://alanmoment.github.io/2013/10/24/zou_zai_shi_shang_de_jian_7aef21_ghost/</link>
+      <link>http://alanmoment.github.io/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/</link>
       <pubDate>Thu, 24 Oct 2013 10:34:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2013/10/24/zou_zai_shi_shang_de_jian_7aef21_ghost/</guid>
+      <guid>http://alanmoment.github.io/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/</guid>
       <description>
 
 &lt;p&gt;今天我也要來趕流行一下，最近很流行&lt;a href=&#34;https://en.ghost.org/&#34;&gt;Ghost&lt;/a&gt;這東東，這東東是甚麼呢？他有點像&lt;a href=&#34;https://http://octopress.org//&#34;&gt;Octopress&lt;/a&gt;，但是卻不像Octopress比較困難架。&lt;/p&gt;
@@ -110,10 +110,10 @@ $ npm start
     
     <item>
       <title>慶祝Octopress開張</title>
-      <link>http://alanmoment.github.io/2013/06/12/qing_zhu_octopress_kai_zhang/</link>
+      <link>http://alanmoment.github.io/post/other/qing_zhu_octopress_kai_zhang/</link>
       <pubDate>Wed, 12 Jun 2013 13:59:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2013/06/12/qing_zhu_octopress_kai_zhang/</guid>
+      <guid>http://alanmoment.github.io/post/other/qing_zhu_octopress_kai_zhang/</guid>
       <description>
 
 &lt;p&gt;搞了老半天終於搞定，來試試看好不好用!!! 立馬來一篇教學文。Github + Octopress&lt;/p&gt;

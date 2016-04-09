@@ -12,10 +12,10 @@
     
     <item>
       <title>SSH免密碼登入遠端電腦</title>
-      <link>http://alanmoment.github.io/2013/06/16/sshmian_mi_ma_deng_ru_yuan_duan_dian_nao/</link>
+      <link>http://alanmoment.github.io/post/os/linux/sshmian_mi_ma_deng_ru_yuan_duan_dian_nao/</link>
       <pubDate>Sun, 16 Jun 2013 22:37:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2013/06/16/sshmian_mi_ma_deng_ru_yuan_duan_dian_nao/</guid>
+      <guid>http://alanmoment.github.io/post/os/linux/sshmian_mi_ma_deng_ru_yuan_duan_dian_nao/</guid>
       <description>&lt;p&gt;YUM安裝SSH&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ yum -y install openssh

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>與LinkIt的第一類接觸就死人 &middot; Alan</title>
+        <meta name="description" content="與LinkIt的第一類接觸就是把他弄爛掉了...我把板子從AP Mode切換成Station Mode就整個死掉了，完全無法進入，然後Wifi的Led燈一直亮著。...">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="generator" content="Hugo 0.15" />
+        <meta name="robots" content="index,follow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/normalize.css">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/highlight.css">
+        <link rel="stylesheet" href="http://alanmoment.github.io/css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        
+
+        <div id="wrapper">
+            <header class="site-header">
+                <div class="container">
+                    <div class="site-title-wrapper">
+                        
+                            <h1 class="site-title">
+                                <a title="Hello World!!" href="http://alanmoment.github.io/">Hello World!!</a>
+                            </h1>
+                        
+                        <a class="button-square" href="http://alanmoment.github.io/index.xml"><i class="fa fa-rss"></i></a>
+                        
+                            <a class="button-square button-social hint--top" data-hint="Twitter" title="Twitter" href="https://twitter.com/alanmoment">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="Github" title="Github" href="https://github.com/alanmoment">
+                                <i class="fa fa-github-alt"></i>
+                            </a>
+                        
+                        
+                        
+                            <a class="button-square button-social hint--top" data-hint="LinkedIn" title="LinkedIn" href="https://linkedin.com/in/alanmoment/">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                        
+                        
+                    </div>
+
+                    <ul class="site-nav">
+                        
+    <li class="site-nav-item">
+        <a title="Blog" href="/">Blog</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="Projects" href="/page/project/">Projects</a>
+    </li>
+
+    <li class="site-nav-item">
+        <a title="About" href="/page/about/">About</a>
+    </li>
+
+                    </ul>
+                </div>
+            </header>
+
+            <div id="container">
+
+
+<div class="container">
+    <article class="post-container" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">與LinkIt的第一類接觸就死人</h1>
+    
+        <p class="post-description" itemprop="description">與LinkIt的第一類接觸就是把他弄爛掉了...我把板子從AP Mode切換成Station Mode就整個死掉了，完全無法進入，然後Wifi的Led燈一直亮著。...</p>
+    
+    <p class="post-date">
+        <span>Published <time datetime="2016-04-09" itemprop="datePublished">Sat, Apr 9, 2016</time></span>
+        <span>by</span>
+        <span itemscope="" itemprop="author" itemtype="http://schema.org/Person">
+            <span itemprop="name">
+                <a href="" itemprop="url" rel="author">Alan</a>
+            </span>
+        </span>
+    </p>
+</header>
+
+        <div class="post-content clearfix" itemprop="articleBody">
+    
+
+    <p>與LinkIt的第一類接觸就是把他弄爛掉了&hellip;我把板子從AP Mode切換成Station Mode就整個死掉了，完全無法進入，然後Wifi的Led燈一直亮著。心想&hellip;他X的什麼爛東西，Tessel都還不曾這樣搞我。長壓Wifi按鈕不管是5秒還是500秒都無法讓板子起死回生&hellip;心裡想那就這樣吧。</p>
+
+<p>只是不服輸的我腦海裡浮現&hellip;</p>
+
+<p><img src="https://verbumdeitwn.files.wordpress.com/2013/09/11939322-never-give-up-written-in-chalk-on-a-blackboard.jpg" alt="" /></p>
+
+<p>心裡一橫，去Gitter問，沒人理，去MakerCap求救，沒人救。真的覺得Suck&hellip;</p>
+
+<p>不屈不饒的我終於在<a href="http://www.slideshare.net/NissinAllelujahnissin/linkit-smart-7688-duo-and-mcs-basics">SlideShare</a>找到救星&hellip;照著這份<a href="https://mediatek-labs.gitbooks.io/linkit-smart-7688/content/update-firmware-usb.html">文件</a>做就可以讓板子回復到原廠狀態。他X的&hellip;.</p>
+
+<ol>
+<li>準備一個32MB以上的隨身碟（這個年代應該不會有這種東西吧），並且將之格式化為FAT32</li>
+<li>下載<a href="http://download.labs.mediatek.com/MediaTek_LinkIt_Smart_7688_Firmware">LinkIt Smart 7688 Firmware</a>放到隨碟裡面</li>
+<li>按住Wifi按鈕，接著按一下MPU按鈕</li>
+</ol>
+
+<p>會發現Wifi的Led燈從亮著，然後熄滅掉，然後又亮一下，再次熄滅掉，當<code>再次熄滅掉</code>就可以把按著Wifi按鈕的手移開了。整個還原就會開始進行。法克U&hellip;&hellip;.</p>
+
+<p><img src="/images/post/iot/linkit/the_linkit_first_time/pcb_got.png" alt="" /></p>
+
+<p>我是用LinkIt Smart 7688 Duo的這一塊板子，所以可以用Arduino來Coding，但這邊也弄了一屁股雷。下載1.6.8的版本然後照別人教學的放進 <a href="http://download.labs.mediatek.com/package_mtk_linkit_smart_7688_test_index.json">http://download.labs.mediatek.com/package_mtk_linkit_smart_7688_test_index.json</a> 這一串到<code>額外的板子管理員</code>怎樣都不能安裝啊。</p>
+
+<p>最後還是得靠自己，從關鍵字去搜尋找到Arduino官方的<a href="https://github.com/arduino/Arduino/wiki/Unofficial-list-of-3rd-party-boards-support-urls">GitHub</a>找到 <a href="http://download.labs.mediatek.com/package_mtk_linkit_smart_7688_index.json">http://download.labs.mediatek.com/package_mtk_linkit_smart_7688_index.json</a> 。根本就沒有<code>test</code>啊。了了個去&hellip;.</p>
+
+</div>
+
+        <footer class="post-footer clearfix">
+    
+        <p class="post-tags">
+            <span>Tagged:</span>
+            
+                 <a href="/tags/iot/">iot</a>
+            
+                 <a href="/tags/linkit/">linkit</a>
+            
+        </p>
+    
+
+    <div class="share">
+        <a class="icon-twitter" href="http://twitter.com/share?text=%e8%88%87LinkIt%e7%9a%84%e7%ac%ac%e4%b8%80%e9%a1%9e%e6%8e%a5%e8%a7%b8%e5%b0%b1%e6%ad%bb%e4%ba%ba&url=http%3a%2f%2falanmoment.github.io%2fpost%2fiot%2flinkit%2fthe_linkit_first_time%2f"
+            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <i class="fa fa-twitter"></i>
+            <span class="hidden">Twitter</span>
+        </a>
+
+        <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2falanmoment.github.io%2fpost%2fiot%2flinkit%2fthe_linkit_first_time%2f"
+            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+            <i class="fa fa-facebook"></i>
+            <span class="hidden">Facebook</span>
+        </a>
+
+        <a class="icon-google-plus" href="https://plus.google.com/share?url=http%3a%2f%2falanmoment.github.io%2fpost%2fiot%2flinkit%2fthe_linkit_first_time%2f"
+           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+           <i class="fa fa-google-plus"></i>
+            <span class="hidden">Google+</span>
+        </a>
+    </div>
+</footer>
+
+        
+    <div class="comments">
+        <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'alanmoment';
+    var disqus_identifier = 'http:\/\/alanmoment.github.io\/post\/iot\/linkit\/the_linkit_first_time\/';
+    var disqus_title = '與LinkIt的第一類接觸就死人';
+    var disqus_url = 'http:\/\/alanmoment.github.io\/post\/iot\/linkit\/the_linkit_first_time\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+
+    </article>
+</div>
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="site-title-wrapper">
+                    <h1 class="site-title">
+                        <a title="Hello World!!" href="http://alanmoment.github.io/">Hello World!!</a>
+                    </h1>
+                    <a class="button-square button-jump-top js-jump-top" href="#">
+                        <i class="fa fa-angle-up"></i>
+                    </a>
+                </div>
+
+                <p class="footer-copyright">
+                    <span>&copy; 2016 / Powered by <a href="http://gohugo.io/">Hugo</a></span>
+                </p>
+                <p class="footer-copyright">
+                    <span><a href="https://github.com/roryg/ghostwriter">Ghostwriter theme</a> By <a href="http://jollygoodthemes.com">JollyGoodThemes</a></span>
+                    <span>/ <a href="https://github.com/jbub/ghostwriter">Ported</a> to Hugo By <a href="https://github.com/jbub">jbub</a></span>
+                </p>
+            </div>
+        </footer>
+
+        <script src="http://alanmoment.github.io/js/jquery-1.11.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+        <script src="http://alanmoment.github.io/js/jquery.fitvids.js"></script>
+        <script src="http://alanmoment.github.io/js/scripts.js"></script>
+    </body>
+</html>
+

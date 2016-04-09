@@ -12,10 +12,10 @@
     
     <item>
       <title>Laravel 首發 !!!</title>
-      <link>http://alanmoment.github.io/2014/08/19/laravel_shou_fa/</link>
+      <link>http://alanmoment.github.io/post/php/laravel_shou_fa/</link>
       <pubDate>Tue, 19 Aug 2014 11:11:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/2014/08/19/laravel_shou_fa/</guid>
+      <guid>http://alanmoment.github.io/post/php/laravel_shou_fa/</guid>
       <description>
 
 &lt;p&gt;雖然&lt;a href=&#34;http://laravel.com/&#34;&gt;Laravel&lt;/a&gt;已經出現頗久，最近總算開始動動手了，有鑑於去年開始使用Ruby on Rails，發現說Laravel也太像了吧。據匿名的朋友說現在的Framework幾乎都是&lt;code&gt;參考&lt;/code&gt;Ruby on Rails。而這次也趁機再多用幾種工具，&lt;/p&gt;
