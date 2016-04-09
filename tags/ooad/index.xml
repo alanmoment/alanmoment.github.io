@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ooad on Hello World!!</title>
-    <link>http://alanmoment.github.io/tags/ooad/</link>
+    <link>http://localhost:1313/tags/ooad/</link>
     <description>Recent content in Ooad on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>© Copyright Alan - 2016</copyright>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Wed, 26 Feb 2014 21:33:00 +0000</lastBuildDate>
-    <atom:link href="http://alanmoment.github.io/tags/ooad/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/ooad/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Injection Principle Design Pattern</title>
-      <link>http://alanmoment.github.io/post/ooad/injection_principle_design_pattern/</link>
+      <link>http://localhost:1313/post/ooad/injection_principle_design_pattern/</link>
       <pubDate>Wed, 26 Feb 2014 21:33:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/ooad/injection_principle_design_pattern/</guid>
+      <guid>http://localhost:1313/post/ooad/injection_principle_design_pattern/</guid>
       <description>
 
 &lt;p&gt;這兩天有個案例，內容簡約來說可以這樣闡述：&lt;/p&gt;
@@ -227,7 +227,7 @@ class Header implements AdInterface {
 
 &lt;p&gt;最後用 Class Diagram 解釋這整個關係。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/ooad/injection_principle_design_pattern/Class_Diagram.png&#34; alt=&#34;Class Diagram&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/ooad/injection_principle_design_pattern/Class_Diagram.png&#34; alt=&#34;Class Diagram&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     

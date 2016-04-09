@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on Hello World!!</title>
-    <link>http://alanmoment.github.io/tags/linux/</link>
+    <link>http://localhost:1313/tags/linux/</link>
     <description>Recent content in Linux on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>© Copyright Alan - 2016</copyright>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Tue, 18 Nov 2014 00:17:00 +0000</lastBuildDate>
-    <atom:link href="http://alanmoment.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>The bash auto build</title>
-      <link>http://alanmoment.github.io/post/os/linux/the_bash_auto_build/</link>
+      <link>http://localhost:1313/post/os/linux/the_bash_auto_build/</link>
       <pubDate>Tue, 18 Nov 2014 00:17:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/os/linux/the_bash_auto_build/</guid>
+      <guid>http://localhost:1313/post/os/linux/the_bash_auto_build/</guid>
       <description>
 
 &lt;p&gt;發覺自己在開發上常用的小工具都沒有在整理的，每次要用就都要回想，然後再一個一個找回來覺得很煩。尤其是現在工作上要管理十幾二十台後端。常常在那邊用得不順暢，才驚覺這樣真的不行！！&lt;/p&gt;
@@ -58,10 +58,10 @@
     
     <item>
       <title>Apache與Tomcat的結合</title>
-      <link>http://alanmoment.github.io/post/os/linux/apacheyu_tomcat_de_jie_he/</link>
+      <link>http://localhost:1313/post/os/linux/apacheyu_tomcat_de_jie_he/</link>
       <pubDate>Fri, 02 Aug 2013 10:14:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/os/linux/apacheyu_tomcat_de_jie_he/</guid>
+      <guid>http://localhost:1313/post/os/linux/apacheyu_tomcat_de_jie_he/</guid>
       <description>&lt;p&gt;因為我很愛東搞西搞，去年寫了個網站，但是是用JSP寫的，用了Status, Hibernate, tiles的框架，所以得佈署在Tomcat，可是80 port已經被Apache佔用了，Tomcat只能用8080，但看了我實在很不舒服，所以又開始想東想西了。&lt;/p&gt;
 
 &lt;p&gt;一開始，我想為Tomcat裝Plugin看能不能融入Apache，讓Apache呼叫Tomcat來執行程式。所以我找到了&lt;a href=&#34;http://tomcat.apache.org/download-connectors.cgi&#34;&gt;mod_js&lt;/a&gt;試著安裝之後，我失敗了(其實是偷懶!!)，後來有人跟我提到&lt;a href=&#34;http://php-java-bridge.sourceforge.net/&#34;&gt;php-java-bridge&lt;/a&gt;，但是還沒裝我就放棄了，因為我覺得根本不用這麼複雜&amp;hellip;&lt;/p&gt;
@@ -99,10 +99,10 @@
     
     <item>
       <title>SSH免密碼登入遠端電腦</title>
-      <link>http://alanmoment.github.io/post/os/linux/sshmian_mi_ma_deng_ru_yuan_duan_dian_nao/</link>
+      <link>http://localhost:1313/post/os/linux/sshmian_mi_ma_deng_ru_yuan_duan_dian_nao/</link>
       <pubDate>Sun, 16 Jun 2013 22:37:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/os/linux/sshmian_mi_ma_deng_ru_yuan_duan_dian_nao/</guid>
+      <guid>http://localhost:1313/post/os/linux/sshmian_mi_ma_deng_ru_yuan_duan_dian_nao/</guid>
       <description>&lt;p&gt;YUM安裝SSH&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ yum -y install openssh

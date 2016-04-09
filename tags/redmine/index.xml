@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Redmine on Hello World!!</title>
-    <link>http://alanmoment.github.io/tags/redmine/</link>
+    <link>http://localhost:1313/tags/redmine/</link>
     <description>Recent content in Redmine on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>© Copyright Alan - 2016</copyright>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Tue, 18 Feb 2014 05:38:00 +0000</lastBuildDate>
-    <atom:link href="http://alanmoment.github.io/tags/redmine/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/redmine/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Redmine之基本建置與Scrum應用</title>
-      <link>http://alanmoment.github.io/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/</link>
+      <link>http://localhost:1313/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/</link>
       <pubDate>Tue, 18 Feb 2014 05:38:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/</guid>
+      <guid>http://localhost:1313/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/</guid>
       <description>
 
 &lt;p&gt;工作上一直都有在應用 &lt;a href=&#34;http://www.redmine.org/&#34;&gt;Redmine&lt;/a&gt; 今天嘗試自己建立，所以又開始在亂搞了! 其實是最近自己做一個專案，也想試著管理一次 Scrum。&lt;/p&gt;
 
 &lt;p&gt;在 &lt;a href=&#34;http://www.redmine.org/projects/redmine/wiki/RedmineInstall&#34;&gt;RedmineInstall&lt;/a&gt; 有很詳細的安裝流程，安裝過程我也沒遇到甚麼困難的地方。所以在這邊就先略過了。&lt;/p&gt;
 
-&lt;p&gt;因為我自己建立的服務太多了，我習慣了 Apache 所以這次一樣是用 &lt;a href=&#34;http://alanmoment.github.io/post/94171211238/apache-tomcat&#34;&gt;mod_proxy&lt;/a&gt; 的方式建立服務。&lt;/p&gt;
+&lt;p&gt;因為我自己建立的服務太多了，我習慣了 Apache 所以這次一樣是用 &lt;a href=&#34;http://localhost:1313/post/94171211238/apache-tomcat&#34;&gt;mod_proxy&lt;/a&gt; 的方式建立服務。&lt;/p&gt;
 
 &lt;p&gt;另外就是紀錄一套 Redmine 的 plugin。 &lt;a href=&#34;http://www.redminebacklogs.net/en/installation.html&#34;&gt;Backlogs&lt;/a&gt; 對 Scrum 有不錯的支援。有興趣可以安裝看看。&lt;/p&gt;
 
@@ -72,7 +72,7 @@ $ bundle exec rake redmine:backlogs:install
 
 &lt;p&gt;基本上這樣就完成了，官網有詳細的步驟。之後進入 Redmine 就會看到 Scrum 統計。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/backlog.png&#34; alt=&#34;backlog&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/backlog.png&#34; alt=&#34;backlog&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;可以進入附加元件設置相關設定，另外我在網站管理的設定是以 Scrum 為主。&lt;/p&gt;
 
@@ -100,10 +100,10 @@ $ bundle exec rake redmine:backlogs:install
 
 &lt;p&gt;這是以 Redmine 本身的問題清單來看&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/scrum.png&#34; alt=&#34;scrum&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/scrum.png&#34; alt=&#34;scrum&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;這個是以 Backlog 來看
-&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/scrum-1.png&#34; alt=&#34;backlog-scrum&#34; /&gt;&lt;/p&gt;
+&lt;img src=&#34;http://localhost:1313/images/post/cooperation/redmine/redminezhi_ji_ben_jian_zhi_yu_scrum_ying_yong/scrum-1.png&#34; alt=&#34;backlog-scrum&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;issue:b4d07b34783eca6c610f848528399fd3&#34;&gt;Issue&lt;/h2&gt;
 

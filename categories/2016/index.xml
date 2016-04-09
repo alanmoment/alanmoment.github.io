@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2016 on Hello World!!</title>
+    <link>http://localhost:1313/categories/2016/</link>
+    <description>Recent content in 2016 on Hello World!!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
+    <lastBuildDate>Sat, 09 Apr 2016 17:03:12 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/2016/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>與LinkIt的第一類接觸就死人</title>
+      <link>http://localhost:1313/post/iot/linkit/the_linkit_first_time/</link>
+      <pubDate>Sat, 09 Apr 2016 17:03:12 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/iot/linkit/the_linkit_first_time/</guid>
+      <description>&lt;p&gt;與LinkIt的第一類接觸就是把他弄爛掉了&amp;hellip;我把板子從AP Mode切換成Station Mode就整個死掉了，完全無法進入，然後Wifi的Led燈一直亮著。心想&amp;hellip;他X的什麼爛東西，Tessel都還不曾這樣搞我。長壓Wifi按鈕不管是5秒還是500秒都無法讓板子起死回生&amp;hellip;心裡想那就這樣吧。&lt;/p&gt;
+
+&lt;p&gt;只是不服輸的我腦海裡浮現&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://verbumdeitwn.files.wordpress.com/2013/09/11939322-never-give-up-written-in-chalk-on-a-blackboard.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;心裡一橫，去Gitter問，沒人理，去MakerCap求救，沒人救。真的覺得Suck&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;不屈不饒的我終於在&lt;a href=&#34;http://www.slideshare.net/NissinAllelujahnissin/linkit-smart-7688-duo-and-mcs-basics&#34;&gt;SlideShare&lt;/a&gt;找到救星&amp;hellip;照著這份&lt;a href=&#34;https://mediatek-labs.gitbooks.io/linkit-smart-7688/content/update-firmware-usb.html&#34;&gt;文件&lt;/a&gt;做就可以讓板子回復到原廠狀態。他X的&amp;hellip;.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;準備一個32MB以上的隨身碟（這個年代應該不會有這種東西吧），並且將之格式化為FAT32&lt;/li&gt;
+&lt;li&gt;下載&lt;a href=&#34;http://download.labs.mediatek.com/MediaTek_LinkIt_Smart_7688_Firmware&#34;&gt;LinkIt Smart 7688 Firmware&lt;/a&gt;放到隨碟裡面&lt;/li&gt;
+&lt;li&gt;按住Wifi按鈕，接著按一下MPU按鈕&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;會發現Wifi的Led燈從亮著，然後熄滅掉，然後又亮一下，再次熄滅掉，當&lt;code&gt;再次熄滅掉&lt;/code&gt;就可以把按著Wifi按鈕的手移開了。整個還原就會開始進行。法克U&amp;hellip;&amp;hellip;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/linkit/the_linkit_first_time/pcb_got.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我是用LinkIt Smart 7688 Duo的這一塊板子，所以可以用Arduino來Coding，但這邊也弄了一屁股雷。下載1.6.8的版本然後照別人教學的放進 &lt;a href=&#34;http://download.labs.mediatek.com/package_mtk_linkit_smart_7688_test_index.json&#34;&gt;http://download.labs.mediatek.com/package_mtk_linkit_smart_7688_test_index.json&lt;/a&gt; 這一串到&lt;code&gt;額外的板子管理員&lt;/code&gt;怎樣都不能安裝啊。&lt;/p&gt;
+
+&lt;p&gt;最後還是得靠自己，從關鍵字去搜尋找到Arduino官方的&lt;a href=&#34;https://github.com/arduino/Arduino/wiki/Unofficial-list-of-3rd-party-boards-support-urls&#34;&gt;GitHub&lt;/a&gt;找到 &lt;a href=&#34;http://download.labs.mediatek.com/package_mtk_linkit_smart_7688_index.json&#34;&gt;http://download.labs.mediatek.com/package_mtk_linkit_smart_7688_index.json&lt;/a&gt; 。根本就沒有&lt;code&gt;test&lt;/code&gt;啊。了了個去&amp;hellip;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The Phabricator of docker build</title>
+      <link>http://localhost:1313/post/cooperation/phabricator/the_phabricator_of_docker_build/</link>
+      <pubDate>Thu, 07 Apr 2016 11:36:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/cooperation/phabricator/the_phabricator_of_docker_build/</guid>
+      <description>
+
+&lt;p&gt;Phabricator 是一套專案管理工具。下次補上 Arcanist 的 Code Review&lt;/p&gt;
+
+&lt;h1 id=&#34;installation-requirements:0264dd348260e4feb990404513754d99&#34;&gt;Installation Requirements&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;docker environment&lt;/li&gt;
+&lt;li&gt;docker-compose&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;installing:0264dd348260e4feb990404513754d99&#34;&gt;Installing&lt;/h1&gt;
+
+&lt;p&gt;已將 &lt;a href=&#34;https://github.com/alanmoment/phabricator&#34;&gt;Phabricator Docker&lt;/a&gt; 整理完畢，並且依環境修改 &lt;code&gt;docker-compose.yml&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ docker-compose up -d
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;登入-phabricator-container:0264dd348260e4feb990404513754d99&#34;&gt;登入 Phabricator Container&lt;/h1&gt;
+
+&lt;p&gt;Core&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./phabricator/bin/config set phabricator.timezone &amp;quot;Asia/Taipei&amp;quot;
+$ ./phabricator/bin/config set phabricator.base-uri &amp;quot;http://geniusnet.io:8081/&amp;quot;
+$ ./phabricator/bin/config set auth.login-message &amp;quot;&amp;lt;html&amp;gt;&amp;lt;body style=&#39;margin: 0px&#39;&amp;gt;&amp;lt;br /&amp;gt;&amp;lt;h1 style=&#39;text-align: center&#39;&amp;gt;Hardworking!&amp;lt;/h1&amp;gt;&amp;lt;img style=&#39;-webkit-user-select:none; display:block; margin:auto;&#39; src=&#39;http://pic.pimg.tw/markleeblog/1383024945-1385249613.jpg?v=1383024946&#39;&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Storage&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./phabricator/bin/config set storage.local-disk.path &amp;quot;/opt/backup/storage/&amp;quot;
+$ ./phabricator/bin/config set security.alternate-file-domain &amp;quot;http://YOUR_PHABRICATOR_DOMAIN:8081/&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Repository 在這邊的設定會影響到，設定 Diffusion 鏡像 Repository 的位置，也會影響到備份。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./phabricator/bin/config set repository.default-local-path &amp;quot;/var/repo/&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Mail config&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./phabricator/bin/config set phpmailer.smtp-host &amp;quot;smtp.gmail.com&amp;quot;
+# 如果您已嘗試將 SMTP 伺服器的連接埠設為 465 (適用 SSL) 和 587 (適用 TLS)，但仍無法傳送郵件。
+$ ./phabricator/bin/config set phpmailer.smtp-port 465
+$ ./phabricator/bin/config set phpmailer.smtp-user &amp;quot;EMAIL_ACCOUNT&amp;quot;
+$ ./phabricator/bin/config set phpmailer.smtp-password &amp;quot;PASSWORD&amp;quot;
+$ ./phabricator/bin/config set phpmailer.smtp-protocol &amp;quot;ssl&amp;quot;
+$ ./phabricator/bin/config set metamta.default-address &amp;quot;EMAIL_ACCOUNT&amp;quot;
+$ ./phabricator/bin/config set metamta.domain &amp;quot;YOUR_PHABRICATOR_DOMAIN&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Show Prototypes&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./phabricator/bin/config set phabricator.show-prototypes true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;按照順序啟動&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ docker start phabricator_database phabricator_phabricator
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Daemons restart&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./phabricator/bin/phd restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;無法刪除 Daemons 時試試看。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./phabricator/bin/storage upgrade
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;mail:0264dd348260e4feb990404513754d99&#34;&gt;Mail&lt;/h1&gt;
+
+&lt;p&gt;改變寄送郵件方式&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Config &amp;gt; Mail &amp;gt; metamta.mail-adapter : PhabricatorMailImplementationPHPMailerAdapter&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;若是在Google Account有不同的登入方式，例如兩段式驗證，會使得SMTP無法正常運作&lt;/p&gt;
+
+&lt;h1 id=&#34;backup:0264dd348260e4feb990404513754d99&#34;&gt;Backup&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;$ docker exec -it CONTAINER_ID /bin/sh /opt/phabricator/backup.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;profile-settings:0264dd348260e4feb990404513754d99&#34;&gt;Profile Settings&lt;/h1&gt;
+
+&lt;p&gt;各種與自身相關的設置，包含圖片、SSH Key等等&lt;/p&gt;
+
+&lt;h1 id=&#34;ssh-public-keys:0264dd348260e4feb990404513754d99&#34;&gt;SSH Public Keys&lt;/h1&gt;
+
+&lt;p&gt;SSH Public Keys 要提交 arc 必須要先將自己的 key 上傳，或是產出再下載。&lt;/p&gt;
+
+&lt;h1 id=&#34;email-notice:0264dd348260e4feb990404513754d99&#34;&gt;Email Notice&lt;/h1&gt;
+
+&lt;p&gt;Email 各種通知的接收管道，可以在此設置&lt;/p&gt;
+
+&lt;h1 id=&#34;conduit-api-tokens:0264dd348260e4feb990404513754d99&#34;&gt;Conduit API Tokens&lt;/h1&gt;
+
+&lt;p&gt;Conduit API Tokens 與 arc 或是其他 API 串接時，會在這邊顯示。&lt;/p&gt;
+
+&lt;h1 id=&#34;conpherence:0264dd348260e4feb990404513754d99&#34;&gt;Conpherence&lt;/h1&gt;
+
+&lt;p&gt;Conpherence 即時訊息的溝通平台。&lt;/p&gt;
+
+&lt;h1 id=&#34;panel:0264dd348260e4feb990404513754d99&#34;&gt;Panel&lt;/h1&gt;
+
+&lt;p&gt;Panel 編輯方便自己使用的目錄。&lt;/p&gt;
+
+&lt;h1 id=&#34;dashboard:0264dd348260e4feb990404513754d99&#34;&gt;Dashboard&lt;/h1&gt;
+
+&lt;p&gt;Dashboard 編輯自己快速瀏覽的煮版面。&lt;/p&gt;
+
+&lt;h1 id=&#34;phriction:0264dd348260e4feb990404513754d99&#34;&gt;Phriction&lt;/h1&gt;
+
+&lt;p&gt;Phriction 是用來做需求、開發或是規格的記錄文件，採用 Remark 的方式撰寫，試過 Markdown 可以無痛轉移。&lt;/p&gt;
+
+&lt;h1 id=&#34;pastes:0264dd348260e4feb990404513754d99&#34;&gt;Pastes&lt;/h1&gt;
+
+&lt;p&gt;Pastes 用來張貼各種語法，透過這個功能可以順利地表達程式碼。&lt;/p&gt;
+
+&lt;h1 id=&#34;pholio-mock:0264dd348260e4feb990404513754d99&#34;&gt;Pholio Mock&lt;/h1&gt;
+
+&lt;p&gt;Pholio Mock 運用圖片表達文字無法傳達的意思，可以在圖片上註記要注意或是溝通的事項。&lt;/p&gt;
+
+&lt;h1 id=&#34;diffusion:0264dd348260e4feb990404513754d99&#34;&gt;Diffusion&lt;/h1&gt;
+
+&lt;p&gt;新增 Repository 流程&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Import an Existing External Repository
+
+&lt;ol&gt;
+&lt;li&gt;Git&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Choose a human-readable name: PROJECT_NAME&lt;/li&gt;
+&lt;li&gt;Callsigns must be UPPERCASE: WEB&lt;/li&gt;
+&lt;li&gt;Enter the URI to clone this Git repository: RESPOSITORY_URL&lt;/li&gt;
+&lt;li&gt;Add Credential&lt;/li&gt;
+&lt;li&gt;Create Credential&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;phabulous-notice-for-slack:0264dd348260e4feb990404513754d99&#34;&gt;Phabulous (notice for slack)&lt;/h1&gt;
+
+&lt;p&gt;已將 Phabulous 的 Docker 整理完畢&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Ubuntu 14.04 LTS&lt;/li&gt;
+&lt;li&gt;gvm&lt;/li&gt;
+&lt;li&gt;go 1.4&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;gvm-go-install:0264dd348260e4feb990404513754d99&#34;&gt;GVM &amp;amp; Go Install&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ bash &amp;lt; &amp;lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+$ gvm install go1.4
+$ gvm use go1.4 [--default]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;library-install:0264dd348260e4feb990404513754d99&#34;&gt;Library Install&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;$ go get github.com/mitchellh/gox
+$ go get github.com/Sirupsen/logrus
+$ go get github.com/facebookgo/inject
+$ go get github.com/jacobstr/confer
+$ go get github.com/codegangsta/cli
+$ go get github.com/gin-gonic/gin
+$ go get github.com/nlopes/slack
+$ go get github.com/etcinit/phabulous
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;phabulous-make-start:0264dd348260e4feb990404513754d99&#34;&gt;Phabulous make &amp;amp; start&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;git clone&lt;/code&gt; from &lt;a href=&#34;https://github.com/etcinit/phabulous&#34;&gt;https://github.com/etcinit/phabulous&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ make &amp;amp;&amp;amp; ./build/phabulous_linux_amd64 serve
+alan@alan-H97M-D3H:~/go/phabulous$ kill -9 8946 &amp;amp;&amp;amp; ./build/phabulous_linux_amd64 serve
+DEBU[0000] Logger is debug level.
+DEBU[0000] Booted upper layer.
+INFO[0000] Starting up the server... (a.k.a. coffee time)
+[GIN-debug] [WARNING] Running in &amp;quot;debug&amp;quot; mode. Switch to &amp;quot;release&amp;quot; mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET   /                         --&amp;gt; github.com/etcinit/phabulous/app/controllers.*FrontController.(github.com/etcinit/phabulous/app/controllers.getIndex)·fm (3 handlers)
+[GIN-debug] GET   /healthcheck              --&amp;gt; github.com/etcinit/phabulous/app/controllers.*FrontController.(github.com/etcinit/phabulous/app/controllers.getHealthCheck)·fm (3 handlers)
+[GIN-debug] POST  /v1/feed/receive          --&amp;gt; github.com/etcinit/phabulous/app/controllers.*FeedController.(github.com/etcinit/phabulous/app/controllers.postReceive)·fm (3 handlers)
+[GIN-debug] Listening and serving HTTP on :8086
+INFO[0000] Starting RTM handler...
+DEBU[0000] RTM Event received.
+DEBU[0003] RTM Event received.
+...省略
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;另外要在 Phabricator 設置 feed hooks&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./phabricator/bin/config set feed.http-hooks &#39;[&amp;quot;http://YOUR_PHABRICATOR_DOMAIN:8086/v1/feed/receive&amp;quot;]&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;若是有成功送出通知，會有 log 顯示。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;DEBU[6417] epoch=1453355944&amp;amp;storyAuthorPHID=PHID-USER-hshw6rbaixcnjaedzhf2&amp;amp;storyData%5BobjectPHID%5D=PHID-DREV-ck47rwvcxhujb7sglbwf&amp;amp;storyData%5BtransactionPHIDs%5D%5BPHID-XACT-DREV-5mu2ffzccqgtwcq%5D=PHID-XACT-DREV-5mu2ffzccqgtwcq&amp;amp;storyData%5BtransactionPHIDs%5D%5BPHID-XACT-DREV-5rnlgp26j6n7jmc%5D=PHID-XACT-DREV-5rnlgp26j6n7jmc&amp;amp;storyData%5BtransactionPHIDs%5D%5BPHID-XACT-DREV-b4mol6ocdcu524s%5D=PHID-XACT-DREV-b4mol6ocdcu524s&amp;amp;storyData%5BtransactionPHIDs%5D%5BPHID-XACT-DREV-uqkmceoz4ja5no6%5D=PHID-XACT-DREV-uqkmceoz4ja5no6&amp;amp;storyID=9&amp;amp;storyText=root+requested+changes+to+D1%3A+add+arcconfig.&amp;amp;storyType=PhabricatorApplicationTransactionFeedStory
+[GIN] 2016/01/21 - 13:59:07 | 200 |  1.455306608s | 172.17.0.6:55900 |   POST    /v1/feed/receive
+DEBU[6423] RTM Event received.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;scrum-flow:0264dd348260e4feb990404513754d99&#34;&gt;Scrum Flow&lt;/h1&gt;
+
+&lt;p&gt;可以輸入 store point 最後還有 Burndown chart 可以看&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./phabricator/bin/config set load-libraries &#39;{&amp;quot;sprint&amp;quot;:&amp;quot;/opt/libext/sprint/src&amp;quot;}&#39;
+$ ln -s /opt/libext/sprint/rsrc/webroot-static /opt/phabricator/webroot/rsrc/sprint
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;phabricator-sprint:0264dd348260e4feb990404513754d99&#34;&gt;Phabricator-Sprint&lt;/h1&gt;
+
+&lt;h1 id=&#34;maniphest:0264dd348260e4feb990404513754d99&#34;&gt;Maniphest&lt;/h1&gt;
+
+&lt;h1 id=&#34;task-export-to-excel:0264dd348260e4feb990404513754d99&#34;&gt;Task export to Excel&lt;/h1&gt;
+
+&lt;p&gt;PHP 必須先支援輸出 Excel&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# 可以用語法找出include的路徑
+print_r(get_include_path());
+/opt:.:/usr/share/php:/usr/share/pear
+
+$ git clone https://github.com/PHPOffice/PHPExcel.git /usr/share/php
+$ vim /etc/php5/cli/php.ini
+# search ;include_path and append
+include_path = &amp;quot;.:/usr/share/php:/usr/share/php/PHPExcel/Classes&amp;quot;
+
+$ vim /etc/php5/apache2/php.ini
+# search ;include_path and append
+include_path = &amp;quot;.:/usr/share/php:/usr/share/php/PHPExcel/Classes&amp;quot;
+apachectl restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;只要支援就可以在 Maniphest 的頁面選擇 Export to Excel&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>phabricator-extensions-Sprint 無法抓到正確的 Story Points</title>
+      <link>http://localhost:1313/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</link>
+      <pubDate>Fri, 25 Mar 2016 14:11:16 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</guid>
+      <description>
+
+&lt;p&gt;在版號為 &lt;code&gt;741e2ef4b1150f9a9e4b121218b3ea536289968d&lt;/code&gt; 之後的版本，因為 story points 變更欄位，所以 burndown chart 會沒辦法抓到正確的 point。&lt;/p&gt;
+
+&lt;p&gt;可以在&lt;a href=&#34;https://secure.phabricator.com/T10350&#34;&gt;官方&lt;/a&gt;這邊找到答案，但是並不是環境都一樣，所以必須要調整一下。&lt;/p&gt;
+
+&lt;h2 id=&#34;複製-copy-points-php:aa411f32faf1b5d8c7aa2a14f8b5ff0d&#34;&gt;複製 copy_points.php&lt;/h2&gt;
+
+&lt;p&gt;將&lt;a href=&#34;https://secure.phabricator.com/P1940&#34;&gt;檔案&lt;/a&gt;複製到 phabricator 目錄底下，如果你的資料庫名稱不是 &lt;code&gt;phabricator_maniphest&lt;/code&gt;，那就要修改，第 &lt;code&gt;106&lt;/code&gt; 行，如我就修改為 &lt;code&gt;default_maniphest&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/env php
+&amp;lt;?php // See &amp;lt;https://secure.phabricator.com/T10350&amp;gt; for discussion.
+
+require_once &#39;scripts/__init_script__.php&#39;;
+
+$args = new PhutilArgumentParser($argv);
+$args-&amp;gt;parseStandardArguments();
+$args-&amp;gt;parse(
+  array(
+    array(
+      &#39;name&#39;  =&amp;gt; &#39;field&#39;,
+      &#39;param&#39; =&amp;gt; &#39;key&#39;,
+      &#39;help&#39;  =&amp;gt; pht(&#39;Field to migrate.&#39;),
+    )
+  ));
+
+$task = new ManiphestTask();
+$fields = PhabricatorCustomField::getObjectFields(
+  $task,
+  PhabricatorCustomField::ROLE_EDIT);
+
+$field_map = $fields-&amp;gt;getFields();
+$field_list = implode(&#39;, &#39;, array_keys($field_map));
+
+if (!$field_map) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;You do not have any custom fields defined in Maniphest, so there is &#39;.
+      &#39;nowhere that points can be copied from.&#39;));
+}
+
+$field_key = $args-&amp;gt;getArg(&#39;field&#39;);
+if (!strlen($field_key)) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;Use --field to specify which field to copy points from. Available &#39;.
+      &#39;fields are: %s.&#39;,
+      $field_list));
+}
+
+$field = idx($field_map, $field_key);
+if (!$field) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;Field &amp;quot;%s&amp;quot; is not a valid field. Available fields are: %s.&#39;,
+      $field_key,
+      $field_list));
+}
+
+$proxy = $field-&amp;gt;getProxy();
+if (!$proxy) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;Field &amp;quot;%s&amp;quot; is not a standard custom field, and can not be migrated.&#39;,
+      $field_key,
+      $field_list));
+}
+
+if (!($proxy instanceof PhabricatorStandardCustomFieldInt)) {
+  throw new PhutilArgumentUsageException(
+    pht(
+      &#39;Field &amp;quot;%s&amp;quot; is not an &amp;quot;int&amp;quot; field, and can not be migrated.&#39;,
+      $field_key,
+      $field_list));
+}
+
+$storage = $field-&amp;gt;newStorageObject();
+$conn_r = $storage-&amp;gt;establishConnection(&#39;r&#39;);
+
+$value_rows = queryfx_all(
+  $conn_r,
+  &#39;SELECT objectPHID, fieldValue FROM %T WHERE fieldIndex = %s
+    AND fieldValue IS NOT NULL&#39;,
+  $storage-&amp;gt;getTableName(),
+  $field-&amp;gt;getFieldIndex());
+$value_map = ipull($value_rows, &#39;fieldValue&#39;, &#39;objectPHID&#39;);
+
+$id_rows = queryfx_all(
+  $conn_r,
+  &#39;SELECT phid, id, points FROM %T&#39;,
+  $task-&amp;gt;getTableName());
+$id_map = ipull($id_rows, null, &#39;phid&#39;);
+
+foreach ($value_map as $phid =&amp;gt; $value) {
+  $dict = idx($id_map, $phid, array());
+  $id = idx($dict, &#39;id&#39;);
+  $current_points = idx($dict, &#39;points&#39;);
+
+  if (!$id) {
+    continue;
+  }
+
+  if ($current_points !== null) {
+    continue;
+  }
+
+  if ($value === null) {
+    continue;
+  }
+
+  $sql = qsprintf(
+    $conn_r,
+    &#39;UPDATE %T.%T SET points = %f WHERE id = %d;&#39;,
+    &#39;phabricator_maniphest&#39;,
+    $task-&amp;gt;getTableName(),
+    $value,
+    $id);
+
+  echo $sql.&amp;quot;\n&amp;quot;;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;更改權限:aa411f32faf1b5d8c7aa2a14f8b5ff0d&#34;&gt;更改權限&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;$ chmod +x copy_points.php
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;執行:aa411f32faf1b5d8c7aa2a14f8b5ff0d&#34;&gt;執行&lt;/h2&gt;
+
+&lt;p&gt;必須要去套件原始檔去看原始的 &lt;a href=&#34;https://github.com/wikimedia/phabricator-extensions-Sprint/blob/master/src/customfield/SprintTaskStoryPointsField.php&#34;&gt;story point&lt;/a&gt; 欄位是什麼，我查到的結果是 &lt;code&gt;isdc:sprint:storypoints&lt;/code&gt;，所以修改如下。&lt;/p&gt;
+
+&lt;p&gt;另外要注意自己之前輸入 story points 時是否有用到非數字的字元，有的話會出錯，得先去修改。可以在 &lt;code&gt;default_maniphest.maniphest_customfieldstorage&lt;/code&gt; 這張資料表去查看。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./copy_points.php --field isdc:sprint:storypoints &amp;gt; points.sql
+$ cat points.sql # Look at the results and sanity check them.
+$ cat points.sql | mysql -u root
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

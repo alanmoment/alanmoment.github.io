@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hadoop on Hello World!!</title>
-    <link>http://alanmoment.github.io/tags/hadoop/</link>
+    <link>http://localhost:1313/tags/hadoop/</link>
     <description>Recent content in Hadoop on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>© Copyright Alan - 2016</copyright>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Thu, 18 Jul 2013 14:54:00 +0000</lastBuildDate>
-    <atom:link href="http://alanmoment.github.io/tags/hadoop/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/hadoop/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>使用Sqoop將MySQL資料匯入Hbase</title>
-      <link>http://alanmoment.github.io/post/hadoop/shi_yong_sqoop_jiang_mysql_zi_liao_hui_ru_hbase/</link>
+      <link>http://localhost:1313/post/hadoop/shi_yong_sqoop_jiang_mysql_zi_liao_hui_ru_hbase/</link>
       <pubDate>Thu, 18 Jul 2013 14:54:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/hadoop/shi_yong_sqoop_jiang_mysql_zi_liao_hui_ru_hbase/</guid>
+      <guid>http://localhost:1313/post/hadoop/shi_yong_sqoop_jiang_mysql_zi_liao_hui_ru_hbase/</guid>
       <description>
 
 &lt;p&gt;想要使用MapReduce運算Hbase的資料，但若是原本資料在別種資料庫該怎麼辦呢，在龐大的Hadoop家族中&lt;a href=&#34;http://sqoop.apache.org/&#34;&gt;Sqoop&lt;/a&gt;就是完成這一個任務，他有提供各種資料庫匯入至Hbase的功能。&lt;/p&gt;
@@ -116,10 +116,10 @@ at com.cloudera.sqoop.mapreduce.db.DBRecordReader.nextKeyValue(DBRecordReader.ja
     
     <item>
       <title>使用MapReduce之替代方案Hive</title>
-      <link>http://alanmoment.github.io/post/hadoop/shi_yong_mapreduce_zhi_ti_dai_fang_an_hive/</link>
+      <link>http://localhost:1313/post/hadoop/shi_yong_mapreduce_zhi_ti_dai_fang_an_hive/</link>
       <pubDate>Sun, 23 Jun 2013 22:03:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/hadoop/shi_yong_mapreduce_zhi_ti_dai_fang_an_hive/</guid>
+      <guid>http://localhost:1313/post/hadoop/shi_yong_mapreduce_zhi_ti_dai_fang_an_hive/</guid>
       <description>
 
 &lt;p&gt;若要操作Hadoop就必須要會&lt;a href=&#34;http://hadoop.apache.org/docs/stable/mapred_tutorial.html&#34;&gt;MapReduce&lt;/a&gt;，很好!!在Hadoop很夯之前相信很多人都對MapReduce非常陌生，沒錯!!那真的是有點困難，但是呢，若我講SQL語言，相信你一定信心十足吧!!&lt;/p&gt;
@@ -454,13 +454,13 @@ $ chkconfig hive-thrift on
     
     <item>
       <title>Hadoop 溝通橋梁之 Thrift 0.7</title>
-      <link>http://alanmoment.github.io/post/hadoop/hadoop_gou_tong_qiao_liang_zhi_thrift_0__7/</link>
+      <link>http://localhost:1313/post/hadoop/hadoop_gou_tong_qiao_liang_zhi_thrift_0__7/</link>
       <pubDate>Tue, 18 Jun 2013 11:57:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/hadoop/hadoop_gou_tong_qiao_liang_zhi_thrift_0__7/</guid>
+      <guid>http://localhost:1313/post/hadoop/hadoop_gou_tong_qiao_liang_zhi_thrift_0__7/</guid>
       <description>
 
-&lt;p&gt;會建置&lt;a href=&#34;http://thrift.apache.org/&#34;&gt;Thrift&lt;/a&gt;是因為我希望用PHP向&lt;a href=&#34;http://alanmoment.github.io/post/94170575263/hadoop-hbase&#34;&gt;Hadoop + Hbase 叢集環境&lt;/a&gt;溝通。Thrift是全世界第一大國Facebook釋出的開源項目之一，主要用來串接不同語言，讓他們之間能互相溝通。&lt;/p&gt;
+&lt;p&gt;會建置&lt;a href=&#34;http://thrift.apache.org/&#34;&gt;Thrift&lt;/a&gt;是因為我希望用PHP向&lt;a href=&#34;http://localhost:1313/post/94170575263/hadoop-hbase&#34;&gt;Hadoop + Hbase 叢集環境&lt;/a&gt;溝通。Thrift是全世界第一大國Facebook釋出的開源項目之一，主要用來串接不同語言，讓他們之間能互相溝通。&lt;/p&gt;
 
 &lt;p&gt;這裡我就是用來讓PHP也能使用MapReduce和Hbase溝通的。在安裝的時候吃了不少苦頭阿&amp;hellip;腦細胞死了不少。就算現在再架設一遍，我相信會再痛苦一次的。&lt;/p&gt;
 
@@ -602,13 +602,13 @@ $ cp /opt/hadoop/hadoop-0.20.2-core.jar  ./
     
     <item>
       <title>Hadoop &#43; Hbase 叢集環境</title>
-      <link>http://alanmoment.github.io/post/hadoop/hadoop_&#43;_hbase_cong_ji_huan_jing/</link>
+      <link>http://localhost:1313/post/hadoop/hadoop_&#43;_hbase_cong_ji_huan_jing/</link>
       <pubDate>Mon, 17 Jun 2013 14:32:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/hadoop/hadoop_&#43;_hbase_cong_ji_huan_jing/</guid>
+      <guid>http://localhost:1313/post/hadoop/hadoop_&#43;_hbase_cong_ji_huan_jing/</guid>
       <description>
 
-&lt;p&gt;這是配合著&lt;a href=&#34;http://alanmoment.github.io/post/94169976403/centos-5-5-hadoop-0-20&#34;&gt;CentOS 5.5 + Hadoop 0.20&lt;/a&gt;以及&lt;a href=&#34;http://alanmoment.github.io/post/94170198668/centos-5-5-hbase-0-94-8&#34;&gt;CentOS 5.5 + Hbase 0.94.8&lt;/a&gt;建立的叢集系統，為了方便記錄，所以我分開介紹囉。但記錄畢竟有點久了，有些步驟還需要再架一次才會更正確。&lt;/p&gt;
+&lt;p&gt;這是配合著&lt;a href=&#34;http://localhost:1313/post/94169976403/centos-5-5-hadoop-0-20&#34;&gt;CentOS 5.5 + Hadoop 0.20&lt;/a&gt;以及&lt;a href=&#34;http://localhost:1313/post/94170198668/centos-5-5-hbase-0-94-8&#34;&gt;CentOS 5.5 + Hbase 0.94.8&lt;/a&gt;建立的叢集系統，為了方便記錄，所以我分開介紹囉。但記錄畢竟有點久了，有些步驟還需要再架一次才會更正確。&lt;/p&gt;
 
 &lt;p&gt;因為Hadoop本身的優勢將文件的儲存和任務處理分散化，Hadoop分散式架構中有兩種負責不同功能的服務器Master服務器和Slave服務器，安裝時假設要為2台服務器安裝Hadoop架構。&lt;/p&gt;
 
@@ -649,7 +649,7 @@ slave
 
 &lt;h3 id=&#34;免密碼登入遠端電腦:69b3968cbee1443572d3ffc2f317d826&#34;&gt;免密碼登入遠端電腦&lt;/h3&gt;
 
-&lt;p&gt;請參考&lt;a href=&#34;http://alanmoment.github.io/post/94170433873/ssh免密碼登入遠端電腦&#34;&gt;SSH免密碼登入遠端電腦&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;請參考&lt;a href=&#34;http://localhost:1313/post/94170433873/ssh免密碼登入遠端電腦&#34;&gt;SSH免密碼登入遠端電腦&lt;/a&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;重新配置hadoop:69b3968cbee1443572d3ffc2f317d826&#34;&gt;重新配置Hadoop&lt;/h3&gt;
 
@@ -756,13 +756,13 @@ Jps
     
     <item>
       <title>CentOS 5.5 &#43; Hbase 0.94.8</title>
-      <link>http://alanmoment.github.io/post/hadoop/centos_55_&#43;_hbase_0948/</link>
+      <link>http://localhost:1313/post/hadoop/centos_55_&#43;_hbase_0948/</link>
       <pubDate>Sat, 15 Jun 2013 23:57:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/hadoop/centos_55_&#43;_hbase_0948/</guid>
+      <guid>http://localhost:1313/post/hadoop/centos_55_&#43;_hbase_0948/</guid>
       <description>
 
-&lt;p&gt;本篇與&lt;a href=&#34;http://alanmoment.github.io/post/94169976403/centos-5-5-hadoop-0-20&#34;&gt;CentOS 5.5 + Hadoop 0.20&lt;/a&gt;其實是同一時期的，Hbase有別於RDBMS資料庫，底層是使用了分散式的檔案系統(Hadoop HDFS)，他把不同的表拆成很多份，由不同的伺服器各自負責存取部分的資料，藉由這樣達到分散式架構，提高效能。詳細功能&lt;a href=&#34;http://hbase.apache.org/&#34;&gt;官網&lt;/a&gt;都有說明喔!&lt;/p&gt;
+&lt;p&gt;本篇與&lt;a href=&#34;http://localhost:1313/post/94169976403/centos-5-5-hadoop-0-20&#34;&gt;CentOS 5.5 + Hadoop 0.20&lt;/a&gt;其實是同一時期的，Hbase有別於RDBMS資料庫，底層是使用了分散式的檔案系統(Hadoop HDFS)，他把不同的表拆成很多份，由不同的伺服器各自負責存取部分的資料，藉由這樣達到分散式架構，提高效能。詳細功能&lt;a href=&#34;http://hbase.apache.org/&#34;&gt;官網&lt;/a&gt;都有說明喔!&lt;/p&gt;
 
 &lt;p&gt;本篇預設環境：&lt;/p&gt;
 
@@ -855,10 +855,10 @@ $ /opt/hadoop/bin/hadoop dfs -put conf input
     
     <item>
       <title>CentOS 5.5 &#43; Hadoop 0.20</title>
-      <link>http://alanmoment.github.io/post/hadoop/centos_55_&#43;_hadoop_020/</link>
+      <link>http://localhost:1313/post/hadoop/centos_55_&#43;_hadoop_020/</link>
       <pubDate>Thu, 13 Jun 2013 23:12:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/hadoop/centos_55_&#43;_hadoop_020/</guid>
+      <guid>http://localhost:1313/post/hadoop/centos_55_&#43;_hadoop_020/</guid>
       <description>
 
 &lt;p&gt;緊接著再來一發舊的，這一篇已經是去年的記錄了，當時是因為公司想要導入&lt;a href=&#34;http://hadoop.apache.org/&#34;&gt;Hadoop&lt;/a&gt;分析使用者行為，所以我才開始著手研究，就趁這個時候把他整理一下吧，現在的版本都已經不知道升到多少去了。&lt;/p&gt;

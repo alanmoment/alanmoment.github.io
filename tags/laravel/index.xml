@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Laravel on Hello World!!</title>
-    <link>http://alanmoment.github.io/tags/laravel/</link>
+    <link>http://localhost:1313/tags/laravel/</link>
     <description>Recent content in Laravel on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>© Copyright Alan - 2016</copyright>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Tue, 19 Aug 2014 11:11:00 +0000</lastBuildDate>
-    <atom:link href="http://alanmoment.github.io/tags/laravel/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/laravel/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Laravel 首發 !!!</title>
-      <link>http://alanmoment.github.io/post/php/laravel_shou_fa/</link>
+      <link>http://localhost:1313/post/php/laravel_shou_fa/</link>
       <pubDate>Tue, 19 Aug 2014 11:11:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/php/laravel_shou_fa/</guid>
+      <guid>http://localhost:1313/post/php/laravel_shou_fa/</guid>
       <description>
 
 &lt;p&gt;雖然&lt;a href=&#34;http://laravel.com/&#34;&gt;Laravel&lt;/a&gt;已經出現頗久，最近總算開始動動手了，有鑑於去年開始使用Ruby on Rails，發現說Laravel也太像了吧。據匿名的朋友說現在的Framework幾乎都是&lt;code&gt;參考&lt;/code&gt;Ruby on Rails。而這次也趁機再多用幾種工具，&lt;/p&gt;

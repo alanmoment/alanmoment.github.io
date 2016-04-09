@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Json on Hello World!!</title>
-    <link>http://alanmoment.github.io/tags/json/</link>
+    <link>http://localhost:1313/tags/json/</link>
     <description>Recent content in Json on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>© Copyright Alan - 2016</copyright>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Wed, 17 Jul 2013 12:14:00 +0000</lastBuildDate>
-    <atom:link href="http://alanmoment.github.io/tags/json/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/json/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>PHP安裝JSON</title>
-      <link>http://alanmoment.github.io/post/php/phpan_zhuang_json/</link>
+      <link>http://localhost:1313/post/php/phpan_zhuang_json/</link>
       <pubDate>Wed, 17 Jul 2013 12:14:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/php/phpan_zhuang_json/</guid>
+      <guid>http://localhost:1313/post/php/phpan_zhuang_json/</guid>
       <description>
 
 &lt;p&gt;&lt;a href=&#34;http://www.json.org/&#34;&gt;JSON&lt;/a&gt;是一種資料格式，很多語言為了能互相溝通，都採用這種格式來傳遞資料，要讓PHP支援JSON，需要另外安裝模組。&lt;/p&gt;

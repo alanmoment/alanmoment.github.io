@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Bash on Hello World!!</title>
-    <link>http://alanmoment.github.io/tags/bash/</link>
+    <link>http://localhost:1313/tags/bash/</link>
     <description>Recent content in Bash on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>© Copyright Alan - 2016</copyright>
+    <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Tue, 18 Nov 2014 00:17:00 +0000</lastBuildDate>
-    <atom:link href="http://alanmoment.github.io/tags/bash/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/bash/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>The bash auto build</title>
-      <link>http://alanmoment.github.io/post/os/linux/the_bash_auto_build/</link>
+      <link>http://localhost:1313/post/os/linux/the_bash_auto_build/</link>
       <pubDate>Tue, 18 Nov 2014 00:17:00 +0000</pubDate>
       
-      <guid>http://alanmoment.github.io/post/os/linux/the_bash_auto_build/</guid>
+      <guid>http://localhost:1313/post/os/linux/the_bash_auto_build/</guid>
       <description>
 
 &lt;p&gt;發覺自己在開發上常用的小工具都沒有在整理的，每次要用就都要回想，然後再一個一個找回來覺得很煩。尤其是現在工作上要管理十幾二十台後端。常常在那邊用得不順暢，才驚覺這樣真的不行！！&lt;/p&gt;
