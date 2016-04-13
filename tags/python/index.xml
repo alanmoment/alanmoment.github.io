@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on Hello World!!</title>
-    <link>http://localhost:1313/tags/python/</link>
+    <link>http://alanmoment.github.io/tags/python/</link>
     <description>Recent content in Python on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Fri, 27 Feb 2015 00:16:10 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://alanmoment.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Django &#43; Python 開發環境建置</title>
-      <link>http://localhost:1313/post/python/django_&#43;_python_kai_fa_huan_jing_jian_zhi/</link>
+      <link>http://alanmoment.github.io/post/python/django_&#43;_python_kai_fa_huan_jing_jian_zhi/</link>
       <pubDate>Fri, 27 Feb 2015 00:16:10 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/python/django_&#43;_python_kai_fa_huan_jing_jian_zhi/</guid>
+      <guid>http://alanmoment.github.io/post/python/django_&#43;_python_kai_fa_huan_jing_jian_zhi/</guid>
       <description>
 
 &lt;h1 id=&#34;python:73eba429580a166fcb4b87d6b2349c50&#34;&gt;Python&lt;/h1&gt;

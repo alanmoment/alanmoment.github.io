@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Octopress on Hello World!!</title>
-    <link>http://localhost:1313/tags/octopress/</link>
+    <link>http://alanmoment.github.io/tags/octopress/</link>
     <description>Recent content in Octopress on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Wed, 12 Jun 2013 13:59:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/octopress/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://alanmoment.github.io/tags/octopress/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>慶祝Octopress開張</title>
-      <link>http://localhost:1313/post/other/qing_zhu_octopress_kai_zhang/</link>
+      <link>http://alanmoment.github.io/post/other/qing_zhu_octopress_kai_zhang/</link>
       <pubDate>Wed, 12 Jun 2013 13:59:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/other/qing_zhu_octopress_kai_zhang/</guid>
+      <guid>http://alanmoment.github.io/post/other/qing_zhu_octopress_kai_zhang/</guid>
       <description>
 
 &lt;p&gt;搞了老半天終於搞定，來試試看好不好用!!! 立馬來一篇教學文。Github + Octopress&lt;/p&gt;
@@ -101,7 +101,7 @@ $ vim source/_includes/custom/asides/about.html
 
 &lt;p&gt;&lt;a href=&#34;https://en.gravatar.com&#34;&gt;My Gravatars&lt;/a&gt;申請帳號或登入，然後上傳一張自己可愛的大頭照&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/other/qing_zhu_octopress_kai_zhang/head.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/other/qing_zhu_octopress_kai_zhang/head.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;接著在_config.yml配置email&lt;/p&gt;
 

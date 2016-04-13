@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ruby on Hello World!!</title>
-    <link>http://localhost:1313/tags/ruby/</link>
+    <link>http://alanmoment.github.io/tags/ruby/</link>
     <description>Recent content in Ruby on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Sat, 16 May 2015 13:16:36 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/ruby/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://alanmoment.github.io/tags/ruby/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Ruby on Rails deploy on Heroku</title>
-      <link>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_deploy_on_heroku/</link>
+      <link>http://alanmoment.github.io/post/ruby_on_rails/ruby_on_rails_deploy_on_heroku/</link>
       <pubDate>Sat, 16 May 2015 13:16:36 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_deploy_on_heroku/</guid>
+      <guid>http://alanmoment.github.io/post/ruby_on_rails/ruby_on_rails_deploy_on_heroku/</guid>
       <description>
 
 &lt;p&gt;好久沒碰 Ruby on Rails 一碰就會有問題，也早就習慣了，昨天晚上把做好很久的網站 Deploy 到 &lt;a href=&#34;https://www.google.com.tw/url?sa=t&amp;amp;rct=j&amp;amp;q=&amp;amp;esrc=s&amp;amp;source=web&amp;amp;cd=1&amp;amp;cad=rja&amp;amp;uact=8&amp;amp;ved=0CBwQFjAA&amp;amp;url=https%3A%2F%2Fwww.heroku.com%2F&amp;amp;ei=2c1WVeaWCoOe8QW3moCoAw&amp;amp;usg=AFQjCNF8-hoB8iHVyZ2dDq3bYi_oSmHVtg&amp;amp;sig2=OTukXXAApyRuS2ZjqBu2eQ&amp;amp;bvm=bv.93564037,d.dGc&#34;&gt;Heroku&lt;/a&gt;，就又出現問題了！有些問題是原本就存在的，還是紀錄一下。&lt;/p&gt;
@@ -89,10 +89,10 @@ $ git push heroku master
     
     <item>
       <title>Ruby on Rails 小問題</title>
-      <link>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_xiao_wen_ti/</link>
+      <link>http://alanmoment.github.io/post/ruby_on_rails/ruby_on_rails_xiao_wen_ti/</link>
       <pubDate>Sun, 04 Jan 2015 23:45:08 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/ruby_on_rails/ruby_on_rails_xiao_wen_ti/</guid>
+      <guid>http://alanmoment.github.io/post/ruby_on_rails/ruby_on_rails_xiao_wen_ti/</guid>
       <description>&lt;p&gt;安裝許久的 gem 太久沒更新了遇到一些麻煩，又剛好今天發現 Google Drive 以前可以用 Login 已經被取消了&amp;hellip;天吶&amp;hellip;&lt;/p&gt;
 
 &lt;p&gt;首先因為改了與 Google Drive 串接的 API 所以出現了 SSLError&lt;/p&gt;
@@ -143,10 +143,10 @@ PATH=&amp;quot;$GEM_HOME/bin:$HOME/.rvm/bin:$PATH&amp;quot; # Add RVM to PATH fo
     
     <item>
       <title>Install rmagick on the Windows of Ruby on Rails</title>
-      <link>http://localhost:1313/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/</link>
+      <link>http://alanmoment.github.io/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/</link>
       <pubDate>Mon, 12 Aug 2013 01:19:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/</guid>
+      <guid>http://alanmoment.github.io/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/</guid>
       <description>&lt;p&gt;Windows上不管是要安裝什麼Ruby的套件總是能出錯，這次就連很常見的ImageMagick還是會無法順利安裝，無言阿!!所以才會有人建議為了自己好，千萬不要在Windows上學習開發Ruby on Rails，但是我是個窮鬼&amp;hellip;買不起Mac只好硬是找方法。以下就是Ruby on Rails安裝rmagick的過程囉。&lt;/p&gt;
 
 &lt;p&gt;到ImageMagick&lt;a href=&#34;http://www.imagemagick.org/script/binary-releases.php#windows&#34;&gt;官網&lt;/a&gt;下載&lt;/p&gt;
@@ -170,14 +170,14 @@ PATH=&amp;quot;$GEM_HOME/bin:$HOME/.rvm/bin:$PATH&amp;quot; # Add RVM to PATH fo
 
 &lt;p&gt;將MinGW安裝在C:\MinGW，並且勾選MinGW Developer ToolKit，安裝完畢還要在系統的環境變數加上C:\MinGW&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/mingw.png&#34; alt=&#34;mingw&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/mingw.png&#34; alt=&#34;mingw&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;最後用gem安裝rmagick&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ gem install rmagick --platform=ruby -- --with-opt-lib=C:/ImageMagick --with-opt-include=c:/ImageMagick/SourceCode
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/rmagick_down.png&#34; alt=&#34;rmagick_down&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/rmagick_down.png&#34; alt=&#34;rmagick_down&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Gemfile setup&lt;/p&gt;
 

@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>2013 on Hello World!!</title>
-    <link>http://localhost:1313/categories/2013/</link>
+    <link>http://alanmoment.github.io/categories/2013/</link>
     <description>Recent content in 2013 on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Sun, 22 Dec 2013 16:40:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/2013/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://alanmoment.github.io/categories/2013/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Gearman Job Worker for PHP</title>
-      <link>http://localhost:1313/post/php/gearman_job_worker_for_php/</link>
+      <link>http://alanmoment.github.io/post/php/gearman_job_worker_for_php/</link>
       <pubDate>Sun, 22 Dec 2013 16:40:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/php/gearman_job_worker_for_php/</guid>
+      <guid>http://alanmoment.github.io/post/php/gearman_job_worker_for_php/</guid>
       <description>
 
 &lt;p&gt;最近同事接觸到需要 worker 來處理一些非同步的事情。諸如訂單、寄發email都常用非同步來執行，以往這些事情大多都用排程解決，其實還有更好的 solution。他們使用 &lt;a href=&#34;http://gearman.org/&#34;&gt;Gearman&lt;/a&gt; 來解決這個問題。好奇心的驅使，就算不是我實作的我也想去玩玩看新的東西，Gearman 可以在系統裡起一個 &lt;code&gt;Job Worker&lt;/code&gt; 也可以算是 service，這個 job worker 可以在不起一個排程的情況底下，幫你寄信、處理訂單。也就是當你有需要使用 email 在呼叫他就好了。&lt;/p&gt;
@@ -42,14 +42,14 @@ $ phpize
 $ ./configure
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/gearman_job_worker_for_php/gearman-1.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/gearman_job_worker_for_php/gearman-1.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ make &amp;amp;&amp;amp; make install
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/gearman_job_worker_for_php/gearman-2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/gearman_job_worker_for_php/gearman-2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/gearman_job_worker_for_php/gearman-3.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/gearman_job_worker_for_php/gearman-3.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;最後在 &lt;code&gt;php.ini&lt;/code&gt; 加上 module&lt;/p&gt;
 
@@ -64,7 +64,7 @@ extension=&amp;quot;gearman.so&amp;quot;
 
 &lt;p&gt;這樣 php 就支援 gearman 囉&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/gearman_job_worker_for_php/gearman-4.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/gearman_job_worker_for_php/gearman-4.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;hello-world:66ef515b2083a934d334a7648c675d69&#34;&gt;Hello World&lt;/h2&gt;
 
@@ -112,15 +112,15 @@ extension=&amp;quot;gearman.so&amp;quot;
     
     <item>
       <title>Android Universal Image Loader</title>
-      <link>http://localhost:1313/post/android/android_universal_image_loader/</link>
+      <link>http://alanmoment.github.io/post/android/android_universal_image_loader/</link>
       <pubDate>Thu, 28 Nov 2013 16:19:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/android/android_universal_image_loader/</guid>
+      <guid>http://alanmoment.github.io/post/android/android_universal_image_loader/</guid>
       <description>
 
 &lt;p&gt;開發了一陣子的Android，一開始著墨在功能是否能正常運作，現在注重的地方在校能，因為常發生閃退，或未知的錯誤，這邊要講一下下載遠端的圖片加強版。&lt;/p&gt;
 
-&lt;p&gt;繼上次發表&lt;a href=&#34;http://localhost:1313/post/94171840648/asynctask-download-image-by-the-android&#34;&gt;AsyncTask Download Image by the Android&lt;/a&gt;，這一篇發現了其中有些問題。若是大量的圖片，會產生大量的AsyncTask，會造成閃退，以及其他的AsyncTask無法運作，所以有個工具是&lt;a href=&#34;https://github.com/nostra13/Android-Universal-Image-Loader&#34;&gt;Android-Universal-Image-Loader&lt;/a&gt;，它已經幫使用者處理這部份的問題了，使用起來也很簡單。也不會有AsyncTask阻塞的問題。&lt;/p&gt;
+&lt;p&gt;繼上次發表&lt;a href=&#34;http://alanmoment.github.io/post/94171840648/asynctask-download-image-by-the-android&#34;&gt;AsyncTask Download Image by the Android&lt;/a&gt;，這一篇發現了其中有些問題。若是大量的圖片，會產生大量的AsyncTask，會造成閃退，以及其他的AsyncTask無法運作，所以有個工具是&lt;a href=&#34;https://github.com/nostra13/Android-Universal-Image-Loader&#34;&gt;Android-Universal-Image-Loader&lt;/a&gt;，它已經幫使用者處理這部份的問題了，使用起來也很簡單。也不會有AsyncTask阻塞的問題。&lt;/p&gt;
 
 &lt;h2 id=&#34;gradle:4be01060b10895987e3f66b2041260d1&#34;&gt;Gradle&lt;/h2&gt;
 
@@ -227,10 +227,10 @@ baseImageLoader.getImageLoader().displayImage(item.getCover(), image, baseImageL
     
     <item>
       <title>Use Thread control Android UI</title>
-      <link>http://localhost:1313/post/android/use_thread_control_android_ui/</link>
+      <link>http://alanmoment.github.io/post/android/use_thread_control_android_ui/</link>
       <pubDate>Mon, 11 Nov 2013 11:04:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/android/use_thread_control_android_ui/</guid>
+      <guid>http://alanmoment.github.io/post/android/use_thread_control_android_ui/</guid>
       <description>&lt;p&gt;在開發Android app若要用Thread改變UI的話會遇到這個Exception&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;android.view.ViewRootImpl$CalledFromWrongThreadException: Only the original thread that created a view hierarchy can touch its views.
@@ -292,10 +292,10 @@ final Thread myThread = new Thread() {
     
     <item>
       <title>走在時尚的尖端! Ghost</title>
-      <link>http://localhost:1313/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/</link>
+      <link>http://alanmoment.github.io/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/</link>
       <pubDate>Thu, 24 Oct 2013 10:34:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/</guid>
+      <guid>http://alanmoment.github.io/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/</guid>
       <description>
 
 &lt;p&gt;今天我也要來趕流行一下，最近很流行&lt;a href=&#34;https://en.ghost.org/&#34;&gt;Ghost&lt;/a&gt;這東東，這東東是甚麼呢？他有點像&lt;a href=&#34;https://http://octopress.org//&#34;&gt;Octopress&lt;/a&gt;，但是卻不像Octopress比較困難架。&lt;/p&gt;
@@ -306,7 +306,7 @@ final Thread myThread = new Thread() {
 
 &lt;h2 id=&#34;install-nodejs:e8302f3c26f25123ef300e0505f616e1&#34;&gt;Install Nodejs&lt;/h2&gt;
 
-&lt;p&gt;可以按照官網上的&lt;a href=&#34;http://docs.ghost.org/installation/linux/&#34;&gt;Install Node&lt;/a&gt;步驟安裝，或是&lt;a href=&#34;http://localhost:1313/post/94171044168/centos-node-js-0-8-5&#34;&gt;CentOS 安装 Node.js 0.8.5&lt;/a&gt;也可以看一下。&lt;/p&gt;
+&lt;p&gt;可以按照官網上的&lt;a href=&#34;http://docs.ghost.org/installation/linux/&#34;&gt;Install Node&lt;/a&gt;步驟安裝，或是&lt;a href=&#34;http://alanmoment.github.io/post/94171044168/centos-node-js-0-8-5&#34;&gt;CentOS 安装 Node.js 0.8.5&lt;/a&gt;也可以看一下。&lt;/p&gt;
 
 &lt;h2 id=&#34;install-ghost:e8302f3c26f25123ef300e0505f616e1&#34;&gt;Install Ghost&lt;/h2&gt;
 
@@ -323,7 +323,7 @@ $ npm start
 
 &lt;p&gt;這樣就可以run囉!!簡單到炸掉阿&amp;hellip;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/build_ghost.png&#34; alt=&#34;build ghost&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/build_ghost.png&#34; alt=&#34;build ghost&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;畫面非常乾淨漂亮。&lt;/p&gt;
 
@@ -331,7 +331,7 @@ $ npm start
 
 &lt;p&gt;輸入網址&lt;code&gt;http://your-domain/ghost&lt;/code&gt;就可以註冊一個admin的帳號。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/admin_sign.png&#34; alt=&#34;admin sign&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/admin_sign.png&#34; alt=&#34;admin sign&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;設定config-js:e8302f3c26f25123ef300e0505f616e1&#34;&gt;設定config.js&lt;/h2&gt;
 
@@ -368,10 +368,10 @@ $ npm start
     
     <item>
       <title>AsyncTask download image by the Android</title>
-      <link>http://localhost:1313/post/android/asynctask_download_image_by_the_android/</link>
+      <link>http://alanmoment.github.io/post/android/asynctask_download_image_by_the_android/</link>
       <pubDate>Fri, 18 Oct 2013 00:22:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/android/asynctask_download_image_by_the_android/</guid>
+      <guid>http://alanmoment.github.io/post/android/asynctask_download_image_by_the_android/</guid>
       <description>
 
 &lt;p&gt;開發Android時常需要呈現圖片，但不可能圖片都是從Drawable中撈出來，一定有時需要從ImageServer或是透過網址取得圖片。&lt;/p&gt;
@@ -489,10 +489,10 @@ imageDownloadTask.execute(imageUrl);
     
     <item>
       <title>ProgressBar while loading ListView of Android</title>
-      <link>http://localhost:1313/post/android/progressbar_while_loading_listview_of_android/</link>
+      <link>http://alanmoment.github.io/post/android/progressbar_while_loading_listview_of_android/</link>
       <pubDate>Fri, 11 Oct 2013 10:24:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/android/progressbar_while_loading_listview_of_android/</guid>
+      <guid>http://alanmoment.github.io/post/android/progressbar_while_loading_listview_of_android/</guid>
       <description>
 
 &lt;p&gt;ListView通常是用來顯示列表的Widget，但是一般不可能直接從不管是遠端的Database或是Sqlite撈出全部的資料然後直接顯示，一定是分批撈取分批顯示。&lt;/p&gt;
@@ -683,18 +683,18 @@ public class MainActivity extends Activity {
 
 &lt;p&gt;執行後就會是這樣&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/progressbar_while_loading_listview_of_android/loading.png&#34; alt=&#34;Loading&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/android/progressbar_while_loading_listview_of_android/loading.png&#34; alt=&#34;Loading&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/progressbar_while_loading_listview_of_android/load_end.png&#34; alt=&#34;Loading end&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/android/progressbar_while_loading_listview_of_android/load_end.png&#34; alt=&#34;Loading end&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>用NetBeans開發Ruby On Rails</title>
-      <link>http://localhost:1313/post/ide/yong_netbeans_kai_fa_ruby_on_rails/</link>
+      <link>http://alanmoment.github.io/post/ide/yong_netbeans_kai_fa_ruby_on_rails/</link>
       <pubDate>Fri, 04 Oct 2013 23:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/ide/yong_netbeans_kai_fa_ruby_on_rails/</guid>
+      <guid>http://alanmoment.github.io/post/ide/yong_netbeans_kai_fa_ruby_on_rails/</guid>
       <description>
 
 &lt;p&gt;NetBeans除了能開發PHP、Java、..等等的這些程式語言，其實也早就有Plugin能支援開發Ruby哦。&lt;/p&gt;
@@ -709,21 +709,21 @@ public class MainActivity extends Activity {
 
 &lt;p&gt;Tools→Plugins&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/ide/yong_netbeans_kai_fa_ruby_on_rails/netbeans-ror-plugin.png&#34; alt=&#34;plugins&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/ide/yong_netbeans_kai_fa_ruby_on_rails/netbeans-ror-plugin.png&#34; alt=&#34;plugins&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;在安裝其他的plugins之前，必須先選擇安裝org-jruby-jruby.jar，讓NetBeans可以支援Ruby&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/ide/yong_netbeans_kai_fa_ruby_on_rails/netbeans-ror-plugin-1.png&#34; alt=&#34;org-jruby-jruby.jar&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/ide/yong_netbeans_kai_fa_ruby_on_rails/netbeans-ror-plugin-1.png&#34; alt=&#34;org-jruby-jruby.jar&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;再來安裝其他的plugins就不會出現錯誤訊息&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/ide/yong_netbeans_kai_fa_ruby_on_rails/netbeans-ror-plugin-2.png&#34; alt=&#34;Ruby and Rails plugins&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/ide/yong_netbeans_kai_fa_ruby_on_rails/netbeans-ror-plugin-2.png&#34; alt=&#34;Ruby and Rails plugins&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;全部安裝完畢後，就可以在功能選項中建立Ruby On Rails的Application囉。&lt;/p&gt;
 
 &lt;p&gt;File→New Project&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/ide/yong_netbeans_kai_fa_ruby_on_rails/netbeans-ror-plugin-3.png&#34; alt=&#34;New Project&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/ide/yong_netbeans_kai_fa_ruby_on_rails/netbeans-ror-plugin-3.png&#34; alt=&#34;New Project&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;雖然我使用NetBeans已經很長一段時間了，但是主要用他來開發PHP，開發PHP是很好用沒錯。要用他來開發RoR是有點勉強阿&amp;hellip;&lt;/p&gt;
 
@@ -737,7 +737,7 @@ public class MainActivity extends Activity {
 
 &lt;p&gt;建立project之後執行run，發現console有錯誤訊息如下&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/ide/yong_netbeans_kai_fa_ruby_on_rails/netbeans-ror-plugin-4.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/ide/yong_netbeans_kai_fa_ruby_on_rails/netbeans-ror-plugin-4.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;WARN  Could not determine content-length of response body. Set content-length of the response or set Response#chunked = true
 &lt;/code&gt;&lt;/pre&gt;
@@ -791,10 +791,10 @@ public class MainActivity extends Activity {
     
     <item>
       <title>Android use foreign object of OrmLite</title>
-      <link>http://localhost:1313/post/android/android_use_foreign_object_of_ormlite/</link>
+      <link>http://alanmoment.github.io/post/android/android_use_foreign_object_of_ormlite/</link>
       <pubDate>Tue, 01 Oct 2013 00:58:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/android/android_use_foreign_object_of_ormlite/</guid>
+      <guid>http://alanmoment.github.io/post/android/android_use_foreign_object_of_ormlite/</guid>
       <description>
 
 &lt;p&gt;Android也有很好用的ActiveRecord可以應用，&lt;a href=&#34;http://ormlite.com/&#34;&gt;OrmLite&lt;/a&gt;提供了非常多的函式方便應用，架構也非常清楚，在跟SqlLite溝通時不再需要自己造輪子。&lt;/p&gt;
@@ -955,10 +955,10 @@ minor.getOther().getName();
     
     <item>
       <title>Install Phabricator and run on the Gitlab</title>
-      <link>http://localhost:1313/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/</link>
+      <link>http://alanmoment.github.io/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/</link>
       <pubDate>Sat, 14 Sep 2013 11:09:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/</guid>
       <description>
 
 &lt;p&gt;最近跑的專案都是四個人以上同時開發，有時候程式碼被改了，Pull下來改完衝突，發現程式碼都會錯亂。排除每個人對Git熟練度，我覺得Gitlab對於Review code做的似乎不是很友善。&lt;a href=&#34;http://zh.wikipedia.org/wiki/Scrum&#34;&gt;Scrum&lt;/a&gt;在跑的時候碰到這類型的問題，每次要解決都要花不少時間。&lt;/p&gt;
@@ -1058,7 +1058,7 @@ Storage is up to date. Use &#39;storage status&#39; for details.
 
 &lt;p&gt;更新完畢後再回去網頁，會看到登入畫面。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/login.png&#34; alt=&#34;phabricator login&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/login.png&#34; alt=&#34;phabricator login&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;設定admin帳號:888264b10d737104c915f0a35cff56c6&#34;&gt;設定Admin帳號&lt;/h3&gt;
 
@@ -1163,24 +1163,24 @@ Done.
 
 &lt;p&gt;設定完就可以看到&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/create_repository.png&#34; alt=&#34;phabricator create repository&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/create_repository.png&#34; alt=&#34;phabricator create repository&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;點選View in Diffusion可以看到這個repository的各種記錄&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/repository_track.png&#34; alt=&#34;phabricator repository track&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/repository_track.png&#34; alt=&#34;phabricator repository track&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;若在某一次的記錄review code發現有問題都可以在diffusion &amp;gt; Raise Concern，回報都會有紀錄存在直到消除Raise Concern。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/repository_track_tree.png&#34; alt=&#34;phabricator repository track tree&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/repository_track_tree.png&#34; alt=&#34;phabricator repository track tree&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Gitlab 4.1 upgrade to Gitlab 6.0超偷懶方法</title>
-      <link>http://localhost:1313/post/cooperation/gitlab/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/</link>
+      <link>http://alanmoment.github.io/post/cooperation/gitlab/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/</link>
       <pubDate>Fri, 06 Sep 2013 10:53:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/cooperation/gitlab/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/gitlab/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://blog.gitlab.org/&#34;&gt;Gitlab&lt;/a&gt;官方網站已經釋出&lt;a href=&#34;http://blog.gitlab.org/gitlab-6-dot-0-released/&#34;&gt;Gitlab 6.0&lt;/a&gt;了，我的版本卻還在4.1。所以忍不住手癢，試試看4.1升級到6.0，但是這中間的版本實在太多啦。要一個一個升級，不知道又會遇到什麼問題。所幸愛亂搞的我，想到了妙招，如果我重新安裝6.0但是使用的是原本的4.1資料表，是不是也可以正常運作呢? 因為Gitlab的migrate應該是不會影響到以前的資料。&lt;/p&gt;
 
 &lt;p&gt;備份以下東西，以防止不能運作後，還能回復成4.1的版本&lt;/p&gt;
@@ -1253,7 +1253,7 @@ chmod +x /etc/init.d/gitlab
 
 &lt;p&gt;真的成功了&amp;hellip;哈!!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/gitlab/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/gitlab6_0.png&#34; alt=&#34;gitlab 6.0&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/gitlab/gitlab_41_upgrade_to_gitlab_60chao_tou_lan_fang_fa/gitlab6_0.png&#34; alt=&#34;gitlab 6.0&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;這中間遇到了一些問題，因為redis我有另外使用，所以沒有bind IP，也開了requirepass致使我的redis一直無法被gitlab正常使用，最後修改redis.conf才可以正常安裝。&lt;/p&gt;
 
@@ -1272,17 +1272,17 @@ command=&amp;quot;/home/git/gitlab/apps/gitlab/gitlab-shell/bin/gitlab-shell key
     
     <item>
       <title>Android zipcode library of maven</title>
-      <link>http://localhost:1313/post/android/android_zipcode_library_of_maven/</link>
+      <link>http://alanmoment.github.io/post/android/android_zipcode_library_of_maven/</link>
       <pubDate>Tue, 03 Sep 2013 18:50:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/android/android_zipcode_library_of_maven/</guid>
+      <guid>http://alanmoment.github.io/post/android/android_zipcode_library_of_maven/</guid>
       <description>
 
 &lt;p&gt;最近在做Android app時需要用到縣市、區域這些資料，做過網站的，都知道處理這個很煩啊!所以大多都會抽出來另外處理，封裝成Component好方便使用，但是在Android上要是把縣市、區域、郵遞區號放到strings.xml裡面，我想是會瘋掉的，維護、擴充也不容易。我就是建完才後悔的&amp;hellip;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/android_studio_city_list.png&#34; alt=&#34;android studio city list&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/android/android_zipcode_library_of_maven/android_studio_city_list.png&#34; alt=&#34;android studio city list&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/android_studio_area_list.png&#34; alt=&#34;android studio area list&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/android/android_zipcode_library_of_maven/android_studio_area_list.png&#34; alt=&#34;android studio area list&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;有個不錯的方法就是將資料用json的格式存成一隻檔案，然後自己寫抓取json的util放到Android的libs，這樣要使用就很方便了。&lt;/p&gt;
 
@@ -1320,15 +1320,15 @@ command=&amp;quot;/home/git/gitlab/apps/gitlab/gitlab-shell/bin/gitlab-shell key
 
 &lt;p&gt;Step 1.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/create_maven_project.png&#34; alt=&#34;create maven project step 1&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/android/android_zipcode_library_of_maven/create_maven_project.png&#34; alt=&#34;create maven project step 1&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Step 2.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/create_maven_project_2.png&#34; alt=&#34;create maven project step 2&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/android/android_zipcode_library_of_maven/create_maven_project_2.png&#34; alt=&#34;create maven project step 2&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Step 3.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/create_maven_project_step_3.png&#34; alt=&#34;create maven project step 3&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/android/android_zipcode_library_of_maven/create_maven_project_step_3.png&#34; alt=&#34;create maven project step 3&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;修改pom-xml:9bf3f2b1461ea7d05882004b3695b9ca&#34;&gt;修改pom.xml&lt;/h3&gt;
 
@@ -1341,13 +1341,13 @@ command=&amp;quot;/home/git/gitlab/apps/gitlab/gitlab-shell/bin/gitlab-shell key
 
 &lt;p&gt;在project中Maven Dependencies就會增加gson library&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/gson_dependencies.png&#34; alt=&#34;gson dependencies&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/android/android_zipcode_library_of_maven/gson_dependencies.png&#34; alt=&#34;gson dependencies&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;建立zipcode-json:9bf3f2b1461ea7d05882004b3695b9ca&#34;&gt;建立zipcode.json&lt;/h3&gt;
 
 &lt;p&gt;依照下圖的格式建立zipcode.json&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/android/android_zipcode_library_of_maven/zipcode_json.png&#34; alt=&#34;zipcode.json&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/android/android_zipcode_library_of_maven/zipcode_json.png&#34; alt=&#34;zipcode.json&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;將zipcode.json放置在src/main/resources，並且修改pom.xml，這樣在使用maven install就能夾帶檔案。&lt;/p&gt;
 
@@ -1416,10 +1416,10 @@ public class ZipcodeComponent {
     
     <item>
       <title>Phalcon首發</title>
-      <link>http://localhost:1313/post/php/phalconshou_fa/</link>
+      <link>http://alanmoment.github.io/post/php/phalconshou_fa/</link>
       <pubDate>Wed, 28 Aug 2013 11:54:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/php/phalconshou_fa/</guid>
+      <guid>http://alanmoment.github.io/post/php/phalconshou_fa/</guid>
       <description>
 
 &lt;p&gt;用了好一陣子的&lt;a href=&#34;http://www.yiiframework.com/&#34;&gt;YII framework&lt;/a&gt;一開始用的時候覺得。哇~好專業阿。好難懂他的整個框架，摸了一陣子之後。才發現，近年不管哪一個程式語言。都是這樣的Design pattern。MVC、ORM，建立一個網站越來越便利也更簡單了。而最近發現一個類似YII的加強版&lt;a href=&#34;http://phalconphp.com/index&#34;&gt;Phalcon&lt;/a&gt;。主要他是用C
@@ -1436,7 +1436,7 @@ $ ./install
 
 &lt;p&gt;安裝畫面&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/phalconshou_fa/cphalcon.png&#34; alt=&#34;./install&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/phalconshou_fa/cphalcon.png&#34; alt=&#34;./install&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;安裝便利的phalcon-developer-tools:5408234a4387256070a715c86a324106&#34;&gt;安裝便利的Phalcon Developer Tools&lt;/h3&gt;
 
@@ -1460,7 +1460,7 @@ $ chmod ugo+x /usr/bin/phalcon
 
 &lt;p&gt;執行畫面&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/phalconshou_fa/cphalcon-devtools.png&#34; alt=&#34;phalcon commands&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/phalconshou_fa/cphalcon-devtools.png&#34; alt=&#34;phalcon commands&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;建立專案:5408234a4387256070a715c86a324106&#34;&gt;建立專案&lt;/h3&gt;
 
@@ -1469,7 +1469,7 @@ $ chmod ugo+x /usr/bin/phalcon
 &lt;pre&gt;&lt;code&gt;$ phalcon create-project phalcon
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/phalconshou_fa/cphalcon-create-project.png&#34; alt=&#34;phalcon create-project phalcon&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/phalconshou_fa/cphalcon-create-project.png&#34; alt=&#34;phalcon create-project phalcon&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;這樣就完成了。在我的&lt;a href=&#34;http://demo.ocomm.com.tw/hadoop&#34;&gt;小專案&lt;/a&gt;中也有用到這個framework。&lt;/p&gt;
 </description>
@@ -1477,10 +1477,10 @@ $ chmod ugo+x /usr/bin/phalcon
     
     <item>
       <title>Netbeans console中文亂碼解決方法</title>
-      <link>http://localhost:1313/post/ide/netbeans_consolezhong_wen_luan_ma_jie_jue_fang_fa/</link>
+      <link>http://alanmoment.github.io/post/ide/netbeans_consolezhong_wen_luan_ma_jie_jue_fang_fa/</link>
       <pubDate>Mon, 26 Aug 2013 10:45:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/ide/netbeans_consolezhong_wen_luan_ma_jie_jue_fang_fa/</guid>
+      <guid>http://alanmoment.github.io/post/ide/netbeans_consolezhong_wen_luan_ma_jie_jue_fang_fa/</guid>
       <description>&lt;p&gt;以我為範例我是安裝在&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;C:\Program Files (x86)\NetBeans 7.3.1
@@ -1501,10 +1501,10 @@ $ chmod ugo+x /usr/bin/phalcon
     
     <item>
       <title>Install rmagick on the Windows of Ruby on Rails</title>
-      <link>http://localhost:1313/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/</link>
+      <link>http://alanmoment.github.io/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/</link>
       <pubDate>Mon, 12 Aug 2013 01:19:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/</guid>
+      <guid>http://alanmoment.github.io/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/</guid>
       <description>&lt;p&gt;Windows上不管是要安裝什麼Ruby的套件總是能出錯，這次就連很常見的ImageMagick還是會無法順利安裝，無言阿!!所以才會有人建議為了自己好，千萬不要在Windows上學習開發Ruby on Rails，但是我是個窮鬼&amp;hellip;買不起Mac只好硬是找方法。以下就是Ruby on Rails安裝rmagick的過程囉。&lt;/p&gt;
 
 &lt;p&gt;到ImageMagick&lt;a href=&#34;http://www.imagemagick.org/script/binary-releases.php#windows&#34;&gt;官網&lt;/a&gt;下載&lt;/p&gt;
@@ -1528,14 +1528,14 @@ $ chmod ugo+x /usr/bin/phalcon
 
 &lt;p&gt;將MinGW安裝在C:\MinGW，並且勾選MinGW Developer ToolKit，安裝完畢還要在系統的環境變數加上C:\MinGW&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/mingw.png&#34; alt=&#34;mingw&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/mingw.png&#34; alt=&#34;mingw&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;最後用gem安裝rmagick&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ gem install rmagick --platform=ruby -- --with-opt-lib=C:/ImageMagick --with-opt-include=c:/ImageMagick/SourceCode
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/rmagick_down.png&#34; alt=&#34;rmagick_down&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/ruby_on_rails/install_rmagick_on_the_windows_of_ruby_on_rails/rmagick_down.png&#34; alt=&#34;rmagick_down&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Gemfile setup&lt;/p&gt;
 
@@ -1549,10 +1549,10 @@ gem &amp;quot;carrierwave&amp;quot;
     
     <item>
       <title>Apache與Tomcat的結合</title>
-      <link>http://localhost:1313/post/os/linux/apacheyu_tomcat_de_jie_he/</link>
+      <link>http://alanmoment.github.io/post/os/linux/apacheyu_tomcat_de_jie_he/</link>
       <pubDate>Fri, 02 Aug 2013 10:14:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/os/linux/apacheyu_tomcat_de_jie_he/</guid>
+      <guid>http://alanmoment.github.io/post/os/linux/apacheyu_tomcat_de_jie_he/</guid>
       <description>&lt;p&gt;因為我很愛東搞西搞，去年寫了個網站，但是是用JSP寫的，用了Status, Hibernate, tiles的框架，所以得佈署在Tomcat，可是80 port已經被Apache佔用了，Tomcat只能用8080，但看了我實在很不舒服，所以又開始想東想西了。&lt;/p&gt;
 
 &lt;p&gt;一開始，我想為Tomcat裝Plugin看能不能融入Apache，讓Apache呼叫Tomcat來執行程式。所以我找到了&lt;a href=&#34;http://tomcat.apache.org/download-connectors.cgi&#34;&gt;mod_js&lt;/a&gt;試著安裝之後，我失敗了(其實是偷懶!!)，後來有人跟我提到&lt;a href=&#34;http://php-java-bridge.sourceforge.net/&#34;&gt;php-java-bridge&lt;/a&gt;，但是還沒裝我就放棄了，因為我覺得根本不用這麼複雜&amp;hellip;&lt;/p&gt;

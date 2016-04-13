@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ghost on Hello World!!</title>
-    <link>http://localhost:1313/tags/ghost/</link>
+    <link>http://alanmoment.github.io/tags/ghost/</link>
     <description>Recent content in Ghost on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Thu, 24 Oct 2013 10:34:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/ghost/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://alanmoment.github.io/tags/ghost/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>走在時尚的尖端! Ghost</title>
-      <link>http://localhost:1313/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/</link>
+      <link>http://alanmoment.github.io/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/</link>
       <pubDate>Thu, 24 Oct 2013 10:34:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/</guid>
+      <guid>http://alanmoment.github.io/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/</guid>
       <description>
 
 &lt;p&gt;今天我也要來趕流行一下，最近很流行&lt;a href=&#34;https://en.ghost.org/&#34;&gt;Ghost&lt;/a&gt;這東東，這東東是甚麼呢？他有點像&lt;a href=&#34;https://http://octopress.org//&#34;&gt;Octopress&lt;/a&gt;，但是卻不像Octopress比較困難架。&lt;/p&gt;
@@ -26,7 +26,7 @@
 
 &lt;h2 id=&#34;install-nodejs:e8302f3c26f25123ef300e0505f616e1&#34;&gt;Install Nodejs&lt;/h2&gt;
 
-&lt;p&gt;可以按照官網上的&lt;a href=&#34;http://docs.ghost.org/installation/linux/&#34;&gt;Install Node&lt;/a&gt;步驟安裝，或是&lt;a href=&#34;http://localhost:1313/post/94171044168/centos-node-js-0-8-5&#34;&gt;CentOS 安装 Node.js 0.8.5&lt;/a&gt;也可以看一下。&lt;/p&gt;
+&lt;p&gt;可以按照官網上的&lt;a href=&#34;http://docs.ghost.org/installation/linux/&#34;&gt;Install Node&lt;/a&gt;步驟安裝，或是&lt;a href=&#34;http://alanmoment.github.io/post/94171044168/centos-node-js-0-8-5&#34;&gt;CentOS 安装 Node.js 0.8.5&lt;/a&gt;也可以看一下。&lt;/p&gt;
 
 &lt;h2 id=&#34;install-ghost:e8302f3c26f25123ef300e0505f616e1&#34;&gt;Install Ghost&lt;/h2&gt;
 
@@ -43,7 +43,7 @@ $ npm start
 
 &lt;p&gt;這樣就可以run囉!!簡單到炸掉阿&amp;hellip;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/build_ghost.png&#34; alt=&#34;build ghost&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/build_ghost.png&#34; alt=&#34;build ghost&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;畫面非常乾淨漂亮。&lt;/p&gt;
 
@@ -51,7 +51,7 @@ $ npm start
 
 &lt;p&gt;輸入網址&lt;code&gt;http://your-domain/ghost&lt;/code&gt;就可以註冊一個admin的帳號。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/admin_sign.png&#34; alt=&#34;admin sign&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/other/zou_zai_shi_shang_de_jian_7aef21_ghost/admin_sign.png&#34; alt=&#34;admin sign&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;設定config-js:e8302f3c26f25123ef300e0505f616e1&#34;&gt;設定config.js&lt;/h2&gt;
 

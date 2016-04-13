@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>2014 on Hello World!!</title>
-    <link>http://localhost:1313/categories/2014/</link>
+    <link>http://alanmoment.github.io/categories/2014/</link>
     <description>Recent content in 2014 on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Mon, 29 Dec 2014 17:07:01 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/2014/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://alanmoment.github.io/categories/2014/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>吃足苦頭的Mssql</title>
-      <link>http://localhost:1313/post/database/chi_zu_ku_tou_de_mssql/</link>
+      <link>http://alanmoment.github.io/post/database/chi_zu_ku_tou_de_mssql/</link>
       <pubDate>Mon, 29 Dec 2014 17:07:01 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/database/chi_zu_ku_tou_de_mssql/</guid>
+      <guid>http://alanmoment.github.io/post/database/chi_zu_ku_tou_de_mssql/</guid>
       <description>&lt;p&gt;為了讓 CentOS 的 PHP 可以支援 Mssql &amp;amp; UTF-8 真是吃了不少苦頭，最終在安裝 FreeTDS 後加上設定檔終於如願以償&amp;hellip;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ vim /etc/freetds.conf
@@ -30,10 +30,10 @@
     
     <item>
       <title>The bash auto build</title>
-      <link>http://localhost:1313/post/os/linux/the_bash_auto_build/</link>
+      <link>http://alanmoment.github.io/post/os/linux/the_bash_auto_build/</link>
       <pubDate>Tue, 18 Nov 2014 00:17:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/os/linux/the_bash_auto_build/</guid>
+      <guid>http://alanmoment.github.io/post/os/linux/the_bash_auto_build/</guid>
       <description>
 
 &lt;p&gt;發覺自己在開發上常用的小工具都沒有在整理的，每次要用就都要回想，然後再一個一個找回來覺得很煩。尤其是現在工作上要管理十幾二十台後端。常常在那邊用得不順暢，才驚覺這樣真的不行！！&lt;/p&gt;
@@ -76,10 +76,10 @@
     
     <item>
       <title>Laravel 首發 !!!</title>
-      <link>http://localhost:1313/post/php/laravel_shou_fa/</link>
+      <link>http://alanmoment.github.io/post/php/laravel_shou_fa/</link>
       <pubDate>Tue, 19 Aug 2014 11:11:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/php/laravel_shou_fa/</guid>
+      <guid>http://alanmoment.github.io/post/php/laravel_shou_fa/</guid>
       <description>
 
 &lt;p&gt;雖然&lt;a href=&#34;http://laravel.com/&#34;&gt;Laravel&lt;/a&gt;已經出現頗久，最近總算開始動動手了，有鑑於去年開始使用Ruby on Rails，發現說Laravel也太像了吧。據匿名的朋友說現在的Framework幾乎都是&lt;code&gt;參考&lt;/code&gt;Ruby on Rails。而這次也趁機再多用幾種工具，&lt;/p&gt;
@@ -213,20 +213,20 @@ class Userinfo extends Eloquent {
     
     <item>
       <title>大搬家</title>
-      <link>http://localhost:1313/post/other/da_ban_jia/</link>
+      <link>http://alanmoment.github.io/post/other/da_ban_jia/</link>
       <pubDate>Sat, 09 Aug 2014 02:09:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/other/da_ban_jia/</guid>
+      <guid>http://alanmoment.github.io/post/other/da_ban_jia/</guid>
       <description>&lt;p&gt;最近已經逐漸熟悉AWS的一些服務，決定要狠下心把家裡的Linux停掉。把一些東西都轉到雲端上，所以文章現在都存在&lt;code&gt;tumblr.&lt;/code&gt;上了。不然其實電費算起來也是挺貴的&amp;hellip;搬了兩個小時終於把文章都重新整理好了。手工搬實在累&amp;hellip;連DNS都要重新設定。&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Phabricator 基本應用</title>
-      <link>http://localhost:1313/post/cooperation/phabricator/phabricator_ji_ben_ying_yong/</link>
+      <link>http://alanmoment.github.io/post/cooperation/phabricator/phabricator_ji_ben_ying_yong/</link>
       <pubDate>Fri, 06 Jun 2014 23:36:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/cooperation/phabricator/phabricator_ji_ben_ying_yong/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/phabricator/phabricator_ji_ben_ying_yong/</guid>
       <description>
 
 &lt;h2 id=&#34;create-maniphest:e921b76cadbcd20db381f231dd58b830&#34;&gt;Create Maniphest&lt;/h2&gt;
@@ -356,7 +356,7 @@ Current Value: &amp;quot;root&amp;quot;
 Password for SMTP.
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Phabricator 建置很久了這兩天才開始在學著用，覺得 &lt;a href=&#34;http://localhost:1313/post/94171590878/install-phabricator-and-run-on-the-gitlab&#34;&gt;Phabricator&lt;/a&gt; 對於 teamwork 的幫助不亞於 &lt;a href=&#34;http://localhost:1313/post/94170890773/github-gitlab&#34;&gt;Gitlab&lt;/a&gt; ，有時候在合併版本發生衝突的時候才開始在看為什麼會有衝突，總覺得很不爽。所以若能即時知道，團隊裡有誰做了甚麼樣的提交，相信對於開發中以及開發完的上線都會很有幫助。&lt;/p&gt;
+&lt;p&gt;Phabricator 建置很久了這兩天才開始在學著用，覺得 &lt;a href=&#34;http://alanmoment.github.io/post/94171590878/install-phabricator-and-run-on-the-gitlab&#34;&gt;Phabricator&lt;/a&gt; 對於 teamwork 的幫助不亞於 &lt;a href=&#34;http://alanmoment.github.io/post/94170890773/github-gitlab&#34;&gt;Gitlab&lt;/a&gt; ，有時候在合併版本發生衝突的時候才開始在看為什麼會有衝突，總覺得很不爽。所以若能即時知道，團隊裡有誰做了甚麼樣的提交，相信對於開發中以及開發完的上線都會很有幫助。&lt;/p&gt;
 
 &lt;p&gt;但是網路上的資訊有點少，要摸索清楚整個系統有點吃力，每一樣都要 &lt;code&gt;try error&lt;/code&gt;，文章寫起來也有點凌亂，不管了，慢慢整理吧。&lt;/p&gt;
 </description>
@@ -364,10 +364,10 @@ Password for SMTP.
     
     <item>
       <title>淺談我的Agile</title>
-      <link>http://localhost:1313/post/agile/qian_tan_wo_de_agile/</link>
+      <link>http://alanmoment.github.io/post/agile/qian_tan_wo_de_agile/</link>
       <pubDate>Thu, 27 Mar 2014 12:18:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/agile/qian_tan_wo_de_agile/</guid>
+      <guid>http://alanmoment.github.io/post/agile/qian_tan_wo_de_agile/</guid>
       <description>
 
 &lt;p&gt;在開頭先題外話一下，最近社會動蕩不安，老百姓對政府黑箱通過&lt;code&gt;兩岸服務貿易&lt;/code&gt;感到憤怒，我自己也挺生氣的，所以我決定響應&lt;code&gt;捍衛民主 退回服貿 3/30人民站出來！&lt;/code&gt;帶我兒子去&lt;del&gt;街頭&lt;/del&gt;曬曬太陽&lt;/p&gt;
@@ -435,10 +435,10 @@ Password for SMTP.
     
     <item>
       <title>Injection Principle Design Pattern</title>
-      <link>http://localhost:1313/post/ooad/injection_principle_design_pattern/</link>
+      <link>http://alanmoment.github.io/post/ooad/injection_principle_design_pattern/</link>
       <pubDate>Wed, 26 Feb 2014 21:33:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/ooad/injection_principle_design_pattern/</guid>
+      <guid>http://alanmoment.github.io/post/ooad/injection_principle_design_pattern/</guid>
       <description>
 
 &lt;p&gt;這兩天有個案例，內容簡約來說可以這樣闡述：&lt;/p&gt;
@@ -650,16 +650,16 @@ class Header implements AdInterface {
 
 &lt;p&gt;最後用 Class Diagram 解釋這整個關係。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/ooad/injection_principle_design_pattern/Class_Diagram.png&#34; alt=&#34;Class Diagram&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/ooad/injection_principle_design_pattern/Class_Diagram.png&#34; alt=&#34;Class Diagram&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Phabricator review code應用</title>
-      <link>http://localhost:1313/post/cooperation/phabricator/phabricator_review_codeying_yong/</link>
+      <link>http://alanmoment.github.io/post/cooperation/phabricator/phabricator_review_codeying_yong/</link>
       <pubDate>Thu, 23 Jan 2014 14:01:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/cooperation/phabricator/phabricator_review_codeying_yong/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/phabricator/phabricator_review_codeying_yong/</guid>
       <description>
 
 &lt;h2 id=&#34;review-code-前置設定:23ce2a5d00bbdd1941d3d8135a4e9cc0&#34;&gt;Review code 前置設定&lt;/h2&gt;
@@ -690,7 +690,7 @@ $ ./bin/config set diffusion.ssh-user &amp;quot;your username&amp;quot;
 
 &lt;h2 id=&#34;create-repository:23ce2a5d00bbdd1941d3d8135a4e9cc0&#34;&gt;Create Repository&lt;/h2&gt;
 
-&lt;p&gt;因為有新版的 Repository 設定，所以&lt;a href=&#34;http://localhost:1313/post/94171590878/install-phabricator-and-run-on-the-gitlab&#34;&gt;舊版&lt;/a&gt;的已經不適用，新版的設定中有更清楚的設置流程了。&lt;/p&gt;
+&lt;p&gt;因為有新版的 Repository 設定，所以&lt;a href=&#34;http://alanmoment.github.io/post/94171590878/install-phabricator-and-run-on-the-gitlab&#34;&gt;舊版&lt;/a&gt;的已經不適用，新版的設定中有更清楚的設置流程了。&lt;/p&gt;
 
 &lt;p&gt;按下 Create Repository 開始建立需要 Review 的版本庫。&lt;/p&gt;
 
@@ -814,7 +814,7 @@ Then paste the token on that page below.
 
 &lt;p&gt;打開瀏覽器訪問 &lt;code&gt;http://phabricator.example.tw/conduit/token/&lt;/code&gt;，並且登入要連結  Phabricator 上的 user。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-certificate.png&#34; alt=&#34;arc-certificate&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-certificate.png&#34; alt=&#34;arc-certificate&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;取得 &lt;code&gt;Token&lt;/code&gt;，並且輸入上一步驟的設定。&lt;/p&gt;
 
@@ -905,21 +905,21 @@ Included changes:
 
 &lt;p&gt;這邊個資訊是在告知提交的資訊中沒有交代要 test，及 review 版號是 &lt;code&gt;D21&lt;/code&gt; 包含改變的檔案清單，這樣就完成了 client 的提交。因為在 &lt;code&gt;Reviewers:&lt;/code&gt; 填寫的是 webuser，所以他會收到通知。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-5.png&#34; alt=&#34;arc-notify&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-5.png&#34; alt=&#34;arc-notify&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;接下來就可以看到詳細的資料，alan 改變了檔案提交了程式碼，webuser 需要透過介面完成審核。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-6.png&#34; alt=&#34;arc-review&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-6.png&#34; alt=&#34;arc-review&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-7.png&#34; alt=&#34;arc-accpet&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-7.png&#34; alt=&#34;arc-accpet&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;當 webuser 完成了審核，同意了。alan 也會收到通過的通知。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-8.png&#34; alt=&#34;arc-review-ok&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-8.png&#34; alt=&#34;arc-review-ok&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;alan 也可以看到詳細的資訊。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-9.png&#34; alt=&#34;arc-review-ok-info&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-9.png&#34; alt=&#34;arc-review-ok-info&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;這時候就可以把改變的檔案 push 上版本庫，若是按正常流程要 &lt;code&gt;git add&lt;/code&gt;, &lt;code&gt;git commit&lt;/code&gt;，但是在這邊只需要執行&lt;/p&gt;
 
@@ -960,7 +960,7 @@ Done.
 
 &lt;p&gt;這樣就完成囉!! 回到網站介面可以發現，版本庫中已經完成一次提交。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-down.png&#34; alt=&#34;arc-down&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-down.png&#34; alt=&#34;arc-down&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     

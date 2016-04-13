@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Gearman on Hello World!!</title>
-    <link>http://localhost:1313/tags/gearman/</link>
+    <link>http://alanmoment.github.io/tags/gearman/</link>
     <description>Recent content in Gearman on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Sun, 22 Dec 2013 16:40:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/gearman/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://alanmoment.github.io/tags/gearman/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Gearman Job Worker for PHP</title>
-      <link>http://localhost:1313/post/php/gearman_job_worker_for_php/</link>
+      <link>http://alanmoment.github.io/post/php/gearman_job_worker_for_php/</link>
       <pubDate>Sun, 22 Dec 2013 16:40:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/php/gearman_job_worker_for_php/</guid>
+      <guid>http://alanmoment.github.io/post/php/gearman_job_worker_for_php/</guid>
       <description>
 
 &lt;p&gt;最近同事接觸到需要 worker 來處理一些非同步的事情。諸如訂單、寄發email都常用非同步來執行，以往這些事情大多都用排程解決，其實還有更好的 solution。他們使用 &lt;a href=&#34;http://gearman.org/&#34;&gt;Gearman&lt;/a&gt; 來解決這個問題。好奇心的驅使，就算不是我實作的我也想去玩玩看新的東西，Gearman 可以在系統裡起一個 &lt;code&gt;Job Worker&lt;/code&gt; 也可以算是 service，這個 job worker 可以在不起一個排程的情況底下，幫你寄信、處理訂單。也就是當你有需要使用 email 在呼叫他就好了。&lt;/p&gt;
@@ -42,14 +42,14 @@ $ phpize
 $ ./configure
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/gearman_job_worker_for_php/gearman-1.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/gearman_job_worker_for_php/gearman-1.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ make &amp;amp;&amp;amp; make install
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/gearman_job_worker_for_php/gearman-2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/gearman_job_worker_for_php/gearman-2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/gearman_job_worker_for_php/gearman-3.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/gearman_job_worker_for_php/gearman-3.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;最後在 &lt;code&gt;php.ini&lt;/code&gt; 加上 module&lt;/p&gt;
 
@@ -64,7 +64,7 @@ extension=&amp;quot;gearman.so&amp;quot;
 
 &lt;p&gt;這樣 php 就支援 gearman 囉&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/gearman_job_worker_for_php/gearman-4.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/gearman_job_worker_for_php/gearman-4.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;hello-world:66ef515b2083a934d334a7648c675d69&#34;&gt;Hello World&lt;/h2&gt;
 

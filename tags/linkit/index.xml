@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linkit on Hello World!!</title>
-    <link>http://localhost:1313/tags/linkit/</link>
+    <link>http://alanmoment.github.io/tags/linkit/</link>
     <description>Recent content in Linkit on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Sat, 09 Apr 2016 17:03:12 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/linkit/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://alanmoment.github.io/tags/linkit/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>與LinkIt的第一類接觸就死人</title>
-      <link>http://localhost:1313/post/iot/linkit/the_linkit_first_time/</link>
+      <link>http://alanmoment.github.io/post/iot/linkit/the_linkit_first_time/</link>
       <pubDate>Sat, 09 Apr 2016 17:03:12 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/iot/linkit/the_linkit_first_time/</guid>
+      <guid>http://alanmoment.github.io/post/iot/linkit/the_linkit_first_time/</guid>
       <description>&lt;p&gt;與LinkIt的第一類接觸就是把他弄爛掉了&amp;hellip;我把板子從AP Mode切換成Station Mode就整個死掉了，完全無法進入，然後Wifi的Led燈一直亮著。心想&amp;hellip;他X的什麼爛東西，Tessel都還不曾這樣搞我。長壓Wifi按鈕不管是5秒還是500秒都無法讓板子起死回生&amp;hellip;心裡想那就這樣吧。&lt;/p&gt;
 
 &lt;p&gt;只是不服輸的我腦海裡浮現&amp;hellip;&lt;/p&gt;
@@ -34,7 +34,7 @@
 
 &lt;p&gt;會發現Wifi的Led燈從亮著，然後熄滅掉，然後又亮一下，再次熄滅掉，當&lt;code&gt;再次熄滅掉&lt;/code&gt;就可以把按著Wifi按鈕的手移開了。整個還原就會開始進行。法克U&amp;hellip;&amp;hellip;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/iot/linkit/the_linkit_first_time/pcb_got.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/iot/linkit/the_linkit_first_time/pcb_got.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;我是用LinkIt Smart 7688 Duo的這一塊板子，所以可以用Arduino來Coding，但這邊也弄了一屁股雷。下載1.6.8的版本然後照別人教學的放進 &lt;a href=&#34;http://download.labs.mediatek.com/package_mtk_linkit_smart_7688_test_index.json&#34;&gt;http://download.labs.mediatek.com/package_mtk_linkit_smart_7688_test_index.json&lt;/a&gt; 這一串到&lt;code&gt;額外的板子管理員&lt;/code&gt;怎樣都不能安裝啊。&lt;/p&gt;
 

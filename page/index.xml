@@ -2,36 +2,36 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pages on Hello World!!</title>
-    <link>http://localhost:1313/page/</link>
+    <link>http://alanmoment.github.io/page/</link>
     <description>Recent content in Pages on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Tue, 01 Jan 2013 01:06:12 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/page/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://alanmoment.github.io/page/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title></title>
-      <link>http://localhost:1313/page/about/</link>
+      <link>http://alanmoment.github.io/page/about/</link>
       <pubDate>Tue, 01 Jan 2013 01:06:12 +0000</pubDate>
       
-      <guid>http://localhost:1313/page/about/</guid>
+      <guid>http://alanmoment.github.io/page/about/</guid>
       <description>
 
 &lt;h1 id=&#34;who-am-i:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Who am I?&lt;/h1&gt;
 
 &lt;p&gt;專注技術面，致力於優化軟體開發流程。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/avatar.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/avatar.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title></title>
-      <link>http://localhost:1313/page/project/</link>
+      <link>http://alanmoment.github.io/page/project/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/page/project/</guid>
+      <guid>http://alanmoment.github.io/page/project/</guid>
       <description>
 
 &lt;h1 id=&#34;project:10be9c81b9315bdc8704629d17642664&#34;&gt;Project&lt;/h1&gt;
@@ -52,7 +52,7 @@
 
 &lt;p&gt;&lt;strong&gt;Infrastructure&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/project/geniusnet.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/project/geniusnet.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;unicloud:10be9c81b9315bdc8704629d17642664&#34;&gt;UniCloud&lt;/h2&gt;
 
@@ -68,17 +68,17 @@
 &lt;li&gt;&lt;a href=&#34;https://www.unicloud.com/index&#34;&gt;官網&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/project/unicloud.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/project/unicloud.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;獨立開發後台管理系統，使用Semantic-UI提供簡潔的管理介面，監控、維護Client RSA金鑰狀態，測試各版本服務的Task運作是否正常，也可封存分析完畢的Raw Data。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/project/unicloud_support.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/project/unicloud_support.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;龍族金幣:10be9c81b9315bdc8704629d17642664&#34;&gt;龍族金幣&lt;/h2&gt;
 
 &lt;p&gt;負責遊戲（Java Servlet）、後台管理（Ruby on Rails）等相關伺服器正常運作，在既有遊戲架構中開發合作廠商的金流介接。改善使用FTP遊戲更新版本方式，撰寫Shell Script自動化部署開發、測試環境，降低更新版本時的人力與時間。在專案後期因應遊戲人數減少，評估並規劃伺服器縮減計畫，將服役中的42台伺服器減少至30台（含VM）。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/project/dragon_coins.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/project/dragon_coins.jpeg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     

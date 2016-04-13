@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Phabricator on Hello World!!</title>
-    <link>http://localhost:1313/tags/phabricator/</link>
+    <link>http://alanmoment.github.io/tags/phabricator/</link>
     <description>Recent content in Phabricator on Hello World!!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; Copyright Alan - 2016</copyright>
     <lastBuildDate>Thu, 07 Apr 2016 11:36:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/phabricator/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://alanmoment.github.io/tags/phabricator/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>The Phabricator of docker build</title>
-      <link>http://localhost:1313/post/cooperation/phabricator/the_phabricator_of_docker_build/</link>
+      <link>http://alanmoment.github.io/post/cooperation/phabricator/the_phabricator_of_docker_build/</link>
       <pubDate>Thu, 07 Apr 2016 11:36:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/cooperation/phabricator/the_phabricator_of_docker_build/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/phabricator/the_phabricator_of_docker_build/</guid>
       <description>
 
 &lt;p&gt;Phabricator 是一套專案管理工具。下次補上 Arcanist 的 Code Review&lt;/p&gt;
@@ -257,10 +257,10 @@ apachectl restart
     
     <item>
       <title>phabricator-extensions-Sprint 無法抓到正確的 Story Points</title>
-      <link>http://localhost:1313/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</link>
+      <link>http://alanmoment.github.io/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</link>
       <pubDate>Fri, 25 Mar 2016 14:11:16 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/phabricator/phabricator-extensions-sprint_wu_fa_zhua_dao_zheng/</guid>
       <description>
 
 &lt;p&gt;在版號為 &lt;code&gt;741e2ef4b1150f9a9e4b121218b3ea536289968d&lt;/code&gt; 之後的版本，因為 story points 變更欄位，所以 burndown chart 會沒辦法抓到正確的 point。&lt;/p&gt;
@@ -403,10 +403,10 @@ $ cat points.sql | mysql -u root
     
     <item>
       <title>Phabricator 基本應用</title>
-      <link>http://localhost:1313/post/cooperation/phabricator/phabricator_ji_ben_ying_yong/</link>
+      <link>http://alanmoment.github.io/post/cooperation/phabricator/phabricator_ji_ben_ying_yong/</link>
       <pubDate>Fri, 06 Jun 2014 23:36:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/cooperation/phabricator/phabricator_ji_ben_ying_yong/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/phabricator/phabricator_ji_ben_ying_yong/</guid>
       <description>
 
 &lt;h2 id=&#34;create-maniphest:e921b76cadbcd20db381f231dd58b830&#34;&gt;Create Maniphest&lt;/h2&gt;
@@ -536,7 +536,7 @@ Current Value: &amp;quot;root&amp;quot;
 Password for SMTP.
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Phabricator 建置很久了這兩天才開始在學著用，覺得 &lt;a href=&#34;http://localhost:1313/post/94171590878/install-phabricator-and-run-on-the-gitlab&#34;&gt;Phabricator&lt;/a&gt; 對於 teamwork 的幫助不亞於 &lt;a href=&#34;http://localhost:1313/post/94170890773/github-gitlab&#34;&gt;Gitlab&lt;/a&gt; ，有時候在合併版本發生衝突的時候才開始在看為什麼會有衝突，總覺得很不爽。所以若能即時知道，團隊裡有誰做了甚麼樣的提交，相信對於開發中以及開發完的上線都會很有幫助。&lt;/p&gt;
+&lt;p&gt;Phabricator 建置很久了這兩天才開始在學著用，覺得 &lt;a href=&#34;http://alanmoment.github.io/post/94171590878/install-phabricator-and-run-on-the-gitlab&#34;&gt;Phabricator&lt;/a&gt; 對於 teamwork 的幫助不亞於 &lt;a href=&#34;http://alanmoment.github.io/post/94170890773/github-gitlab&#34;&gt;Gitlab&lt;/a&gt; ，有時候在合併版本發生衝突的時候才開始在看為什麼會有衝突，總覺得很不爽。所以若能即時知道，團隊裡有誰做了甚麼樣的提交，相信對於開發中以及開發完的上線都會很有幫助。&lt;/p&gt;
 
 &lt;p&gt;但是網路上的資訊有點少，要摸索清楚整個系統有點吃力，每一樣都要 &lt;code&gt;try error&lt;/code&gt;，文章寫起來也有點凌亂，不管了，慢慢整理吧。&lt;/p&gt;
 </description>
@@ -544,10 +544,10 @@ Password for SMTP.
     
     <item>
       <title>Phabricator review code應用</title>
-      <link>http://localhost:1313/post/cooperation/phabricator/phabricator_review_codeying_yong/</link>
+      <link>http://alanmoment.github.io/post/cooperation/phabricator/phabricator_review_codeying_yong/</link>
       <pubDate>Thu, 23 Jan 2014 14:01:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/cooperation/phabricator/phabricator_review_codeying_yong/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/phabricator/phabricator_review_codeying_yong/</guid>
       <description>
 
 &lt;h2 id=&#34;review-code-前置設定:23ce2a5d00bbdd1941d3d8135a4e9cc0&#34;&gt;Review code 前置設定&lt;/h2&gt;
@@ -578,7 +578,7 @@ $ ./bin/config set diffusion.ssh-user &amp;quot;your username&amp;quot;
 
 &lt;h2 id=&#34;create-repository:23ce2a5d00bbdd1941d3d8135a4e9cc0&#34;&gt;Create Repository&lt;/h2&gt;
 
-&lt;p&gt;因為有新版的 Repository 設定，所以&lt;a href=&#34;http://localhost:1313/post/94171590878/install-phabricator-and-run-on-the-gitlab&#34;&gt;舊版&lt;/a&gt;的已經不適用，新版的設定中有更清楚的設置流程了。&lt;/p&gt;
+&lt;p&gt;因為有新版的 Repository 設定，所以&lt;a href=&#34;http://alanmoment.github.io/post/94171590878/install-phabricator-and-run-on-the-gitlab&#34;&gt;舊版&lt;/a&gt;的已經不適用，新版的設定中有更清楚的設置流程了。&lt;/p&gt;
 
 &lt;p&gt;按下 Create Repository 開始建立需要 Review 的版本庫。&lt;/p&gt;
 
@@ -702,7 +702,7 @@ Then paste the token on that page below.
 
 &lt;p&gt;打開瀏覽器訪問 &lt;code&gt;http://phabricator.example.tw/conduit/token/&lt;/code&gt;，並且登入要連結  Phabricator 上的 user。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-certificate.png&#34; alt=&#34;arc-certificate&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-certificate.png&#34; alt=&#34;arc-certificate&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;取得 &lt;code&gt;Token&lt;/code&gt;，並且輸入上一步驟的設定。&lt;/p&gt;
 
@@ -793,21 +793,21 @@ Included changes:
 
 &lt;p&gt;這邊個資訊是在告知提交的資訊中沒有交代要 test，及 review 版號是 &lt;code&gt;D21&lt;/code&gt; 包含改變的檔案清單，這樣就完成了 client 的提交。因為在 &lt;code&gt;Reviewers:&lt;/code&gt; 填寫的是 webuser，所以他會收到通知。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-5.png&#34; alt=&#34;arc-notify&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-5.png&#34; alt=&#34;arc-notify&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;接下來就可以看到詳細的資料，alan 改變了檔案提交了程式碼，webuser 需要透過介面完成審核。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-6.png&#34; alt=&#34;arc-review&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-6.png&#34; alt=&#34;arc-review&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-7.png&#34; alt=&#34;arc-accpet&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-7.png&#34; alt=&#34;arc-accpet&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;當 webuser 完成了審核，同意了。alan 也會收到通過的通知。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-8.png&#34; alt=&#34;arc-review-ok&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-8.png&#34; alt=&#34;arc-review-ok&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;alan 也可以看到詳細的資訊。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-9.png&#34; alt=&#34;arc-review-ok-info&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-9.png&#34; alt=&#34;arc-review-ok-info&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;這時候就可以把改變的檔案 push 上版本庫，若是按正常流程要 &lt;code&gt;git add&lt;/code&gt;, &lt;code&gt;git commit&lt;/code&gt;，但是在這邊只需要執行&lt;/p&gt;
 
@@ -848,16 +848,16 @@ Done.
 
 &lt;p&gt;這樣就完成囉!! 回到網站介面可以發現，版本庫中已經完成一次提交。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-down.png&#34; alt=&#34;arc-down&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/phabricator_review_codeying_yong/arc-down.png&#34; alt=&#34;arc-down&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Install Phabricator and run on the Gitlab</title>
-      <link>http://localhost:1313/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/</link>
+      <link>http://alanmoment.github.io/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/</link>
       <pubDate>Sat, 14 Sep 2013 11:09:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/</guid>
+      <guid>http://alanmoment.github.io/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/</guid>
       <description>
 
 &lt;p&gt;最近跑的專案都是四個人以上同時開發，有時候程式碼被改了，Pull下來改完衝突，發現程式碼都會錯亂。排除每個人對Git熟練度，我覺得Gitlab對於Review code做的似乎不是很友善。&lt;a href=&#34;http://zh.wikipedia.org/wiki/Scrum&#34;&gt;Scrum&lt;/a&gt;在跑的時候碰到這類型的問題，每次要解決都要花不少時間。&lt;/p&gt;
@@ -957,7 +957,7 @@ Storage is up to date. Use &#39;storage status&#39; for details.
 
 &lt;p&gt;更新完畢後再回去網頁，會看到登入畫面。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/login.png&#34; alt=&#34;phabricator login&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/login.png&#34; alt=&#34;phabricator login&#34; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&#34;設定admin帳號:888264b10d737104c915f0a35cff56c6&#34;&gt;設定Admin帳號&lt;/h3&gt;
 
@@ -1062,15 +1062,15 @@ Done.
 
 &lt;p&gt;設定完就可以看到&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/create_repository.png&#34; alt=&#34;phabricator create repository&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/create_repository.png&#34; alt=&#34;phabricator create repository&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;點選View in Diffusion可以看到這個repository的各種記錄&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/repository_track.png&#34; alt=&#34;phabricator repository track&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/repository_track.png&#34; alt=&#34;phabricator repository track&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;若在某一次的記錄review code發現有問題都可以在diffusion &amp;gt; Raise Concern，回報都會有紀錄存在直到消除Raise Concern。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://localhost:1313/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/repository_track_tree.png&#34; alt=&#34;phabricator repository track tree&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://alanmoment.github.io/images/post/cooperation/phabricator/install_phabricator_and_run_on_the_gitlab/repository_track_tree.png&#34; alt=&#34;phabricator repository track tree&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
